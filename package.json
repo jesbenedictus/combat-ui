@@ -1,0 +1,30 @@
+{
+  "name": "@combat-ui/core",
+  "version": "0.0.1",
+  "description": "A responsive, customizable web component framework targeting modern baseline web standards.",
+  "keywords": [
+    "UI",
+    "CSS",
+    "HTML",
+    "responsive",
+    "webcomponents"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name":"Christiaan van Dam",
+      "email":"chris@combat.nl" 
+    },
+    {
+      "name":"Jessica Benedictus",
+      "email":"jessica@combat.nl"
+    }
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "vite docs",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "check": ""
+  }
+}
