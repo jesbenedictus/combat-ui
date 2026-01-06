@@ -1,5 +1,11 @@
-export function defineCombatUI(registry: CustomElementRegistry = customElements) {
-  // TODO: Add custom elements here
+import { defineCuiButton, CuiButton } from "./components/button";
+
+export { CuiButton, defineCuiButton };
+
+export function defineCombatUi(
+  registry: CustomElementRegistry = customElements
+): void {
+  defineCuiButton(registry);
 }
 
-defineCombatUI();
+defineCombatUi()
