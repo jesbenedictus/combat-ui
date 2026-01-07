@@ -76,6 +76,9 @@
   --cui-section-space-spacious: clamp(5.5rem, 14vi, 11rem);
   --cui-section-space-hero: clamp(6rem, 18vi, 14rem);
 
+  /** SHELL **/
+  --cui-shell-bar-size: 4rem;
+
   /** FOCUS **/
   --cui-focus-size: 2px;
   --cui-focus-offset: 2px;
@@ -91,4 +94,61 @@
   --cui-button-bg: var(--cui-color-surface-muted, oklch(97.3% 0.009 240deg));
   --cui-button-border: var(--cui-color-border, oklch(92.5% 0.009 240deg));
   --cui-button-color: var(--cui-color, oklch(24% 0.04 264deg));
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --cui-color-text: #eef2f7;
+    --cui-color-text-muted: #a9b3c3;
+    --cui-color-surface: #10141b;
+    --cui-color-surface-raised: #181e27;
+    --cui-color-surface-muted: #222a35;
+    --cui-color-border: #374151;
+    --cui-color-on-accent: #f7fbff;
+    --cui-color-inverse-text: #1b1f27;
+    --cui-color-inverse-text-muted: #5d6675;
+    --cui-color-inverse-surface: #f7f8fa;
+    --cui-color-inverse-surface-raised: #fff;
+    --cui-color-inverse-surface-muted: #edf0f4;
+    --cui-color-inverse-border: #cfd6df;
+    --cui-color-inverse-eyebrow: var(--cui-color-accent, oklch(57% 0.18 246deg));
+  }
+}
+
+:where(:root[data-theme="dark"], [data-theme="dark"]) {
+  color-scheme: dark;
+
+  --cui-color-text: #eef2f7;
+  --cui-color-text-muted: #a9b3c3;
+  --cui-color-surface: #10141b;
+  --cui-color-surface-raised: #181e27;
+  --cui-color-surface-muted: #222a35;
+  --cui-color-border: #374151;
+  --cui-color-on-accent: #f7fbff;
+  --cui-color-inverse-text: #1b1f27;
+  --cui-color-inverse-text-muted: #5d6675;
+  --cui-color-inverse-surface: #f7f8fa;
+  --cui-color-inverse-surface-raised: #fff;
+  --cui-color-inverse-surface-muted: #edf0f4;
+  --cui-color-inverse-border: #cfd6df;
+  --cui-color-inverse-eyebrow: var(--cui-color-accent, oklch(57% 0.18 246deg));
+}
+
+:where(:root[data-theme="light"], [data-theme="light"]) {
+  color-scheme: light;
+
+  --cui-color-text: #1b1f27;
+  --cui-color-text-muted: #5d6675;
+  --cui-color-surface: #f7f8fa;
+  --cui-color-surface-raised: #fff;
+  --cui-color-surface-muted: #edf0f4;
+  --cui-color-border: #cfd6df;
+  --cui-color-on-accent: #fff;
+  --cui-color-inverse-text: #f7f8fa;
+  --cui-color-inverse-text-muted: hsl(0deg 0% 100% / 78%);
+  --cui-color-inverse-surface: #10141b;
+  --cui-color-inverse-surface-raised: hsl(220deg 24% 8% / 72%);
+  --cui-color-inverse-surface-muted: #181e27;
+  --cui-color-inverse-border: hsl(0deg 0% 100% / 18%);
+  --cui-color-inverse-eyebrow: hsl(0deg 0% 100% / 76%);
 }
