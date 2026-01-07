@@ -13,7 +13,6 @@
 :root {
   color-scheme: light dark;
 
-  /** FONTS **/
   --cui-font-family:
     "Inter", ui-sans-serif, system-ui, "-apple-system", "BlinkMacSystemFont",
     "Segoe UI", sans-serif;
@@ -34,8 +33,6 @@
   --cui-font-size-eyebrow: 0.875rem;
   --cui-font-size-caption: 0.875rem;
   --cui-font-size-metadata: 0.875rem;
-
-  /** COLORS **/
   --cui-color-accent: oklch(57% 0.18 246deg);
   --cui-color-on-accent: oklch(100% 0 0deg);
   --cui-color-danger: oklch(58% 0.19 28deg);
@@ -48,8 +45,6 @@
   --cui-color: oklch(24% 0.04 264deg);
   --cui-color-muted: oklch(41.7% 0.045 264deg);
   --cui-color-focus: var(--cui-color-accent, oklch(57% 0.18 246deg));
-
-  /** GENERAL SIZING **/
   --cui-space-1: 0.25rem;
   --cui-space-2: 0.5rem;
   --cui-space-3: 0.75rem;
@@ -63,34 +58,38 @@
   --cui-flow-space: var(--cui-space-4, 1rem);
   --cui-prose-measure: 72ch;
   --cui-content-measure: 68ch;
-
-  /** CONTAINER **/
+  --cui-center-size: 100vb;
+  --cui-cover-size: 100vb;
+  --cui-stack-gap: var(--cui-space-4, 1rem);
+  --cui-grid-min: 16rem;
+  --cui-switcher-gap: var(--cui-space-4, 1rem);
+  --cui-switcher-threshold: 40rem;
+  --cui-split-gap: var(--cui-space-6, 2rem);
+  --cui-spit-start: 1fr;
+  --cui-split-end: 1fr;
+  --cui-split-align: center;
+  --cui-shadow-1: 0 1px 2px hsl(220deg 25% 10% / 12%), 0 1px 1px hsl(220deg 25% 10% / 8%);
+  --cui-shadow-2: 0 12px 28px hsl(220deg 25% 10% / 14%);
   --cui-container: 72rem;
   --cui-container-narrow: 48rem;
   --cui-container-wide: 96rem;
   --cui-container-gutter: clamp(1rem, 4vi, 2rem);
-
-  /** SECTION **/
   --cui-section-space: clamp(4rem, 10vi, 8rem);
   --cui-section-space-compact: clamp(2.5rem, 7vi, 5rem);
   --cui-section-space-spacious: clamp(5.5rem, 14vi, 11rem);
   --cui-section-space-hero: clamp(6rem, 18vi, 14rem);
-
-  /** SHELL **/
   --cui-shell-bar-size: 4rem;
-
-  /** FOCUS **/
+  --cui-app-sidebar-size: 16rem;
+  --cui-cluster-align: center;
+  --cui-cluster-justify: flex-start;
+  --cui-cluster-gap: var(--cui-space-3, 0.75rem);
   --cui-focus-size: 2px;
   --cui-focus-offset: 2px;
-
-  /** CONTROL **/
   --cui-control-size: calc(
     (2.5rem + (var(--cui-density, 1) - 1) * 0.35rem) *
       var(--cui-control-scale, 1)
   );
   --cui-control-radius: var(--cui-radius-1, 0.25rem);
-
-  /** BUTTONS **/
   --cui-button-bg: var(--cui-color-surface-muted, oklch(97.3% 0.009 240deg));
   --cui-button-border: var(--cui-color-border, oklch(92.5% 0.009 240deg));
   --cui-button-color: var(--cui-color, oklch(24% 0.04 264deg));
@@ -98,19 +97,19 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --cui-color-text: #eef2f7;
-    --cui-color-text-muted: #a9b3c3;
-    --cui-color-surface: #10141b;
-    --cui-color-surface-raised: #181e27;
-    --cui-color-surface-muted: #222a35;
-    --cui-color-border: #374151;
-    --cui-color-on-accent: #f7fbff;
-    --cui-color-inverse-text: #1b1f27;
-    --cui-color-inverse-text-muted: #5d6675;
-    --cui-color-inverse-surface: #f7f8fa;
-    --cui-color-inverse-surface-raised: #fff;
-    --cui-color-inverse-surface-muted: #edf0f4;
-    --cui-color-inverse-border: #cfd6df;
+    --cui-color: oklch(97.6% 0.009 259deg);
+    --cui-color-muted: oklch(77.6% 0.045 259deg);
+    --cui-color-surface: oklch(19.6% 0.02 265deg);
+    --cui-color-surface-raised: oklch(25.2% 0.018 265deg);
+    --cui-color-surface-muted: oklch(23.2% 0.015 265deg);
+    --cui-color-border: oklch(38.5% 0.02 265deg);
+    --cui-color-on-accent: oklch(100% 0 0deg);
+    --cui-color-inverse: oklch(13.2% 0.02 265deg);
+    --cui-color-inverse-muted: oklch(38.2% 0.03 265deg);
+    --cui-color-inverse-surface: oklch(98.5% 0.005 265deg);
+    --cui-color-inverse-surface-raised: oklch(100% 0 0deg);
+    --cui-color-inverse-surface-muted: oklch(95.7% 0.01 265deg);
+    --cui-color-inverse-border: oklch(86.2% 0.01 265deg);
     --cui-color-inverse-eyebrow: var(--cui-color-accent, oklch(57% 0.18 246deg));
   }
 }
@@ -118,37 +117,37 @@
 :where(:root[data-theme="dark"], [data-theme="dark"]) {
   color-scheme: dark;
 
-  --cui-color-text: #eef2f7;
-  --cui-color-text-muted: #a9b3c3;
-  --cui-color-surface: #10141b;
-  --cui-color-surface-raised: #181e27;
-  --cui-color-surface-muted: #222a35;
-  --cui-color-border: #374151;
-  --cui-color-on-accent: #f7fbff;
-  --cui-color-inverse-text: #1b1f27;
-  --cui-color-inverse-text-muted: #5d6675;
-  --cui-color-inverse-surface: #f7f8fa;
-  --cui-color-inverse-surface-raised: #fff;
-  --cui-color-inverse-surface-muted: #edf0f4;
-  --cui-color-inverse-border: #cfd6df;
+  --cui-color: oklch(97.6% 0.009 259deg);
+  --cui-color-muted: oklch(77.6% 0.045 259deg);
+  --cui-color-surface: oklch(19.6% 0.02 265deg);
+  --cui-color-surface-raised: oklch(25.2% 0.018 265deg);
+  --cui-color-surface-muted: oklch(23.2% 0.015 265deg);
+  --cui-color-border: oklch(38.5% 0.02 265deg);
+  --cui-color-on-accent: oklch(100% 0 0deg);
+  --cui-color-inverse: oklch(13.2% 0.02 265deg);
+  --cui-color-inverse-muted: oklch(38.2% 0.03 265deg);
+  --cui-color-inverse-surface: oklch(98.5% 0.005 265deg);
+  --cui-color-inverse-surface-raised: oklch(100% 0 0deg);
+  --cui-color-inverse-surface-muted: oklch(95.7% 0.01 265deg);
+  --cui-color-inverse-border: oklch(86.2% 0.01 265deg);
   --cui-color-inverse-eyebrow: var(--cui-color-accent, oklch(57% 0.18 246deg));
 }
 
 :where(:root[data-theme="light"], [data-theme="light"]) {
   color-scheme: light;
 
-  --cui-color-text: #1b1f27;
-  --cui-color-text-muted: #5d6675;
-  --cui-color-surface: #f7f8fa;
-  --cui-color-surface-raised: #fff;
-  --cui-color-surface-muted: #edf0f4;
-  --cui-color-border: #cfd6df;
-  --cui-color-on-accent: #fff;
-  --cui-color-inverse-text: #f7f8fa;
-  --cui-color-inverse-text-muted: hsl(0deg 0% 100% / 78%);
-  --cui-color-inverse-surface: #10141b;
-  --cui-color-inverse-surface-raised: hsl(220deg 24% 8% / 72%);
-  --cui-color-inverse-surface-muted: #181e27;
-  --cui-color-inverse-border: hsl(0deg 0% 100% / 18%);
-  --cui-color-inverse-eyebrow: hsl(0deg 0% 100% / 76%);
+  --cui-color: oklch(13.2% 0.02 265deg);
+  --cui-color-muted: oklch(38.2% 0.03 265deg);
+  --cui-color-surface: oklch(98.5% 0.005 265deg);
+  --cui-color-surface-raised: oklch(100% 0 0deg);
+  --cui-color-surface-muted: oklch(95.7% 0.01 265deg);
+  --cui-color-border: oklch(86.2% 0.01 265deg);
+  --cui-color-on-accent: oklch(100% 0 0deg);
+  --cui-color-inverse: oklch(98.5% 0.005 265deg);
+  --cui-color-inverse-muted: oklch(98.5% 0.005 265deg / 78%);
+  --cui-color-inverse-surface: oklch(19.6% 0.02 265deg);
+  --cui-color-inverse-surface-raised: oklch(25.2% 0.018 265deg / 72%);
+  --cui-color-inverse-surface-muted: oklch(23.2% 0.015 265deg);
+  --cui-color-inverse-border: oklch(100% 0 0deg / 18%);
+  --cui-color-inverse-eyebrow: oklch(100% 0 0deg / 76%);
 }
