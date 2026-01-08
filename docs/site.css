@@ -1,0 +1,27 @@
+@layer docs {
+  :root {
+    --cui-docs-navbar-z-index: 50;
+    --cui-docs-navbar-sticky-offset: 0;
+  }
+
+  html {
+    scroll-padding-block-start: 5rem;
+  }
+
+  body {
+    min-block-size: 100vb;
+  }
+
+  .docs-navbar {
+    position: sticky;
+    z-index: var(--cui-docs-navbar-z-index, 50);
+    inset-block-start: var(--cui-docs-navbar-sticky-offset, 0);
+    border-block-end: var(--cui-border-size, 1px) solid var(--cui-color-border, #cfd6df);
+  }
+
+  .docs-page-hero {
+    inline-size: min(100% - (var(--cui-container-gutter, 2rem) * 2), var(--cui-container, 72rem));
+    margin-inline: auto;
+    border-block-end: var(--cui-border-size, 1px) solid var(--cui-color-border, #cfd6df);
+  }
+}

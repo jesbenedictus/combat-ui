@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Combat UI documentation, demos, and code examples.">
+    <title>Combat UI Documentation</title>
+    <script type="module" src="./index.ts"></script>
+    <link rel="stylsheet" src="./site.css">
+  </head>
+  <body class="cui-site">
+    <a class="cui-skip-link" href="#main">Skip to content</a>
+    <header class="docs-navbar">
+      <cui-navbar sticky>
+        <a slot="brand" class="cui-nav-link" href="./index.html">Combat UI</a>
+        <nav slot="nav" class="cui-nav" aria-label="Documentation">
+          <a class="cui-nav-link" href="./index.html" aria-current="page">Overview</a>
+          <a class="cui-nav-link" href="./foundations.html">Foundations</a>
+          <a class="cui-nav-link" href="./components.html">Components</a>
+          <a class="cui-nav-link" href="./layouts.html">Layouts</a>
+          <a class="cui-nav-link" href="./theming.html">Theming</a>
+          <a class="cui-nav-link" href="./examples/">Demo</a>
+        </nav>
+        <div slot="actions" class="cui-cluster">
+          <cui-theme-toggle></cui-theme-toggle>
+        </div>
+      </cui-navbar>
+    </header>
+    <main id="main" class="cui-page cui-stack">
+      <header class="cui-page-header">
+        <h1>Combat UI</h1>
+        <p class="cui-text-muted">Responsive web primitives and custom elements.</p>
+        <p>
+          <cui-theme-toggle></cui-theme-toggle>
+        </p>
+      </header>
+
+      <section class="cui-cluster" aria-label="Button examples">
+        <cui-button variant="primary">Primary action</cui-button>
+        <cui-button>Secondary action</cui-button>
+      </section>
+    </main>
+  </body>
+</html>

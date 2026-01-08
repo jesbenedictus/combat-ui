@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Combat UI Framework Demo</title>
+    <link rel="stylesheet" href="../src/index.css">
+    <script type="module" src="../src/index.js"></script>
+    <script type="module" src="./layout-demo.js"></script>
+    <style>
+      @layer demo {
+        body {
+          min-block-size: 100vb;
+        }
+
+        .demo-masthead {
+          display: grid;
+          min-block-size: min(64vb, 40rem);
+          align-content: end;
+          border-block-end: var(--cui-border-size, 1px) solid var(--cui-color-border, #cfd6df);
+          background:
+            linear-gradient(135deg, hsl(196 82% 45% / 0.2), transparent 42%),
+            linear-gradient(315deg, hsl(17 80% 55% / 0.18), transparent 46%),
+            var(--cui-color-surface, #f7f8fa);
+        }
+
+        .demo-masthead h1 {
+          max-inline-size: 12ch;
+          margin: 0;
+          font-size: clamp(2.5rem, 10vi, 6.5rem);
+          line-height: 0.95;
+        }
+
+        .demo-masthead p {
+          max-inline-size: 58ch;
+          margin: 0;
+          color: var(--cui-color-text-muted, #5d6675);
+          font-size: var(--cui-font-size-1, 1.1875rem);
+        }
+
+        .demo-token {
+          min-block-size: 5rem;
+          border-radius: var(--cui-radius-2, 0.5rem);
+          border: var(--cui-border-size, 1px) solid var(--cui-color-border, #cfd6df);
+        }
+
+        .demo-token[data-color="accent"] {
+          background: var(--cui-color-accent, oklch(57% 0.18 246deg));
+        }
+
+        .demo-token[data-color="success"] {
+          background: var(--cui-color-success, oklch(58% 0.16 150deg));
+        }
+
+        .demo-token[data-color="warning"] {
+          background: var(--cui-color-warning, oklch(72% 0.16 82deg));
+        }
+
+        .demo-token[data-color="danger"] {
+          background: var(--cui-color-danger, oklch(58% 0.19 28deg));
+        }
+
+        .demo-panel {
+          display: grid;
+          gap: var(--cui-space-3, 0.75rem);
+          padding-block-start: var(--cui-space-4, 1rem);
+        }
+
+        .demo-layout-preview {
+          overflow: hidden;
+          min-block-size: 24rem;
+          border: var(--cui-border-size, 1px) solid var(--cui-color-border, #cfd6df);
+          border-radius: var(--cui-radius-2, 0.5rem);
+          background: var(--cui-color-surface, #f7f8fa);
+        }
+
+        .demo-layout-preview .cui-app {
+          min-block-size: 24rem;
+        }
+
+        .demo-side-nav {
+          display: grid;
+          gap: var(--cui-space-2, 0.5rem);
+        }
+
+        .demo-side-nav a {
+          border-radius: var(--cui-radius-control, 0.25rem);
+          color: var(--cui-color-text-muted, #5d6675);
+          padding-block: var(--cui-space-2, 0.5rem);
+          padding-inline: var(--cui-space-3, 0.75rem);
+          text-decoration: none;
+        }
+
+        .demo-side-nav a[aria-current="page"] {
+          background: var(--cui-color-surface-muted, #edf0f4);
+          color: var(--cui-color-text, #1b1f27);
+          font-weight: var(--cui-font-weight-strong, 680);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="cui-skip-link" href="#main">Skip to content</a>
+    <header class="demo-masthead">
+      <div class="cui-page cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+        <div class="cui-stack" style="--cui-stack-gap: var(--cui-space-4, 1rem);">
+          <h1 class="cui-text-balance">Modern responsive web primitives</h1>
+          <p>
+            A tokenized CSS layer and web component starter targeting Baseline 2025 browsers,
+            with guarded fallbacks for useful platform features.
+          </p>
+          <div class="cui-cluster">
+            <cui-button variant="primary">Primary action</cui-button>
+            <cui-button>Secondary action</cui-button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="cui-page cui-stack" style="--cui-stack-gap: var(--cui-space-7, 3rem);">
+      <section id="layouts" class="cui-stack">
+        <div class="cui-page-header">
+          <h2>Page Layout Bases</h2>
+          <p class="cui-text-muted">
+            Shell, content, split, and app layouts are plain CSS classes that define structure without owning content.
+          </p>
+        </div>
+
+        <div class="cui-grid" style="--cui-grid-min: 19rem;">
+          <article class="cui-card">
+            <h3>Centered Page</h3>
+            <div class="cui-center cui-surface" style="--cui-center-size: 14rem;">
+              <div class="cui-content">
+                <strong>Focused content</strong>
+                <p class="cui-text-muted">Use `cui-center` for empty states, auth flows, and focused dialogs.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="cui-card">
+            <h3>Responsive Split</h3>
+            <div class="cui-split" style="--cui-split-gap: var(--cui-space-4, 1rem);">
+              <div class="cui-surface">
+                <strong>Primary</strong>
+                <p class="cui-text-muted">Copy, controls, or workflow content.</p>
+              </div>
+              <div class="cui-surface">
+                <strong>Secondary</strong>
+                <p class="cui-text-muted">Preview, aside, or supporting details.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="demo-layout-preview">
+          <div class="cui-app">
+            <header class="cui-shell-header">
+              <div class="cui-page-wide cui-shell-bar" style="padding-block: 0;">
+                <strong>Workspace</strong>
+                <div class="cui-cluster">
+                  <cui-button class="cui-size-sm" data-sidebar-open>Menu</cui-button>
+                  <cui-button class="cui-size-sm">New</cui-button>
+                </div>
+              </div>
+            </header>
+            <div class="cui-app-body">
+              <button class="cui-app-sidebar-backdrop" type="button" data-sidebar-close aria-label="Close navigation"></button>
+              <aside class="cui-app-sidebar">
+                <div class="cui-cluster cui-app-sidebar-mobile" style="--cui-cluster-justify: space-between;">
+                  <strong>Navigation</strong>
+                  <cui-button class="cui-size-sm" data-sidebar-close>Close</cui-button>
+                </div>
+                <nav class="demo-side-nav" aria-label="Workspace">
+                  <a href="#overview" aria-current="page">Overview</a>
+                  <a href="#reports">Reports</a>
+                  <a href="#settings">Settings</a>
+                </nav>
+              </aside>
+              <section class="cui-app-main">
+                <div class="cui-page-wide cui-stack" style="--cui-stack-gap: var(--cui-space-4, 1rem);">
+                  <div class="cui-page-header">
+                    <h3>Operational App Base</h3>
+                    <p class="cui-text-muted">
+                      `cui-app` keeps navigation, scroll regions, and page content predictable across viewports.
+                    </p>
+                  </div>
+                  <div class="cui-grid">
+                    <div class="cui-surface">Status</div>
+                    <div class="cui-surface">Activity</div>
+                    <div class="cui-surface">Queue</div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="tokens" class="cui-sidebar">
+        <aside class="cui-stack cui-text-muted">
+          <h2>Design Tokens</h2>
+          <p>
+            Override CSS custom properties globally or per subtree. Components inherit tokens through
+            shadow boundaries and expose stable `part` hooks.
+          </p>
+        </aside>
+        <div class="cui-grid">
+          <div class="demo-token" data-color="accent" aria-label="Accent color"></div>
+          <div class="demo-token" data-color="success" aria-label="Success color"></div>
+          <div class="demo-token" data-color="warning" aria-label="Warning color"></div>
+          <div class="demo-token" data-color="danger" aria-label="Danger color"></div>
+        </div>
+      </section>
+
+      <section id="components" class="cui-stack">
+        <div>
+          <h2>Components</h2>
+          <p class="cui-text-muted">
+            Custom elements stay small and compose with native HTML where the platform already has the right behavior.
+          </p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

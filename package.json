@@ -40,7 +40,7 @@
     "dev:docs": "vite docs --config vite.config.ts",
     "build": "npm run clean && npm run typecheck && npm run build:lib && npm run build:docs",
     "build:lib": "vite build --config vite.config.ts",
-    "build:docs": "vite build docs --config vite.config.ts --outDir ../dist-docs",
+    "build:docs": "vite build docs --config vite.config.ts --outDir ../dist-docs --emptyOutDir",
     "typecheck": "tsc -b",
     "typecheck:clean": "tsc -b --clean",
     "check": "npm run typecheck && npm run check:css && npm run check:html",
