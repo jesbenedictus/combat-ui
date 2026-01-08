@@ -9,14 +9,25 @@ import {
 const themes = ["auto", "light", "dark"] as const;
 export type Theme = (typeof themes)[number];
 
+const themeChangeEvent = "cui-theme-change";
+
 export class CuiThemeToggle extends CombatElement {
   static readonly tagName = "cui-theme-toggle";
 
   static override styles = [cssStyleSheet(themeToggleStyles)];
 
+  private readonly handleThemeChange = () => {
+    this.render();
+  };
+
   connectedCallback() {
     this.adoptStyles();
     this.render();
+    document.addEventListener(themeChangeEvent, this.handleThemeChange);
+  }
+
+  disconnectedCallback() {
+    document.removeEventListener(themeChangeEvent, this.handleThemeChange);
   }
 
   private render() {
@@ -27,8 +38,8 @@ export class CuiThemeToggle extends CombatElement {
           <span part="label"></span>
         </button>
       `);
-      
-      this.querySelector("button")?.addEventListener("click", () =>
+
+      this.shadowRoot?.querySelector("button")?.addEventListener("click", () =>
         this.cycleTheme(),
       );
     }
@@ -43,32 +54,41 @@ export class CuiThemeToggle extends CombatElement {
     if (icon) {
       icon.textContent = theme === "dark" ? "D" : theme === "light" ? "L" : "A";
     }
+
+    this.shadowRoot
+      ?.querySelector("button")
+      ?.setAttribute("aria-label", `Current theme: ${theme}. Change theme.`);
   }
 
   private cycleTheme() {
-    const currentTheme = this.getAttribute("theme") as
-      | (typeof themes)[number]
-      | null;
-    const currentIndex = themes.indexOf(currentTheme ?? "auto");
+    const currentIndex = themes.indexOf(getTheme());
     const nextIndex = (currentIndex + 1) % themes.length;
     const nextTheme = themes[nextIndex];
-    this.setAttribute("theme", nextTheme || "auto");
+    setTheme(nextTheme ?? "auto");
   }
 }
 
-export function getTheme() {
-  return document.documentElement.dataset.theme ?? "auto";
+export function getTheme(): Theme {
+  const theme = document.documentElement.dataset.theme;
+
+  return themes.includes(theme as Theme) ? (theme as Theme) : "auto";
 }
 
 export function setTheme(theme: Theme) {
   const normalizedTheme = themes.includes(theme) ? theme : "auto";
+  const currentTheme = getTheme();
 
   if (normalizedTheme === "auto") {
     delete document.documentElement.dataset.theme;
-    return;
+  } else {
+    document.documentElement.dataset.theme = normalizedTheme;
   }
 
-  document.documentElement.dataset.theme = normalizedTheme;
+  if (normalizedTheme !== currentTheme) {
+    document.dispatchEvent(
+      new CustomEvent(themeChangeEvent, { detail: { theme: normalizedTheme } }),
+    );
+  }
 }
 
 export function defineCuiThemeToggle(registry = customElements) {

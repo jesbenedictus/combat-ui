@@ -1,3 +1,4 @@
+import "./index.css";
 import { defineCuiButton, CuiButton } from "./components/button";
 import { defineCuiThemeToggle, CuiThemeToggle, getTheme, setTheme, type Theme } from "./components/theme-toggle";
 
