@@ -6,21 +6,19 @@
     <meta name="description" content="Combat UI documentation, demos, and code examples.">
     <title>Combat UI Documentation</title>
     <script type="module" src="./index.ts"></script>
-    <link rel="stylsheet" src="./site.css">
+    <link rel="stylesheet" href="./site.css">
   </head>
   <body class="cui-site">
     <a class="cui-skip-link" href="#main">Skip to content</a>
     <header class="docs-navbar">
       <cui-navbar sticky>
         <a slot="brand" class="cui-nav-link" href="./index.html">Combat UI</a>
-        <nav slot="nav" class="cui-nav" aria-label="Documentation">
-          <a class="cui-nav-link" href="./index.html" aria-current="page">Overview</a>
-          <a class="cui-nav-link" href="./foundations.html">Foundations</a>
-          <a class="cui-nav-link" href="./components.html">Components</a>
-          <a class="cui-nav-link" href="./layouts.html">Layouts</a>
-          <a class="cui-nav-link" href="./theming.html">Theming</a>
-          <a class="cui-nav-link" href="./examples/">Demo</a>
-        </nav>
+        <a slot="nav" class="cui-nav-link" href="./index.html" aria-current="page">Overview</a>
+        <a slot="nav" class="cui-nav-link" href="./foundations.html">Foundations</a>
+        <a slot="nav" class="cui-nav-link" href="./components.html">Components</a>
+        <a slot="nav" class="cui-nav-link" href="./layouts.html">Layouts</a>
+        <a slot="nav" class="cui-nav-link" href="./theming.html">Theming</a>
+        <a slot="nav" class="cui-nav-link" href="./examples/">Demo</a>
         <div slot="actions" class="cui-cluster">
           <cui-theme-toggle></cui-theme-toggle>
         </div>

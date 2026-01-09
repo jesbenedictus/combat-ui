@@ -93,6 +93,14 @@
   --cui-button-bg: var(--cui-color-surface-muted, oklch(97.3% 0.009 240deg));
   --cui-button-border: var(--cui-color-border, oklch(92.5% 0.009 240deg));
   --cui-button-color: var(--cui-color, oklch(24% 0.04 264deg));
+  --cui-navbar-bg: var(--cui-color-surface-raised, #fff);
+  --cui-navbar-border: var(--cui-color-border, #cfd6df);
+  --cui-navbar-gutter: 2rem;
+  --cui-navbar-width: var(--cui-container, 72rem);
+  --cui-navbar-padding-block: 0.75rem;
+  --cui-navbar-size: 3.25rem;
+  --cui-navbar-sticky-offset: 0;
+  --cui-navbar-sticky-z-index: 10;
 }
 
 @media (prefers-color-scheme: dark) {
