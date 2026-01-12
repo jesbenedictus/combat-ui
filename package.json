@@ -56,6 +56,8 @@
     "@html-eslint/eslint-plugin": "0.53.0",
     "@html-eslint/parser": "0.53.0",
     "eslint": "9.39.1",
+    "eslint-plugin-baseline-js": "^0.4.2",
+    "eslint-plugin-compat": "^6.0.2",
     "rimraf": "6.1.2",
     "stylelint": "16.26.1",
     "stylelint-config-standard": "39.0.1",

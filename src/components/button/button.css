@@ -12,15 +12,15 @@
 }
 
 .control {
-  --_bg: var(
+  --_-bg: var(
     --cui-button-bg,
     var(--cui-color-surface-muted, oklch(97.3% 0.009 240deg))
   );
-  --_border: var(
+  --_-border: var(
     --cui-button-border,
     var(--cui-color-border, oklch(92.5% 0.009 240deg))
   );
-  --_color: var(
+  --_-color: var(
     --cui-button-color,
     var(--cui-color, oklch(24% 0.04 264deg))
   );
@@ -31,10 +31,10 @@
   align-items: center;
   justify-content: center;
   gap: var(--cui-space-2, 0.5rem);
-  border: var(--cui-border-size, 1px) solid var(--_border);
+  border: var(--cui-border-size, 1px) solid var(--_-border);
   border-radius: var(--cui-control-radius, 0.25rem);
-  background: var(--_bg);
-  color: var(--_color);
+  background: var(--_-bg);
+  color: var(--_-color);
   font: inherit;
   font-weight: var(--cui-font-weight-strong, 680);
   padding-block: 0.625rem;
@@ -46,10 +46,6 @@
     color 160ms ease,
     transform 160ms ease;
 
-  &:hover {
-    transform: translateY(-1px);
-  }
-
   &:active {
     transform: translateY(0);
   }
@@ -60,31 +56,31 @@ a.control[aria-disabled="true"] {
   opacity: 0.58;
 }
 
-:host([variant="primary"]) .control {
-  --_bg: var(--cui-color-accent, oklch(57% 0.18 246deg));
-  --_border: var(--cui-color-accent, oklch(57% 0.18 246deg));
-  --_color: var(--cui-color-on-accent, oklch(100% 0 0deg));
+.control:hover {
+  --_-bg: color-mix(
+    in oklch,
+    var(--cui-color-surface-muted, #edf0f4),
+    var(--cui-color, #1b1f27) 8%
+  );
+
+  transform: translateY(-1px);
 }
 
-@supports (color: color-mix(in oklch, white, black)) {
-  .control:hover {
-    --_bg: color-mix(
-      in oklch,
-      var(--cui-color-surface-muted, #edf0f4),
-      var(--cui-color, #1b1f27) 8%
-    );
-  }
+:host([variant="primary"]) .control {
+  --_-bg: var(--cui-color-accent, oklch(57% 0.18 246deg));
+  --_-border: var(--cui-color-accent, oklch(57% 0.18 246deg));
+  --_-color: var(--cui-color-on-accent, oklch(100% 0 0deg));
+}
 
-  :host([variant="primary"]) .control:hover {
-    --_bg: color-mix(
-      in oklch,
-      var(--cui-color-accent, oklch(57% 0.18 246deg)),
-      black 8%
-    );
-    --_border: color-mix(
-      in oklch,
-      var(--cui-color-accent, oklch(57% 0.18 246deg)),
-      black 8%
-    );
-  }
+:host([variant="primary"]) .control:hover {
+  --_-bg: color-mix(
+    in oklch,
+    var(--cui-color-accent, oklch(57% 0.18 246deg)),
+    black 8%
+  );
+  --_-border: color-mix(
+    in oklch,
+    var(--cui-color-accent, oklch(57% 0.18 246deg)),
+    black 8%
+  );
 }
