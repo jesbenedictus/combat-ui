@@ -4,42 +4,28 @@ import style from "./navbar.css?inline";
 export class CuiNavbar extends CombatElement {
   static readonly tagName = "cui-navbar";
   static override styles = [cssStyleSheet(style)];
+  static observedAttributes = [
+    "expanded",
+    "sticky",
+    "sticky-offset",
+    "sticky-z-index",
+  ];
 
   private abortController: AbortController | null = null;
+  private static instanceCounter = 0;
+  private collapseId = `cui-navbar-collapse-${++CuiNavbar.instanceCounter}`;
 
   connectedCallback(): void {
     this.adoptStyles();
 
     if (!this.shadowRoot?.querySelector("nav")) {
-      this.appendShadowTemplate(`
-        <nav part="nav" aria-label="Primary">
-          <div class="bar" part="bar">
-            <div class="brand" part="brand">
-              <slot name="brand"></slot>
-            </div>
-            <button class="toggle" part="toggle" type="button" aria-expanded="false">
-              <span class="toggle-lines" aria-hidden="true"></span>
-              <span class="sr-only">Toggle navigation</span>
-            </button>
-          </div>
-          <div class="collapse" part="collapse">
-            <div class="collapse-panel" part="collapse-panel">
-              <div class="links" part="links">
-                <slot name="nav"></slot>
-              </div>
-              <div class="actions" part="actions">
-                <slot name="actions"></slot>
-              </div>
-            </div>
-          </div>
-        </nav>
-      `);
-      this.shadowRoot
-        ?.querySelector(".toggle")
-        ?.addEventListener("click", () => this.toggle());
-      this.addEventListener("click", (event) => this.handleClick(event));
-      this.addEventListener("keydown", (event) => this.handleKeyDown(event));
+      this.appendShadowTemplate(this.template());
     }
+
+    this.bindEvents();
+    this.sync();
+    this.syncStickyOptions();
+    this.syncDropdowns();
   }
 
   disconnectedCallback(): void {
@@ -66,21 +52,20 @@ export class CuiNavbar extends CombatElement {
     this.toggleAttribute("sticky", value);
   }
 
-  get stickyOffset(): number {
-    const offset = this.getAttribute("sticky-offset");
-    return offset ? parseInt(offset) : 0;
+  get stickyOffset(): string | null {
+    return this.getAttribute("sticky-offset");
   }
-  set stickyOffset(value: number | string | null) {
+  set stickyOffset(value: string | number | null) {
     if (value === null || value === "") {
       this.removeAttribute("sticky-offset");
       return;
     }
-    this.setAttribute("sticky-offset", value.toString());
+    this.setAttribute("sticky-offset", String(value));
   }
 
   get stickyZIndex(): number {
     const zIndex = this.getAttribute("sticky-z-index");
-    return zIndex ? parseInt(zIndex) : 0;
+    return zIndex ? Number.parseInt(zIndex, 10) : 0;
   }
   set stickyZIndex(value: number | string | null) {
     if (value === null || value === "") {
@@ -108,32 +93,53 @@ export class CuiNavbar extends CombatElement {
     this.syncDropdowns();
   }
 
+  private template(): string {
+    return `
+      <nav part="nav" aria-label="Primary">
+        <div class="bar" part="bar">
+          <div class="brand" part="brand">
+            <slot name="brand"></slot>
+          </div>
+          <button class="toggle" part="toggle" type="button"
+                  aria-expanded="false" aria-controls="${this.collapseId}">
+            <span class="toggle-lines" aria-hidden="true"></span>
+            <span class="sr-only">Toggle navigation</span>
+          </button>
+        </div>
+        <div id="${this.collapseId}" class="collapse" part="collapse">
+          <div class="collapse-panel" part="collapse-panel">
+            <div class="links" part="links"><slot name="nav"></slot></div>
+            <div class="actions" part="actions"><slot name="actions"></slot></div>
+          </div>
+        </div>
+      </nav>
+    `;
+  }
+
   private sync(): void {
     const toggle = this.shadowRoot?.querySelector(".toggle");
-    const collapse = this.shadowRoot?.querySelector(".collapse");
 
-    if (!toggle || !collapse) {
+    if (!toggle) {
       return;
     }
 
-    const expanded = this.expanded;
-    const collapseId = this.id ? `${this.id}-collapse` : "cui-navbar-collapse";
-    this.setAttribute("aria-controls", collapseId);
-    toggle.setAttribute("aria-expanded", expanded.toString());
+    toggle.setAttribute("aria-expanded", String(this.expanded));
   }
 
   private syncStickyOptions(): void {
-    const stickyOffset = this.stickyOffset;
-    const stickyZIndex = this.stickyZIndex;
+    const offset = this.stickyOffset;
+    const zIndex = this.stickyZIndex;
 
-    if (stickyOffset) {
-      this.style.setProperty("--cui-navbar-sticky-offset", `${stickyOffset}`);
-    } else {
-      this.style.removeProperty("--cui-navbar-sticky-offset");
-    }
+    if (offset) {
+    // Numeric strings get px; anything with a unit/function passes through.
+    const value = /^-?\d+(\.\d+)?$/.test(offset) ? `${offset}px` : offset;
+    this.style.setProperty("--cui-navbar-sticky-offset", value);
+  } else {
+    this.style.removeProperty("--cui-navbar-sticky-offset");
+  }
 
-    if (stickyZIndex) {
-      this.style.setProperty("--cui-navbar-sticky-z-index", `${stickyZIndex}`);
+    if (zIndex) {
+      this.style.setProperty("--cui-navbar-sticky-z-index", String(zIndex));
     } else {
       this.style.removeProperty("--cui-navbar-sticky-z-index");
     }
@@ -148,7 +154,7 @@ export class CuiNavbar extends CombatElement {
         return;
       }
 
-      const menuId = menu.id || `${this.id || "cui-navbar"}-dropdown-${index}`;
+      const menuId = menu.id || `${this.collapseId}-dropdown-menu-${index}`;
       const expanded = dropdown.hasAttribute("data-open");
       menu.id = menuId;
       toggle.setAttribute("aria-controls", menuId);
@@ -157,12 +163,20 @@ export class CuiNavbar extends CombatElement {
     });
   }
 
-  private bindDocumentEvents(): void {
-    if (this.abortController) {
-      return;
-    }
-
+  private bindEvents(): void {
+    this.abortController?.abort();
     this.abortController = new AbortController();
+    const { signal } = this.abortController;
+
+    this.shadowRoot
+      ?.querySelector(".toggle")
+      ?.addEventListener("click", () => this.toggle(), { signal });
+    this.addEventListener("click", (event) => this.handleClick(event), {
+      signal,
+    });
+    this.addEventListener("keydown", (event) => this.handleKeyDown(event), {
+      signal,
+    });
     document.addEventListener(
       "click",
       (event) => {
@@ -170,7 +184,7 @@ export class CuiNavbar extends CombatElement {
           this.closeDropdowns();
         }
       },
-      { signal: this.abortController?.signal }
+      { signal },
     );
   }
 

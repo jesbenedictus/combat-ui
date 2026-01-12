@@ -41,6 +41,7 @@
   --cui-color-raised: oklch(100% 0 0deg);
   --cui-color-surface: oklch(98% 0.01 265deg);
   --cui-color-surface-muted: oklch(97.3% 0.009 240deg);
+  --cui-color-surface-raised: oklch(100% 0 0deg);
   --cui-color-border: oklch(92.5% 0.009 240deg);
   --cui-color: oklch(24% 0.04 264deg);
   --cui-color-muted: oklch(41.7% 0.045 264deg);
@@ -65,7 +66,7 @@
   --cui-switcher-gap: var(--cui-space-4, 1rem);
   --cui-switcher-threshold: 40rem;
   --cui-split-gap: var(--cui-space-6, 2rem);
-  --cui-spit-start: 1fr;
+  --cui-split-start: 1fr;
   --cui-split-end: 1fr;
   --cui-split-align: center;
   --cui-shadow-1: 0 1px 2px hsl(220deg 25% 10% / 12%), 0 1px 1px hsl(220deg 25% 10% / 8%);

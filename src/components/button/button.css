@@ -47,7 +47,7 @@
     transform 160ms ease;
 
   &:active {
-    transform: translateY(0);
+    transform: translateY(1px);
   }
 }
 

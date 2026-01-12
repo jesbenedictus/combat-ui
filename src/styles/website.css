@@ -45,7 +45,7 @@
 }
 
 .cui-section-inverse {
-    background: var(--cui-color-text, #1b1f27);
+    background: var(--cui-color, #1b1f27);
     color: var(--cui-color-surface, #f7f8fa);
 }
 

@@ -60,12 +60,12 @@ nav {
 
 .toggle {
   display: inline-flex;
-  inline-size: var(--cui-size-control, 2.5rem);
-  block-size: var(--cui-size-control, 2.5rem);
+  inline-size: var(--cui-control-size, 2.5rem);
+  block-size: var(--cui-control-size, 2.5rem);
   align-items: center;
   justify-content: center;
   border: var(--cui-border-size, 1px) solid var(--cui-color-border, #cfd6df);
-  border-radius: var(--cui-radius-control, 0.25rem);
+  border-radius: var(--cui-control-radius, 0.25rem);
   background: var(--cui-color-surface-muted, #edf0f4);
   color: inherit;
   font: inherit;

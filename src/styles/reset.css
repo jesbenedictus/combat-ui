@@ -36,6 +36,7 @@ button {
 }
 
 [hidden] {
+  /* The !important is necessary to override the inline styles used for hiding elements in components like dropdowns and modals. */
   display: none !important;
 }
 

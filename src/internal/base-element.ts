@@ -2,11 +2,10 @@ const sheetCache = new Map<string, CSSStyleSheet>();
 
 export type CombatStyles = CSSStyleSheet | CSSStyleSheet[] | string | string[];
 
+const constructableSupported = "adoptedStyleSheets" in Document.prototype && "replaceSync" in CSSStyleSheet.prototype;
+
 export function supportsConstructableStyleSheets(): boolean {
-  return (
-    "adoptedStyleSheets" in Document.prototype &&
-    "replaceSync" in CSSStyleSheet.prototype
-  );
+  return constructableSupported;
 }
 
 export function cssStyleSheet(cssText: string): CSSStyleSheet {
@@ -65,7 +64,7 @@ export class CombatElement extends HTMLElement {
     const style = document.createElement("style");
     style.dataset.combatUi = "styles";
     style.textContent = styles
-      .map((style) => (typeof style === "string" ? style : ""))
+      .map((s) => (typeof s === "string" ? s : Array.from(s.cssRules, (rule) => rule.cssText).join("\n")))
       .join("\n");
 
     this.shadowRoot.prepend(style);

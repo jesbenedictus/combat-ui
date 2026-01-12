@@ -60,7 +60,7 @@ export class CuiThemeToggle extends CombatElement {
   private render() {
     if (!this.shadowRoot?.querySelector("button")) {
       this.appendShadowTemplate(`
-        <button part="button" type="button" aria-live="polite">
+        <button part="button" type="button">
           <span part="icon" aria-hidden="true"></span>
           <span part="label"></span>
         </button>
