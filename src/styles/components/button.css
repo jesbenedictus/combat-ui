@@ -1,0 +1,45 @@
+.cui-button {
+  --cui-button-bg: var(--cui-color-surface-muted, #edf0f4);
+  --cui-button-border: var(--cui-color-border, #cfd6df);
+  --cui-button-color: var(--cui-color, #1b1f27);
+
+  display: inline-flex;
+  min-block-size: var(--cui-size-control, 2.5rem);
+  align-items: center;
+  justify-content: center;
+  gap: var(--cui-space-2, 0.5rem);
+  border: var(--cui-border-size, 1px) solid var(--cui-button-border, #cfd6df);
+  border-radius: var(--cui-radius-control, 0.25rem);
+  background: var(--cui-button-bg, #edf0f4);
+  color: var(--cui-button-color, #1b1f27);
+  font-weight: var(--cui-font-weight-strong, 680);
+  padding-block: 0.625rem;
+  padding-inline: 1rem;
+  text-decoration: none;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.cui-button:hover {
+  --cui-button-bg: color-mix(in oklch, var(--cui-color-surface-muted, #edf0f4), var(--cui-color, #1b1f27) 8%);
+
+  transform: translateY(-1px);
+}
+
+.cui-button:active {
+  transform: translateY(0);
+}
+
+.cui-button[data-variant="primary"] {
+  --cui-button-bg: var(--cui-color-accent, oklch(57% 0.18 246deg));
+  --cui-button-border: var(--cui-color-accent, oklch(57% 0.18 246deg));
+  --cui-button-color: var(--cui-color-on-accent, #fff);
+}
+
+.cui-button[data-variant="primary"]:hover {
+  --cui-button-bg: color-mix(in oklch, var(--cui-color-accent, oklch(57% 0.18 246deg)), black 8%);
+  --cui-button-border: color-mix(in oklch, var(--cui-color-accent, oklch(57% 0.18 246deg)), black 8%);
+}

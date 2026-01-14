@@ -1,0 +1,1 @@
+export { CuiTabs, defineCuiTabs } from "./tabs";

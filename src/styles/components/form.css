@@ -1,0 +1,11 @@
+.cui-input {
+  display: block;
+  inline-size: 100%;
+  min-block-size: var(--cui-size-control, 2.5rem);
+  border: var(--cui-border-size, 1px) solid var(--cui-color-border, #cfd6df);
+  border-radius: var(--cui-radius-control, 0.25rem);
+  background: var(--cui-color-surface-raised, #fff);
+  color: var(--cui-color, #1b1f27);
+  padding-block: 0.625rem;
+  padding-inline: 0.875rem;
+}
