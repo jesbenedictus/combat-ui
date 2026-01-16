@@ -48,7 +48,7 @@
               <div class="cui-prose">
                 <h2>Hero</h2>
                 <p>
-                  Use `cui-hero` for text-only, split-media, background-image, and full-bleed overlay introductions. Image and video media can stay in light DOM through the `media` slot.
+                  Use <code>cui-hero</code> for text-only, split-media, background-image, and full-bleed overlay introductions. Image and video media can stay in light DOM through the <code>media</code> slot.
                 </p>
               </div>
 
@@ -74,15 +74,17 @@
                     </div>
                     <img slot="media" class="cui-hero-media" src="./hero-image.svg" alt="Abstract product interface preview">
                   </cui-hero>
-                  <cui-code language="html">&lt;cui-hero variant=&quot;split&quot;&gt;
-  &lt;p slot=&quot;eyebrow&quot;&gt;Campaign&lt;/p&gt;
-  &lt;h1 slot=&quot;title&quot;&gt;Launch pages with rich media.&lt;/h1&gt;
-  &lt;p&gt;Pair concise copy with product visuals or campaign artwork.&lt;/p&gt;
-  &lt;div slot=&quot;actions&quot; class=&quot;cui-hero-actions&quot;&gt;
-    &lt;cui-button variant=&quot;primary&quot;&gt;Start&lt;/cui-button&gt;
-  &lt;/div&gt;
-  &lt;img slot=&quot;media&quot; class=&quot;cui-hero-media&quot; src=&quot;./hero-image.svg&quot; alt=&quot;&quot;&gt;
-&lt;/cui-hero&gt;</cui-code>
+                  <cui-code language="html"><script type="text/plain">
+<cui-hero variant="split">
+  <p slot="eyebrow">Campaign</p>
+  <h1 slot="title">Launch pages with rich media.</h1>
+  <p>Pair concise copy with product visuals or campaign artwork.</p>
+  <div slot="actions" class="cui-hero-actions">
+    <cui-button variant="primary">Start</cui-button>
+  </div>
+  <img slot="media" class="cui-hero-media" src="./hero-image.svg" alt="">
+</cui-hero>
+</script></cui-code>
                 </section>
 
                 <section slot="panel" class="docs-panel">
@@ -101,14 +103,16 @@
                       <cui-button variant="primary" href="./examples/">Explore</cui-button>
                     </div>
                   </cui-hero>
-          <cui-code language="html">&lt;cui-hero
-  variant=&quot;background&quot;
-  background-src=&quot;./hero-image.svg&quot;
-  background-position=&quot;center&quot;
-&gt;
-  &lt;h1 slot=&quot;title&quot;&gt;Put imagery behind the message.&lt;/h1&gt;
-  &lt;p&gt;Use this when the image is decorative and the copy should lead.&lt;/p&gt;
-&lt;/cui-hero&gt;</cui-code>
+          <cui-code language="html"><script type="text/plain">
+<cui-hero
+  variant="background"
+  background-src="./hero-image.svg"
+  background-position="center"
+>
+  <h1 slot="title">Put imagery behind the message.</h1>
+  <p>Use this when the image is decorative and the copy should lead.</p>
+</cui-hero>
+</script></cui-code>
                  </section>
 
                 <section slot="panel" class="docs-panel">
@@ -128,13 +132,15 @@
                       <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">
                     </video>
                   </cui-hero>
-                  <cui-code language="html">&lt;cui-hero variant=&quot;overlay&quot;&gt;
-  &lt;h1 slot=&quot;title&quot;&gt;Video-backed stories with readable copy.&lt;/h1&gt;
-  &lt;p&gt;Use overlays when motion supports the message.&lt;/p&gt;
-  &lt;video slot=&quot;media&quot; class=&quot;cui-hero-media&quot; autoplay muted loop playsinline&gt;
-    &lt;source src=&quot;hero.mp4&quot; type=&quot;video/mp4&quot;&gt;
-  &lt;/video&gt;
-&lt;/cui-hero&gt;</cui-code>
+                  <cui-code language="html"><script type="text/plain">
+<cui-hero variant="overlay">
+  <h1 slot="title">Video-backed stories with readable copy.</h1>
+  <p>Use overlays when motion supports the message.</p>
+  <video slot="media" class="cui-hero-media" autoplay muted loop playsinline>
+    <source src="hero.mp4" type="video/mp4">
+  </video>
+</cui-hero>
+</script></cui-code>
                 </section>
 
                 <section slot="panel" class="docs-panel">
@@ -261,29 +267,33 @@
               </section>
             </cui-tabs>
 
-            <cui-code language="html">&lt;div
-              class=&quot;cui-feature-grid&quot;
-              data-columns=&quot;3&quot;
-              data-gap=&quot;spacious&quot;
-              style=&quot;--cui-feature-icon-size: 3rem;&quot;
-              &gt;
-              &lt;article class=&quot;cui-feature-card&quot; data-align=&quot;center&quot;&gt;
-              &lt;span class=&quot;cui-feature-icon&quot; aria-hidden=&quot;true&quot;&gt;01&lt;/span&gt;
-              &lt;h3&gt;Reusable structure&lt;/h3&gt;
-              &lt;p&gt;Feature cards keep icon, heading, and copy spacing consistent.&lt;/p&gt;
-              &lt;/article&gt;
-              &lt;/div&gt;</cui-code>
+            <cui-code language="html"><script type="text/plain">
+<div
+  class="cui-feature-grid"
+  data-columns="3"
+  data-gap="spacious"
+  style="--cui-feature-icon-size: 3rem;"
+>
+  <article class="cui-feature-card" data-align="center">
+    <span class="cui-feature-icon" aria-hidden="true">01</span>
+    <h3>Reusable structure</h3>
+    <p>Feature cards keep icon, heading, and copy spacing consistent.</p>
+  </article>
+</div>
+</script></cui-code>
 
-            <cui-code language="html">&lt;div
-              class=&quot;cui-stats-grid&quot;
-              data-columns=&quot;3&quot;
-              style=&quot;--cui-stat-value-size: var(--cui-font-size-5, 4rem);&quot;
-              &gt;
-              &lt;div class=&quot;cui-stat&quot; data-align=&quot;center&quot;&gt;
-              &lt;span class=&quot;cui-stat-value&quot;&gt;42%&lt;/span&gt;
-              &lt;span class=&quot;cui-stat-label&quot;&gt;Higher page reuse&lt;/span&gt;
-              &lt;/div&gt;
-              &lt;/div&gt;</cui-code>
+            <cui-code language="html"><script type="text/plain">
+<div
+  class="cui-stats-grid"
+  data-columns="3"
+  style="--cui-stat-value-size: var(--cui-font-size-5, 4rem);"
+>
+  <div class="cui-stat" data-align="center">
+    <span class="cui-stat-value">42%</span>
+    <span class="cui-stat-label">Higher page reuse</span>
+  </div>
+</div>
+</script></cui-code>
           </section>
         </div>
       </div>

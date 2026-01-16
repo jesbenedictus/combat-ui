@@ -51,8 +51,18 @@ export class CuiCode extends CombatElement {
       this.shadowRoot?.querySelector(".copy")?.addEventListener("click", () => this.copyToClipboard());
     }
 
-    this._source = normalizeSource(this.textContent ?? "");
+    this._source = normalizeSource(this.readSource());
     this.render();
+  }
+
+  private readSource(): string {
+    const script = this.querySelector<HTMLScriptElement>(":scope > script");
+
+    if (script) {
+      return script.textContent ?? "";
+    }
+
+    return this.textContent ?? "";
   }
 
   attributeChangedCallback(): void {
