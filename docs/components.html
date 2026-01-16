@@ -15,9 +15,9 @@
   <header class="docs-navbar">
     <cui-navbar sticky>
       <a slot="brand" class="cui-nav-link" href="./index.html">Combat UI</a>
-      <a slot="nav" class="cui-nav-link" href="./index.html" aria-current="page">Overview</a>
+      <a slot="nav" class="cui-nav-link" href="./index.html">Overview</a>
       <a slot="nav" class="cui-nav-link" href="./foundations.html">Foundations</a>
-      <a slot="nav" class="cui-nav-link" href="./components.html">Components</a>
+      <a slot="nav" class="cui-nav-link" href="./components.html" aria-current="page">Components</a>
       <a slot="nav" class="cui-nav-link" href="./layouts.html">Layouts</a>
       <a slot="nav" class="cui-nav-link" href="./theming.html">Theming</a>
       <a slot="nav" class="cui-nav-link" href="./examples/">Demo</a>
@@ -45,24 +45,24 @@
 
         <div class="cui-stack" style="--cui-stack-gap: var(--cui-space-7, 3rem);">
           <section id="hero" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
-              <div class="cui-prose">
-                <h2>Hero</h2>
-                <p>
-                  Use <code>cui-hero</code> for text-only, split-media, background-image, and full-bleed overlay introductions. Image and video media can stay in light DOM through the <code>media</code> slot.
-                </p>
-              </div>
+            <div class="cui-prose">
+              <h2>Hero</h2>
+              <p>
+                Use <code>cui-hero</code> for text-only, split-media, background-image, and full-bleed overlay
+                introductions. Image and video media can stay in light DOM through the <code>media</code> slot.
+              </p>
+            </div>
 
-              <cui-tabs>
-                <button slot="tab" type="button">Image</button>
-                <button slot="tab" type="button">Background</button>
-                <button slot="tab" type="button">Video</button>
-                <button slot="tab" type="button">Text</button>
+            <cui-tabs>
+              <button slot="tab" type="button">Image</button>
+              <button slot="tab" type="button">Background</button>
+              <button slot="tab" type="button">Video</button>
+              <button slot="tab" type="button">Text</button>
 
-                <section slot="panel" class="docs-panel">
-                  <cui-hero
-                    variant="split"
-                    style="--cui-hero-min-block-size: auto; --cui-hero-padding-block: var(--cui-space-7, 3rem); --cui-hero-title-size: var(--cui-font-size-5, 4rem); --cui-hero-media-min-block-size: 22rem;"
-                  >
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <cui-hero variant="split"
+                    style="--cui-hero-min-block-size: auto; --cui-hero-padding-block: var(--cui-space-7, 3rem); --cui-hero-title-size: var(--cui-font-size-5, 4rem); --cui-hero-media-min-block-size: 22rem;">
                     <p slot="eyebrow">Campaign</p>
                     <h3 slot="title">Launch pages with rich media.</h3>
                     <p>
@@ -72,28 +72,29 @@
                       <cui-button variant="primary">Start</cui-button>
                       <cui-button>Preview</cui-button>
                     </div>
-                    <img slot="media" class="cui-hero-media" src="./hero-image.svg" alt="Abstract product interface preview">
+                    <img slot="media" class="cui-hero-media" src="./hero-image.svg"
+                      alt="Abstract product interface preview">
                   </cui-hero>
-                  <cui-code language="html"><script type="text/plain">
-<cui-hero variant="split">
-  <p slot="eyebrow">Campaign</p>
-  <h1 slot="title">Launch pages with rich media.</h1>
-  <p>Pair concise copy with product visuals or campaign artwork.</p>
-  <div slot="actions" class="cui-hero-actions">
-    <cui-button variant="primary">Start</cui-button>
-  </div>
-  <img slot="media" class="cui-hero-media" src="./hero-image.svg" alt="">
-</cui-hero>
-</script></cui-code>
-                </section>
+                  <cui-code language="html">
+                    <script type="text/plain">
+                      <cui-hero variant="split">
+                        <p slot="eyebrow">Campaign</p>
+                        <h1 slot="title">Launch pages with rich media.</h1>
+                        <p>Pair concise copy with product visuals or campaign artwork.</p>
+                        <div slot="actions" class="cui-hero-actions">
+                          <cui-button variant="primary">Start</cui-button>
+                        </div>
+                        <img slot="media" class="cui-hero-media" src="./hero-image.svg" alt="">
+                      </cui-hero>
+                    </script>
+                  </cui-code>
+                </div>
+              </section>
 
-                <section slot="panel" class="docs-panel">
-                  <cui-hero
-                    variant="background"
-                    background-src="./hero-image.svg"
-                    background-position="center"
-                    style="--cui-hero-min-block-size: 32rem; --cui-hero-padding-block: var(--cui-space-7, 3rem); --cui-hero-title-size: var(--cui-font-size-5, 4rem);"
-                  >
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <cui-hero variant="background" background-src="./hero-image.svg" background-position="center"
+                    style="--cui-hero-min-block-size: 32rem; --cui-hero-padding-block: var(--cui-space-7, 3rem); --cui-hero-title-size: var(--cui-font-size-5, 4rem);">
                     <p slot="eyebrow">Background</p>
                     <h3 slot="title">Put imagery behind the message.</h3>
                     <p>
@@ -103,23 +104,25 @@
                       <cui-button variant="primary" href="./examples/">Explore</cui-button>
                     </div>
                   </cui-hero>
-          <cui-code language="html"><script type="text/plain">
-<cui-hero
-  variant="background"
-  background-src="./hero-image.svg"
-  background-position="center"
->
-  <h1 slot="title">Put imagery behind the message.</h1>
-  <p>Use this when the image is decorative and the copy should lead.</p>
-</cui-hero>
-</script></cui-code>
-                 </section>
+                  <cui-code language="html">
+                    <script type="text/plain">
+                      <cui-hero
+                        variant="background"
+                        background-src="./hero-image.svg"
+                        background-position="center"
+                      >
+                        <h1 slot="title">Put imagery behind the message.</h1>
+                        <p>Use this when the image is decorative and the copy should lead.</p>
+                      </cui-hero>
+                    </script>
+                  </cui-code>
+                </div>
+              </section>
 
-                <section slot="panel" class="docs-panel">
-                  <cui-hero
-                    variant="overlay"
-                    style="--cui-hero-min-block-size: 34rem; --cui-hero-padding-block: var(--cui-space-7, 3rem); --cui-hero-title-size: var(--cui-font-size-5, 4rem);"
-                  >
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <cui-hero variant="overlay"
+                    style="--cui-hero-min-block-size: 34rem; --cui-hero-padding-block: var(--cui-space-7, 3rem); --cui-hero-title-size: var(--cui-font-size-5, 4rem);">
                     <p slot="eyebrow">Editorial</p>
                     <h3 slot="title">Video-backed stories with readable copy.</h3>
                     <p>
@@ -128,27 +131,30 @@
                     <div slot="actions" class="cui-hero-actions">
                       <cui-button variant="primary" href="./examples/">Watch</cui-button>
                     </div>
-                    <video slot="media" class="cui-hero-media" autoplay muted loop playsinline poster="./hero-image.svg">
-                      <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">
+                    <video slot="media" class="cui-hero-media" autoplay muted loop playsinline
+                      poster="./hero-image.svg">
+                      <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+                        type="video/mp4">
                     </video>
                   </cui-hero>
-                  <cui-code language="html"><script type="text/plain">
-<cui-hero variant="overlay">
-  <h1 slot="title">Video-backed stories with readable copy.</h1>
-  <p>Use overlays when motion supports the message.</p>
-  <video slot="media" class="cui-hero-media" autoplay muted loop playsinline>
-    <source src="hero.mp4" type="video/mp4">
-  </video>
-</cui-hero>
-</script></cui-code>
-                </section>
+                  <cui-code language="html">
+                    <script type="text/plain">
+                      <cui-hero variant="overlay">
+                        <h1 slot="title">Video-backed stories with readable copy.</h1>
+                        <p>Use overlays when motion supports the message.</p>
+                        <video slot="media" class="cui-hero-media" autoplay muted loop playsinline>
+                          <source src="hero.mp4" type="video/mp4">
+                        </video>
+                      </cui-hero>
+                    </script>
+                  </cui-code>
+                </div>
+              </section>
 
-                <section slot="panel" class="docs-panel">
-                  <cui-hero
-                    variant="text"
-                    align="center"
-                    style="--cui-hero-padding-block: var(--cui-space-7, 3rem); --cui-hero-title-size: var(--cui-font-size-5, 4rem);"
-                  >
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <cui-hero variant="text" align="center"
+                    style="--cui-hero-padding-block: var(--cui-space-7, 3rem); --cui-hero-title-size: var(--cui-font-size-5, 4rem);">
                     <p slot="eyebrow">Announcement</p>
                     <h3 slot="title">A focused text hero for direct messages.</h3>
                     <p>
@@ -158,9 +164,28 @@
                       <cui-button variant="primary">Read more</cui-button>
                     </div>
                   </cui-hero>
-                </section>
-              </cui-tabs>
-            </section>
+                  <cui-code language="html">
+                    <script type="text/plain">
+                      <cui-hero
+                        variant="text"
+                        align="center"
+                        style="--cui-hero-padding-block: var(--cui-space-7, 3rem); --cui-hero-title-size: var(--cui-font-size-5, 4rem);"
+                      >
+                        <p slot="eyebrow">Announcement</p>
+                        <h3 slot="title">A focused text hero for direct messages.</h3>
+                        <p>
+                          Text-only heroes keep the first viewport calm for documentation, changelogs, and product updates.
+                        </p>
+                        <div slot="actions" class="cui-hero-actions">
+                          <cui-button variant="primary">Read more</cui-button>
+                        </div>
+                      </cui-hero>
+                  </script>
+                  </cui-code>
+                </div>
+              </section>
+            </cui-tabs>
+          </section>
 
           <section id="content-grids" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
             <div class="cui-prose">
@@ -180,23 +205,47 @@
               <button slot="tab" type="button">Stats</button>
 
               <section slot="panel" class="docs-panel">
-                <div class="cui-feature-grid" data-columns="3" data-gap="spacious"
-                  style="--cui-feature-icon-size: 3rem;">
-                  <article class="cui-feature-card">
-                    <span class="cui-feature-icon" aria-hidden="true">01</span>
-                    <h3>Reusable structure</h3>
-                    <p>Feature cards keep icon, heading, and copy spacing consistent across marketing pages.</p>
-                  </article>
-                  <article class="cui-feature-card" data-align="center">
-                    <span class="cui-feature-icon" aria-hidden="true">02</span>
-                    <h3>Responsive by default</h3>
-                    <p>The grid adapts from single-column mobile layouts to dense desktop sections.</p>
-                  </article>
-                  <article class="cui-feature-card">
-                    <span class="cui-feature-icon" aria-hidden="true">03</span>
-                    <h3>Token-driven</h3>
-                    <p>Grid width, gap, and card padding can be tuned with `--cui-*` variables.</p>
-                  </article>
+                <div class="cui-stack">
+                  <div class="cui-feature-grid" data-columns="3" data-gap="spacious"
+                    style="--cui-feature-icon-size: 3rem;">
+                    <article class="cui-feature-card">
+                      <span class="cui-feature-icon" aria-hidden="true">01</span>
+                      <h3>Reusable structure</h3>
+                      <p>Feature cards keep icon, heading, and copy spacing consistent across marketing pages.</p>
+                    </article>
+                    <article class="cui-feature-card" data-align="center">
+                      <span class="cui-feature-icon" aria-hidden="true">02</span>
+                      <h3>Responsive by default</h3>
+                      <p>The grid adapts from single-column mobile layouts to dense desktop sections.</p>
+                    </article>
+                    <article class="cui-feature-card">
+                      <span class="cui-feature-icon" aria-hidden="true">03</span>
+                      <h3>Token-driven</h3>
+                      <p>Grid width, gap, and card padding can be tuned with `--cui-*` variables.</p>
+                    </article>
+                  </div>
+                  <cui-code language="html">
+                    <script type="text/plain">
+                      <div class="cui-feature-grid" data-columns="3" data-gap="spacious"
+                        style="--cui-feature-icon-size: 3rem;">
+                        <article class="cui-feature-card">
+                          <span class="cui-feature-icon" aria-hidden="true">01</span>
+                          <h3>Reusable structure</h3>
+                          <p>Feature cards keep icon, heading, and copy spacing consistent across marketing pages.</p>
+                        </article>
+                        <article class="cui-feature-card" data-align="center">
+                          <span class="cui-feature-icon" aria-hidden="true">02</span>
+                          <h3>Responsive by default</h3>
+                          <p>The grid adapts from single-column mobile layouts to dense desktop sections.</p>
+                        </article>
+                        <article class="cui-feature-card">
+                          <span class="cui-feature-icon" aria-hidden="true">03</span>
+                          <h3>Token-driven</h3>
+                          <p>Grid width, gap, and card padding can be tuned with `--cui-*` variables.</p>
+                        </article>
+                      </div>
+                    </script>
+                  </cui-code>
                 </div>
               </section>
 
@@ -249,51 +298,44 @@
               </section>
 
               <section slot="panel" class="docs-panel">
-                <div class="cui-stats-grid" data-columns="3"
-                  style="--cui-stat-value-size: var(--cui-font-size-5, 4rem);">
-                  <div class="cui-stat" data-align="center">
-                    <span class="cui-stat-value">42%</span>
-                    <span class="cui-stat-label">Higher page reuse</span>
+                <div class="cui-stack">
+                  <div class="cui-stats-grid" data-columns="3"
+                    style="--cui-stat-value-size: var(--cui-font-size-5, 4rem);">
+                    <div class="cui-stat" data-align="center">
+                      <span class="cui-stat-value">42%</span>
+                      <span class="cui-stat-label">Higher page reuse</span>
+                    </div>
+                    <div class="cui-stat" data-align="center">
+                      <span class="cui-stat-value">18</span>
+                      <span class="cui-stat-label">Reusable sections</span>
+                    </div>
+                    <div class="cui-stat" data-align="center">
+                      <span class="cui-stat-value">3x</span>
+                      <span class="cui-stat-label">Faster campaign assembly</span>
+                    </div>
                   </div>
-                  <div class="cui-stat" data-align="center">
-                    <span class="cui-stat-value">18</span>
-                    <span class="cui-stat-label">Reusable sections</span>
-                  </div>
-                  <div class="cui-stat" data-align="center">
-                    <span class="cui-stat-value">3x</span>
-                    <span class="cui-stat-label">Faster campaign assembly</span>
-                  </div>
+                  <cui-code language="html">
+                    <script type="text/plain">
+                      <div class="cui-stats-grid" data-columns="3"
+                        style="--cui-stat-value-size: var(--cui-font-size-5, 4rem);">
+                        <div class="cui-stat" data-align="center">
+                          <span class="cui-stat-value">42%</span>
+                          <span class="cui-stat-label">Higher page reuse</span>
+                        </div>
+                        <div class="cui-stat" data-align="center">
+                          <span class="cui-stat-value">18</span>
+                          <span class="cui-stat-label">Reusable sections</span>
+                        </div>
+                        <div class="cui-stat" data-align="center">
+                          <span class="cui-stat-value">3x</span>
+                          <span class="cui-stat-label">Faster campaign assembly</span>
+                        </div>
+                      </div>
+                    </script>
+                  </cui-code>
                 </div>
               </section>
             </cui-tabs>
-
-            <cui-code language="html"><script type="text/plain">
-<div
-  class="cui-feature-grid"
-  data-columns="3"
-  data-gap="spacious"
-  style="--cui-feature-icon-size: 3rem;"
->
-  <article class="cui-feature-card" data-align="center">
-    <span class="cui-feature-icon" aria-hidden="true">01</span>
-    <h3>Reusable structure</h3>
-    <p>Feature cards keep icon, heading, and copy spacing consistent.</p>
-  </article>
-</div>
-</script></cui-code>
-
-            <cui-code language="html"><script type="text/plain">
-<div
-  class="cui-stats-grid"
-  data-columns="3"
-  style="--cui-stat-value-size: var(--cui-font-size-5, 4rem);"
->
-  <div class="cui-stat" data-align="center">
-    <span class="cui-stat-value">42%</span>
-    <span class="cui-stat-label">Higher page reuse</span>
-  </div>
-</div>
-</script></cui-code>
           </section>
         </div>
       </div>
