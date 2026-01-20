@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Combat UI layout primitives: page wrappers, stack, cluster, grid, switcher, split, sidebar, shell, and app shells.">
+  <title>Layouts · Combat UI</title>
+  <script type="module" src="./index.ts"></script>
+  <link rel="stylesheet" href="./site.css">
+</head>
+
+<body class="cui-site">
+  <a class="cui-skip-link" href="#main">Skip to content</a>
+  <header class="docs-navbar">
+    <cui-navbar sticky>
+      <a slot="brand" class="cui-nav-link" href="./index.html">Combat UI</a>
+      <a slot="nav" class="cui-nav-link" href="./index.html">Overview</a>
+      <a slot="nav" class="cui-nav-link" href="./foundations.html">Foundations</a>
+      <a slot="nav" class="cui-nav-link" href="./components.html">Components</a>
+      <a slot="nav" class="cui-nav-link" href="./layouts.html" aria-current="page">Layouts</a>
+      <a slot="nav" class="cui-nav-link" href="./theming.html">Theming</a>
+      <a slot="nav" class="cui-nav-link" href="./examples/">Demo</a>
+      <div slot="actions" class="cui-cluster">
+        <cui-theme-toggle></cui-theme-toggle>
+      </div>
+    </cui-navbar>
+  </header>
+
+  <main id="main" class="cui-page cui-stack">
+    <header class="cui-page-header">
+      <h1>Layouts</h1>
+      <p>
+        Layout primitives are class-based so they work with static pages, CMS templates, and any component framework.
+        Every primitive exposes its behavior through CSS custom properties — override per-instance to reshape without
+        writing new selectors.
+      </p>
+    </header>
+
+    <section class="cui-section">
+      <div class="cui-container docs-doc-layout">
+        <aside class="docs-on-page" aria-label="On this page">
+          <a class="cui-nav-link" href="#page">Page wrappers</a>
+          <a class="cui-nav-link" href="#stack">Stack &amp; flow</a>
+          <a class="cui-nav-link" href="#cluster">Cluster</a>
+          <a class="cui-nav-link" href="#grid">Grid</a>
+          <a class="cui-nav-link" href="#switcher">Switcher</a>
+          <a class="cui-nav-link" href="#split">Split</a>
+          <a class="cui-nav-link" href="#sidebar">Sidebar</a>
+          <a class="cui-nav-link" href="#center">Center &amp; cover</a>
+          <a class="cui-nav-link" href="#surface">Surface</a>
+          <a class="cui-nav-link" href="#shell">Shell</a>
+          <a class="cui-nav-link" href="#app">App</a>
+        </aside>
+
+        <div class="cui-stack" style="--cui-stack-gap: var(--cui-space-7, 3rem);">
+
+          <section id="page" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Page wrappers</h2>
+              <p>
+                <code>cui-page</code> centers content with horizontal gutters. Use <code>cui-page-narrow</code> for
+                long-form reading, <code>cui-page-wide</code> for dashboard-style content, and the default for everything
+                else. <code>cui-page-header</code> and <code>cui-content</code> handle title areas and constrained text.
+              </p>
+            </div>
+
+            <cui-tabs>
+              <button slot="tab" type="button">Default</button>
+              <button slot="tab" type="button">Narrow</button>
+              <button slot="tab" type="button">Wide</button>
+              <button slot="tab" type="button">Header + content</button>
+
+              <section slot="panel" class="docs-panel">
+                <div class="docs-layout-frame">
+                  <div class="cui-page docs-layout-cell">.cui-page · max 72rem</div>
+                </div>
+                <cui-code language="html"><script type="text/plain">
+<div class="cui-page">
+  <!-- centered content with gutter, max 72rem -->
+</div>
+</script></cui-code>
+              </section>
+
+              <section slot="panel" class="docs-panel">
+                <div class="docs-layout-frame">
+                  <div class="cui-page-narrow docs-layout-cell">.cui-page-narrow · max 48rem</div>
+                </div>
+                <cui-code language="html"><script type="text/plain">
+<div class="cui-page-narrow">
+  <!-- 48rem reading width -->
+</div>
+</script></cui-code>
+              </section>
+
+              <section slot="panel" class="docs-panel">
+                <div class="docs-layout-frame">
+                  <div class="cui-page-wide docs-layout-cell">.cui-page-wide · max 96rem</div>
+                </div>
+                <cui-code language="html"><script type="text/plain">
+<div class="cui-page-wide">
+  <!-- 96rem dashboard width -->
+</div>
+</script></cui-code>
+              </section>
+
+              <section slot="panel" class="docs-panel">
+                <div class="docs-layout-frame">
+                  <div class="cui-page">
+                    <header class="cui-page-header">
+                      <h3>Section heading</h3>
+                      <p>Page header pairs a title and short intro with consistent rhythm.</p>
+                    </header>
+                    <div class="cui-content">
+                      <p>
+                        <code>cui-content</code> caps body width at <code>--cui-content-size</code> (68ch) so paragraph
+                        measure stays comfortable.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <cui-code language="html"><script type="text/plain">
+<div class="cui-page">
+  <header class="cui-page-header">
+    <h2>Section heading</h2>
+    <p>Short intro paragraph.</p>
+  </header>
+  <div class="cui-content">
+    <p>Body copy capped at 68ch.</p>
+  </div>
+</div>
+</script></cui-code>
+              </section>
+            </cui-tabs>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr><th>Token</th><th>Default</th><th>Effect</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>--cui-container</code></td><td><code>72rem</code></td><td>Default page width</td></tr>
+                <tr><td><code>--cui-container-narrow</code></td><td><code>48rem</code></td><td>Narrow page width</td></tr>
+                <tr><td><code>--cui-container-wide</code></td><td><code>96rem</code></td><td>Wide page width</td></tr>
+                <tr><td><code>--cui-container-gutter</code></td><td><code>clamp(1rem, 4vi, 2rem)</code></td><td>Side padding</td></tr>
+                <tr><td><code>--cui-content-size</code></td><td><code>68ch</code></td><td><code>.cui-content</code> width</td></tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section id="stack" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Stack &amp; flow</h2>
+              <p>
+                <code>cui-stack</code> applies vertical rhythm with a single <code>gap</code>. <code>cui-flow</code>
+                does the same with margins so it can sit inside long-form HTML where direct children mix with text.
+              </p>
+            </div>
+
+            <div class="docs-layout-frame" style="padding: var(--cui-space-4, 1rem);">
+              <div class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+                <div class="docs-layout-cell">First</div>
+                <div class="docs-layout-cell">Second</div>
+                <div class="docs-layout-cell">Third</div>
+              </div>
+            </div>
+
+            <cui-code language="html"><script type="text/plain">
+<div class="cui-stack" style="--cui-stack-gap: var(--cui-space-5);">
+  <div>First</div>
+  <div>Second</div>
+  <div>Third</div>
+</div>
+</script></cui-code>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr><th>Token</th><th>Default</th><th>Effect</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>--cui-stack-gap</code></td><td><code>var(--cui-space-4)</code></td><td>Gap between stack children</td></tr>
+                <tr><td><code>--cui-flow-space</code></td><td><code>var(--cui-space-4)</code></td><td>Margin between flow children</td></tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section id="cluster" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Cluster</h2>
+              <p>
+                Inline group with wrap. Use for action rows, tag lists, breadcrumbs, and toolbar items. Override
+                <code>--cui-cluster-justify</code> to push items to opposite ends.
+              </p>
+            </div>
+
+            <div class="docs-layout-frame" style="padding: var(--cui-space-4, 1rem);">
+              <div class="cui-cluster">
+                <div class="docs-layout-cell">Item</div>
+                <div class="docs-layout-cell">Item</div>
+                <div class="docs-layout-cell">Item</div>
+                <div class="docs-layout-cell">Item</div>
+                <div class="docs-layout-cell">Item</div>
+              </div>
+            </div>
+
+            <cui-code language="html"><script type="text/plain">
+<div class="cui-cluster">
+  <span>Item</span>
+  <span>Item</span>
+  <span>Item</span>
+</div>
+
+<!-- Push apart -->
+<div class="cui-cluster" style="--cui-cluster-justify: space-between;">
+  <strong>Brand</strong>
+  <button>Action</button>
+</div>
+</script></cui-code>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr><th>Token</th><th>Default</th><th>Effect</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>--cui-cluster-gap</code></td><td><code>var(--cui-space-3)</code></td><td>Gap between items</td></tr>
+                <tr><td><code>--cui-cluster-align</code></td><td><code>center</code></td><td>Cross-axis alignment</td></tr>
+                <tr><td><code>--cui-cluster-justify</code></td><td><code>flex-start</code></td><td>Main-axis alignment</td></tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section id="grid" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Grid</h2>
+              <p>
+                Auto-fitting responsive grid. Children use the available space until they hit
+                <code>--cui-grid-min</code>, at which point they wrap. No media queries required.
+              </p>
+            </div>
+
+            <div class="docs-layout-frame" style="padding: var(--cui-space-4, 1rem);">
+              <div class="cui-grid" style="--cui-grid-min: 10rem;">
+                <div class="docs-layout-cell">A</div>
+                <div class="docs-layout-cell">B</div>
+                <div class="docs-layout-cell">C</div>
+                <div class="docs-layout-cell">D</div>
+                <div class="docs-layout-cell">E</div>
+                <div class="docs-layout-cell">F</div>
+              </div>
+            </div>
+
+            <cui-code language="html"><script type="text/plain">
+<div class="cui-grid" style="--cui-grid-min: 16rem;">
+  <article>Card</article>
+  <article>Card</article>
+  <article>Card</article>
+</div>
+</script></cui-code>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr><th>Token</th><th>Default</th><th>Effect</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>--cui-grid-min</code></td><td><code>16rem</code></td><td>Minimum column width before wrap</td></tr>
+                <tr><td><code>--cui-grid-gap</code></td><td><code>var(--cui-space-4)</code></td><td>Row and column gap</td></tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section id="switcher" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Switcher</h2>
+              <p>
+                Sits on a single row until total inline-size drops below <code>--cui-switcher-threshold</code>, then
+                stacks. Useful for hero copy + media, label + control rows, or split sections that should collapse on
+                narrow viewports.
+              </p>
+            </div>
+
+            <div class="docs-layout-frame" style="padding: var(--cui-space-4, 1rem);">
+              <div class="cui-switcher">
+                <div class="docs-layout-cell">Primary</div>
+                <div class="docs-layout-cell">Secondary</div>
+              </div>
+            </div>
+
+            <cui-code language="html"><script type="text/plain">
+<div class="cui-switcher" style="--cui-switcher-threshold: 32rem;">
+  <div>Primary</div>
+  <div>Secondary</div>
+</div>
+</script></cui-code>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr><th>Token</th><th>Default</th><th>Effect</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>--cui-switcher-gap</code></td><td><code>var(--cui-space-4)</code></td><td>Gap between children</td></tr>
+                <tr><td><code>--cui-switcher-threshold</code></td><td><code>40rem</code></td><td>Width below which children stack</td></tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section id="split" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Split</h2>
+              <p>
+                Two-column layout that collapses to one column under <code>48rem</code>. Adjust the column ratio with
+                <code>--cui-split-start</code> and <code>--cui-split-end</code>.
+              </p>
+            </div>
+
+            <cui-tabs>
+              <button slot="tab" type="button">Even</button>
+              <button slot="tab" type="button">Asymmetric</button>
+
+              <section slot="panel" class="docs-panel">
+                <div class="docs-layout-frame" style="padding: var(--cui-space-4, 1rem);">
+                  <div class="cui-split">
+                    <div class="docs-layout-cell">Start (1fr)</div>
+                    <div class="docs-layout-cell">End (1fr)</div>
+                  </div>
+                </div>
+                <cui-code language="html"><script type="text/plain">
+<div class="cui-split">
+  <div>Start</div>
+  <div>End</div>
+</div>
+</script></cui-code>
+              </section>
+
+              <section slot="panel" class="docs-panel">
+                <div class="docs-layout-frame" style="padding: var(--cui-space-4, 1rem);">
+                  <div class="cui-split" style="--cui-split-start: 1fr; --cui-split-end: 2fr;">
+                    <div class="docs-layout-cell">Start (1fr)</div>
+                    <div class="docs-layout-cell">End (2fr)</div>
+                  </div>
+                </div>
+                <cui-code language="html"><script type="text/plain">
+<div class="cui-split" style="--cui-split-start: 1fr; --cui-split-end: 2fr;">
+  <aside>Sidebar</aside>
+  <main>Content</main>
+</div>
+</script></cui-code>
+              </section>
+            </cui-tabs>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr><th>Token</th><th>Default</th><th>Effect</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>--cui-split-gap</code></td><td><code>var(--cui-space-6)</code></td><td>Gap between columns</td></tr>
+                <tr><td><code>--cui-split-start</code></td><td><code>1fr</code></td><td>First column width</td></tr>
+                <tr><td><code>--cui-split-end</code></td><td><code>1fr</code></td><td>Second column width</td></tr>
+                <tr><td><code>--cui-split-align</code></td><td><code>center</code></td><td>Block-axis alignment</td></tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section id="sidebar" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Sidebar</h2>
+              <p>
+                Container-query driven sidebar layout. The sidebar appears once the parent is at least
+                <code>48rem</code> wide — useful inside a card or split where viewport-based queries would lie.
+              </p>
+            </div>
+
+            <div class="docs-layout-frame" style="padding: var(--cui-space-4, 1rem);">
+              <div class="cui-sidebar">
+                <aside class="docs-layout-cell">Side</aside>
+                <main class="docs-layout-cell" data-emphasis="primary">Main</main>
+              </div>
+            </div>
+
+            <cui-code language="html"><script type="text/plain">
+<div class="cui-sidebar">
+  <aside>Side</aside>
+  <main>Main</main>
+</div>
+</script></cui-code>
+          </section>
+
+          <section id="center" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Center &amp; cover</h2>
+              <p>
+                <code>cui-center</code> places its content in the middle of a region sized by
+                <code>--cui-center-size</code>. <code>cui-cover</code> reserves header / main / footer rows so the
+                main row fills remaining space — used for empty-states and viewport-tall splash screens.
+              </p>
+            </div>
+
+            <cui-tabs>
+              <button slot="tab" type="button">Center</button>
+              <button slot="tab" type="button">Cover</button>
+
+              <section slot="panel" class="docs-panel">
+                <div class="docs-layout-frame">
+                  <div class="cui-center" style="--cui-center-size: 14rem;">
+                    <div class="docs-layout-cell" data-emphasis="primary">Focused content</div>
+                  </div>
+                </div>
+                <cui-code language="html"><script type="text/plain">
+<div class="cui-center" style="--cui-center-size: 18rem;">
+  <div>Focused content</div>
+</div>
+</script></cui-code>
+              </section>
+
+              <section slot="panel" class="docs-panel">
+                <div class="docs-layout-frame">
+                  <div class="cui-cover" style="--cui-cover-size: 16rem;">
+                    <header class="docs-layout-cell">Top</header>
+                    <main class="cui-cover-main">
+                      <div class="docs-layout-cell" data-emphasis="primary">Centered main</div>
+                    </main>
+                    <footer class="docs-layout-cell">Bottom</footer>
+                  </div>
+                </div>
+                <cui-code language="html"><script type="text/plain">
+<div class="cui-cover">
+  <header>Top</header>
+  <main class="cui-cover-main">Centered main</main>
+  <footer>Bottom</footer>
+</div>
+</script></cui-code>
+              </section>
+            </cui-tabs>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr><th>Token</th><th>Default</th><th>Effect</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>--cui-center-size</code></td><td><code>100vb</code></td><td>Center region height</td></tr>
+                <tr><td><code>--cui-cover-size</code></td><td><code>100vb</code></td><td>Cover region height</td></tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section id="surface" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Surface</h2>
+              <p>
+                Card-like wrapper with raised background, hairline border, soft elevation, and rounded corners. Pair
+                with stack, cluster, or split inside.
+              </p>
+            </div>
+
+            <div class="docs-layout-frame" style="padding: var(--cui-space-4, 1rem);">
+              <div class="cui-grid" style="--cui-grid-min: 14rem;">
+                <div class="cui-surface cui-stack">
+                  <strong>Surface card</strong>
+                  <p style="margin: 0; color: var(--cui-color-muted);">
+                    Default elevation, hairline border, raised background.
+                  </p>
+                </div>
+                <div class="cui-surface cui-stack">
+                  <strong>With cluster</strong>
+                  <div class="cui-cluster">
+                    <cui-button variant="primary">Confirm</cui-button>
+                    <cui-button>Cancel</cui-button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <cui-code language="html"><script type="text/plain">
+<div class="cui-surface cui-stack">
+  <h3>Card title</h3>
+  <p>Body copy.</p>
+</div>
+</script></cui-code>
+          </section>
+
+          <section id="shell" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Shell</h2>
+              <p>
+                Sticky-header page chrome: header / body / footer in three rows. Use <code>cui-shell-bar</code> inside
+                the header for the toolbar row. The body fills remaining vertical space.
+              </p>
+            </div>
+
+            <div class="docs-layout-frame docs-layout-shell">
+              <div class="cui-shell" data-fill>
+                <header class="cui-shell-header">
+                  <div class="cui-page cui-shell-bar" style="padding-block: 0;">
+                    <strong>Workspace</strong>
+                    <div class="cui-cluster">
+                      <cui-button>Menu</cui-button>
+                      <cui-button variant="primary">New</cui-button>
+                    </div>
+                  </div>
+                </header>
+                <div class="cui-shell-body">
+                  <div class="cui-page cui-stack" style="padding-block: var(--cui-space-5);">
+                    <h3 style="margin: 0;">Body content</h3>
+                    <p style="margin: 0; color: var(--cui-color-muted);">
+                      Only the body scrolls — the header and footer stay pinned. Try it.
+                    </p>
+                    <div class="docs-layout-cell">Row 1</div>
+                    <div class="docs-layout-cell">Row 2</div>
+                    <div class="docs-layout-cell">Row 3</div>
+                    <div class="docs-layout-cell">Row 4</div>
+                    <div class="docs-layout-cell">Row 5</div>
+                    <div class="docs-layout-cell">Row 6</div>
+                    <div class="docs-layout-cell">Row 7</div>
+                    <div class="docs-layout-cell">Row 8</div>
+                  </div>
+                </div>
+                <footer class="cui-shell-footer">
+                  <div class="cui-page cui-shell-bar" style="padding-block: 0;">
+                    <span>Footer</span>
+                    <span style="color: var(--cui-color-muted);">v1.0</span>
+                  </div>
+                </footer>
+              </div>
+            </div>
+
+            <cui-code language="html"><script type="text/plain">
+<!-- Default: page scrolls, header sticks, footer at end of content -->
+<div class="cui-shell">
+  <header class="cui-shell-header">
+    <div class="cui-page cui-shell-bar">
+      <strong>Brand</strong>
+      <nav>…</nav>
+    </div>
+  </header>
+  <div class="cui-shell-body">
+    <div class="cui-page">…</div>
+  </div>
+  <footer class="cui-shell-footer">
+    <div class="cui-page cui-shell-bar">…</div>
+  </footer>
+</div>
+
+<!-- Fill mode: header and footer pinned, body scrolls internally.
+     Requires a constrained-height parent. -->
+<div class="cui-shell" data-fill>
+  <header class="cui-shell-header">…</header>
+  <div class="cui-shell-body">…</div>
+  <footer class="cui-shell-footer">…</footer>
+</div>
+</script></cui-code>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr><th>Modifier / token</th><th>Default</th><th>Effect</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>data-fill</code></td><td>—</td><td>Fill parent height; body scrolls internally; header / footer stay pinned.</td></tr>
+                <tr><td><code>--cui-shell-bar-size</code></td><td><code>4rem</code></td><td><code>.cui-shell-bar</code> minimum height</td></tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section id="app" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>App</h2>
+              <p>
+                Two-row, two-column application chrome: top bar plus a sidebar / main split. The sidebar is a
+                fixed-position drawer on narrow viewports and sits inline once the viewport is at least
+                <code>48rem</code>. Toggle with <code>data-sidebar="open"</code>.
+              </p>
+            </div>
+
+            <div class="docs-layout-frame docs-layout-app">
+              <div class="cui-app">
+                <header class="cui-shell-header">
+                  <div class="cui-page-wide cui-shell-bar" style="padding-block: 0;">
+                    <strong>Workspace</strong>
+                    <div class="cui-cluster">
+                      <cui-button>Menu</cui-button>
+                      <cui-button variant="primary">Create</cui-button>
+                    </div>
+                  </div>
+                </header>
+                <div class="cui-app-body">
+                  <aside class="cui-app-sidebar">
+                    <nav class="docs-side-nav" aria-label="Workspace">
+                      <a href="#overview" aria-current="page">Overview</a>
+                      <a href="#reports">Reports</a>
+                      <a href="#queue">Queue</a>
+                      <a href="#settings">Settings</a>
+                    </nav>
+                  </aside>
+                  <section class="cui-app-main">
+                    <div class="cui-page-wide cui-stack" style="padding-block: var(--cui-space-5);">
+                      <h3 style="margin: 0;">Operational dashboard</h3>
+                      <div class="cui-grid" style="--cui-grid-min: 12rem;">
+                        <div class="docs-layout-cell">Status</div>
+                        <div class="docs-layout-cell">Activity</div>
+                        <div class="docs-layout-cell">Queue</div>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </div>
+            </div>
+
+            <cui-code language="html"><script type="text/plain">
+<div class="cui-app" data-sidebar="open">
+  <header class="cui-shell-header">
+    <div class="cui-page-wide cui-shell-bar">
+      <strong>Brand</strong>
+      <nav>…</nav>
+    </div>
+  </header>
+  <div class="cui-app-body">
+    <aside class="cui-app-sidebar">…</aside>
+    <section class="cui-app-main">…</section>
+  </div>
+</div>
+</script></cui-code>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr><th>Token</th><th>Default</th><th>Effect</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>--cui-app-sidebar-size</code></td><td><code>16rem</code></td><td>Sidebar width</td></tr>
+                <tr><td><code>--cui-shell-bar-size</code></td><td><code>4rem</code></td><td>Top bar minimum height</td></tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <footer class="cui-section" data-spacing="compact">
+      <div class="cui-container cui-cluster docs-prevnext">
+        <cui-button href="./components.html">Previous: Components</cui-button>
+        <cui-button href="./theming.html">Next: Theming</cui-button>
+      </div>
+    </footer>
+  </main>
+</body>
+
+</html>

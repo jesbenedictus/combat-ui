@@ -1,3 +1,5 @@
+@layer reset, tokens, utilities, website, layout, components, docs;
+
 @layer docs {
   :root {
     --cui-docs-navbar-z-index: 50;
@@ -363,6 +365,62 @@
   .docs-token-table code {
     font-family: var(--cui-code-font, monospace);
     font-size: var(--cui-font-size-neg-1, 0.875rem);
+  }
+
+  .docs-layout-cell {
+    display: grid;
+    place-items: center;
+    min-block-size: 3.5rem;
+    border: var(--cui-border-size, 1px) dashed var(--cui-color-border, #cfd6df);
+    border-radius: var(--cui-radius-1, 0.25rem);
+    background: var(--cui-color-surface-muted, #edf0f4);
+    color: var(--cui-color-muted, #5d6675);
+    font-family: var(--cui-code-font, monospace);
+    font-size: var(--cui-font-size-neg-1, 0.875rem);
+    padding: var(--cui-space-3, 0.75rem);
+  }
+
+  .docs-layout-cell[data-emphasis="primary"] {
+    background: var(--cui-color-accent, oklch(57% 0.18 246deg));
+    color: var(--cui-color-on-accent, #fff);
+    border-style: solid;
+  }
+
+  .docs-layout-frame {
+    overflow: hidden;
+    border: var(--cui-border-size, 1px) solid var(--cui-color-border, #cfd6df);
+    border-radius: var(--cui-radius-2, 0.5rem);
+    background: var(--cui-color-surface, #f7f8fa);
+  }
+
+  .docs-layout-shell {
+    block-size: 22rem;
+    overflow: hidden;
+  }
+
+  .docs-layout-app {
+    block-size: 24rem;
+    overflow: hidden;
+  }
+
+  .docs-layout-app .cui-app {
+    min-block-size: 100%;
+  }
+
+  .docs-layout-app .cui-app-sidebar {
+    position: static;
+    inline-size: auto;
+    box-shadow: none;
+    transform: none;
+    visibility: visible;
+  }
+
+  .docs-layout-app .cui-app-body {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .docs-prevnext {
+    --cui-cluster-justify: space-between;
   }
 
   @media (width >= 64rem) {
