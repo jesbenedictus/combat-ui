@@ -4,14 +4,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Combat UI documentation, demos, and code examples.">
-  <title>Combat UI Documentation</title>
+  <meta name="description" content="Combat UI — responsive web primitives and progressive custom elements that compose with native HTML.">
+  <title>Combat UI</title>
   <script type="module" src="./index.ts"></script>
   <link rel="stylesheet" href="./site.css">
 </head>
 
 <body class="cui-site">
   <a class="cui-skip-link" href="#main">Skip to content</a>
+
   <header class="docs-navbar">
     <cui-navbar sticky>
       <a slot="brand" class="cui-nav-link" href="./index.html">Combat UI</a>
@@ -26,25 +27,136 @@
       </div>
     </cui-navbar>
   </header>
-  <main id="main" class="cui-page cui-stack">
-    <header class="cui-page-header">
-      <h1>Combat UI</h1>
-      <p class="cui-text-muted">Responsive web primitives and custom elements.</p>
-      <p>
-        <cui-theme-toggle></cui-theme-toggle>
-      </p>
-      <p>
-        <cui-theme-toggle label-auto="Thema: automatisch" label-light="Thema: licht" label-dark="Thema: donker"
-          aria-label-auto="Huidig thema: automatisch. Wijzig thema."
-          aria-label-light="Huidig thema: licht. Wijzig thema."
-          aria-label-dark="Huidig thema: donker. Wijzig thema."></cui-theme-toggle>
-      </p>
-    </header>
 
-    <section class="cui-cluster" aria-label="Button examples">
-      <cui-button variant="primary">Primary action</cui-button>
-      <cui-button>Secondary action</cui-button>
+  <main id="main">
+    <cui-hero variant="text" align="center">
+      <p slot="eyebrow">Combat UI</p>
+      <h1 slot="title">Progressive components that compose with native HTML.</h1>
+      <p>
+        A small set of token-driven CSS primitives and accessible custom elements. Light DOM stays yours; behavior and
+        ARIA stay ours.
+      </p>
+      <div slot="actions" class="cui-cluster">
+        <cui-button variant="primary" href="./foundations.html">Get started</cui-button>
+        <cui-button href="./components.html">Browse components</cui-button>
+      </div>
+    </cui-hero>
+
+    <section class="cui-section" data-spacing="compact">
+      <div class="cui-container cui-stack" style="--cui-stack-gap: var(--cui-space-6, 2rem);">
+        <div class="cui-prose">
+          <h2>Why Combat UI</h2>
+          <p>
+            Most "UI kits" replace the platform. Combat UI extends it. Layout primitives are class-based so they work
+            in any stack; interactive components are custom elements with open shadow DOM, slots, and CSS parts.
+            Everything routes through a small set of CSS custom properties — override one variable and the rest of the
+            system follows.
+          </p>
+        </div>
+
+        <div class="cui-grid" style="--cui-grid-min: 16rem;">
+          <article class="docs-card">
+            <h3>Native HTML, slotted</h3>
+            <p class="cui-text-muted">
+              Anchors, buttons, and copy stay in light DOM. SEO, analytics, and your existing CSS keep working.
+            </p>
+          </article>
+          <article class="docs-card">
+            <h3>Token-driven theming</h3>
+            <p class="cui-text-muted">
+              Colors, type, spacing, density, and component tokens cascade through plain CSS variables — no theme
+              provider, no runtime.
+            </p>
+          </article>
+          <article class="docs-card">
+            <h3>Progressive enhancement</h3>
+            <p class="cui-text-muted">
+              Pages render before JavaScript loads. Components hydrate behavior on top of HTML that's already
+              meaningful.
+            </p>
+          </article>
+        </div>
+      </div>
     </section>
+
+    <section class="cui-section cui-section-muted" data-spacing="compact">
+      <div class="cui-container cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+        <div class="cui-prose">
+          <h2>Install</h2>
+          <p>
+            Add the package, import the bundle, and the <code>cui-*</code> elements register on the global custom
+            element registry.
+          </p>
+        </div>
+
+        <cui-code language="bash"><script type="text/plain">
+npm install combat-ui
+</script></cui-code>
+
+        <cui-code language="javascript"><script type="text/plain">
+import "combat-ui";
+
+// Custom elements are registered. Use them anywhere.
+</script></cui-code>
+
+        <cui-code language="html"><script type="text/plain">
+<cui-hero variant="text" align="center">
+  <h1 slot="title">Hello, Combat UI</h1>
+  <p>That's it. No build step required to use the elements.</p>
+</cui-hero>
+</script></cui-code>
+      </div>
+    </section>
+
+    <section class="cui-section" data-spacing="compact">
+      <div class="cui-container cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+        <div class="cui-prose">
+          <h2>Documentation</h2>
+          <p>Four sections, in the order you'll usually read them.</p>
+        </div>
+
+        <div class="cui-grid" style="--cui-grid-min: 16rem;">
+          <a class="docs-link-card" href="./foundations.html">
+            <h3>Foundations</h3>
+            <p>Sections, containers, editorial type, flow rhythm, and utility classes.</p>
+          </a>
+          <a class="docs-link-card" href="./layouts.html">
+            <h3>Layouts</h3>
+            <p>Page wrappers, stack, cluster, grid, switcher, split, sidebar, shell, and app shells.</p>
+          </a>
+          <a class="docs-link-card" href="./components.html">
+            <h3>Components</h3>
+            <p>Hero, navbar, button, tabs, code, theme toggle — slot-based custom elements.</p>
+          </a>
+          <a class="docs-link-card" href="./theming.html">
+            <h3>Theming</h3>
+            <p>Color, type, spacing, density, dark mode, and the full per-component token reference.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="cui-section" data-spacing="compact">
+      <div class="cui-container cui-stack" style="--cui-stack-gap: var(--cui-space-4, 1rem);">
+        <p class="cui-eyebrow">Status</p>
+        <h2>Stable primitives, growing component set.</h2>
+        <p class="cui-lead">
+          Layout, theming, and foundation classes are stable. The component set is intentionally small and grows when a
+          pattern earns its keep.
+        </p>
+        <div class="cui-cluster">
+          <cui-button variant="primary" href="./foundations.html">Open foundations</cui-button>
+          <cui-button href="./examples/">See the demo</cui-button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="cui-section" data-spacing="compact">
+      <div class="cui-container cui-cluster docs-prevnext">
+        <span class="cui-text-muted">Combat UI</span>
+        <cui-button href="./foundations.html">Next: Foundations</cui-button>
+      </div>
+    </footer>
   </main>
 </body>
 

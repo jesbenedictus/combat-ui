@@ -51,7 +51,7 @@
     border-radius: var(--cui-radius-2, 0.5rem);
     background: var(--cui-color-surface-raised, #fff);
     box-shadow: var(--cui-shadow-1, 0 1px 2px hsl(220deg 25% 10% / 12%));
-    color: var(--cui-color-text, #1b1f27);
+    color: var(--cui-color, #1b1f27);
     padding: var(--cui-space-5, 1.5rem);
     text-decoration: none;
   }
@@ -70,7 +70,7 @@
   }
 
   .docs-link-card p {
-    color: var(--cui-color-text-muted, #5d6675);
+    color: var(--cui-color-muted, #5d6675);
   }
 
   .docs-doc-layout {
@@ -112,7 +112,7 @@
 
   .docs-side-nav a {
     border-radius: var(--cui-radius-control, 0.25rem);
-    color: var(--cui-color-text-muted, #5d6675);
+    color: var(--cui-color-muted, #5d6675);
     padding-block: var(--cui-space-2, 0.5rem);
     padding-inline: var(--cui-space-3, 0.75rem);
     text-decoration: none;
@@ -120,7 +120,7 @@
 
   .docs-side-nav a[aria-current="page"] {
     background: var(--cui-color-surface-muted, #edf0f4);
-    color: var(--cui-color-text, #1b1f27);
+    color: var(--cui-color, #1b1f27);
     font-weight: var(--cui-font-weight-strong, 680);
   }
 
