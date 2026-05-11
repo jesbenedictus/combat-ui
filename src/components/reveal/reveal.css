@@ -20,7 +20,7 @@
     0
   );
   transition:
-    opacity var(--cui-reveal-duration) var(--cui-reveal-easing)
+    opacity var(--cui-reveal-duration) var(--cui-reveal-easing),
     transform var(--cui-reveal-duration) var(--cui-reveal-easing);
   transition-delay: var(--cui-reveal-delay);
   will-change: opacity, transform;

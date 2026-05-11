@@ -35,7 +35,7 @@ export class CuiScrollStage extends CombatElement {
     if (!this.shadowRoot?.querySelector(".track")) {
       this.appendShadowTemplate(`
         <div class="track" part="track">
-          <div class="stage" part="stage"></div>
+          <div class="stage" part="stage">
             <slot></slot>
           </div>
         </div>
