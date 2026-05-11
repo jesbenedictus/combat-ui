@@ -1,12 +1,22 @@
 import "./index.css";
 import { defineCuiButton, CuiButton } from "./components/button";
-import { defineCuiThemeToggle, CuiThemeToggle, getTheme, setTheme, type Theme } from "./components/theme-toggle";
+import {
+  defineCuiThemeToggle,
+  CuiThemeToggle,
+  getTheme,
+  setTheme,
+  type Theme,
+} from "./components/theme-toggle";
 import { CuiNavbar, defineCuiNavbar } from "./components/navbar";
 import { CuiCode, defineCuiCode } from "./components/code";
 import { CuiTabs, defineCuiTabs } from "./components/tabs";
 import { CuiHero, defineCuiHero } from "./components/hero";
 import { CuiPageIntro, defineCuiPageIntro } from "./components/page-intro";
-import { CuiScrollStage, defineCuiScrollStage } from "./components/scroll-stage";
+import {
+  CuiScrollStage,
+  defineCuiScrollStage,
+} from "./components/scroll-stage";
+import { CuiReveal, defineCuiReveal } from "./components/reveal";
 
 export { CuiThemeToggle, getTheme, setTheme, defineCuiThemeToggle, type Theme };
 export { CuiButton, defineCuiButton };
@@ -16,6 +26,7 @@ export { CuiTabs, defineCuiTabs };
 export { CuiHero, defineCuiHero };
 export { CuiPageIntro, defineCuiPageIntro };
 export { CuiScrollStage, defineCuiScrollStage };
+export { CuiReveal, defineCuiReveal };
 export {
   attachCuiParallax,
   getScrollCoordinator,
@@ -28,7 +39,7 @@ export {
 } from "./internal/scroll-coordinator";
 
 export function defineCombatUi(
-  registry: CustomElementRegistry = customElements
+  registry: CustomElementRegistry = customElements,
 ): void {
   defineCuiButton(registry);
   defineCuiNavbar(registry);
@@ -38,6 +49,7 @@ export function defineCombatUi(
   defineCuiHero(registry);
   defineCuiPageIntro(registry);
   defineCuiScrollStage(registry);
+  defineCuiReveal(registry);
 }
 
-defineCombatUi()
+defineCombatUi();
