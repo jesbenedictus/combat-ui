@@ -1,11 +1,168 @@
-.cui-input {
+:where(.cui-input, .cui-select, .cui-textarea) {
+  --cui-input-bg: var(--cui-color-surface-raised, #fff);
+  --cui-input-border: var(--cui-color-border, #cfd6df);
+  --cui-input-color: var(--cui-color, #1b1f27);
+  --cui-input-placeholder: var(--cui-color-muted, #5d6675);
+  --cui-input-radius: var(--cui-radius-control, 0.25rem);
+  --cui-input-padding-block: 0.625rem;
+  --cui-input-padding-inline: 0.875rem;
+
   display: block;
   inline-size: 100%;
   min-block-size: var(--cui-size-control, 2.5rem);
-  border: var(--cui-border-size, 1px) solid var(--cui-color-border, #cfd6df);
-  border-radius: var(--cui-radius-control, 0.25rem);
-  background: var(--cui-color-surface-raised, #fff);
+  border: var(--cui-border-size, 1px) solid var(--cui-input-border);
+  border-radius: var(--cui-input-radius);
+  background: var(--cui-input-bg);
+  color: var(--cui-input-color);
+  padding-block: var(--cui-input-padding-block);
+  padding-inline: var(--cui-input-padding-inline);
+  font: inherit;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.cui-textarea {
+  min-block-size: 6rem;
+  resize: vertical;
+}
+
+.cui-select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(-45deg, transparent 50%, currentColor 50%);
+  background-position:
+    calc(100% - 1.125rem) center,
+    calc(100% - 0.625rem) center;
+  background-size: 0.5rem 0.5rem;
+  background-repeat: no-repeat;
+  padding-inline-end: 2rem;
+}
+
+:where(.cui-input, .cui-select, .cui-textarea):focus-visible {
+  outline: 2px solid var(--cui-color-focus, currentColor);
+  outline-offset: -1px;
+  border-color: var(--cui-color-focus, currentColor);
+}
+
+:where(.cui-input, .cui-textarea)::placeholder {
+  color: var(--cui-input-placeholder);
+}
+
+:where(.cui-input, .cui-select, .cui-textarea):disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+:where(.cui-input, .cui-select, .cui-textarea):read-only:not(:disabled) {
+  background: var(--cui-color-surface-muted, #edf0f4);
+}
+
+:where(.cui-input, .cui-select, .cui-textarea):user-invalid,
+cui-field[data-invalid] :where(.cui-input, .cui-select, .cui-textarea) {
+  border-color: var(--cui-color-danger, #b3261e);
+}
+
+.cui-check {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cui-space-2, 0.5rem);
+  cursor: pointer;
+}
+
+.cui-check input[type="checkbox"],
+.cui-check input[type="radio"] {
+  inline-size: 1.125rem;
+  block-size: 1.125rem;
+  accent-color: var(--cui-color-accent, #2563eb);
+  margin: 0;
+}
+
+.cui-switch {
+  --cui-switch-bg: var(--cui-color-surface-muted, #edf0f4);
+  --cui-switch-bg-on: var(--cui-color-accent, #2563eb);
+  --cui-switch-knob: var(--cui-color-surface-raised, #fff);
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cui-space-2, 0.5rem);
+  cursor: pointer;
+}
+
+.cui-switch input {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.cui-switch-track {
+  position: relative;
+  display: inline-block;
+  inline-size: 2.5rem;
+  block-size: 1.5rem;
+  border-radius: 999px;
+  background: var(--cui-switch-bg);
+  transition: background 160ms ease;
+}
+
+.cui-switch-track::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 2px;
+  inset-inline-start: 2px;
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  border-radius: 50%;
+  background: var(--cui-switch-knob);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+  transition: transform 160ms ease;
+}
+
+.cui-switch input:checked + .cui-switch-track {
+  background: var(--cui-switch-bg-on);
+}
+
+.cui-switch input:checked + .cui-switch-track::after {
+  transform: translateX(1rem);
+}
+
+.cui-switch input:focus-visible + .cui-switch-track {
+  outline: 2px solid var(--cui-color-focus, currentColor);
+  outline-offset: 2px;
+}
+
+.cui-fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--cui-space-3, 0.75rem);
+}
+
+.cui-fieldset > legend {
+  font-weight: var(--cui-font-weight-strong, 680);
+  margin-block-end: var(--cui-space-2, 0.5rem);
+}
+
+.cui-field-label {
+  display: block;
+  font-weight: var(--cui-font-weight-strong, 680);
+  margin-block-end: var(--cui-space-1, 0.25rem);
   color: var(--cui-color, #1b1f27);
-  padding-block: 0.625rem;
-  padding-inline: 0.875rem;
+}
+
+.cui-field-help {
+  display: block;
+  margin-block-start: var(--cui-space-1, 0.25rem);
+  font-size: var(--cui-font-size-1, 0.9375rem);
+  color: var(--cui-color-muted, #5d6675);
+}
+
+.cui-field-error {
+  display: block;
+  margin-block-start: var(--cui-space-1, 0.25rem);
+  font-size: var(--cui-font-size-1, 0.9375rem);
+  color: var(--cui-color-danger, #b3261e);
 }

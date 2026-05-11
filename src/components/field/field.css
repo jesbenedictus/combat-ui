@@ -1,0 +1,33 @@
+:host {
+  display: grid;
+  gap: var(--cui-space-1, 0.25rem);
+}
+
+[part="label"] {
+  font-weight: var(--cui-font-weight-strong, 680);
+  font-size: var(--cui-font-size-1, 0.9375rem);
+  color: var(--cui-color, #1b1f27);
+  cursor: pointer;
+}
+
+[part="control"] {
+  display: contents;
+}
+
+::slotted([slot="help"]) {
+  font-size: var(--cui-font-size-1, 0.9375rem);
+  color: var(--cui-color-muted, #5d6675);
+}
+
+[part="errors"] {
+  font-size: var(--cui-font-size-1, 0.9375rem);
+  color: var(--cui-color-danger, #b3261e);
+}
+
+[part="error"] {
+  margin: 0;
+}
+
+::slotted([slot^="error"]) {
+  margin: 0;
+}

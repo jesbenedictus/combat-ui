@@ -1,39 +1,28 @@
-import "./index.css";
-import { defineCuiButton, CuiButton } from "./components/button";
-import {
-  defineCuiThemeToggle,
-  CuiThemeToggle,
-  getTheme,
-  setTheme,
-  type Theme,
-} from "./components/theme-toggle";
-import { CuiNavbar, defineCuiNavbar } from "./components/navbar";
+import { CuiButton, defineCuiButton } from "./components/button";
 import { CuiCode, defineCuiCode } from "./components/code";
-import { CuiTabs, defineCuiTabs } from "./components/tabs";
+import { CuiField, defineCuiField } from "./components/field";
+import { CuiForm, defineCuiForm } from "./components/form";
 import { CuiHero, defineCuiHero } from "./components/hero";
+import { CuiNavbar, defineCuiNavbar } from "./components/navbar";
 import { CuiPageIntro, defineCuiPageIntro } from "./components/page-intro";
+import { CuiReveal, defineCuiReveal } from "./components/reveal";
 import {
   CuiScrollStage,
   defineCuiScrollStage,
 } from "./components/scroll-stage";
-import { CuiReveal, defineCuiReveal } from "./components/reveal";
+import { CuiTabs, defineCuiTabs } from "./components/tabs";
+import {
+  CuiThemeToggle,
+  defineCuiThemeToggle,
+  getTheme,
+  setTheme,
+  type Theme,
+} from "./components/theme-toggle";
 import { CuiTree, defineCuiTree } from "./components/tree";
+import "./index.css";
 
-export { CuiThemeToggle, getTheme, setTheme, defineCuiThemeToggle, type Theme };
-export { CuiButton, defineCuiButton };
-export { CuiNavbar, defineCuiNavbar };
-export { CuiCode, defineCuiCode };
-export { CuiTabs, defineCuiTabs };
-export { CuiHero, defineCuiHero };
-export { CuiPageIntro, defineCuiPageIntro };
-export { CuiScrollStage, defineCuiScrollStage };
-export { CuiReveal, defineCuiReveal };
-export { CuiTree, defineCuiTree };
 export type {
-  CuiTreeDropPosition,
-  CuiTreeDropDetail,
-  CuiTreeItemDetail,
-  CuiTreeContextDetail,
+  CuiTreeContextDetail, CuiTreeDropDetail, CuiTreeDropPosition, CuiTreeItemDetail
 } from "./components/tree";
 export {
   attachCuiParallax,
@@ -43,8 +32,22 @@ export {
   type ParallaxRegistration,
   type ScrollStageHandle,
   type ScrollStageOptions,
-  type ScrollStageState,
+  type ScrollStageState
 } from "./internal/scroll-coordinator";
+export { CuiButton, CuiCode, CuiHero, CuiNavbar, CuiPageIntro, CuiReveal, CuiScrollStage, CuiTabs, CuiThemeToggle, CuiTree, defineCuiButton, defineCuiCode, defineCuiHero, defineCuiNavbar, defineCuiPageIntro, defineCuiReveal, defineCuiScrollStage, defineCuiTabs, defineCuiThemeToggle, defineCuiTree, getTheme, setTheme, type Theme };
+export { CuiField, defineCuiField };
+export type {
+  CuiFieldControl,
+  CuiFieldValidator,
+  CuiFieldInvalidDetail,
+  CuiFieldValidDetail,
+} from "./components/field";
+export { CuiForm, defineCuiForm };
+export type {
+  CuiFormSubmitHandler,
+  CuiFormSubmitDetail,
+  CuiFormErrorDetail,
+} from "./components/form";
 
 export function defineCombatUi(
   registry: CustomElementRegistry = customElements,
@@ -59,6 +62,8 @@ export function defineCombatUi(
   defineCuiScrollStage(registry);
   defineCuiReveal(registry);
   defineCuiTree(registry);
+  defineCuiField(registry);
+  defineCuiForm(registry);
 }
 
 defineCombatUi();
