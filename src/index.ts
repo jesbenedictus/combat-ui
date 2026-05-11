@@ -17,6 +17,7 @@ import {
   defineCuiScrollStage,
 } from "./components/scroll-stage";
 import { CuiReveal, defineCuiReveal } from "./components/reveal";
+import { CuiTree, defineCuiTree } from "./components/tree";
 
 export { CuiThemeToggle, getTheme, setTheme, defineCuiThemeToggle, type Theme };
 export { CuiButton, defineCuiButton };
@@ -27,6 +28,13 @@ export { CuiHero, defineCuiHero };
 export { CuiPageIntro, defineCuiPageIntro };
 export { CuiScrollStage, defineCuiScrollStage };
 export { CuiReveal, defineCuiReveal };
+export { CuiTree, defineCuiTree };
+export type {
+  CuiTreeDropPosition,
+  CuiTreeDropDetail,
+  CuiTreeItemDetail,
+  CuiTreeContextDetail,
+} from "./components/tree";
 export {
   attachCuiParallax,
   getScrollCoordinator,
@@ -50,6 +58,7 @@ export function defineCombatUi(
   defineCuiPageIntro(registry);
   defineCuiScrollStage(registry);
   defineCuiReveal(registry);
+  defineCuiTree(registry);
 }
 
 defineCombatUi();

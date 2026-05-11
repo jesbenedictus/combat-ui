@@ -51,6 +51,7 @@
           <a class="cui-nav-link" href="#code">Code</a>
           <a class="cui-nav-link" href="#scroll-stage">Scroll stage</a>
           <a class="cui-nav-link" href="#reveal">Reveal</a>
+          <a class="cui-nav-link" href="#tree">Tree</a>
         </aside>
 
         <div class="cui-stack" style="--cui-stack-gap: var(--cui-space-7, 3rem);">
@@ -1005,6 +1006,193 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
                 </tbody>
               </table>
             </section>
+
+            <section id="tree" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+              <div class="cui-prose">
+                <h2>Tree</h2>
+                <p>
+                  <code>cui-tree</code> renders hierarchical content with keyboard navigation, drag &amp; drop
+                  reordering, and a cancelable <code>cui-tree-contextmenu</code> hook. The component handles ARIA
+                  (<code>role="tree"</code>, <code>aria-level</code>, <code>aria-expanded</code>,
+                  <code>aria-selected</code>), drop-zone detection (top third = before, bottom third = after,
+                  middle = into), and DOM moves. Selection, expand/collapse, and the context menu UI stay
+                  in the consumer's hands via events.
+                </p>
+              </div>
+
+              <div class="cui-stack">
+                <div class="docs-preview">
+                  <div class="docs-preview-frame docs-tree-frame">
+                    <cui-tree id="docs-tree" draggable-items>
+                      <ul>
+                        <li class="cui-tree-item" data-id="docs">
+                          <div class="cui-tree-row">
+                            <button class="cui-tree-toggle" type="button" aria-hidden="true"></button>
+                            <span>Docs</span>
+                          </div>
+                          <ul class="cui-tree-children">
+                            <li class="cui-tree-item" data-id="getting-started">
+                              <div class="cui-tree-row"><span>Getting started</span></div>
+                            </li>
+                            <li class="cui-tree-item" data-id="components">
+                              <div class="cui-tree-row">
+                                <button class="cui-tree-toggle" type="button" aria-hidden="true"></button>
+                                <span>Components</span>
+                              </div>
+                              <ul class="cui-tree-children">
+                                <li class="cui-tree-item" data-id="navbar">
+                                  <div class="cui-tree-row"><span>Navbar</span></div>
+                                </li>
+                                <li class="cui-tree-item" data-id="tabs">
+                                  <div class="cui-tree-row"><span>Tabs</span></div>
+                                </li>
+                                <li class="cui-tree-item" data-id="tree">
+                                  <div class="cui-tree-row"><span>Tree</span></div>
+                                </li>
+                              </ul>
+                            </li>
+                            <li class="cui-tree-item" data-id="theming">
+                              <div class="cui-tree-row"><span>Theming</span></div>
+                            </li>
+                          </ul>
+                        </li>
+                        <li class="cui-tree-item" data-id="archive">
+                          <div class="cui-tree-row">
+                            <button class="cui-tree-toggle" type="button" aria-hidden="true"></button>
+                            <span>Archive</span>
+                          </div>
+                          <ul class="cui-tree-children">
+                            <li class="cui-tree-item" data-id="legacy">
+                              <div class="cui-tree-row"><span>Legacy notes</span></div>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </cui-tree>
+
+                    <div id="docs-tree-menu" class="docs-tree-menu" role="menu" hidden>
+                      <button type="button" role="menuitem" data-action="duplicate">Duplicate</button>
+                      <button type="button" role="menuitem" data-action="rename">Rename</button>
+                      <button type="button" role="menuitem" data-action="delete">Delete</button>
+                    </div>
+                    <p class="cui-caption docs-tree-log" id="docs-tree-log" aria-live="polite"></p>
+                  </div>
+                </div>
+
+                <cui-code language="html">
+                  <script type="text/html">
+                    <cui-tree draggable-items>
+                      <ul>
+                        <li class="cui-tree-item" data-id="docs">
+                          <div class="cui-tree-row">
+                            <button class="cui-tree-toggle" type="button" aria-hidden="true"></button>
+                            <span>Docs</span>
+                          </div>
+                          <ul class="cui-tree-children">
+                            <li class="cui-tree-item" data-id="getting-started">
+                              <div class="cui-tree-row"><span>Getting started</span></div>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </cui-tree>
+                  </script>
+                </cui-code>
+
+                <cui-code language="javascript">
+                  <script type="text/javascript">
+                    const tree = document.getElementById("docs-tree");
+                    const menu = document.getElementById("docs-tree-menu");
+                    let menuTarget = null;
+
+                    tree.addEventListener("cui-tree-contextmenu", (event) => {
+                      event.preventDefault();
+                      menuTarget = event.detail.item;
+                      menu.style.top = event.detail.y + "px";
+                      menu.style.left = event.detail.x + "px";
+                      menu.hidden = false;
+                    });
+
+                    document.addEventListener("click", (event) => {
+                      if (!menu.contains(event.target)) menu.hidden = true;
+                    });
+
+                    menu.addEventListener("click", (event) => {
+                      const action = event.target.closest("[data-action]")?.dataset.action;
+                      if (action === "delete") menuTarget?.remove();
+                      if (action === "duplicate" && menuTarget) {
+                        menuTarget.after(menuTarget.cloneNode(true));
+                      }
+                      menu.hidden = true;
+                    });
+
+                    tree.addEventListener("cui-tree-drop", (event) => {
+                      const { source, target, position } = event.detail;
+                      console.log("moved", source.dataset.id, position, target.dataset.id);
+                    });
+                  </script>
+                </cui-code>
+
+                <table class="docs-token-table">
+                  <thead>
+                    <tr>
+                      <th>Attribute / event</th>
+                      <th>Purpose</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><code>draggable-items</code></td>
+                      <td>Enables HTML5 drag &amp; drop on every item row.</td>
+                    </tr>
+                    <tr>
+                      <td><code>selectable="false"</code></td>
+                      <td>Disables click selection. Keyboard focus still works.</td>
+                    </tr>
+                    <tr>
+                      <td><code>cui-tree-select</code></td>
+                      <td>Fires when an item is activated. <code>detail.item</code>.</td>
+                    </tr>
+                    <tr>
+                      <td><code>cui-tree-expand</code> / <code>cui-tree-collapse</code></td>
+                      <td>Fires after the expanded state flips. <code>detail.item</code>.</td>
+                    </tr>
+                    <tr>
+                      <td><code>cui-tree-contextmenu</code></td>
+                      <td>
+                        Cancelable. Call <code>preventDefault()</code> to suppress the browser menu and show your
+                        own. <code>detail: { item, originalEvent, x, y }</code>.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>cui-tree-dragstart</code></td>
+                      <td>Fires at the start of a drag. <code>detail.item</code>.</td>
+                    </tr>
+                    <tr>
+                      <td><code>cui-tree-drop</code></td>
+                      <td>
+                        Cancelable. <code>detail: { source, target, position }</code> where position is
+                        <code>"before"</code>, <code>"after"</code>, or <code>"into"</code>. Call
+                        <code>preventDefault()</code> to handle the move yourself; otherwise the component moves
+                        the source node into place.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>--cui-tree-indent</code></td>
+                      <td>Indent per depth level. Defaults to <code>1.25rem</code>.</td>
+                    </tr>
+                    <tr>
+                      <td><code>--cui-tree-row-hover</code> / <code>--cui-tree-row-selected</code></td>
+                      <td>Row background tokens for hover and selected states.</td>
+                    </tr>
+                    <tr>
+                      <td><code>--cui-tree-drop-line</code></td>
+                      <td>Color of the insertion line and the "into" outline.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
         </div>
       </div>
     </section>
@@ -1015,6 +1203,59 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
       </div>
     </footer>
   </main>
+  <script type="module">
+    const tree = document.getElementById("docs-tree");
+    const menu = document.getElementById("docs-tree-menu");
+    const log = document.getElementById("docs-tree-log");
+    let menuTarget = null;
+
+    const labelOf = (item) =>
+      item.querySelector(":scope > .cui-tree-row span")?.textContent ?? item.dataset.id ?? "item";
+
+    tree.addEventListener("cui-tree-contextmenu", (event) => {
+      event.preventDefault();
+      menuTarget = event.detail.item;
+      menu.style.top = event.detail.y + "px";
+      menu.style.left = event.detail.x + "px";
+      menu.hidden = false;
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!menu.contains(event.target)) menu.hidden = true;
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") menu.hidden = true;
+    });
+
+    menu.addEventListener("click", (event) => {
+      const action = event.target.closest("[data-action]")?.dataset.action;
+      if (!action || !menuTarget) return;
+      if (action === "delete") {
+        log.textContent = `Deleted ${labelOf(menuTarget)}.`;
+        menuTarget.remove();
+      } else if (action === "duplicate") {
+        const copy = menuTarget.cloneNode(true);
+        copy.removeAttribute("aria-selected");
+        menuTarget.after(copy);
+        log.textContent = `Duplicated ${labelOf(menuTarget)}.`;
+      } else if (action === "rename") {
+        const span = menuTarget.querySelector(":scope > .cui-tree-row span");
+        if (span) {
+          const next = prompt("Rename to", span.textContent ?? "");
+          if (next) {
+            span.textContent = next;
+            log.textContent = `Renamed to ${next}.`;
+          }
+        }
+      }
+      menu.hidden = true;
+    });
+
+    tree.addEventListener("cui-tree-drop", (event) => {
+      const { source, target, position } = event.detail;
+      log.textContent = `Moved ${labelOf(source)} ${position} ${labelOf(target)}.`;
+    });
+  </script>
 </body>
 
 </html>

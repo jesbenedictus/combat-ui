@@ -732,4 +732,48 @@
       flex-direction: column;
     }
   }
+
+  .docs-tree-frame {
+    --cui-tree-row-hover: var(--cui-color-surface-muted, #edf0f4);
+    --cui-tree-row-selected: var(--cui-color-surface-raised, #fff);
+  }
+
+  .docs-tree-log {
+    margin-block-start: var(--cui-space-3, 0.75rem);
+    min-block-size: 1.25rem;
+  }
+
+  .docs-tree-menu {
+    position: fixed;
+    z-index: 1000;
+    display: grid;
+    min-inline-size: 10rem;
+    padding: var(--cui-space-1, 0.25rem);
+    border: var(--cui-border-size, 1px) solid var(--cui-color-border, #cfd6df);
+    border-radius: var(--cui-radius-2, 0.5rem);
+    background: var(--cui-color-surface-raised, #fff);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  .docs-tree-menu[hidden] {
+    display: none;
+  }
+
+  .docs-tree-menu button {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: start;
+    padding: var(--cui-space-2, 0.5rem) var(--cui-space-3, 0.75rem);
+    border-radius: var(--cui-radius-control, 0.25rem);
+    cursor: pointer;
+  }
+
+  .docs-tree-menu button:hover,
+  .docs-tree-menu button:focus-visible {
+    background: var(--cui-color-surface-muted, #edf0f4);
+    outline: none;
+  }
 }
