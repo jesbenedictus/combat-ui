@@ -1,0 +1,60 @@
+:host {
+  --cui-reveal-delay: 0ms;
+  --cui-reveal-distance: 1.5rem;
+  --cui-reveal-threshold: 0.6;
+  --cui-reveal-duration: 420ms;
+  --cui-reveal-easing: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --_focus: var(--cui-stage-focus, 1);
+  --_t: var(--cui-reveal-threshold);
+  --_progress: clamp(0, calc((var(--_focus) - var(--_t)) / (1 - var(--_t))), 1);
+  --_inv: calc(1 - var(--_progress));
+  --_x: 0;
+  --_y: 1;
+
+  display: block;
+  opacity: var(--_progress);
+  transform: translate3d(
+    calc(var(--_x) * var(--_inv) * var(--cui-reveal-distance)),
+    calc(var(--_y) * var(--_inv) * var(--cui-reveal-distance)),
+    0
+  );
+  transition:
+    opacity var(--cui-reveal-duration) var(--cui-reveal-easing)
+    transform var(--cui-reveal-duration) var(--cui-reveal-easing);
+  transition-delay: var(--cui-reveal-delay);
+  will-change: opacity, transform;
+}
+
+:host([from="up"]) {
+  --_x: 0;
+  --_y: -1;
+}
+:host([from="down"]) {
+  --_x: 0;
+  --_y: 1;
+}
+:host([from="left"]) {
+  --_x: -1;
+  --_y: 0;
+}
+:host([from="right"]) {
+  --_x: 1;
+  --_y: 0;
+}
+:host([from="fade"]) {
+  --_x: 0;
+  --_y: 0;
+}
+
+:host([hidden]) {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :host {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
