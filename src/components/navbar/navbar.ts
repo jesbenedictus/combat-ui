@@ -84,11 +84,11 @@ export class CuiNavbar extends CombatElement {
     this.querySelectorAll(".cui-dropdown[data-open]").forEach((dropdown) => {
       if (
         exceptDropdown &&
-        dropdown !== exceptDropdown &&
-        !dropdown.contains(exceptDropdown)
+        (dropdown === exceptDropdown || dropdown.contains(exceptDropdown))
       ) {
-        dropdown.removeAttribute("data-open");
+        return; // keep the clicked dropdown + its ancestors open
       }
+      dropdown.removeAttribute("data-open");
     });
     this.syncDropdowns();
   }
@@ -131,12 +131,12 @@ export class CuiNavbar extends CombatElement {
     const zIndex = this.stickyZIndex;
 
     if (offset) {
-    // Numeric strings get px; anything with a unit/function passes through.
-    const value = /^-?\d+(\.\d+)?$/.test(offset) ? `${offset}px` : offset;
-    this.style.setProperty("--cui-navbar-sticky-offset", value);
-  } else {
-    this.style.removeProperty("--cui-navbar-sticky-offset");
-  }
+      // Numeric strings get px; anything with a unit/function passes through.
+      const value = /^-?\d+(\.\d+)?$/.test(offset) ? `${offset}px` : offset;
+      this.style.setProperty("--cui-navbar-sticky-offset", value);
+    } else {
+      this.style.removeProperty("--cui-navbar-sticky-offset");
+    }
 
     if (zIndex) {
       this.style.setProperty("--cui-navbar-sticky-z-index", String(zIndex));
@@ -216,8 +216,15 @@ export class CuiNavbar extends CombatElement {
     event.preventDefault();
 
     const shouldOpen = !dropdown.hasAttribute("data-open");
-    this.closeDropdowns(shouldOpen ? dropdown : null);
-    dropdown.toggleAttribute("data-open", shouldOpen);
+    if (shouldOpen) {
+      this.closeDropdowns(dropdown);
+      dropdown.setAttribute("data-open", "");
+    } else {
+      dropdown.removeAttribute("data-open");
+      dropdown
+        .querySelectorAll<HTMLElement>(".cui-dropdown[data-open]")
+        .forEach((nested) => nested.removeAttribute("data-open"));
+    }
     this.syncDropdowns();
   }
 }
