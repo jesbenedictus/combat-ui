@@ -76,6 +76,14 @@ class ScrollCoordinator {
     this.stages.add(handle);
     this.stageIndex.set(handle.element, handle);
     this.observer?.observe(handle.element);
+
+    if (typeof window !== "undefined") {
+      const initial = this.reduceMotion
+        ? FLAT_STATE
+        : this.computeStageState(handle, window.innerHeight);
+      handle.onUpdate(initial);
+    }
+
     this.requestTick();
   }
 

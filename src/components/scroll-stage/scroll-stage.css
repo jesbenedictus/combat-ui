@@ -1,12 +1,13 @@
 :host {
   --cui-stage-min-block-size: 180svh;
-  --cui-stage-sticky-top: 0;
+  --cui-stage-sticky-top: 0px;
+  --cui-stage-track-block-size: calc(100svh - var(--cui-stage-sticky-top));
   --cui-stage-focus: 0;
   --cui-stage-offset: 0;
   --cui-stage-active: 0;
   --cui-stage-perspective: 1400px;
   --cui-stage-perspective-origin: 50% 50%;
-  
+
   display: block;
   position: relative;
   min-block-size: var(--cui-stage-min-block-size);
@@ -19,7 +20,7 @@
 .track {
   position: sticky;
   top: var(--cui-stage-sticky-top);
-  block-size: calc(100svh - var(--cui-stage-sticky-top));
+  block-size: var(--cui-stage-track-block-size);
   overflow: clip;
   perspective: var(--cui-stage-perspective);
   perspective-origin: var(--cui-stage-perspective-origin);
@@ -30,12 +31,6 @@
   inline-size: 100%;
   block-size: 100%;
   transform-style: preserve-3d;
-}
-
-::slotted(*) {
-  --cui-stage-focus: var(--cui-stage-focus);
-  --cui-stage-offset: var(--cui-stage-offset);
-  --cui-stage-active: var(--cui-stage-active);
 }
 
 @media (prefers-reduced-motion: reduce) {
