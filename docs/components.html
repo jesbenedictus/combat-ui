@@ -40,6 +40,7 @@
           <a class="cui-nav-link" href="#reveal">Reveal</a>
           <a class="cui-nav-link" href="#tree">Tree</a>
           <a class="cui-nav-link" href="#modal">Modal</a>
+          <a class="cui-nav-link" href="#notifications">Notifications</a>
         </aside>
 
         <div class="cui-stack" style="--cui-stack-gap: var(--cui-space-7, 3rem);">
@@ -1527,6 +1528,314 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
                 </tbody>
               </table>
             </section>
+
+            <section id="notifications" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+              <div class="cui-prose">
+                <h2>Notifications</h2>
+                <p>
+                  Two flavors share the same <code>.cui-alert</code> CSS: static inline alerts sit in the page
+                  flow and need no JavaScript; floating toasts are created programmatically via the
+                  <code>toast()</code> function and slotted into a <code>cui-toast-region</code> that
+                  auto-creates itself on the first call. A <code>data-cui-dismiss</code> attribute on any
+                  button inside a <code>.cui-alert</code> removes its alert.
+                </p>
+              </div>
+
+              <cui-tabs>
+                <button slot="tab" type="button">Inline alerts</button>
+                <button slot="tab" type="button">Toasts</button>
+                <button slot="tab" type="button">Tones</button>
+
+                <section slot="panel" class="docs-panel">
+                  <div class="cui-stack">
+                    <div class="cui-stack">
+                      <div class="cui-alert" data-variant="info" role="status">
+                        <span class="cui-alert-icon" aria-hidden="true">i</span>
+                        <div class="cui-alert-body">
+                          <p class="cui-alert-title">Heads up</p>
+                          <p>Maintenance starts at 22:00 UTC.</p>
+                        </div>
+                        <button type="button" class="cui-alert-dismiss" data-cui-dismiss
+                          aria-label="Dismiss">&times;</button>
+                      </div>
+                      <div class="cui-alert" data-variant="success" role="status">
+                        <span class="cui-alert-icon" aria-hidden="true">✓</span>
+                        <div class="cui-alert-body">
+                          <p class="cui-alert-title">Saved.</p>
+                          <p>Your changes are live.</p>
+                        </div>
+                        <button type="button" class="cui-alert-dismiss" data-cui-dismiss
+                          aria-label="Dismiss">&times;</button>
+                      </div>
+                      <div class="cui-alert" data-variant="warning" role="alert">
+                        <span class="cui-alert-icon" aria-hidden="true">!</span>
+                        <div class="cui-alert-body">
+                          <p class="cui-alert-title">Be careful</p>
+                          <p>This branch has unsaved migrations.</p>
+                        </div>
+                        <button type="button" class="cui-alert-dismiss" data-cui-dismiss
+                          aria-label="Dismiss">&times;</button>
+                      </div>
+                      <div class="cui-alert" data-variant="danger" role="alert">
+                        <span class="cui-alert-icon" aria-hidden="true">✕</span>
+                        <div class="cui-alert-body">
+                          <p class="cui-alert-title">Failed</p>
+                          <p>Couldn't reach the upstream service. Retrying in 30s.</p>
+                        </div>
+                        <button type="button" class="cui-alert-dismiss" data-cui-dismiss
+                          aria-label="Dismiss">&times;</button>
+                      </div>
+                    </div>
+
+                    <cui-code language="html">
+                      <script type="text/html">
+                        <div class="cui-alert" data-variant="success" role="status">
+                          <span class="cui-alert-icon" aria-hidden="true">✓</span>
+                          <div class="cui-alert-body">
+                            <p class="cui-alert-title">Saved.</p>
+                            <p>Your changes are live.</p>
+                          </div>
+                          <button type="button" class="cui-alert-dismiss" data-cui-dismiss aria-label="Dismiss">&times;</button>
+                        </div>
+                      </script>
+                    </cui-code>
+
+                    <p class="cui-caption">
+                      No JavaScript required for styling. The dismiss button works as soon as the toast module
+                      is loaded — one global click listener handles <code>[data-cui-dismiss]</code> for any
+                      <code>.cui-alert</code> on the page.
+                    </p>
+                  </div>
+                </section>
+
+                <section slot="panel" class="docs-panel">
+                  <div class="cui-stack">
+                    <div class="cui-cluster">
+                      <button type="button" class="cui-button" id="docs-toast-info">Info</button>
+                      <button type="button" class="cui-button" id="docs-toast-success">Success</button>
+                      <button type="button" class="cui-button" id="docs-toast-warning">Warning</button>
+                      <button type="button" class="cui-button" id="docs-toast-danger">Danger</button>
+                      <button type="button" class="cui-button" id="docs-toast-sticky">Sticky</button>
+                      <button type="button" class="cui-button" id="docs-toast-update">Progress (update)</button>
+                    </div>
+
+                    <cui-code language="javascript">
+                      <script type="text/plain">
+                        import { toast } from "combat-ui";
+
+                        // Sugar
+                        toast.success("Saved.", { title: "Profile updated" });
+                        toast.danger("Network error", { duration: 0 }); // sticky
+
+                        // Object form returns a handle
+                        const handle = toast({
+                          message: "Processing…",
+                          variant: "info",
+                          duration: 0,
+                        });
+                        handle.update({ message: "Almost done…" });
+                        handle.dismiss();
+
+                        // Pick a corner: start-start | start-center | start-end | end-start | end-center | end-end
+                        toast.warning("Saved locally", { placement: "start-center" });
+                      </script>
+                    </cui-code>
+
+                    <p class="cui-caption">
+                      A <code>cui-toast-region</code> auto-mounts on first call. Place
+                      <code>&lt;cui-toast-region placement="end-end"&gt;&lt;/cui-toast-region&gt;</code> in
+                      your body to control the container yourself.
+                    </p>
+                  </div>
+                </section>
+
+                <section slot="panel" class="docs-panel">
+                  <div class="cui-stack">
+                    <div class="cui-stack">
+                      <div class="cui-alert" data-variant="info" role="status">
+                        <span class="cui-alert-icon" aria-hidden="true">i</span>
+                        <div class="cui-alert-body">
+                          <p>Default <code>outline</code> tone. Surface background with an accent stripe.</p>
+                        </div>
+                      </div>
+                      <div class="cui-alert" data-variant="info" data-tone="filled" role="status">
+                        <span class="cui-alert-icon" aria-hidden="true">i</span>
+                        <div class="cui-alert-body">
+                          <p><code>data-tone="filled"</code>. Subtle accent-tinted background.</p>
+                        </div>
+                      </div>
+                      <div class="cui-alert" data-variant="success" data-tone="solid" role="status">
+                        <span class="cui-alert-icon" aria-hidden="true">✓</span>
+                        <div class="cui-alert-body">
+                          <p><code>data-tone="solid"</code>. Full accent background, high-contrast text.</p>
+                        </div>
+                      </div>
+                      <div class="cui-alert" data-variant="danger" data-tone="solid" role="alert">
+                        <span class="cui-alert-icon" aria-hidden="true">✕</span>
+                        <div class="cui-alert-body">
+                          <p class="cui-alert-title">Critical</p>
+                          <p>Solid tone draws the eye for blocking errors.</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <cui-code language="html">
+                      <script type="text/html">
+                        <div class="cui-alert" data-variant="info" data-tone="filled">…</div>
+                        <div class="cui-alert" data-variant="danger" data-tone="solid">…</div>
+                      </script>
+                    </cui-code>
+                  </div>
+                </section>
+              </cui-tabs>
+
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>API</th>
+                    <th>Purpose</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>toast(options)</code></td>
+                    <td>Show a toast. Returns <code>{ element, dismiss(), update(opts) }</code>.</td>
+                  </tr>
+                  <tr>
+                    <td><code>toast.info(msg, opts?)</code> · <code>.success</code> · <code>.warning</code> ·
+                      <code>.danger</code></td>
+                    <td>Sugar — sets <code>variant</code> for you.</td>
+                  </tr>
+                  <tr>
+                    <td><code>handle.dismiss()</code></td>
+                    <td>Cancel the auto-dismiss timer and remove the toast (with the exit animation).</td>
+                  </tr>
+                  <tr>
+                    <td><code>handle.update(opts)</code></td>
+                    <td>Patch any option (message, title, variant, tone, duration). Resets the timer.</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>Option</th>
+                    <th>Default · Purpose</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>message</code></td>
+                    <td>Required. Body text.</td>
+                  </tr>
+                  <tr>
+                    <td><code>title</code></td>
+                    <td>Optional bold heading.</td>
+                  </tr>
+                  <tr>
+                    <td><code>variant</code></td>
+                    <td><code>"info"</code>. One of <code>info | success | warning | danger</code>.
+                      <code>warning</code> and <code>danger</code> render with <code>role="alert"</code>.</td>
+                  </tr>
+                  <tr>
+                    <td><code>tone</code></td>
+                    <td>None. <code>filled</code> or <code>solid</code> for heavier emphasis.</td>
+                  </tr>
+                  <tr>
+                    <td><code>duration</code></td>
+                    <td><code>4000</code> ms. Set <code>0</code> for sticky.</td>
+                  </tr>
+                  <tr>
+                    <td><code>placement</code></td>
+                    <td><code>"end-end"</code> (bottom right). Six positions: <code>start | end</code> on the
+                      block axis × <code>start | center | end</code> on the inline axis.</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>Markup attribute / class</th>
+                    <th>Purpose</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>.cui-alert</code></td>
+                    <td>Container. Grid layout: icon · body · dismiss.</td>
+                  </tr>
+                  <tr>
+                    <td><code>.cui-alert-icon</code> · <code>.cui-alert-body</code> ·
+                      <code>.cui-alert-title</code> · <code>.cui-alert-message</code> ·
+                      <code>.cui-alert-actions</code> · <code>.cui-alert-dismiss</code>
+                    </td>
+                    <td>Structural classes for the slots.</td>
+                  </tr>
+                  <tr>
+                    <td><code>data-variant="info | success | warning | danger"</code></td>
+                    <td>Sets the accent color and icon.</td>
+                  </tr>
+                  <tr>
+                    <td><code>data-tone="filled | solid"</code></td>
+                    <td>Visual weight. Omitted = outline tone.</td>
+                  </tr>
+                  <tr>
+                    <td><code>data-cui-dismiss</code></td>
+                    <td>On any element inside a <code>.cui-alert</code>. Clicks remove the alert with the exit
+                      animation.</td>
+                  </tr>
+                  <tr>
+                    <td><code>cui-alert-dismiss</code> event</td>
+                    <td>Bubbles from a <code>.cui-alert</code> after it's removed.</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>Variable</th>
+                    <th>Default</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>--cui-alert-bg</code></td>
+                    <td><code>--cui-color-surface-raised</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-alert-color</code></td>
+                    <td><code>--cui-color</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-alert-border</code></td>
+                    <td><code>--cui-color-border</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-alert-accent</code></td>
+                    <td>Per-variant <code>--cui-color-info | success | warning | danger</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-alert-radius</code></td>
+                    <td><code>--cui-radius-2</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-toast-z-index</code></td>
+                    <td><code>1000</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-toast-padding</code></td>
+                    <td><code>--cui-space-4</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-toast-gap</code></td>
+                    <td><code>--cui-space-2</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
         </div>
       </div>
     </section>
@@ -1538,6 +1847,56 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
     </footer>
   </main>
   <script type="module">
+    import { toast } from "../src/index";
+
+    // Toast demos
+    {
+      const variants = ["info", "success", "warning", "danger"];
+      for (const variant of variants) {
+        const btn = document.getElementById(`docs-toast-${variant}`);
+        btn?.addEventListener("click", () => {
+          toast[variant](`This is a ${variant} toast notification.`, {
+            title: variant[0].toUpperCase() + variant.slice(1),
+          });
+        });
+      }
+
+      const sticky = document.getElementById("docs-toast-sticky");
+      sticky?.addEventListener("click", () => {
+        toast({
+          title: "Sticky toast",
+          message: "Won't auto-dismiss. Click × to close.",
+          variant: "warning",
+          duration: 0,
+        });
+      });
+
+      const update = document.getElementById("docs-toast-update");
+      update?.addEventListener("click", () => {
+        const handle = toast({
+          title: "Uploading",
+          message: "0%",
+          variant: "info",
+          duration: 0,
+        });
+        let pct = 0;
+        const interval = setInterval(() => {
+          pct += 25;
+          if (pct < 100) {
+            handle.update({ message: `${pct}%` });
+          } else {
+            clearInterval(interval);
+            handle.update({
+              variant: "success",
+              title: "Uploaded",
+              message: "All files saved.",
+              duration: 2500,
+            });
+          }
+        }, 500);
+      });
+    }
+
     const tree = document.getElementById("docs-tree");
     const menu = document.getElementById("docs-tree-menu");
     const log = document.getElementById("docs-tree-log");

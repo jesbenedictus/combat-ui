@@ -13,6 +13,11 @@ import {
 } from "./components/scroll-stage";
 import { CuiTabs, defineCuiTabs } from "./components/tabs";
 import {
+  CuiToastRegion,
+  defineCuiToastRegion,
+  toast,
+} from "./components/toast";
+import {
   CuiThemeToggle,
   defineCuiThemeToggle,
   getTheme,
@@ -51,6 +56,14 @@ export type {
 } from "./components/form";
 export { CuiModal, defineCuiModal };
 export type { CuiModalCloseDetail } from "./components/modal";
+export { CuiToastRegion, defineCuiToastRegion, toast };
+export type {
+  CuiToastVariant,
+  CuiToastTone,
+  CuiToastPlacement,
+  CuiToastOptions,
+  CuiToastHandle,
+} from "./components/toast";
 
 export function defineCombatUi(
   registry: CustomElementRegistry = customElements,
@@ -68,6 +81,7 @@ export function defineCombatUi(
   defineCuiField(registry);
   defineCuiForm(registry);
   defineCuiModal(registry);
+  defineCuiToastRegion(registry);
 }
 
 defineCombatUi();
