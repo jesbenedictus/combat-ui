@@ -18,21 +18,7 @@
 
 <body class="cui-site">
   <a class="cui-skip-link" href="#main">Skip to content</a>
-  <header class="docs-navbar">
-    <cui-navbar sticky>
-      <a slot="brand" class="cui-nav-link" href="./index.html">Combat UI</a>
-      <a slot="nav" class="cui-nav-link" href="./index.html">Overview</a>
-      <a slot="nav" class="cui-nav-link" href="./foundations.html">Foundations</a>
-      <a slot="nav" class="cui-nav-link" href="./components.html" aria-current="page">Components</a>
-      <a slot="nav" class="cui-nav-link" href="./forms.html">Forms</a>
-      <a slot="nav" class="cui-nav-link" href="./layouts.html">Layouts</a>
-      <a slot="nav" class="cui-nav-link" href="./theming.html">Theming</a>
-      <a slot="nav" class="cui-nav-link" href="./examples/">Demo</a>
-      <div slot="actions" class="cui-cluster">
-        <cui-theme-toggle></cui-theme-toggle>
-      </div>
-    </cui-navbar>
-  </header>
+  <!--#include _partials/nav.html?current=components-->
   <main id="main" class="cui-page cui-stack">
     <header class="cui-page-header">
       <h1>Progressive components that compose with native HTML.</h1>
@@ -53,6 +39,7 @@
           <a class="cui-nav-link" href="#scroll-stage">Scroll stage</a>
           <a class="cui-nav-link" href="#reveal">Reveal</a>
           <a class="cui-nav-link" href="#tree">Tree</a>
+          <a class="cui-nav-link" href="#modal">Modal</a>
         </aside>
 
         <div class="cui-stack" style="--cui-stack-gap: var(--cui-space-7, 3rem);">
@@ -1194,6 +1181,352 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
                 </table>
               </div>
             </section>
+
+            <section id="modal" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+              <div class="cui-prose">
+                <h2>Modal</h2>
+                <p>
+                  <code>cui-modal</code> is a thin behavioral wrapper around the native
+                  <code>&lt;dialog&gt;</code> element. The dialog stays in light DOM, so you get the top
+                  layer, focus trap, ESC handling, and <code>form method="dialog"</code> support for free.
+                  The component adds declarative triggers, programmatic <code>open()</code> /
+                  <code>close(value?)</code>, and cancelable events.
+                </p>
+              </div>
+
+              <cui-tabs>
+                <button slot="tab" type="button">Confirmation</button>
+                <button slot="tab" type="button">Form modal</button>
+                <button slot="tab" type="button">Side sheet</button>
+
+                <section slot="panel" class="docs-panel">
+                  <div class="cui-stack">
+                    <div class="docs-preview">
+                      <div class="docs-preview-frame">
+                        <button type="button" class="cui-button" data-variant="primary"
+                          data-cui-modal-target="docs-confirm-modal">
+                          Delete project
+                        </button>
+
+                        <cui-modal id="docs-confirm-modal">
+                          <dialog class="cui-dialog">
+                            <header class="cui-dialog-header">
+                              <h3 class="cui-dialog-title">Delete project?</h3>
+                              <button type="button" class="cui-dialog-close" data-cui-modal-close
+                                aria-label="Close">&times;</button>
+                            </header>
+                            <div class="cui-dialog-body">
+                              <p>This action cannot be undone. The project and all its data will be
+                                permanently removed.</p>
+                            </div>
+                            <footer class="cui-dialog-actions">
+                              <button type="button" class="cui-button"
+                                data-cui-modal-close="cancel">Cancel</button>
+                              <button type="button" class="cui-button" data-variant="primary"
+                                data-cui-modal-close="confirm">Delete</button>
+                            </footer>
+                          </dialog>
+                        </cui-modal>
+
+                        <p class="cui-caption docs-modal-log" id="docs-confirm-modal-log" aria-live="polite">
+                        </p>
+                      </div>
+                    </div>
+
+                    <cui-code language="html">
+                      <script type="text/html">
+                        <button class="cui-button" data-cui-modal-target="confirm">Delete</button>
+
+                        <cui-modal id="confirm">
+                          <dialog class="cui-dialog">
+                            <header class="cui-dialog-header">
+                              <h3 class="cui-dialog-title">Delete project?</h3>
+                              <button type="button" class="cui-dialog-close" data-cui-modal-close aria-label="Close">&times;</button>
+                            </header>
+                            <div class="cui-dialog-body">
+                              <p>This cannot be undone.</p>
+                            </div>
+                            <footer class="cui-dialog-actions">
+                              <button class="cui-button" data-cui-modal-close="cancel">Cancel</button>
+                              <button class="cui-button" data-variant="primary" data-cui-modal-close="confirm">Delete</button>
+                            </footer>
+                          </dialog>
+                        </cui-modal>
+                      </script>
+                    </cui-code>
+
+                    <cui-code language="javascript">
+                      <script type="text/plain">
+                        document.getElementById("confirm").addEventListener("cui-modal-close", (event) => {
+                          if (event.detail.returnValue === "confirm") {
+                            doDelete();
+                          }
+                        });
+                      </script>
+                    </cui-code>
+                  </div>
+                </section>
+
+                <section slot="panel" class="docs-panel">
+                  <div class="cui-stack">
+                    <div class="docs-preview">
+                      <div class="docs-preview-frame">
+                        <button type="button" class="cui-button"
+                          data-cui-modal-target="docs-form-modal">Edit profile</button>
+
+                        <cui-modal id="docs-form-modal">
+                          <dialog class="cui-dialog" data-size="md">
+                            <form method="dialog" class="cui-stack">
+                              <header class="cui-dialog-header">
+                                <h3 class="cui-dialog-title">Edit profile</h3>
+                                <button type="button" class="cui-dialog-close" data-cui-modal-close
+                                  aria-label="Close">&times;</button>
+                              </header>
+                              <div class="cui-dialog-body cui-stack">
+                                <label class="cui-field-label">
+                                  Display name
+                                  <input class="cui-input" name="name" type="text" value="Jordan">
+                                </label>
+                                <label class="cui-field-label">
+                                  Bio
+                                  <textarea class="cui-textarea" name="bio" rows="3"></textarea>
+                                </label>
+                              </div>
+                              <footer class="cui-dialog-actions">
+                                <button type="submit" value="cancel" class="cui-button">Cancel</button>
+                                <button type="submit" value="save" class="cui-button"
+                                  data-variant="primary">Save</button>
+                              </footer>
+                            </form>
+                          </dialog>
+                        </cui-modal>
+
+                        <p class="cui-caption docs-modal-log" id="docs-form-modal-log" aria-live="polite"></p>
+                      </div>
+                    </div>
+
+                    <cui-code language="html">
+                      <script type="text/html">
+                        <cui-modal id="edit-profile">
+                          <dialog class="cui-dialog" data-size="md">
+                            <form method="dialog" class="cui-stack">
+                              <header class="cui-dialog-header">
+                                <h3 class="cui-dialog-title">Edit profile</h3>
+                                <button type="button" class="cui-dialog-close" data-cui-modal-close aria-label="Close">&times;</button>
+                              </header>
+                              <div class="cui-dialog-body cui-stack">
+                                <label class="cui-field-label">
+                                  Display name
+                                  <input class="cui-input" name="name" type="text">
+                                </label>
+                              </div>
+                              <footer class="cui-dialog-actions">
+                                <button type="submit" value="cancel" class="cui-button">Cancel</button>
+                                <button type="submit" value="save" class="cui-button"
+                                  data-variant="primary">Save</button>
+                              </footer>
+                            </form>
+                          </dialog>
+                        </cui-modal>
+                      </script>
+                    </cui-code>
+
+                    <p class="cui-caption">
+                      A native <code>&lt;form method="dialog"&gt;</code> auto-closes the dialog when a
+                      button inside is clicked. Each button's <code>value</code> attribute becomes the
+                      <code>returnValue</code> on the close event. No JavaScript wiring required to capture
+                      the choice.
+                    </p>
+                  </div>
+                </section>
+
+                <section slot="panel" class="docs-panel">
+                  <div class="cui-stack">
+                    <div class="docs-preview">
+                      <div class="docs-preview-frame">
+                        <button type="button" class="cui-button"
+                          data-cui-modal-target="docs-sheet-modal">Open settings</button>
+
+                        <cui-modal id="docs-sheet-modal">
+                          <dialog class="cui-dialog" data-variant="sheet-end">
+                            <header class="cui-dialog-header">
+                              <h3 class="cui-dialog-title">Settings</h3>
+                              <button type="button" class="cui-dialog-close" data-cui-modal-close
+                                aria-label="Close">&times;</button>
+                            </header>
+                            <div class="cui-dialog-body">
+                              <p>A side sheet slides in from the inline-end edge with full block-size.
+                                Useful for navigation, filters, or detail panels that benefit from
+                                vertical real estate.</p>
+                              <p>Same API as the centered variant — only the <code>data-variant</code>
+                                attribute changes.</p>
+                            </div>
+                          </dialog>
+                        </cui-modal>
+                      </div>
+                    </div>
+
+                    <cui-code language="html">
+                      <script type="text/html">
+                        <cui-modal id="settings">
+                          <dialog class="cui-dialog" data-variant="sheet-end">
+                            <header class="cui-dialog-header">
+                              <h3 class="cui-dialog-title">Settings</h3>
+                              <button type="button" class="cui-dialog-close" data-cui-modal-close aria-label="Close">&times;</button>
+                            </header>
+                            <div class="cui-dialog-body">…</div>
+                          </dialog>
+                        </cui-modal>
+                      </script>
+                    </cui-code>
+                  </div>
+                </section>
+              </cui-tabs>
+
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>Attribute / property</th>
+                    <th>Purpose</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>open</code></td>
+                    <td>Reflects the modal's open state. Setting or removing toggles via the API.</td>
+                  </tr>
+                  <tr>
+                    <td><code>dismissible="false"</code></td>
+                    <td>Blocks ESC and backdrop-click dismissal. Programmatic close still works.</td>
+                  </tr>
+                  <tr>
+                    <td><code>modal.open()</code></td>
+                    <td>Opens the modal (delegates to <code>dialog.showModal()</code>).</td>
+                  </tr>
+                  <tr>
+                    <td><code>modal.close(value?)</code></td>
+                    <td>Closes, optionally setting <code>returnValue</code>.</td>
+                  </tr>
+                  <tr>
+                    <td><code>modal.toggle()</code></td>
+                    <td>Opens if closed, closes if open.</td>
+                  </tr>
+                  <tr>
+                    <td><code>modal.isOpen</code></td>
+                    <td>Boolean — current state.</td>
+                  </tr>
+                  <tr>
+                    <td><code>modal.returnValue</code></td>
+                    <td>The value set by the most recent close.</td>
+                  </tr>
+                  <tr>
+                    <td><code>modal.dialog</code></td>
+                    <td>Reference to the inner <code>&lt;dialog&gt;</code> element.</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>Markup attribute / class</th>
+                    <th>Purpose</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>data-cui-modal-target="&lt;id&gt;"</code></td>
+                    <td>On any clickable element. Opens the modal with that <code>id</code>.</td>
+                  </tr>
+                  <tr>
+                    <td><code>data-cui-modal-close[="&lt;value&gt;"]</code></td>
+                    <td>On any element inside a modal. Closes with optional <code>returnValue</code>.</td>
+                  </tr>
+                  <tr>
+                    <td><code>.cui-dialog</code></td>
+                    <td>Required class on the <code>&lt;dialog&gt;</code> for styling.</td>
+                  </tr>
+                  <tr>
+                    <td><code>.cui-dialog-header</code> · <code>.cui-dialog-title</code> ·
+                      <code>.cui-dialog-close</code> · <code>.cui-dialog-body</code> ·
+                      <code>.cui-dialog-actions</code>
+                    </td>
+                    <td>Optional structural classes.</td>
+                  </tr>
+                  <tr>
+                    <td><code>data-size="sm | md | lg | full"</code></td>
+                    <td>On the <code>&lt;dialog&gt;</code>. Width preset.</td>
+                  </tr>
+                  <tr>
+                    <td><code>data-variant="sheet-end"</code></td>
+                    <td>On the <code>&lt;dialog&gt;</code>. Side-sheet drawer variant.</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>Event</th>
+                    <th>Detail / behavior</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>cui-modal-open</code></td>
+                    <td>Fired after the dialog opens.</td>
+                  </tr>
+                  <tr>
+                    <td><code>cui-modal-close</code></td>
+                    <td><code>{ returnValue }</code>. Fired after the dialog closes.</td>
+                  </tr>
+                  <tr>
+                    <td><code>cui-modal-cancel</code></td>
+                    <td>Cancelable. Fired when ESC is pressed. Call <code>preventDefault()</code> to
+                      block the close.</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>Variable</th>
+                    <th>Default</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>--cui-dialog-bg</code></td>
+                    <td><code>--cui-color-surface-raised</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-dialog-border</code></td>
+                    <td><code>--cui-color-border</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-dialog-radius</code></td>
+                    <td><code>--cui-radius-2</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-dialog-padding</code></td>
+                    <td><code>--cui-space-5</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-dialog-max-inline-size</code></td>
+                    <td><code>28rem</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-dialog-shadow</code></td>
+                    <td><code>0 16px 48px rgba(0, 0, 0, 0.18)</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-dialog-backdrop</code></td>
+                    <td><code>rgba(0, 0, 0, 0.4)</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
         </div>
       </div>
     </section>
@@ -1256,6 +1589,40 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
       const { source, target, position } = event.detail;
       log.textContent = `Moved ${labelOf(source)} ${position} ${labelOf(target)}.`;
     });
+
+    // Modal: confirmation demo
+    {
+      const modal = document.getElementById("docs-confirm-modal");
+      const log = document.getElementById("docs-confirm-modal-log");
+      if (modal && log) {
+        modal.addEventListener("cui-modal-close", (event) => {
+          const value = event.detail.returnValue;
+          log.textContent = value
+            ? `Closed with returnValue: ${value}`
+            : "Closed (no return value).";
+        });
+      }
+    }
+
+    // Modal: form modal demo
+    {
+      const modal = document.getElementById("docs-form-modal");
+      const log = document.getElementById("docs-form-modal-log");
+      if (modal && log) {
+        modal.addEventListener("cui-modal-close", (event) => {
+          const value = event.detail.returnValue;
+          if (value === "save") {
+            const form = modal.querySelector("form");
+            const data = Object.fromEntries(new FormData(form));
+            log.textContent = `Saved: ${JSON.stringify(data)}`;
+          } else if (value === "cancel") {
+            log.textContent = "Cancelled.";
+          } else {
+            log.textContent = "Dismissed.";
+          }
+        });
+      }
+    }
   </script>
 </body>
 

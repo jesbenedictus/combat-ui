@@ -3,6 +3,7 @@ import { CuiCode, defineCuiCode } from "./components/code";
 import { CuiField, defineCuiField } from "./components/field";
 import { CuiForm, defineCuiForm } from "./components/form";
 import { CuiHero, defineCuiHero } from "./components/hero";
+import { CuiModal, defineCuiModal } from "./components/modal";
 import { CuiNavbar, defineCuiNavbar } from "./components/navbar";
 import { CuiPageIntro, defineCuiPageIntro } from "./components/page-intro";
 import { CuiReveal, defineCuiReveal } from "./components/reveal";
@@ -48,6 +49,8 @@ export type {
   CuiFormSubmitDetail,
   CuiFormErrorDetail,
 } from "./components/form";
+export { CuiModal, defineCuiModal };
+export type { CuiModalCloseDetail } from "./components/modal";
 
 export function defineCombatUi(
   registry: CustomElementRegistry = customElements,
@@ -64,6 +67,7 @@ export function defineCombatUi(
   defineCuiTree(registry);
   defineCuiField(registry);
   defineCuiForm(registry);
+  defineCuiModal(registry);
 }
 
 defineCombatUi();

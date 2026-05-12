@@ -1,5 +1,6 @@
-import { resolve } from "node:path";
-import { defineConfig } from "vite";
+import { readFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { defineConfig, type Plugin } from "vite";
 import dts from "vite-plugin-dts";
 
 const isDocsRoot = process.argv.some(
@@ -7,12 +8,54 @@ const isDocsRoot = process.argv.some(
 );
 
 const docsDir = resolve(__dirname, "docs");
-const docsPages = ["index", "foundations", "components", "layouts", "theming"];
+const docsPages = [
+  "index",
+  "foundations",
+  "components",
+  "forms",
+  "layouts",
+  "theming",
+];
+
+function docsIncludes(): Plugin {
+  const partialsDir = resolve(docsDir, "_partials");
+  return {
+    name: "docs-includes",
+    transformIndexHtml(html, ctx) {
+      return html.replace(
+        /<!--#include\s+(\S+?)(?:\?([^>]+?))?\s*-->/g,
+        (_, path, query) => {
+          const fullPath = resolve(dirname(ctx.filename), path);
+          let partial = readFileSync(fullPath, "utf-8");
+          if (query) {
+            const params = new URLSearchParams(query);
+            const current = params.get("current");
+            if (current) {
+              partial = partial.replace(
+                new RegExp(`(<a[^>]*\\sdata-page="${current}")`),
+                `$1 aria-current="page"`,
+              );
+            }
+          }
+          return partial;
+        },
+      );
+    },
+    configureServer(server) {
+      server.watcher.add(partialsDir);
+      server.watcher.on("change", (file) => {
+        if (file.replaceAll("\\", "/").includes("/docs/_partials/")) {
+          server.ws.send({ type: "full-reload" });
+        }
+      });
+    },
+  };
+}
 
 export default defineConfig({
   base: isDocsRoot ? "./" : "/",
   plugins: isDocsRoot
-    ? []
+    ? [docsIncludes()]
     : [
         dts({
           tsconfigPath: "./tsconfig.src.json",
