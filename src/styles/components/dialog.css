@@ -1,0 +1,153 @@
+.cui-dialog {
+  --cui-dialog-bg: var(--cui-color-surface-raised, #fff);
+  --cui-dialog-color: var(--cui-color, #1b1f27);
+  --cui-dialog-border: var(--cui-color-border, #cfd6df);
+  --cui-dialog-radius: var(--cui-radius-2, 0.5rem);
+  --cui-dialog-padding: var(--cui-space-5, 1.5rem);
+  --cui-dialog-max-inline-size: 28rem;
+  --cui-dialog-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
+  --cui-dialog-backdrop: rgba(0, 0, 0, 0.4);
+
+  border: var(--cui-border-size, 1px) solid var(--cui-dialog-border);
+  border-radius: var(--cui-dialog-radius);
+  background: var(--cui-dialog-bg);
+  color: var(--cui-dialog-color);
+  padding: var(--cui-dialog-padding);
+  inline-size: min(100vi - 2rem, var(--cui-dialog-max-inline-size));
+  max-block-size: calc(100vb - 2rem);
+  box-shadow: var(--cui-dialog-shadow);
+  overflow: auto;
+}
+
+.cui-dialog::backdrop {
+  background: var(--cui-dialog-backdrop);
+}
+
+.cui-dialog[data-size="sm"] {
+  --cui-dialog-max-inline-size: 22rem;
+}
+
+.cui-dialog[data-size="md"] {
+  --cui-dialog-max-inline-size: 32rem;
+}
+
+.cui-dialog[data-size="lg"] {
+  --cui-dialog-max-inline-size: 44rem;
+}
+
+.cui-dialog[data-size="full"] {
+  --cui-dialog-max-inline-size: 100vi;
+  block-size: 100vb;
+  max-block-size: 100vb;
+  border-radius: 0;
+}
+
+.cui-dialog-header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: var(--cui-space-3, 0.75rem);
+  margin-block-end: var(--cui-space-3, 0.75rem);
+}
+
+.cui-dialog-title {
+  margin: 0;
+  font-size: var(--cui-font-size-3, 1.5rem);
+  font-weight: var(--cui-font-weight-strong, 680);
+  line-height: 1.2;
+}
+
+.cui-dialog-close {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  inline-size: 2rem;
+  block-size: 2rem;
+  border-radius: var(--cui-radius-control, 0.25rem);
+  display: inline-grid;
+  place-items: center;
+  cursor: pointer;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.cui-dialog-close:hover {
+  background: var(--cui-color-surface-muted, #edf0f4);
+}
+
+.cui-dialog-close:focus-visible {
+  outline: 2px solid var(--cui-color-focus, currentColor);
+  outline-offset: 2px;
+}
+
+.cui-dialog-body {
+  margin-block-end: var(--cui-space-4, 1rem);
+}
+
+.cui-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--cui-space-2, 0.5rem);
+}
+
+.cui-dialog[data-variant="sheet-end"] {
+  --cui-dialog-max-inline-size: 28rem;
+
+  margin-inline-start: auto;
+  margin-inline-end: 0;
+  margin-block: 0;
+  block-size: 100vb;
+  max-block-size: 100vb;
+  border-radius: 0;
+  border-inline-end: 0;
+  border-block: 0;
+}
+
+.cui-dialog[data-variant="sheet-end"]:dir(rtl) {
+  margin-inline-start: 0;
+  margin-inline-end: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cui-dialog[open] {
+    animation: cui-dialog-in 180ms ease;
+  }
+
+  .cui-dialog[open]::backdrop {
+    animation: cui-dialog-backdrop-in 180ms ease;
+  }
+
+  .cui-dialog[open][data-variant="sheet-end"] {
+    animation: cui-dialog-sheet-in 220ms ease;
+  }
+}
+
+@keyframes cui-dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes cui-dialog-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes cui-dialog-sheet-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: none;
+  }
+}

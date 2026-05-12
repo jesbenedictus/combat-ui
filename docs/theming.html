@@ -18,20 +18,7 @@
 
 <body class="cui-site">
   <a class="cui-skip-link" href="#main">Skip to content</a>
-  <header class="docs-navbar">
-    <cui-navbar sticky>
-      <a slot="brand" class="cui-nav-link" href="./index.html">Combat UI</a>
-      <a slot="nav" class="cui-nav-link" href="./index.html">Overview</a>
-      <a slot="nav" class="cui-nav-link" href="./foundations.html">Foundations</a>
-      <a slot="nav" class="cui-nav-link" href="./components.html">Components</a>
-      <a slot="nav" class="cui-nav-link" href="./layouts.html">Layouts</a>
-      <a slot="nav" class="cui-nav-link" href="./theming.html" aria-current="page">Theming</a>
-      <a slot="nav" class="cui-nav-link" href="./examples/">Demo</a>
-      <div slot="actions" class="cui-cluster">
-        <cui-theme-toggle></cui-theme-toggle>
-      </div>
-    </cui-navbar>
-  </header>
+  <!--#include _partials/nav.html?current=theming-->
 
   <main id="main" class="cui-page cui-stack">
     <header class="cui-page-header">
@@ -607,6 +594,30 @@ cui-button {
                 <tr><td><code>--cui-hero-title-size</code></td><td><code>var(--cui-font-size-display)</code></td><td>Hero title size</td></tr>
                 <tr><td><code>--cui-hero-bg</code></td><td><code>var(--cui-color-surface)</code></td><td>Section background</td></tr>
                 <tr><td><code>--cui-hero-color</code></td><td><code>var(--cui-color)</code></td><td>Foreground</td></tr>
+              </tbody>
+            </table>
+
+            <h3>Page intro</h3>
+            <table class="docs-token-table">
+              <thead>
+                <tr><th>Token</th><th>Default</th><th>Effect</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>--cui-page-intro-padding-block</code></td><td><code>var(--cui-section-space-compact)</code></td><td>Vertical padding</td></tr>
+                <tr><td><code>--cui-page-intro-gap</code></td><td><code>var(--cui-space-5)</code></td><td>Content / aside gap</td></tr>
+                <tr><td><code>--cui-page-intro-content-size</code></td><td><code>52rem</code></td><td>Content column max width</td></tr>
+                <tr><td><code>--cui-page-intro-aside-size</code></td><td><code>20rem</code></td><td>Aside column width</td></tr>
+                <tr><td><code>--cui-page-intro-title-size</code></td><td><code>var(--cui-font-size-5)</code></td><td>Title size (display in <code>landing</code> variant)</td></tr>
+                <tr><td><code>--cui-page-intro-bg</code></td><td><code>var(--cui-color-surface)</code></td><td>Background</td></tr>
+                <tr><td><code>--cui-page-intro-color</code></td><td><code>var(--cui-color)</code></td><td>Foreground</td></tr>
+                <tr><td><code>--cui-page-intro-title-color</code></td><td><code>var(--cui-page-intro-color)</code></td><td>Title color</td></tr>
+                <tr><td><code>--cui-page-intro-muted-color</code></td><td><code>var(--cui-color-muted)</code></td><td>Lead / meta color</td></tr>
+                <tr><td><code>--cui-page-intro-eyebrow-color</code></td><td><code>var(--cui-color-accent)</code></td><td>Eyebrow color</td></tr>
+                <tr><td><code>--cui-page-intro-inverse-bg</code></td><td><code>var(--cui-color-inverse-surface)</code></td><td>Inverse mode background</td></tr>
+                <tr><td><code>--cui-page-intro-inverse-color</code></td><td><code>var(--cui-color-inverse-text)</code></td><td>Inverse mode foreground</td></tr>
+                <tr><td><code>--cui-page-intro-inverse-muted-color</code></td><td><code>var(--cui-color-inverse-muted)</code></td><td>Inverse muted text</td></tr>
+                <tr><td><code>--cui-page-intro-inverse-eyebrow-color</code></td><td><code>var(--cui-color-inverse-eyebrow)</code></td><td>Inverse eyebrow</td></tr>
+                <tr><td><code>--cui-page-intro-inverse-aside-bg</code></td><td><code>var(--cui-color-inverse-surface-raised)</code></td><td>Inverse aside surface</td></tr>
               </tbody>
             </table>
 

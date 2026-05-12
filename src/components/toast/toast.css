@@ -1,0 +1,67 @@
+:host {
+  --cui-toast-z-index: 1000;
+  --cui-toast-padding: var(--cui-space-4, 1rem);
+  --cui-toast-gap: var(--cui-space-2, 0.5rem);
+
+  position: fixed;
+  inset: 0;
+  z-index: var(--cui-toast-z-index);
+  display: grid;
+  gap: var(--cui-toast-gap);
+  padding: var(--cui-toast-padding);
+  pointer-events: none;
+  align-content: end;
+  justify-items: end;
+}
+
+:host([placement^="start-"]) {
+  align-content: start;
+}
+
+:host([placement$="-start"]) {
+  justify-items: start;
+}
+
+:host([placement$="-center"]) {
+  justify-items: center;
+}
+
+::slotted(.cui-alert) {
+  pointer-events: auto;
+  min-inline-size: 18rem;
+  max-inline-size: 28rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  ::slotted(.cui-alert) {
+    animation: cui-toast-in 220ms ease;
+    transition:
+      opacity 200ms ease,
+      transform 200ms ease;
+  }
+
+  ::slotted(.cui-alert[data-cui-dismissing]) {
+    opacity: 0;
+    transform: translateX(20%);
+  }
+
+  :host([placement$="-start"]) ::slotted(.cui-alert[data-cui-dismissing]) {
+    transform: translateX(-20%);
+  }
+
+  :host([placement$="-center"]) ::slotted(.cui-alert[data-cui-dismissing]) {
+    transform: translateY(-20%);
+  }
+}
+
+@keyframes cui-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,0 +1,102 @@
+.cui-tree-item {
+  --indent: calc(
+    var(--cui-tree-indent, 1.25rem) * (var(--cui-tree-level, 1) - 1)
+  );
+  list-style: none;
+  position: relative;
+  outline: none;
+}
+
+.cui-tree-item > .cui-tree-row {
+  display: flex;
+  align-items: center;
+  gap: var(--cui-space-2, 0.5rem);
+  padding: var(--cui-tree-row-padding, 0.25rem 0.5rem);
+  padding-inline-start: calc(
+    var(--cui-tree-row-padding-inline, 0.5rem) + var(--indent)
+  );
+  border-radius: var(--cui-tree-row-radius, 0.25rem);
+  cursor: default;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.cui-tree-item > .cui-tree-row:hover {
+  background: var(
+    --cui-tree-row-hover,
+    color-mix(in oklch, currentColor 8%, transparent)
+  );
+}
+
+.cui-tree-item[aria-selected="true"] > .cui-tree-row {
+  background: var(
+    --cui-tree-row-selected,
+    color-mix(in oklch, currentColor 14%, transparent)
+  );
+}
+
+.cui-tree-item:focus-visible > .cui-tree-row {
+  outline: 2px solid var(--cui-color-focus, currentColor);
+  outline-offset: -2px;
+}
+
+.cui-tree-toggle {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 1rem;
+  block-size: 1rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.cui-tree-toggle::before {
+  content: "";
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  border-inline-end: 2px solid currentColor;
+  border-block-end: 2px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform 120ms ease;
+}
+
+.cui-tree-item[aria-expanded="true"]
+  > .cui-tree-row
+  > .cui-tree-toggle::before {
+  transform: rotate(45deg);
+}
+
+.cui-tree-children {
+  display: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cui-tree-item[aria-expanded="true"] > .cui-tree-children {
+  display: block;
+}
+
+.cui-tree-item[data-dragging] {
+  opacity: 0.5;
+}
+
+.cui-tree-item[data-drop-position]::before,
+.cui-tree-item[data-drop-position]::after {
+  content: "";
+  position: absolute;
+  inset-inline: var(--indent) 0;
+  block-size: 2px;
+  background: var(--cui-tree-drop-line, currentColor);
+  pointer-events: none;
+}
+.cui-tree-item[data-drop-position="before"]::before {
+  inset-block-start: -1px;
+}
+.cui-tree-item[data-drop-position="after"]::after {
+  inset-block-end: -1px;
+}
+.cui-tree-item[data-drop-position="into"] > .cui-tree-row {
+  outline: 2px dashed var(--cui-tree-drop-line, currentColor);
+  outline-offset: -2px;
+}

@@ -8,8 +8,8 @@
   "include": [
     "docs/**/*.ts",
     "docs/**/*.d.ts",
-    "examples/**/*.ts",
-    "examples/**/*.d.ts"
+    "docs/examples/**/*.ts",
+    "docs/examples/**/*.d.ts"
   ],
   "references": [
     {

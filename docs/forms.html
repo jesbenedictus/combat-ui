@@ -1,0 +1,1085 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+    content="Combat UI forms: native HTML controls styled with CSS classes, wrapped in cui-field for labels and errors, orchestrated by cui-form with validation and i18n via slots.">
+  <title>Forms · Combat UI</title>
+  <script>
+    try {
+      var t = localStorage.getItem("cui-theme");
+      if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+    } catch (_) { }
+  </script>
+  <script type="module" src="./index.ts"></script>
+  <link rel="stylesheet" href="./site.css">
+</head>
+
+<body class="cui-site">
+  <a class="cui-skip-link" href="#main">Skip to content</a>
+  <!--#include _partials/nav.html?current=forms-->
+
+  <main id="main" class="cui-page cui-stack">
+    <header class="cui-page-header">
+      <h1>Native HTML forms, progressively enhanced.</h1>
+      <p>
+        Combat UI keeps real <code>&lt;form&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;select&gt;</code>, and
+        <code>&lt;textarea&gt;</code> elements in light DOM. CSS classes style them; <code>cui-field</code> wires
+        labels, help, errors, and ARIA; <code>cui-form</code> orchestrates validation and submit. Strings — labels,
+        help, error messages — stay yours and drop in as slots.
+      </p>
+    </header>
+
+    <section class="cui-section">
+      <div class="cui-container docs-doc-layout">
+        <aside class="docs-on-page" aria-label="On this page">
+          <a class="cui-nav-link" href="#quick-start">Quick start</a>
+          <a class="cui-nav-link" href="#form-classes">Form classes</a>
+          <a class="cui-nav-link" href="#cui-field">cui-field</a>
+          <a class="cui-nav-link" href="#cui-form">cui-form</a>
+          <a class="cui-nav-link" href="#validation">Validation pipeline</a>
+          <a class="cui-nav-link" href="#errors-i18n">Errors &amp; i18n</a>
+          <a class="cui-nav-link" href="#async">Async &amp; server errors</a>
+          <a class="cui-nav-link" href="#cross-field">Cross-field rules</a>
+          <a class="cui-nav-link" href="#tokens">Tokens</a>
+        </aside>
+
+        <div class="cui-stack" style="--cui-stack-gap: var(--cui-space-7, 3rem);">
+
+          <section id="quick-start" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Quick start</h2>
+              <p>
+                Put a native <code>&lt;form&gt;</code> inside <code>&lt;cui-form&gt;</code>, wrap each control in
+                <code>&lt;cui-field&gt;</code>, and style controls with the <code>.cui-input</code> family. The
+                <code>cui-field</code> wrapper handles ARIA wiring, <code>:user-invalid</code> styling, and error
+                rendering. <code>cui-form</code> blocks submission until validation passes and exposes the
+                <code>FormData</code> to your handler.
+              </p>
+            </div>
+
+            <div class="docs-preview">
+              <div class="docs-preview-frame docs-form-frame">
+                <cui-form id="quick-form">
+                  <form class="cui-stack" novalidate>
+                    <cui-field required>
+                      <span slot="label">Email</span>
+                      <input class="cui-input" type="email" name="email" autocomplete="email">
+                      <span slot="help">We never share your address.</span>
+                      <span slot="error-valueMissing">Please enter your email.</span>
+                      <span slot="error-typeMismatch">That doesn't look like a valid email address.</span>
+                    </cui-field>
+
+                    <cui-field required>
+                      <span slot="label">Password</span>
+                      <input class="cui-input" type="password" name="password" minlength="8">
+                      <span slot="help">At least 8 characters.</span>
+                      <p slot="error"></p>
+                    </cui-field>
+
+                    <div class="cui-cluster">
+                      <button type="submit" class="cui-button" data-variant="primary">Sign up</button>
+                      <button type="button" class="cui-button" id="quick-form-reset">Reset</button>
+                    </div>
+                  </form>
+                </cui-form>
+                <p class="cui-caption docs-form-log" id="quick-form-log" aria-live="polite"></p>
+              </div>
+            </div>
+
+            <cui-code language="html">
+              <script type="text/html">
+                <cui-form id="signup">
+                  <form class="cui-stack" novalidate>
+                    <cui-field required>
+                      <span slot="label">Email</span>
+                      <input class="cui-input" type="email" name="email" autocomplete="email">
+                      <span slot="help">We never share your address.</span>
+                      <span slot="error-valueMissing">Please enter your email.</span>
+                      <span slot="error-typeMismatch">That doesn't look like a valid email address.</span>
+                    </cui-field>
+
+                    <cui-field required>
+                      <span slot="label">Password</span>
+                      <input class="cui-input" type="password" name="password" minlength="8">
+                      <p slot="error"></p>
+                    </cui-field>
+
+                    <button type="submit" class="cui-button" data-variant="primary">Sign up</button>
+                  </form>
+                </cui-form>
+              </script>
+            </cui-code>
+
+            <cui-code language="javascript">
+              <script type="text/plain">
+                const form = document.getElementById("signup");
+
+                form.setSubmitHandler(async (data) => {
+                  const res = await fetch("/api/signup", { method: "POST", body: data });
+                  if (!res.ok) throw new Error("network");
+                });
+
+                form.addEventListener("cui-form-success", () => {
+                  alert("Account created.");
+                });
+              </script>
+            </cui-code>
+          </section>
+
+          <section id="form-classes" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Form classes</h2>
+              <p>
+                The <code>.cui-input</code> family styles native <code>&lt;input&gt;</code>,
+                <code>&lt;select&gt;</code>, and <code>&lt;textarea&gt;</code> elements. They work standalone — no
+                JavaScript required — and integrate with <code>cui-field</code> for validity affordances. CSS-only
+                forms still get correct <code>:user-invalid</code> styling.
+              </p>
+            </div>
+
+            <cui-tabs>
+              <button slot="tab" type="button">Text inputs</button>
+              <button slot="tab" type="button">Select &amp; textarea</button>
+              <button slot="tab" type="button">Choice controls</button>
+              <button slot="tab" type="button">Switches</button>
+              <button slot="tab" type="button">Fieldset</button>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <div class="docs-form-frame">
+                    <label class="cui-field-label">
+                      Email
+                      <input class="cui-input" type="email" placeholder="name@example.com">
+                    </label>
+                    <label class="cui-field-label">
+                      Password
+                      <input class="cui-input" type="password" placeholder="••••••••">
+                    </label>
+                    <label class="cui-field-label">
+                      Read-only
+                      <input class="cui-input" type="text" value="Read only" readonly>
+                    </label>
+                    <label class="cui-field-label">
+                      Disabled
+                      <input class="cui-input" type="text" value="Disabled" disabled>
+                    </label>
+                  </div>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <label class="cui-field-label">
+                        Email
+                        <input class="cui-input" type="email" placeholder="name@example.com">
+                      </label>
+                    </script>
+                  </cui-code>
+                </div>
+              </section>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <div class="docs-form-frame">
+                    <label class="cui-field-label">
+                      Country
+                      <select class="cui-select">
+                        <option>Belgium</option>
+                        <option>Netherlands</option>
+                        <option>Germany</option>
+                        <option>France</option>
+                      </select>
+                    </label>
+                    <label class="cui-field-label">
+                      Message
+                      <textarea class="cui-textarea" rows="4" placeholder="Type a few sentences…"></textarea>
+                    </label>
+                  </div>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <select class="cui-select">
+                        <option>Belgium</option>
+                        <option>Netherlands</option>
+                      </select>
+
+                      <textarea class="cui-textarea" rows="4"></textarea>
+                    </script>
+                  </cui-code>
+                </div>
+              </section>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <div class="docs-form-frame">
+                    <fieldset class="cui-fieldset">
+                      <legend>Notifications</legend>
+                      <label class="cui-check">
+                        <input type="checkbox" checked>
+                        <span>Product updates</span>
+                      </label>
+                      <label class="cui-check">
+                        <input type="checkbox">
+                        <span>Beta releases</span>
+                      </label>
+                      <label class="cui-check">
+                        <input type="checkbox" disabled>
+                        <span>Marketing (paused)</span>
+                      </label>
+                    </fieldset>
+
+                    <fieldset class="cui-fieldset">
+                      <legend>Plan</legend>
+                      <label class="cui-check">
+                        <input type="radio" name="plan" value="starter" checked>
+                        <span>Starter</span>
+                      </label>
+                      <label class="cui-check">
+                        <input type="radio" name="plan" value="team">
+                        <span>Team</span>
+                      </label>
+                      <label class="cui-check">
+                        <input type="radio" name="plan" value="enterprise">
+                        <span>Enterprise</span>
+                      </label>
+                    </fieldset>
+                  </div>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <label class="cui-check">
+                        <input type="checkbox">
+                        <span>Product updates</span>
+                      </label>
+
+                      <label class="cui-check">
+                        <input type="radio" name="plan" value="starter">
+                        <span>Starter</span>
+                      </label>
+                    </script>
+                  </cui-code>
+                </div>
+              </section>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <div class="docs-form-frame">
+                    <label class="cui-switch">
+                      <input type="checkbox" checked>
+                      <span class="cui-switch-track"></span>
+                      <span>Auto-save</span>
+                    </label>
+                    <label class="cui-switch">
+                      <input type="checkbox">
+                      <span class="cui-switch-track"></span>
+                      <span>Beta features</span>
+                    </label>
+                    <label class="cui-switch">
+                      <input type="checkbox" disabled>
+                      <span class="cui-switch-track"></span>
+                      <span>Telemetry (disabled)</span>
+                    </label>
+                  </div>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <label class="cui-switch">
+                        <input type="checkbox" checked>
+                        <span class="cui-switch-track"></span>
+                        <span>Auto-save</span>
+                      </label>
+                    </script>
+                  </cui-code>
+                </div>
+              </section>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <div class="docs-form-frame">
+                    <fieldset class="cui-fieldset">
+                      <legend>Shipping address</legend>
+                      <label class="cui-field-label">
+                        Street
+                        <input class="cui-input" type="text" autocomplete="street-address">
+                      </label>
+                      <label class="cui-field-label">
+                        Postal code
+                        <input class="cui-input" type="text" inputmode="numeric" autocomplete="postal-code">
+                      </label>
+                      <label class="cui-field-label">
+                        City
+                        <input class="cui-input" type="text" autocomplete="address-level2">
+                      </label>
+                    </fieldset>
+                  </div>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <fieldset class="cui-fieldset">
+                        <legend>Shipping address</legend>
+                        <label class="cui-field-label">
+                          Street
+                          <input class="cui-input" type="text">
+                        </label>
+                      </fieldset>
+                    </script>
+                  </cui-code>
+                </div>
+              </section>
+            </cui-tabs>
+          </section>
+
+          <section id="cui-field" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2><code>cui-field</code></h2>
+              <p>
+                <code>cui-field</code> wraps a single native control and owns the surrounding affordances: a
+                clickable label, descriptive help, an ARIA-live error region, <code>aria-describedby</code>,
+                <code>aria-invalid</code>, and <code>aria-required</code>. It listens for <code>blur</code> and
+                <code>invalid</code> and runs the validation pipeline against the slotted control.
+              </p>
+              <p>
+                Errors only render after the field is <em>touched</em> — a blur, an invalid event, or a form
+                submission attempt. That matches the platform's <code>:user-invalid</code> behavior and avoids
+                shouting at people mid-typing.
+              </p>
+            </div>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Slot</th>
+                  <th>Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><em>(default)</em></td>
+                  <td>A single <code>&lt;input&gt;</code>, <code>&lt;select&gt;</code>, or
+                    <code>&lt;textarea&gt;</code>.</td>
+                </tr>
+                <tr>
+                  <td><code>label</code></td>
+                  <td>Wrapped in a shadow <code>&lt;label for="…"&gt;</code>; clicking focuses the control.</td>
+                </tr>
+                <tr>
+                  <td><code>help</code></td>
+                  <td>Descriptive text. ID is auto-generated and referenced from <code>aria-describedby</code>.</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code>error-valueMissing</code> · <code>error-typeMismatch</code> ·
+                    <code>error-patternMismatch</code> · <code>error-tooShort</code> · <code>error-tooLong</code> ·
+                    <code>error-rangeUnderflow</code> · <code>error-rangeOverflow</code> ·
+                    <code>error-stepMismatch</code> · <code>error-badInput</code> · <code>error-customError</code>
+                  </td>
+                  <td>One pre-localized message per <code>ValidityState</code> flag. Wins over the generic slot when
+                    its key matches.</td>
+                </tr>
+                <tr>
+                  <td><code>error</code></td>
+                  <td>Generic error display. Fill its content from a <code>cui-field-invalid</code> listener.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Attribute / property</th>
+                  <th>Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>required</code></td>
+                  <td>Forwards <code>required</code> + <code>aria-required</code> to the slotted control.</td>
+                </tr>
+                <tr>
+                  <td><code>data-invalid</code></td>
+                  <td>Set automatically when an error is shown. CSS hook.</td>
+                </tr>
+                <tr>
+                  <td><code>field.control</code></td>
+                  <td>Reference to the slotted control element.</td>
+                </tr>
+                <tr>
+                  <td><code>field.name</code></td>
+                  <td>The control's <code>name</code> attribute.</td>
+                </tr>
+                <tr>
+                  <td><code>field.addValidator(fn)</code></td>
+                  <td>Register a sync or async validator. Returns an unsubscribe function. Signature:
+                    <code>(value, control) =&gt; string | null | Promise&lt;string|null&gt;</code>.
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>field.setError(msg)</code></td>
+                  <td>Show a server- or otherwise-sourced error string. Pass <code>null</code> to clear.</td>
+                </tr>
+                <tr>
+                  <td><code>field.markTouched()</code></td>
+                  <td>Force the touched state so errors render immediately.</td>
+                </tr>
+                <tr>
+                  <td><code>field.reset()</code></td>
+                  <td>Clears the touched state and any custom validity.</td>
+                </tr>
+                <tr>
+                  <td><code>field.validate()</code></td>
+                  <td>Returns <code>Promise&lt;boolean&gt;</code>. Runs native checks then registered validators.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Event</th>
+                  <th>Detail</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>cui-field-invalid</code></td>
+                  <td><code>{ key, message, params: { min, max, type }, validity, control }</code>. Use to render
+                    translated strings into <code>slot="error"</code>.</td>
+                </tr>
+                <tr>
+                  <td><code>cui-field-valid</code></td>
+                  <td><code>{ control }</code>. Fired when an invalid field becomes valid.</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section id="cui-form" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2><code>cui-form</code></h2>
+              <p>
+                <code>cui-form</code> wraps a native <code>&lt;form&gt;</code> and intercepts its
+                <code>submit</code> event. On submit it marks every contained <code>cui-field</code> as touched,
+                runs <code>field.validate()</code> in parallel, focuses the first invalid one if any fail, otherwise
+                dispatches a cancelable <code>cui-form-submit</code> event and awaits the registered submit handler
+                with the <code>busy</code> attribute toggled.
+              </p>
+            </div>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Attribute / property</th>
+                  <th>Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>busy</code></td>
+                  <td>Set while the submit handler is awaited. Dims pointer events.</td>
+                </tr>
+                <tr>
+                  <td><code>form.setSubmitHandler(fn)</code></td>
+                  <td>Register an async handler: <code>(data, form) =&gt; void | Promise&lt;void&gt;</code>.</td>
+                </tr>
+                <tr>
+                  <td><code>form.validate()</code></td>
+                  <td><code>Promise&lt;boolean&gt;</code>. Runs every field's validate in parallel.</td>
+                </tr>
+                <tr>
+                  <td><code>form.reset()</code></td>
+                  <td>Resets the native form and clears each field's error state.</td>
+                </tr>
+                <tr>
+                  <td><code>form.fields()</code></td>
+                  <td>Returns the contained <code>cui-field</code> elements.</td>
+                </tr>
+                <tr>
+                  <td><code>form.formElement()</code></td>
+                  <td>Returns the contained native <code>&lt;form&gt;</code>.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Event</th>
+                  <th>Detail / behavior</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>cui-form-submit</code></td>
+                  <td>Cancelable. <code>{ data, form }</code>. Call <code>preventDefault()</code> to skip the
+                    registered handler.</td>
+                </tr>
+                <tr>
+                  <td><code>cui-form-success</code></td>
+                  <td>Fired after the handler resolves. <code>{ data, form }</code>.</td>
+                </tr>
+                <tr>
+                  <td><code>cui-form-error</code></td>
+                  <td>Fired if the handler throws. <code>{ error, form }</code>.</td>
+                </tr>
+                <tr>
+                  <td><code>cui-form-invalid</code></td>
+                  <td>Fired when validation blocks submission.</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section id="validation" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Validation pipeline</h2>
+              <p>Three layers run, in order, per field:</p>
+              <ol>
+                <li>
+                  <strong>Native constraints</strong> — <code>required</code>,
+                  <code>type=email|url|number…</code>, <code>pattern</code>, <code>min</code> / <code>max</code>,
+                  <code>minlength</code> / <code>maxlength</code>, <code>step</code>. Surfaced via
+                  <code>HTMLInputElement.validity</code>.
+                </li>
+                <li>
+                  <strong>Custom validators</strong> — anything registered with
+                  <code>field.addValidator(fn)</code>. Run sequentially after native checks pass. The first one to
+                  return a non-null string fails the field and surfaces that string via the platform's
+                  <code>customError</code> flag.
+                </li>
+                <li>
+                  <strong>External errors</strong> — <code>field.setError("…")</code> for server-side or otherwise
+                  externally sourced errors. <code>field.setError(null)</code> clears.
+                </li>
+              </ol>
+            </div>
+
+            <div class="docs-preview">
+              <div class="docs-preview-frame docs-form-frame">
+                <cui-form id="validation-demo">
+                  <form class="cui-stack" novalidate>
+                    <cui-field required>
+                      <span slot="label">Username</span>
+                      <input class="cui-input" type="text" name="username" pattern="[a-z0-9_]{3,16}" minlength="3"
+                        maxlength="16">
+                      <span slot="help">3–16 lowercase letters, digits, or underscores. Try <code>admin</code> to
+                        trigger the custom rule.</span>
+                      <p slot="error"></p>
+                    </cui-field>
+                    <button type="submit" class="cui-button" data-variant="primary">Submit</button>
+                  </form>
+                </cui-form>
+                <p class="cui-caption docs-form-log" id="validation-demo-log" aria-live="polite"></p>
+              </div>
+            </div>
+
+            <cui-code language="javascript">
+              <script type="text/plain">
+                const form = document.getElementById("signup");
+                const field = form.querySelector("cui-field");
+
+                // Custom validator (runs after native validity passes)
+                field.addValidator((value) => {
+                  if (value === "admin") return "That name is reserved.";
+                  return null;
+                });
+
+                // Render translated messages via the event
+                field.addEventListener("cui-field-invalid", (event) => {
+                  const { key, message, params } = event.detail;
+                  field.querySelector("[slot='error']").textContent =
+                    translate(key, params) ?? message;
+                });
+              </script>
+            </cui-code>
+          </section>
+
+          <section id="errors-i18n" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Errors &amp; i18n via slots</h2>
+              <p>
+                Combat UI does not ship an i18n provider. Strings stay with your i18n framework.
+                <code>cui-field</code> resolves the visible message in this order:
+              </p>
+              <ol>
+                <li>
+                  A <strong>per-key error slot</strong> matching the failing <code>ValidityState</code> flag —
+                  <code>slot="error-valueMissing"</code>, <code>slot="error-typeMismatch"</code>, etc.
+                </li>
+                <li>
+                  A <strong>generic <code>slot="error"</code></strong>, which you fill yourself from a
+                  <code>cui-field-invalid</code> listener — perfect for plugging into i18next, FormatJS, or any
+                  translation function you already have.
+                </li>
+                <li>
+                  <strong>Browser fallback</strong> — when nothing is slotted, the field renders
+                  <code>control.validationMessage</code>, which the browser already localizes to the user's UA
+                  locale.
+                </li>
+              </ol>
+            </div>
+
+            <cui-tabs>
+              <button slot="tab" type="button">Per-key slots</button>
+              <button slot="tab" type="button">Event-driven slot</button>
+              <button slot="tab" type="button">Browser default</button>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <div class="docs-preview">
+                    <div class="docs-preview-frame docs-form-frame">
+                      <cui-field required>
+                        <span slot="label">Email</span>
+                        <input class="cui-input" type="email">
+                        <span slot="error-valueMissing">Please enter your email.</span>
+                        <span slot="error-typeMismatch">That doesn't look like a valid email address.</span>
+                      </cui-field>
+                    </div>
+                  </div>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <cui-field required>
+                        <span slot="label">Email</span>
+                        <input class="cui-input" type="email">
+                        <span slot="error-valueMissing">Please enter your email.</span>
+                        <span slot="error-typeMismatch">That doesn't look like a valid email address.</span>
+                      </cui-field>
+                    </script>
+                  </cui-code>
+                  <p class="cui-caption">
+                    Pre-localized strings. No JavaScript wiring required. Best when your i18n framework renders
+                    strings at build or server-render time.
+                  </p>
+                </div>
+              </section>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <div class="docs-preview">
+                    <div class="docs-preview-frame docs-form-frame">
+                      <div class="cui-cluster" id="i18n-locale-switch" role="radiogroup" aria-label="Locale">
+                        <label class="cui-check">
+                          <input type="radio" name="locale" value="en" checked>
+                          <span>English</span>
+                        </label>
+                        <label class="cui-check">
+                          <input type="radio" name="locale" value="nl">
+                          <span>Nederlands</span>
+                        </label>
+                        <label class="cui-check">
+                          <input type="radio" name="locale" value="ja">
+                          <span>日本語</span>
+                        </label>
+                      </div>
+                      <cui-field id="i18n-field" required>
+                        <span slot="label" id="i18n-label">Email</span>
+                        <input class="cui-input" type="email" minlength="6">
+                        <p slot="error"></p>
+                      </cui-field>
+                    </div>
+                  </div>
+                  <cui-code language="javascript">
+                    <script type="text/plain">
+                      const messages = {
+                        en: {
+                          valueMissing: "Please enter your email.",
+                          typeMismatch: "That doesn't look like a valid email.",
+                          tooShort: "Use at least {min} characters.",
+                        },
+                        nl: {
+                          valueMissing: "Vul je e-mailadres in.",
+                          typeMismatch: "Dat is geen geldig e-mailadres.",
+                          tooShort: "Gebruik minstens {min} tekens.",
+                        },
+                      };
+                      let locale = "en";
+
+                      const field = document.querySelector("cui-field");
+                      field.addEventListener("cui-field-invalid", (event) => {
+                        const { key, params, message } = event.detail;
+                        const tmpl = messages[locale][key] ?? message;
+                        const text = tmpl.replace(/\{(\w+)\}/g, (_, k) => params[k] ?? "");
+                        field.querySelector("[slot='error']").textContent = text;
+                      });
+                    </script>
+                  </cui-code>
+                  <p class="cui-caption">
+                    A single <code>slot="error"</code> + an event listener. Plug in any translation function.
+                    Switching locale calls <code>field.validate()</code> to refresh the visible message immediately.
+                  </p>
+                </div>
+              </section>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <div class="docs-preview">
+                    <div class="docs-preview-frame docs-form-frame">
+                      <cui-field required>
+                        <span slot="label">Email</span>
+                        <input class="cui-input" type="email">
+                      </cui-field>
+                    </div>
+                  </div>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <cui-field required>
+                        <span slot="label">Email</span>
+                        <input class="cui-input" type="email">
+                      </cui-field>
+                    </script>
+                  </cui-code>
+                  <p class="cui-caption">
+                    No slots, no JavaScript. The browser's localized <code>validationMessage</code> is rendered into
+                    the field's internal error region. The cheapest path to an accessible form.
+                  </p>
+                </div>
+              </section>
+            </cui-tabs>
+          </section>
+
+          <section id="async" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Async &amp; server errors</h2>
+              <p>
+                Custom validators may return a <code>Promise&lt;string | null&gt;</code>. They run after native
+                validity passes — cheap constraints fail fast and you only pay for an HTTP round-trip when the
+                input is otherwise valid. Server errors returned from the submit handler land via
+                <code>field.setError(message)</code>.
+              </p>
+            </div>
+
+            <div class="docs-preview">
+              <div class="docs-preview-frame docs-form-frame">
+                <cui-form id="async-demo">
+                  <form class="cui-stack" novalidate>
+                    <cui-field required>
+                      <span slot="label">Username</span>
+                      <input class="cui-input" type="text" name="username" minlength="3">
+                      <span slot="help">Try <code>taken</code> to trigger the async error. Any other value submits;
+                        the demo server replies with a 409 to show the <code>setError</code> path.</span>
+                      <p slot="error"></p>
+                    </cui-field>
+                    <button type="submit" class="cui-button" data-variant="primary">Claim username</button>
+                  </form>
+                </cui-form>
+                <p class="cui-caption docs-form-log" id="async-demo-log" aria-live="polite"></p>
+              </div>
+            </div>
+
+            <cui-code language="javascript">
+              <script type="text/plain">
+                const form = document.getElementById("signup");
+                const username = form.querySelector("cui-field");
+
+                // Async availability check
+                username.addValidator(async (value) => {
+                  const res = await fetch(`/api/usernames/${encodeURIComponent(value)}`);
+                  if (res.status === 409) return "That username is taken.";
+                  return null;
+                });
+
+                // Server errors from the submit handler
+                form.setSubmitHandler(async (data) => {
+                  const res = await fetch("/api/signup", { method: "POST", body: data });
+                  if (res.status === 409) {
+                    const { field, message } = await res.json();
+                    form.querySelector(`cui-field [name="${field}"]`)
+                        .closest("cui-field")
+                        .setError(message);
+                    throw new Error("rejected");
+                  }
+                  if (!res.ok) throw new Error("network");
+                });
+              </script>
+            </cui-code>
+          </section>
+
+          <section id="cross-field" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Cross-field rules</h2>
+              <p>
+                Cross-field validation lives on the dependent field. The validator reads the other control's value
+                when it runs — no extra bookkeeping required. Re-validate the dependent field from an
+                <code>input</code> listener on its peer so it doesn't stay stale.
+              </p>
+            </div>
+
+            <div class="docs-preview">
+              <div class="docs-preview-frame docs-form-frame">
+                <cui-form id="cross-demo">
+                  <form class="cui-stack" novalidate>
+                    <cui-field required>
+                      <span slot="label">Password</span>
+                      <input class="cui-input" type="password" name="password" minlength="8" id="cross-pw">
+                      <p slot="error"></p>
+                    </cui-field>
+                    <cui-field required id="cross-confirm-field">
+                      <span slot="label">Confirm password</span>
+                      <input class="cui-input" type="password" name="confirm" minlength="8">
+                      <p slot="error"></p>
+                    </cui-field>
+                    <button type="submit" class="cui-button" data-variant="primary">Save</button>
+                  </form>
+                </cui-form>
+                <p class="cui-caption docs-form-log" id="cross-demo-log" aria-live="polite"></p>
+              </div>
+            </div>
+
+            <cui-code language="javascript">
+              <script type="text/plain">
+                const password = document.getElementById("password");
+                const confirmField = document.getElementById("confirm-field");
+
+                confirmField.addValidator((value) =>
+                  value === password.value ? null : "Passwords don't match."
+                );
+
+                // Re-validate confirm whenever password changes
+                password.addEventListener("input", () => {
+                  if (confirmField.hasAttribute("data-invalid")) confirmField.validate();
+                });
+              </script>
+            </cui-code>
+          </section>
+
+          <section id="tokens" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Tokens</h2>
+              <p>Per-instance overrides via CSS custom properties.</p>
+            </div>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Default</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>--cui-input-bg</code></td>
+                  <td><code>--cui-color-surface-raised</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-input-border</code></td>
+                  <td><code>--cui-color-border</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-input-color</code></td>
+                  <td><code>--cui-color</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-input-placeholder</code></td>
+                  <td><code>--cui-color-muted</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-input-radius</code></td>
+                  <td><code>--cui-radius-control</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-input-padding-block</code></td>
+                  <td><code>0.625rem</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-input-padding-inline</code></td>
+                  <td><code>0.875rem</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-switch-bg</code></td>
+                  <td><code>--cui-color-surface-muted</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-switch-bg-on</code></td>
+                  <td><code>--cui-color-accent</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-switch-knob</code></td>
+                  <td><code>--cui-color-surface-raised</code></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p class="cui-caption">
+              See <a href="./theming.html#component-tokens">Theming → Component tokens</a> for the underlying
+              <code>--cui-color-*</code> palette.
+            </p>
+          </section>
+
+        </div>
+      </div>
+    </section>
+
+    <footer class="cui-section" data-spacing="compact">
+      <div class="cui-container cui-cluster docs-prevnext">
+        <cui-button href="./components.html">Previous: Components</cui-button>
+        <cui-button href="./layouts.html">Next: Layouts</cui-button>
+      </div>
+    </footer>
+  </main>
+
+  <script type="module">
+    // Quick-start demo
+    {
+      const form = document.getElementById("quick-form");
+      const log = document.getElementById("quick-form-log");
+      const reset = document.getElementById("quick-form-reset");
+      if (form && log) {
+        form.setSubmitHandler(async (data) => {
+          log.textContent = "Submitting…";
+          await new Promise((r) => setTimeout(r, 800));
+          log.textContent = "Submitted: " + JSON.stringify(Object.fromEntries(data));
+        });
+        form.addEventListener("cui-form-invalid", () => {
+          log.textContent = "Fix the highlighted fields and try again.";
+        });
+        reset?.addEventListener("click", () => {
+          form.reset();
+          log.textContent = "";
+        });
+      }
+    }
+
+    // Validation pipeline demo
+    {
+      const form = document.getElementById("validation-demo");
+      const log = document.getElementById("validation-demo-log");
+      if (form && log) {
+        const field = form.querySelector("cui-field");
+        field.addValidator((value) => (value === "admin" ? "That name is reserved." : null));
+
+        field.addEventListener("cui-field-invalid", (event) => {
+          field.querySelector("[slot='error']").textContent = event.detail.message;
+          log.textContent = "Invalid: " + event.detail.key;
+        });
+        field.addEventListener("cui-field-valid", () => {
+          field.querySelector("[slot='error']").textContent = "";
+          log.textContent = "";
+        });
+
+        form.setSubmitHandler(async (data) => {
+          await new Promise((r) => setTimeout(r, 300));
+          log.textContent = "Saved: " + JSON.stringify(Object.fromEntries(data));
+        });
+      }
+    }
+
+    // i18n event-driven demo
+    {
+      const field = document.getElementById("i18n-field");
+      const label = document.getElementById("i18n-label");
+      const switcher = document.getElementById("i18n-locale-switch");
+      if (field && switcher) {
+        const messages = {
+          en: {
+            label: "Email",
+            valueMissing: "Please enter your email.",
+            typeMismatch: "That doesn't look like a valid email.",
+            tooShort: "Use at least {min} characters.",
+          },
+          nl: {
+            label: "E-mailadres",
+            valueMissing: "Vul je e-mailadres in.",
+            typeMismatch: "Dat is geen geldig e-mailadres.",
+            tooShort: "Gebruik minstens {min} tekens.",
+          },
+          ja: {
+            label: "メールアドレス",
+            valueMissing: "メールアドレスを入力してください。",
+            typeMismatch: "有効なメールアドレスではありません。",
+            tooShort: "{min} 文字以上で入力してください。",
+          },
+        };
+        let locale = "en";
+
+        const render = (key, params, fallback) => {
+          const tmpl = messages[locale]?.[key] ?? fallback;
+          if (!tmpl) return "";
+          return tmpl.replace(/\{(\w+)\}/g, (_, k) => params?.[k] ?? "");
+        };
+
+        field.addEventListener("cui-field-invalid", (event) => {
+          field.querySelector("[slot='error']").textContent = render(
+            event.detail.key,
+            event.detail.params,
+            event.detail.message,
+          );
+        });
+        field.addEventListener("cui-field-valid", () => {
+          field.querySelector("[slot='error']").textContent = "";
+        });
+
+        switcher.addEventListener("change", (event) => {
+          locale = event.target.value;
+          label.textContent = messages[locale].label;
+          if (field.hasAttribute("data-invalid")) field.validate();
+        });
+      }
+    }
+
+    // Async + server error demo
+    {
+      const form = document.getElementById("async-demo");
+      const log = document.getElementById("async-demo-log");
+      if (form && log) {
+        const field = form.querySelector("cui-field");
+        const fakeCheck = (value) =>
+          new Promise((r) =>
+            setTimeout(() => r(value.toLowerCase() === "taken"), 600),
+          );
+
+        field.addEventListener("cui-field-invalid", (event) => {
+          field.querySelector("[slot='error']").textContent = event.detail.message;
+        });
+        field.addEventListener("cui-field-valid", () => {
+          field.querySelector("[slot='error']").textContent = "";
+        });
+
+        field.addValidator(async (value) => {
+          log.textContent = "Checking availability…";
+          const taken = await fakeCheck(value);
+          log.textContent = "";
+          return taken ? "That username is taken." : null;
+        });
+
+        form.setSubmitHandler(async () => {
+          log.textContent = "Submitting…";
+          await new Promise((r) => setTimeout(r, 600));
+          field.setError("This account already exists on the server.");
+          throw new Error("conflict");
+        });
+
+        form.addEventListener("cui-form-error", () => {
+          log.textContent = "Server rejected the submission.";
+        });
+      }
+    }
+
+    // Cross-field demo
+    {
+      const form = document.getElementById("cross-demo");
+      const log = document.getElementById("cross-demo-log");
+      if (form && log) {
+        const password = document.getElementById("cross-pw");
+        const confirmField = document.getElementById("cross-confirm-field");
+
+        confirmField.addEventListener("cui-field-invalid", (event) => {
+          confirmField.querySelector("[slot='error']").textContent = event.detail.message;
+        });
+        confirmField.addEventListener("cui-field-valid", () => {
+          confirmField.querySelector("[slot='error']").textContent = "";
+        });
+
+        confirmField.addValidator((value) =>
+          value === password.value ? null : "Passwords don't match.",
+        );
+
+        password.addEventListener("input", () => {
+          if (confirmField.hasAttribute("data-invalid")) void confirmField.validate();
+        });
+
+        form.setSubmitHandler(async (data) => {
+          await new Promise((r) => setTimeout(r, 400));
+          log.textContent = "Saved: " + Object.keys(Object.fromEntries(data)).join(", ");
+        });
+      }
+    }
+  </script>
+</body>
+
+</html>
