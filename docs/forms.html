@@ -65,16 +65,16 @@
                 <cui-form id="quick-form">
                   <form class="cui-stack" novalidate>
                     <cui-field required>
-                      <span slot="label">Email</span>
-                      <input class="cui-input" type="email" name="email" autocomplete="email">
+                      <label for="email" slot="label">Email</label>
+                      <input class="cui-input" type="email" name="email" id="email" autocomplete="email">
                       <span slot="help">We never share your address.</span>
                       <span slot="error-valueMissing">Please enter your email.</span>
                       <span slot="error-typeMismatch">That doesn't look like a valid email address.</span>
                     </cui-field>
 
                     <cui-field required>
-                      <span slot="label">Password</span>
-                      <input class="cui-input" type="password" name="password" minlength="8">
+                      <label for="password" slot="label">Password</label>
+                      <input class="cui-input" type="password" name="password" id="password" minlength="8">
                       <span slot="help">At least 8 characters.</span>
                       <p slot="error"></p>
                     </cui-field>
@@ -555,8 +555,8 @@
                 <cui-form id="validation-demo">
                   <form class="cui-stack" novalidate>
                     <cui-field required>
-                      <span slot="label">Username</span>
-                      <input class="cui-input" type="text" name="username" pattern="[a-z0-9_]{3,16}" minlength="3"
+                      <label for="username" slot="label">Username</label>
+                      <input class="cui-input" type="text" name="username" id="username" pattern="[a-z0-9_]{3,16}" minlength="3"
                         maxlength="16">
                       <span slot="help">3–16 lowercase letters, digits, or underscores. Try <code>admin</code> to
                         trigger the custom rule.</span>
@@ -625,8 +625,8 @@
                   <div class="docs-preview">
                     <div class="docs-preview-frame docs-form-frame">
                       <cui-field required>
-                        <span slot="label">Email</span>
-                        <input class="cui-input" type="email">
+                        <label for="email_2" slot="label">Email</label>
+                        <input class="cui-input" type="email" id="email_2">
                         <span slot="error-valueMissing">Please enter your email.</span>
                         <span slot="error-typeMismatch">That doesn't look like a valid email address.</span>
                       </cui-field>
@@ -668,8 +668,8 @@
                         </label>
                       </div>
                       <cui-field id="i18n-field" required>
-                        <span slot="label" id="i18n-label">Email</span>
-                        <input class="cui-input" type="email" minlength="6">
+                        <label for="email_3" slot="label" id="i18n-label">Email</label>
+                        <input class="cui-input" type="email" id="email_3" minlength="6">
                         <p slot="error"></p>
                       </cui-field>
                     </div>
@@ -711,8 +711,8 @@
                   <div class="docs-preview">
                     <div class="docs-preview-frame docs-form-frame">
                       <cui-field required>
-                        <span slot="label">Email</span>
-                        <input class="cui-input" type="email">
+                        <label for="email_4" slot="label">Email</label>
+                        <input class="cui-input" type="email" id="email_4">
                       </cui-field>
                     </div>
                   </div>
@@ -749,8 +749,8 @@
                 <cui-form id="async-demo">
                   <form class="cui-stack" novalidate>
                     <cui-field required>
-                      <span slot="label">Username</span>
-                      <input class="cui-input" type="text" name="username" minlength="3">
+                      <label for="username_2" slot="label">Username</label>
+                      <input class="cui-input" type="text" name="username" id="username_2" minlength="3">
                       <span slot="help">Try <code>taken</code> to trigger the async error. Any other value submits;
                         the demo server replies with a 409 to show the <code>setError</code> path.</span>
                       <p slot="error"></p>
@@ -795,7 +795,7 @@
               <h2>Cross-field rules</h2>
               <p>
                 Cross-field validation lives on the dependent field. The validator reads the other control's value
-                when it runs — no extra bookkeeping required. Re-validate the dependent field from an
+                when it runs, no extra bookkeeping required. Re-validate the dependent field from an
                 <code>input</code> listener on its peer so it doesn't stay stale.
               </p>
             </div>
@@ -805,13 +805,13 @@
                 <cui-form id="cross-demo">
                   <form class="cui-stack" novalidate>
                     <cui-field required>
-                      <span slot="label">Password</span>
+                      <label for="cross-pw" slot="label">Password</label>
                       <input class="cui-input" type="password" name="password" minlength="8" id="cross-pw">
                       <p slot="error"></p>
                     </cui-field>
                     <cui-field required id="cross-confirm-field">
-                      <span slot="label">Confirm password</span>
-                      <input class="cui-input" type="password" name="confirm" minlength="8">
+                      <label for="cross-confirm" slot="label">Confirm password</label>
+                      <input class="cui-input" type="password" name="confirm" id="cross-confirm" minlength="8">
                       <p slot="error"></p>
                     </cui-field>
                     <button type="submit" class="cui-button" data-variant="primary">Save</button>
@@ -823,8 +823,8 @@
 
             <cui-code language="javascript">
               <script type="text/plain">
-                const password = document.getElementById("password");
-                const confirmField = document.getElementById("confirm-field");
+                const password = document.getElementById("cross-pw");
+                const confirmField = document.getElementById("cross-confirm-field");
 
                 confirmField.addValidator((value) =>
                   value === password.value ? null : "Passwords don't match."
