@@ -1,0 +1,1 @@
+export { CuiCta, defineCuiCta } from './cta';

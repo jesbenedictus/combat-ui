@@ -21,7 +21,7 @@ validation work (SEO docs, demo sites).
 - [x] Add page intro patterns for landing pages, case pages, vacancy pages, and campaign pages.
 - [x] Add content grids: feature grid, case grid, card grid, logo strip, and stats grid.
 - [x] Add quote and testimonial blocks.
-- [ ] Add CTA sections: simple CTA, split CTA, full-bleed CTA, and sticky CTA. _(Hero exposes a `cui-hero-actions` slot, but no dedicated CTA section classes exist yet — previously marked done in error.)_
+- [x] Add CTA sections: simple CTA, split CTA, full-bleed CTA, and sticky CTA.
 - [ ] Add image/media blocks: full-bleed media, figure with caption, media card, and overlay card.
 - [ ] Add visual rhythm examples for agency, recruitment, and campaign-style pages.
 

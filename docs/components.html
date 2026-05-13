@@ -185,6 +185,126 @@
                 </div>
               </section>
             </cui-tabs>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Slot</th>
+                  <th>Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>eyebrow</code></td>
+                  <td>Small kicker text rendered above the title.</td>
+                </tr>
+                <tr>
+                  <td><code>title</code></td>
+                  <td>Display heading. Sized via <code>--cui-hero-title-size</code>.</td>
+                </tr>
+                <tr>
+                  <td><em>(default)</em></td>
+                  <td>Lead copy and supporting paragraphs.</td>
+                </tr>
+                <tr>
+                  <td><code>actions</code></td>
+                  <td>CTA button group. Wrap in a <code>.cui-hero-actions</code> cluster.</td>
+                </tr>
+                <tr>
+                  <td><code>media</code></td>
+                  <td>Image, video, or markup for the split / overlay variants. Use the
+                    <code>.cui-hero-media</code> class for cover fit.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Attribute / property</th>
+                  <th>Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>variant="split | background | overlay | text"</code></td>
+                  <td>Layout preset. <code>split</code> shows media beside copy;
+                    <code>background</code> renders <code>background-src</code> behind the content;
+                    <code>overlay</code> layers content on top of a media slot; <code>text</code> is
+                    copy-only.</td>
+                </tr>
+                <tr>
+                  <td><code>background-src</code></td>
+                  <td>Image URL used by the <code>background</code> variant. Reflected to the
+                    <code>--cui-hero-background-image</code> custom property.</td>
+                </tr>
+                <tr>
+                  <td><code>background-position</code></td>
+                  <td>CSS <code>background-position</code> for the background variant. Defaults to
+                    <code>center</code>.</td>
+                </tr>
+                <tr>
+                  <td><code>background-size</code></td>
+                  <td>CSS <code>background-size</code> for the background variant. Defaults to
+                    <code>cover</code>.</td>
+                </tr>
+                <tr>
+                  <td><code>align="start | center"</code></td>
+                  <td>Horizontal alignment of the content column.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Default</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>--cui-hero-min-block-size</code></td>
+                  <td><code>min(86vb, 48rem)</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-hero-padding-block</code></td>
+                  <td><code>--cui-section-space-hero</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-hero-gap</code></td>
+                  <td><code>--cui-space-7</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-hero-content-size</code></td>
+                  <td><code>42rem</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-hero-media-size</code></td>
+                  <td><code>38rem</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-hero-media-min-block-size</code></td>
+                  <td><code>clamp(18rem, 44vi, 34rem)</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-hero-media-radius</code></td>
+                  <td><code>--cui-radius-2</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-hero-title-size</code></td>
+                  <td><code>--cui-font-size-display</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-hero-overlay</code></td>
+                  <td>Linear gradient — only used by the <code>overlay</code> variant.</td>
+                </tr>
+                <tr>
+                  <td><code>--cui-hero-bg</code> · <code>--cui-hero-color</code></td>
+                  <td>Surface and text overrides.</td>
+                </tr>
+              </tbody>
+            </table>
           </section>
 
           <section id="page-intro" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
@@ -373,10 +493,318 @@
               </tbody>
             </table>
 
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Slot</th>
+                  <th>Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>eyebrow</code></td>
+                  <td>Kicker text rendered above the title.</td>
+                </tr>
+                <tr>
+                  <td><code>title</code></td>
+                  <td>Display heading for the page.</td>
+                </tr>
+                <tr>
+                  <td><code>meta</code></td>
+                  <td>Meta strip — typically a row of <code>&lt;span&gt;</code> labels (sector, year, stack).</td>
+                </tr>
+                <tr>
+                  <td><em>(default)</em></td>
+                  <td>Lead copy and paragraphs that follow the title.</td>
+                </tr>
+                <tr>
+                  <td><code>actions</code></td>
+                  <td>Primary and secondary CTA buttons.</td>
+                </tr>
+                <tr>
+                  <td><code>aside</code></td>
+                  <td>Optional sidebar column, shown to the right of the content at <code>≥ 56rem</code>.
+                    Used by the <code>case</code>, <code>vacancy</code>, and <code>campaign</code> variants.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Default</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>--cui-page-intro-padding-block</code></td>
+                  <td><code>--cui-section-space-compact</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-page-intro-gap</code></td>
+                  <td><code>--cui-space-5</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-page-intro-content-size</code></td>
+                  <td><code>52rem</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-page-intro-aside-size</code></td>
+                  <td><code>20rem</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-page-intro-title-size</code></td>
+                  <td><code>--cui-font-size-5</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-page-intro-bg</code> · <code>--cui-page-intro-color</code></td>
+                  <td>Surface and text overrides.</td>
+                </tr>
+                <tr>
+                  <td><code>--cui-page-intro-inverse-bg</code> · <code>--cui-page-intro-inverse-color</code> ·
+                    <code>--cui-page-intro-inverse-muted-color</code> ·
+                    <code>--cui-page-intro-inverse-eyebrow-color</code> ·
+                    <code>--cui-page-intro-inverse-aside-bg</code></td>
+                  <td>Inverse-mode overrides (applied when the <code>inverse</code> attribute is present).</td>
+                </tr>
+              </tbody>
+            </table>
+
             <p class="cui-caption">
               See <a href="./theming.html#component-tokens">Theming → Component tokens</a> for the full
               <code>--cui-page-intro-*</code> token reference.
             </p>
+          </section>
+
+          <section id="cta" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>CTA</h2>
+              <p>
+                Use `cui-cta` for conversion sections that need simple, split, full-bleed, or sticky placement.
+              </p>
+            </div>
+
+            <cui-tabs>
+              <button slot="tab" type="button">Simple</button>
+              <button slot="tab" type="button">Split</button>
+              <button slot="tab" type="button">Full bleed</button>
+              <button slot="tab" type="button">Sticky</button>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <cui-cta variant="simple">
+                    <p slot="eyebrow">Next step</p>
+                    <h3 slot="title">Start with the component docs.</h3>
+                    <p>Simple CTAs center the message and action for focused sections.</p>
+                    <div slot="actions">
+                      <cui-button variant="primary" href="./components.html">Browse components</cui-button>
+                    </div>
+                  </cui-cta>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <cui-cta variant="simple">
+                        <p slot="eyebrow">Next step</p>
+                        <h1 slot="title">Start with the component docs.</h1>
+                        <p>Simple CTAs center the message and action for focused sections.</p>
+                        <div slot="actions">
+                          <cui-button variant="primary">Browse components</cui-button>
+                        </div>
+                      </cui-cta>
+                    </script>
+                </div>
+              </section>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <cui-cta variant="split">
+                    <p slot="eyebrow">Build faster</p>
+                    <h3 slot="title">Pair supporting copy with actions.</h3>
+                    <p>Split CTAs keep action groups aligned beside the message on wider screens.</p>
+                    <div slot="actions">
+                      <cui-button variant="primary" href="./examples/">Open demo</cui-button>
+                      <cui-button href="./foundations.html">Foundations</cui-button>
+                    </div>
+                  </cui-cta>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <cui-cta variant="split">
+                        <p slot="eyebrow">Build faster</p>
+                        <h1 slot="title">Pair supporting copy with actions.</h1>
+                        <p>Split CTAs keep action groups aligned beside the message on wider screens.</p>
+                        <div slot="actions">
+                          <cui-button variant="primary">Open demo</cui-button>
+                          <cui-button>Foundations</cui-button>
+                        </div>
+                      </cui-cta>
+                    </script>
+                </div>
+              </section>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <cui-cta variant="full-bleed">
+                    <p slot="eyebrow">Launch</p>
+                    <h3 slot="title">Create a strong campaign close.</h3>
+                    <p>Full-bleed CTAs create a section-level break without adding a separate wrapper.</p>
+                    <div slot="actions">
+                      <cui-button variant="primary" href="./examples/">View patterns</cui-button>
+                    </div>
+                  </cui-cta>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <cui-cta variant="full-bleed">
+                        <p slot="eyebrow">Launch</p>
+                        <h1 slot="title">Create a strong campaign close.</h1>
+                        <p>Full-bleed CTAs create a section-level break without adding a separate wrapper.</p>
+                        <div slot="actions">
+                          <cui-button variant="primary">View patterns</cui-button>
+                        </div>
+                      </cui-cta>
+                    </script>
+                  </cui-code>
+                  <cui-cta inverse variant="full-bleed">
+                    <p slot="eyebrow">Inverse full bleed</p>
+                    <h3 slot="title">Make contrast explicit.</h3>
+                    <p>The `inverse` attribute can be applied to simple, split, full-bleed, or sticky CTAs.</p>
+                    <div slot="actions">
+                      <cui-button variant="primary" href="./examples/">View inverse</cui-button>
+                    </div>
+                  </cui-cta>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <cui-cta inverse variant="full-bleed">
+                    <p slot="eyebrow">Inverse full bleed</p>
+                    <h3 slot="title">Make contrast explicit.</h3>
+                    <p>The `inverse` attribute can be applied to simple, split, full-bleed, or sticky CTAs.</p>
+                    <div slot="actions">
+                      <cui-button variant="primary" href="./examples/">View inverse</cui-button>
+                    </div>
+                  </cui-cta>
+                    </script>
+                  </cui-code>
+                </div>
+              </section>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                <cui-cta variant="sticky">
+                  <h3 slot="title">Sticky CTAs stay available during long pages.</h3>
+                  <p>Use them sparingly for application flows, demos, and campaign signup pages.</p>
+                  <div slot="actions">
+                    <cui-button variant="primary" href="./examples/">Continue</cui-button>
+                  </div>
+                </cui-cta>
+                <cui-code language="html">
+                  <script type="text/html">
+                    <cui-cta variant="sticky">
+                      <h1 slot="title">Sticky CTAs stay available during long pages.</h1>
+                      <p>Use them sparingly for application flows, demos, and campaign signup pages.</p>
+                      <div slot="actions">
+                        <cui-button variant="primary">Continue</cui-button>
+                      </div>
+                    </cui-cta>
+                  </script>
+                </div>
+              </section>
+            </cui-tabs>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Slot</th>
+                  <th>Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>eyebrow</code></td>
+                  <td>Small kicker line above the title.</td>
+                </tr>
+                <tr>
+                  <td><code>title</code></td>
+                  <td>The call-to-action heading.</td>
+                </tr>
+                <tr>
+                  <td><em>(default)</em></td>
+                  <td>Supporting copy beneath the title.</td>
+                </tr>
+                <tr>
+                  <td><code>actions</code></td>
+                  <td>One or more CTA buttons. Flex-wraps automatically.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Attribute</th>
+                  <th>Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>variant="simple | split | full-bleed | sticky"</code></td>
+                  <td>Layout preset. <code>simple</code> is centered; <code>split</code> places actions in a
+                    side column at <code>≥ 48rem</code>; <code>full-bleed</code> spans the viewport with
+                    section-scale padding; <code>sticky</code> pins the CTA to the bottom of the viewport.</td>
+                </tr>
+                <tr>
+                  <td><code>inverse</code></td>
+                  <td>Boolean. Switches to inverse surface and text colors for high-contrast moments.</td>
+                </tr>
+                <tr>
+                  <td><code>align="start | center"</code></td>
+                  <td>Horizontal alignment of content and actions. <code>simple</code> is centered by default.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Default</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>--cui-cta-padding</code></td>
+                  <td><code>--cui-space-6</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-cta-gap</code></td>
+                  <td><code>--cui-space-5</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-cta-content-size</code></td>
+                  <td><code>48rem</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-cta-title-size</code></td>
+                  <td><code>--cui-font-size-4</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-cta-bg</code> · <code>--cui-cta-color</code></td>
+                  <td>Surface and text overrides.</td>
+                </tr>
+                <tr>
+                  <td><code>--cui-cta-inverse-bg</code> · <code>--cui-cta-inverse-color</code> ·
+                    <code>--cui-cta-inverse-muted-color</code> · <code>--cui-cta-inverse-eyebrow-color</code>
+                  </td>
+                  <td>Inverse-mode overrides (applied when <code>inverse</code> is set).</td>
+                </tr>
+                <tr>
+                  <td><code>--cui-cta-sticky-z-index</code></td>
+                  <td><code>20</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-cta-sticky-offset</code></td>
+                  <td><code>--cui-space-4</code></td>
+                </tr>
+              </tbody>
+            </table>
           </section>
 
           <section id="content-grids" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
@@ -553,6 +981,101 @@
               </section>
             </cui-tabs>
 
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>.cui-feature-grid</code> / <code>.cui-feature-card</code></td>
+                  <td>Feature lists with consistent icon, heading, and copy spacing.</td>
+                </tr>
+                <tr>
+                  <td><code>.cui-case-grid</code> / <code>.cui-case-card</code> / <code>.cui-case-card-media</code> /
+                    <code>.cui-case-card-body</code> / <code>.cui-case-card-meta</code></td>
+                  <td>Case-study cards with optional media, body, and meta line.</td>
+                </tr>
+                <tr>
+                  <td><code>.cui-card-grid</code> / <code>.cui-content-card</code></td>
+                  <td>General-purpose card grid for resource lists and article tiles.</td>
+                </tr>
+                <tr>
+                  <td><code>.cui-logo-strip</code> / <code>.cui-logo-item</code></td>
+                  <td>Logo / partner strip with consistent block-size cells.</td>
+                </tr>
+                <tr>
+                  <td><code>.cui-stats-grid</code> / <code>.cui-stat</code> / <code>.cui-stat-value</code> /
+                    <code>.cui-stat-label</code></td>
+                  <td>Number-focused grids for metrics, proof points, and KPIs.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Modifier</th>
+                  <th>Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>data-columns="2 | 3 | 4"</code></td>
+                  <td>Sets the column count for any of the grid wrappers.</td>
+                </tr>
+                <tr>
+                  <td><code>data-gap="compact | spacious"</code></td>
+                  <td>Tightens or relaxes the grid gap.</td>
+                </tr>
+                <tr>
+                  <td><code>data-align="start | center"</code></td>
+                  <td>On a feature card or stat block — aligns its inner content.</td>
+                </tr>
+                <tr>
+                  <td><code>data-variant="flat"</code></td>
+                  <td>On a case card — drops the elevation shadow.</td>
+                </tr>
+                <tr>
+                  <td><code>data-variant="borderless"</code></td>
+                  <td>On a content card — drops the surrounding border for editorial layouts.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Default</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>--cui-feature-icon-size</code></td>
+                  <td><code>--cui-size-control</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-case-card-media-ratio</code></td>
+                  <td>Per-instance aspect ratio override (e.g. <code>4 / 3</code>).</td>
+                </tr>
+                <tr>
+                  <td><code>--cui-content-grid-gap</code></td>
+                  <td><code>--cui-space-4</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-logo-item-min-block-size</code></td>
+                  <td><code>4rem</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-stat-value-size</code></td>
+                  <td><code>--cui-font-size-5</code></td>
+                </tr>
+              </tbody>
+            </table>
+
             <section id="navbar" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
               <div class="cui-prose">
                 <h2>Navbar</h2>
@@ -619,14 +1142,162 @@
                 </script>
                 </cui-code>
                 <cui-code language="javascript">
-                  <script type="text/javascript">
-                    navbar = document.querySelector("cui-navbar");
+                  <script type="text/plain">
+                    const navbar = document.querySelector("cui-navbar");
                     navbar.sticky = true;
                     navbar.stickyOffset = "1rem";
                     navbar.stickyZIndex = "80";
+                    navbar.closeDropdowns();
                   </script>
                 </cui-code>
               </div>
+
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>Slot</th>
+                    <th>Purpose</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>brand</code></td>
+                    <td>Brand mark or logo link. Sits at the inline start.</td>
+                  </tr>
+                  <tr>
+                    <td><code>nav</code></td>
+                    <td>The primary navigation list. Slot in <code>.cui-nav-link</code> anchors and
+                      <code>.cui-dropdown</code> wrappers for nested menus.</td>
+                  </tr>
+                  <tr>
+                    <td><code>actions</code></td>
+                    <td>Trailing actions — theme toggle, CTA button, search. Wrap in a
+                      <code>.cui-cluster</code>.</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>Attribute / property</th>
+                    <th>Purpose</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>sticky</code></td>
+                    <td>Boolean. Pins the navbar to the top of the viewport.</td>
+                  </tr>
+                  <tr>
+                    <td><code>sticky-offset</code></td>
+                    <td>Top offset when sticky. Numeric strings get <code>px</code>; values with a unit pass
+                      through.</td>
+                  </tr>
+                  <tr>
+                    <td><code>sticky-z-index</code></td>
+                    <td>Stacking order when sticky. Defaults to <code>10</code>.</td>
+                  </tr>
+                  <tr>
+                    <td><code>expanded</code></td>
+                    <td>Boolean. Reflects the mobile collapse state. Toggled by the hamburger button.</td>
+                  </tr>
+                  <tr>
+                    <td><code>navbar.toggle(force?)</code></td>
+                    <td>Open / close the mobile collapse panel.</td>
+                  </tr>
+                  <tr>
+                    <td><code>navbar.closeDropdowns(except?)</code></td>
+                    <td>Close every open dropdown. Pass an element to keep its branch open.</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>Markup class</th>
+                    <th>Purpose</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>.cui-nav-link</code></td>
+                    <td>Anchor styling for top-level links. Pair with <code>aria-current="page"</code>
+                      for the active state.</td>
+                  </tr>
+                  <tr>
+                    <td><code>.cui-dropdown</code> / <code>.cui-dropdown-toggle</code> /
+                      <code>.cui-dropdown-menu</code> / <code>.cui-dropdown-item</code></td>
+                    <td>Nested dropdown markup. The toggle is a <code>&lt;button&gt;</code>; the menu has
+                      <code>hidden</code> by default and gets unhidden by the navbar's dropdown logic.</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>Variable</th>
+                    <th>Default</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>--cui-navbar-bg</code></td>
+                    <td><code>--cui-color-surface-raised</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-navbar-color</code></td>
+                    <td><code>--cui-color</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-navbar-border</code></td>
+                    <td><code>--cui-color-border</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-navbar-width</code></td>
+                    <td><code>72rem</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-navbar-gutter</code></td>
+                    <td><code>2rem</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-navbar-size</code></td>
+                    <td><code>3.25rem</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-navbar-padding-block</code></td>
+                    <td><code>0.75rem</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-navbar-sticky-z-index</code></td>
+                    <td><code>10</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-navbar-sticky-offset</code></td>
+                    <td><code>0</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-navbar-link-bg</code> · <code>--cui-navbar-link-color</code> ·
+                      <code>--cui-navbar-link-hover-bg</code> · <code>--cui-navbar-link-hover-color</code> ·
+                      <code>--cui-navbar-link-current-bg</code> · <code>--cui-navbar-link-current-color</code>
+                    </td>
+                    <td>Link state colors.</td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-navbar-animation-duration</code> ·
+                      <code>--cui-navbar-animation-easing</code> ·
+                      <code>--cui-navbar-animation-distance</code></td>
+                    <td>Dropdown open / close motion.</td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-dropdown-animation-distance</code></td>
+                    <td>Per-instance override for the slide distance.</td>
+                  </tr>
+                </tbody>
+              </table>
             </section>
             <section id="buttons-tabs" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
               <div class="cui-prose">
@@ -698,6 +1369,116 @@
                   </script>
                 </cui-code>
               </div>
+
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>cui-button — attribute / property</th>
+                    <th>Purpose</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>variant="primary"</code></td>
+                    <td>Accent-colored button. Pair with <code>data-variant="primary"</code> on the
+                      CSS-only <code>.cui-button</code> form.</td>
+                  </tr>
+                  <tr>
+                    <td><code>disabled</code></td>
+                    <td>Boolean. Blocks pointer + keyboard activation and dims the button.</td>
+                  </tr>
+                  <tr>
+                    <td><code>href</code></td>
+                    <td>When set, renders an <code>&lt;a&gt;</code> instead of <code>&lt;button&gt;</code>.</td>
+                  </tr>
+                  <tr>
+                    <td><code>target</code> · <code>rel</code> · <code>download</code></td>
+                    <td>Forwarded to the rendered anchor when <code>href</code> is set.</td>
+                  </tr>
+                  <tr>
+                    <td><code>type="button | submit | reset"</code></td>
+                    <td>Forwarded to the rendered <code>&lt;button&gt;</code>. Defaults to
+                      <code>button</code> — set <code>submit</code> when used inside a form.</td>
+                  </tr>
+                  <tr>
+                    <td><code>full</code></td>
+                    <td>Boolean host attribute. Makes the button stretch to its container's inline-size.</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>cui-button — variable</th>
+                    <th>Default</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>--cui-button-bg</code></td>
+                    <td><code>--cui-color-surface-muted</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-button-border</code></td>
+                    <td><code>--cui-color-border</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-button-color</code></td>
+                    <td><code>--cui-color</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-control-size</code></td>
+                    <td><code>2.5rem</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-radius-control</code></td>
+                    <td><code>0.25rem</code></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>cui-tabs — slot</th>
+                    <th>Purpose</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>tab</code></td>
+                    <td>A clickable tab — typically a <code>&lt;button type="button"&gt;</code>. Order matches
+                      panels.</td>
+                  </tr>
+                  <tr>
+                    <td><code>panel</code></td>
+                    <td>The matching panel for each tab. Hidden state is managed automatically.</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>cui-tabs — behavior</th>
+                    <th>Detail</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Keyboard</td>
+                    <td><code>ArrowLeft</code> / <code>ArrowRight</code> cycles tabs;
+                      <code>Home</code> and <code>End</code> jump to the first or last tab.</td>
+                  </tr>
+                  <tr>
+                    <td>ARIA</td>
+                    <td>Tabs get <code>role="tab"</code> + <code>aria-selected</code>; panels get
+                      <code>role="tabpanel"</code> + <code>aria-labelledby</code>. The initial selected tab
+                      is the first one or the one with <code>aria-selected="true"</code>.</td>
+                  </tr>
+                </tbody>
+              </table>
             </section>
             <section id="code" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
               <div class="cui-prose">
@@ -710,7 +1491,7 @@
               </div>
               <cui-code language="html"><!--
 <cui-code language="javascript">
-  <script type="text/javascript">
+  <script type="text/plain">
     const button = document.querySelector("cui-button");
     button.addEventListener("click", () => {
       alert("Button clicked!");
@@ -719,6 +1500,105 @@
 </cui-code>
 --></cui-code>
 
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>Attribute</th>
+                    <th>Purpose</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>language</code></td>
+                    <td>One of <code>html</code> · <code>css</code> · <code>javascript</code> /
+                      <code>js</code> · <code>none</code>. Selects the syntax-highlighting pass. Defaults to
+                      <code>text</code> (no highlight).</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>Authoring</th>
+                    <th>Purpose</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>&lt;script type="text/plain"&gt;</code> child</td>
+                    <td>Recommended for embedding code. <code>cui-code</code> reads <code>textContent</code>
+                      and the script is not executed by the browser.</td>
+                  </tr>
+                  <tr>
+                    <td><code>&lt;!-- … --&gt;</code> child</td>
+                    <td>Wrap the code in an HTML comment to display raw markup that would otherwise be parsed
+                      (handy when the example itself contains <code>cui-code</code>).</td>
+                  </tr>
+                  <tr>
+                    <td>Copy button</td>
+                    <td>Rendered automatically in the header. Uses the Clipboard API.</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>Variable</th>
+                    <th>Default</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>--cui-code-bg</code></td>
+                    <td><code>#111827</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-code-header-bg</code></td>
+                    <td><code>hsl(220deg 22% 12%)</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-code-border</code></td>
+                    <td><code>hsl(220deg 18% 28%)</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-code-text</code></td>
+                    <td><code>#dbeafe</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-code-muted</code></td>
+                    <td><code>#93a4bc</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-code-padding</code></td>
+                    <td><code>--cui-space-4</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-code-font</code></td>
+                    <td>SF Mono / Consolas stack</td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-code-font-size</code></td>
+                    <td><code>--cui-font-size-neg-1</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-code-line-height</code></td>
+                    <td><code>1.6</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-code-tab-size</code></td>
+                    <td><code>2</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-code-comment</code> · <code>--cui-code-keyword</code> ·
+                      <code>--cui-code-property</code> · <code>--cui-code-string</code> ·
+                      <code>--cui-code-value</code> · <code>--cui-code-punctuation</code> ·
+                      <code>--cui-code-function</code></td>
+                    <td>Per-token highlight colors.</td>
+                  </tr>
+                </tbody>
+              </table>
             </section>
             <section id="scroll-stage" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
               <div class="cui-prose">
@@ -1221,8 +2101,7 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
                                 permanently removed.</p>
                             </div>
                             <footer class="cui-dialog-actions">
-                              <button type="button" class="cui-button"
-                                data-cui-modal-close="cancel">Cancel</button>
+                              <button type="button" class="cui-button" data-cui-modal-close="cancel">Cancel</button>
                               <button type="button" class="cui-button" data-variant="primary"
                                 data-cui-modal-close="confirm">Delete</button>
                             </footer>
@@ -1272,8 +2151,8 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
                   <div class="cui-stack">
                     <div class="docs-preview">
                       <div class="docs-preview-frame">
-                        <button type="button" class="cui-button"
-                          data-cui-modal-target="docs-form-modal">Edit profile</button>
+                        <button type="button" class="cui-button" data-cui-modal-target="docs-form-modal">Edit
+                          profile</button>
 
                         <cui-modal id="docs-form-modal">
                           <dialog class="cui-dialog" data-size="md">
@@ -1345,8 +2224,8 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
                   <div class="cui-stack">
                     <div class="docs-preview">
                       <div class="docs-preview-frame">
-                        <button type="button" class="cui-button"
-                          data-cui-modal-target="docs-sheet-modal">Open settings</button>
+                        <button type="button" class="cui-button" data-cui-modal-target="docs-sheet-modal">Open
+                          settings</button>
 
                         <cui-modal id="docs-sheet-modal">
                           <dialog class="cui-dialog" data-variant="sheet-end">
@@ -1703,7 +2582,8 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
                   </tr>
                   <tr>
                     <td><code>toast.info(msg, opts?)</code> · <code>.success</code> · <code>.warning</code> ·
-                      <code>.danger</code></td>
+                      <code>.danger</code>
+                    </td>
                     <td>Sugar — sets <code>variant</code> for you.</td>
                   </tr>
                   <tr>
@@ -1736,7 +2616,8 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
                   <tr>
                     <td><code>variant</code></td>
                     <td><code>"info"</code>. One of <code>info | success | warning | danger</code>.
-                      <code>warning</code> and <code>danger</code> render with <code>role="alert"</code>.</td>
+                      <code>warning</code> and <code>danger</code> render with <code>role="alert"</code>.
+                    </td>
                   </tr>
                   <tr>
                     <td><code>tone</code></td>

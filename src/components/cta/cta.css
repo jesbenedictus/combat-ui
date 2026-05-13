@@ -1,0 +1,132 @@
+:host {
+  --cui-cta-padding: var(--cui-space-6, 2rem);
+  --cui-cta-gap: var(--cui-space-5, 1.5rem);
+  --cui-cta-content-size: 48rem;
+  --cui-cta-title-size: var(--cui-font-size-4, clamp(1.875rem, 1.48rem + 1.56vi, 2.75rem));
+  --cui-cta-inverse-bg: var(--cui-color-inverse-surface, #10141b);
+  --cui-cta-inverse-color: var(--cui-color-inverse, #f7f8fa);
+  --cui-cta-inverse-muted-color: var(--cui-color-inverse-muted, hsl(0deg 0% 100% / 78%));
+  --cui-cta-inverse-eyebrow-color: var(--cui-color-inverse-eyebrow, hsl(0deg 0% 100% / 76%));
+
+  display: block;
+}
+
+:host([hidden]) {
+  display: none;
+}
+
+.cta {
+  display: grid;
+  gap: var(--cui-cta-gap, 1.5rem);
+  border: var(--cui-border-size, 1px) solid var(--cui-color-border, #cfd6df);
+  border-radius: var(--cui-radius-2, 0.5rem);
+  background: var(--cui-cta-bg, var(--cui-color-surface-raised, #fff));
+  box-shadow: var(--cui-shadow-1, 0 1px 2px hsl(220deg 25% 10% / 12%));
+  color: var(--cui-cta-color, var(--cui-color, #1b1f27));
+  padding: var(--cui-cta-padding, 2rem);
+}
+
+.content {
+  display: grid;
+  max-inline-size: var(--cui-cta-content-size, 48rem);
+  gap: var(--cui-space-3, 0.75rem);
+}
+
+.actions {
+  display: grid;
+  align-content: start;
+  gap: var(--cui-space-3, 0.75rem);
+}
+
+::slotted([slot="eyebrow"]) {
+  margin: 0;
+  color: var(--cui-cta-eyebrow-color, var(--cui-color-accent, oklch(57% 0.18 246)));
+  font-size: var(--cui-text-eyebrow-size, 0.875rem);
+  font-weight: var(--cui-font-weight-strong, 680);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+::slotted([slot="title"]) {
+  max-inline-size: 18ch;
+  margin: 0;
+  color: var(--cui-cta-title-color, var(--cui-cta-color, var(--cui-color, #1b1f27)));
+  font-size: var(--cui-cta-title-size, 2.75rem);
+  font-weight: var(--cui-font-weight-display, 760);
+  line-height: var(--cui-line-height-tight, 1.2);
+  text-wrap: balance;
+}
+
+::slotted(:not([slot])) {
+  max-inline-size: var(--cui-content-measure, 68ch);
+  margin: 0;
+  color: var(--cui-cta-muted-color, var(--cui-color-muted, #5d6675));
+}
+
+::slotted([slot="actions"]) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cui-space-3, 0.75rem);
+}
+
+:host([align="center"]) .cta,
+:host([variant="simple"]) .cta {
+  justify-items: center;
+  text-align: center;
+}
+
+:host([align="center"]) ::slotted([slot="title"]),
+:host([align="center"]) ::slotted(:not([slot])),
+:host([variant="simple"]) ::slotted([slot="title"]),
+:host([variant="simple"]) ::slotted(:not([slot])) {
+  margin-inline: auto;
+}
+
+:host([variant="full-bleed"]) .cta {
+  border-inline: 0;
+  border-radius: 0;
+  background: var(--cui-cta-bg, var(--cui-color-surface-muted, #edf0f4));
+  box-shadow: none;
+}
+
+:host([variant="full-bleed"]) {
+  --cui-cta-padding: var(--cui-section-space-compact, clamp(2.5rem, 7vi, 5rem)) var(--cui-container-gutter, 2rem);
+}
+
+:host([inverse]) {
+  --cui-color: var(--cui-cta-inverse-color, #f7f8fa);
+  --cui-color-muted: var(--cui-cta-inverse-muted-color, hsl(0deg 0% 100% / 78%));
+  --cui-color-surface: var(--cui-cta-inverse-bg, #10141b);
+  --cui-color-surface-raised: var(--cui-color-inverse-surface-raised, hsl(220deg 24% 8% / 72%));
+  --cui-color-surface-muted: var(--cui-color-inverse-surface-muted, #181e27);
+  --cui-color-border: var(--cui-color-inverse-border, hsl(0deg 0% 100% / 18%));
+  --cui-cta-bg: var(--cui-cta-inverse-bg, #10141b);
+  --cui-cta-color: var(--cui-cta-inverse-color, #f7f8fa);
+  --cui-cta-title-color: var(--cui-cta-inverse-color, #f7f8fa);
+  --cui-cta-muted-color: var(--cui-cta-inverse-muted-color, hsl(0deg 0% 100% / 78%));
+  --cui-cta-eyebrow-color: var(--cui-cta-inverse-eyebrow-color, hsl(0deg 0% 100% / 76%));
+}
+
+:host([inverse]) .cta {
+  background: var(--cui-cta-bg, #10141b);
+  color: var(--cui-cta-color, #f7f8fa);
+}
+
+:host([variant="sticky"]) {
+  position: sticky;
+  z-index: var(--cui-cta-sticky-z-index, 20);
+  inset-block-end: var(--cui-cta-sticky-offset, var(--cui-space-4, 1rem));
+}
+
+:host([variant="sticky"]) .cta {
+  margin-inline: auto;
+  inline-size: min(100% - (var(--cui-container-gutter, 2rem) * 2), var(--cui-container, 72rem));
+}
+
+@media (width >= 48rem) {
+  :host([variant="split"]) .cta,
+  :host([variant="sticky"]) .cta {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+  }
+}
