@@ -32,6 +32,7 @@
         <aside class="docs-on-page" aria-label="On this page">
           <a class="cui-nav-link" href="#hero">Hero</a>
           <a class="cui-nav-link" href="#page-intro">Page intro</a>
+          <a class="cui-nav-link" href="#cta">CTA</a>
           <a class="cui-nav-link" href="#content-grids">Content grids</a>
           <a class="cui-nav-link" href="#navbar">Navbar</a>
           <a class="cui-nav-link" href="#buttons-tabs">Buttons & tabs</a>
@@ -40,6 +41,7 @@
           <a class="cui-nav-link" href="#reveal">Reveal</a>
           <a class="cui-nav-link" href="#tree">Tree</a>
           <a class="cui-nav-link" href="#modal">Modal</a>
+          <a class="cui-nav-link" href="#disclosure">Disclosure</a>
           <a class="cui-nav-link" href="#notifications">Notifications</a>
         </aside>
 
@@ -186,6 +188,10 @@
               </section>
             </cui-tabs>
 
+            <cui-disclosure>
+              <details class="cui-disclosure" data-variant="ghost">
+                <summary>API reference</summary>
+                <div class="cui-disclosure-body">
             <table class="docs-token-table">
               <thead>
                 <tr>
@@ -305,6 +311,9 @@
                 </tr>
               </tbody>
             </table>
+                </div>
+              </details>
+            </cui-disclosure>
           </section>
 
           <section id="page-intro" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
@@ -454,6 +463,10 @@
               </section>
             </cui-tabs>
 
+            <cui-disclosure>
+              <details class="cui-disclosure" data-variant="ghost">
+                <summary>API reference</summary>
+                <div class="cui-disclosure-body">
             <table class="docs-token-table">
               <thead>
                 <tr>
@@ -571,10 +584,91 @@
               </tbody>
             </table>
 
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Slot</th>
+                  <th>Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>eyebrow</code></td>
+                  <td>Kicker text rendered above the title.</td>
+                </tr>
+                <tr>
+                  <td><code>title</code></td>
+                  <td>Display heading for the page.</td>
+                </tr>
+                <tr>
+                  <td><code>meta</code></td>
+                  <td>Meta strip — typically a row of <code>&lt;span&gt;</code> labels (sector, year, stack).</td>
+                </tr>
+                <tr>
+                  <td><em>(default)</em></td>
+                  <td>Lead copy and paragraphs that follow the title.</td>
+                </tr>
+                <tr>
+                  <td><code>actions</code></td>
+                  <td>Primary and secondary CTA buttons.</td>
+                </tr>
+                <tr>
+                  <td><code>aside</code></td>
+                  <td>Optional sidebar column, shown to the right of the content at <code>≥ 56rem</code>.
+                    Used by the <code>case</code>, <code>vacancy</code>, and <code>campaign</code> variants.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Default</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>--cui-page-intro-padding-block</code></td>
+                  <td><code>--cui-section-space-compact</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-page-intro-gap</code></td>
+                  <td><code>--cui-space-5</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-page-intro-content-size</code></td>
+                  <td><code>52rem</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-page-intro-aside-size</code></td>
+                  <td><code>20rem</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-page-intro-title-size</code></td>
+                  <td><code>--cui-font-size-5</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-page-intro-bg</code> · <code>--cui-page-intro-color</code></td>
+                  <td>Surface and text overrides.</td>
+                </tr>
+                <tr>
+                  <td><code>--cui-page-intro-inverse-bg</code> · <code>--cui-page-intro-inverse-color</code> ·
+                    <code>--cui-page-intro-inverse-muted-color</code> ·
+                    <code>--cui-page-intro-inverse-eyebrow-color</code> ·
+                    <code>--cui-page-intro-inverse-aside-bg</code></td>
+                  <td>Inverse-mode overrides (applied when the <code>inverse</code> attribute is present).</td>
+                </tr>
+              </tbody>
+            </table>
+
             <p class="cui-caption">
               See <a href="./theming.html#component-tokens">Theming → Component tokens</a> for the full
               <code>--cui-page-intro-*</code> token reference.
             </p>
+                </div>
+              </details>
+            </cui-disclosure>
           </section>
 
           <section id="cta" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
@@ -709,6 +803,10 @@
               </section>
             </cui-tabs>
 
+            <cui-disclosure>
+              <details class="cui-disclosure" data-variant="ghost">
+                <summary>API reference</summary>
+                <div class="cui-disclosure-body">
             <table class="docs-token-table">
               <thead>
                 <tr>
@@ -805,6 +903,9 @@
                 </tr>
               </tbody>
             </table>
+                </div>
+              </details>
+            </cui-disclosure>
           </section>
 
           <section id="content-grids" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
@@ -981,6 +1082,10 @@
               </section>
             </cui-tabs>
 
+            <cui-disclosure>
+              <details class="cui-disclosure" data-variant="ghost">
+                <summary>API reference</summary>
+                <div class="cui-disclosure-body">
             <table class="docs-token-table">
               <thead>
                 <tr>
@@ -1075,6 +1180,9 @@
                 </tr>
               </tbody>
             </table>
+                </div>
+              </details>
+            </cui-disclosure>
 
             <section id="navbar" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
               <div class="cui-prose">
@@ -1144,14 +1252,21 @@
                 <cui-code language="javascript">
                   <script type="text/plain">
                     const navbar = document.querySelector("cui-navbar");
+                  <script type="text/plain">
+                    const navbar = document.querySelector("cui-navbar");
                     navbar.sticky = true;
                     navbar.stickyOffset = "1rem";
                     navbar.stickyZIndex = "80";
+                    navbar.closeDropdowns();
                     navbar.closeDropdowns();
                   </script>
                 </cui-code>
               </div>
 
+              <cui-disclosure>
+                <details class="cui-disclosure" data-variant="ghost">
+                  <summary>API reference</summary>
+                  <div class="cui-disclosure-body">
               <table class="docs-token-table">
                 <thead>
                   <tr>
@@ -1298,6 +1413,9 @@
                   </tr>
                 </tbody>
               </table>
+                  </div>
+                </details>
+              </cui-disclosure>
             </section>
             <section id="buttons-tabs" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
               <div class="cui-prose">
@@ -1370,6 +1488,10 @@
                 </cui-code>
               </div>
 
+              <cui-disclosure>
+                <details class="cui-disclosure" data-variant="ghost">
+                  <summary>API reference</summary>
+                  <div class="cui-disclosure-body">
               <table class="docs-token-table">
                 <thead>
                   <tr>
@@ -1479,6 +1601,9 @@
                   </tr>
                 </tbody>
               </table>
+                  </div>
+                </details>
+              </cui-disclosure>
             </section>
             <section id="code" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
               <div class="cui-prose">
@@ -1492,6 +1617,7 @@
               <cui-code language="html"><!--
 <cui-code language="javascript">
   <script type="text/plain">
+  <script type="text/plain">
     const button = document.querySelector("cui-button");
     button.addEventListener("click", () => {
       alert("Button clicked!");
@@ -1500,6 +1626,10 @@
 </cui-code>
 --></cui-code>
 
+              <cui-disclosure>
+                <details class="cui-disclosure" data-variant="ghost">
+                  <summary>API reference</summary>
+                  <div class="cui-disclosure-body">
               <table class="docs-token-table">
                 <thead>
                   <tr>
@@ -1599,6 +1729,9 @@
                   </tr>
                 </tbody>
               </table>
+                  </div>
+                </details>
+              </cui-disclosure>
             </section>
             <section id="scroll-stage" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
               <div class="cui-prose">
@@ -1728,6 +1861,10 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
                 </script>
               </cui-code>
 
+              <cui-disclosure>
+                <details class="cui-disclosure" data-variant="ghost">
+                  <summary>API reference</summary>
+                  <div class="cui-disclosure-body">
               <table class="docs-token-table">
                 <thead>
                   <tr>
@@ -1774,6 +1911,9 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
                   </tr>
                 </tbody>
               </table>
+                  </div>
+                </details>
+              </cui-disclosure>
             </section>
 
             <section id="reveal" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
@@ -1847,6 +1987,10 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
                 </script>
               </cui-code>
 
+              <cui-disclosure>
+                <details class="cui-disclosure" data-variant="ghost">
+                  <summary>API reference</summary>
+                  <div class="cui-disclosure-body">
               <table class="docs-token-table">
                 <thead>
                   <tr>
@@ -1874,6 +2018,9 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
                   </tr>
                 </tbody>
               </table>
+                  </div>
+                </details>
+              </cui-disclosure>
             </section>
 
             <section id="tree" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
@@ -2002,6 +2149,10 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
                   </script>
                 </cui-code>
 
+                <cui-disclosure>
+                  <details class="cui-disclosure" data-variant="ghost">
+                    <summary>API reference</summary>
+                    <div class="cui-disclosure-body">
                 <table class="docs-token-table">
                   <thead>
                     <tr>
@@ -2060,6 +2211,9 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
                     </tr>
                   </tbody>
                 </table>
+                    </div>
+                  </details>
+                </cui-disclosure>
               </div>
             </section>
 
@@ -2101,6 +2255,7 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
                                 permanently removed.</p>
                             </div>
                             <footer class="cui-dialog-actions">
+                              <button type="button" class="cui-button" data-cui-modal-close="cancel">Cancel</button>
                               <button type="button" class="cui-button" data-cui-modal-close="cancel">Cancel</button>
                               <button type="button" class="cui-button" data-variant="primary"
                                 data-cui-modal-close="confirm">Delete</button>
@@ -2151,6 +2306,8 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
                   <div class="cui-stack">
                     <div class="docs-preview">
                       <div class="docs-preview-frame">
+                        <button type="button" class="cui-button" data-cui-modal-target="docs-form-modal">Edit
+                          profile</button>
                         <button type="button" class="cui-button" data-cui-modal-target="docs-form-modal">Edit
                           profile</button>
 
@@ -2226,6 +2383,8 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
                       <div class="docs-preview-frame">
                         <button type="button" class="cui-button" data-cui-modal-target="docs-sheet-modal">Open
                           settings</button>
+                        <button type="button" class="cui-button" data-cui-modal-target="docs-sheet-modal">Open
+                          settings</button>
 
                         <cui-modal id="docs-sheet-modal">
                           <dialog class="cui-dialog" data-variant="sheet-end">
@@ -2263,6 +2422,10 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
                 </section>
               </cui-tabs>
 
+              <cui-disclosure>
+                <details class="cui-disclosure" data-variant="ghost">
+                  <summary>API reference</summary>
+                  <div class="cui-disclosure-body">
               <table class="docs-token-table">
                 <thead>
                   <tr>
@@ -2406,6 +2569,349 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
                   </tr>
                 </tbody>
               </table>
+                  </div>
+                </details>
+              </cui-disclosure>
+            </section>
+
+            <section id="disclosure" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+              <div class="cui-prose">
+                <h2>Disclosure</h2>
+                <p>
+                  <code>cui-disclosure</code> wraps a native <code>&lt;details&gt;</code> element and adds
+                  consistent styling, animation, an attribute-reflected <code>open</code> state, and a
+                  <code>cui-disclosure-toggle</code> event. Markup stays in light DOM, so headings remain
+                  crawlable and the component still works without JavaScript.
+                </p>
+                <p>
+                  Use the native <code>name</code> attribute on the inner <code>&lt;details&gt;</code> to
+                  create an accordion — opening one sibling collapses the others.
+                </p>
+              </div>
+
+              <cui-tabs>
+                <button slot="tab" type="button">Default</button>
+                <button slot="tab" type="button">Accordion</button>
+                <button slot="tab" type="button">Ghost</button>
+                <button slot="tab" type="button">Trigger</button>
+
+                <section slot="panel" class="docs-panel">
+                  <div class="cui-stack">
+                    <div class="docs-preview">
+                      <div class="docs-preview-frame">
+                        <cui-disclosure>
+                          <details class="cui-disclosure">
+                            <summary>How does Combat UI ship CSS?</summary>
+                            <div class="cui-disclosure-body">
+                              <p>Components inject their shadow styles through constructable stylesheets and
+                                expose light-DOM hooks via the <code>cui-*</code> class system. Import
+                                <code>cui/index.css</code> once at the app root, then drop components anywhere.</p>
+                            </div>
+                          </details>
+                        </cui-disclosure>
+                      </div>
+                    </div>
+
+                    <cui-code language="html">
+                      <script type="text/html">
+                        <cui-disclosure>
+                          <details class="cui-disclosure">
+                            <summary>How does Combat UI ship CSS?</summary>
+                            <div class="cui-disclosure-body">
+                              <p>Components inject shadow styles…</p>
+                            </div>
+                          </details>
+                        </cui-disclosure>
+                      </script>
+                    </cui-code>
+                  </div>
+                </section>
+
+                <section slot="panel" class="docs-panel">
+                  <div class="cui-stack">
+                    <div class="docs-preview">
+                      <div class="docs-preview-frame">
+                        <div class="cui-disclosure-group" data-variant="stacked">
+                          <cui-disclosure>
+                            <details class="cui-disclosure" name="docs-disclosure-faq">
+                              <summary>Does it work without JavaScript?</summary>
+                              <div class="cui-disclosure-body">
+                                <p>Yes. The component progressively enhances the native
+                                  <code>&lt;details&gt;</code>. Without JS the summary still toggles open and
+                                  closed; with JS you also get the open attribute on the host, custom events,
+                                  and an imperative API.</p>
+                              </div>
+                            </details>
+                          </cui-disclosure>
+                          <cui-disclosure>
+                            <details class="cui-disclosure" name="docs-disclosure-faq">
+                              <summary>How do I make an accordion?</summary>
+                              <div class="cui-disclosure-body">
+                                <p>Give each inner <code>&lt;details&gt;</code> the same <code>name</code>
+                                  attribute. The browser will close siblings automatically when one opens.</p>
+                              </div>
+                            </details>
+                          </cui-disclosure>
+                          <cui-disclosure>
+                            <details class="cui-disclosure" name="docs-disclosure-faq">
+                              <summary>Can I style the chevron?</summary>
+                              <div class="cui-disclosure-body">
+                                <p>Override <code>--cui-disclosure-marker-color</code> or replace the
+                                  <code>::after</code> rule in your own stylesheet.</p>
+                              </div>
+                            </details>
+                          </cui-disclosure>
+                        </div>
+                      </div>
+                    </div>
+
+                    <cui-code language="html">
+                      <script type="text/html">
+                        <div class="cui-disclosure-group" data-variant="stacked">
+                          <cui-disclosure>
+                            <details class="cui-disclosure" name="faq">
+                              <summary>Does it work without JavaScript?</summary>
+                              <div class="cui-disclosure-body">…</div>
+                            </details>
+                          </cui-disclosure>
+                          <cui-disclosure>
+                            <details class="cui-disclosure" name="faq">
+                              <summary>How do I make an accordion?</summary>
+                              <div class="cui-disclosure-body">…</div>
+                            </details>
+                          </cui-disclosure>
+                        </div>
+                      </script>
+                    </cui-code>
+                  </div>
+                </section>
+
+                <section slot="panel" class="docs-panel">
+                  <div class="cui-stack">
+                    <div class="docs-preview">
+                      <div class="docs-preview-frame">
+                        <div class="cui-disclosure-group">
+                          <cui-disclosure>
+                            <details class="cui-disclosure" data-variant="ghost">
+                              <summary>Inline ghost disclosure</summary>
+                              <div class="cui-disclosure-body">
+                                <p>Use <code>data-variant="ghost"</code> for a borderless treatment that nests
+                                  inside other surfaces — table of contents, API references, etc.</p>
+                              </div>
+                            </details>
+                          </cui-disclosure>
+                          <cui-disclosure>
+                            <details class="cui-disclosure" data-variant="ghost">
+                              <summary>Pairs with prose</summary>
+                              <div class="cui-disclosure-body">
+                                <p>The summary inherits text styles so it sits naturally beside paragraphs.</p>
+                              </div>
+                            </details>
+                          </cui-disclosure>
+                        </div>
+                      </div>
+                    </div>
+
+                    <cui-code language="html">
+                      <script type="text/html">
+                        <cui-disclosure>
+                          <details class="cui-disclosure" data-variant="ghost">
+                            <summary>Inline ghost disclosure</summary>
+                            <div class="cui-disclosure-body">…</div>
+                          </details>
+                        </cui-disclosure>
+                      </script>
+                    </cui-code>
+                  </div>
+                </section>
+
+                <section slot="panel" class="docs-panel">
+                  <div class="cui-stack">
+                    <div class="docs-preview">
+                      <div class="docs-preview-frame">
+                        <div class="cui-cluster" style="--cui-cluster-gap: var(--cui-space-3, 0.75rem);">
+                          <cui-button data-cui-disclosure-target="docs-disclosure-remote">Toggle below</cui-button>
+                          <cui-button data-cui-disclosure-target="docs-disclosure-remote"
+                            data-cui-disclosure-action="open">Open</cui-button>
+                          <cui-button data-cui-disclosure-target="docs-disclosure-remote"
+                            data-cui-disclosure-action="close">Close</cui-button>
+                        </div>
+                        <cui-disclosure id="docs-disclosure-remote"
+                          style="margin-block-start: var(--cui-space-3, 0.75rem);">
+                          <details class="cui-disclosure">
+                            <summary>Remote-controlled disclosure</summary>
+                            <div class="cui-disclosure-body">
+                              <p>Any element with <code>data-cui-disclosure-target="&lt;id&gt;"</code>
+                                toggles the matching disclosure. Add
+                                <code>data-cui-disclosure-action="open"</code> or
+                                <code>"close"</code> to force a specific state.</p>
+                            </div>
+                          </details>
+                        </cui-disclosure>
+                      </div>
+                    </div>
+
+                    <cui-code language="html">
+                      <script type="text/html">
+                        <cui-button data-cui-disclosure-target="settings">Toggle</cui-button>
+                        <cui-disclosure id="settings">
+                          <details class="cui-disclosure">
+                            <summary>Settings</summary>
+                            <div class="cui-disclosure-body">…</div>
+                          </details>
+                        </cui-disclosure>
+                      </script>
+                    </cui-code>
+                  </div>
+                </section>
+              </cui-tabs>
+
+              <cui-disclosure>
+                <details class="cui-disclosure" data-variant="ghost">
+                  <summary>API reference</summary>
+                  <div class="cui-disclosure-body">
+                    <table class="docs-token-table">
+                      <thead>
+                        <tr>
+                          <th>Attribute / property</th>
+                          <th>Purpose</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><code>open</code></td>
+                          <td>Reflects the open state. Setting or removing toggles via the API.</td>
+                        </tr>
+                        <tr>
+                          <td><code>disclosure.open()</code></td>
+                          <td>Opens the inner <code>&lt;details&gt;</code>.</td>
+                        </tr>
+                        <tr>
+                          <td><code>disclosure.close()</code></td>
+                          <td>Closes the inner <code>&lt;details&gt;</code>.</td>
+                        </tr>
+                        <tr>
+                          <td><code>disclosure.toggle()</code></td>
+                          <td>Toggles the open state.</td>
+                        </tr>
+                        <tr>
+                          <td><code>disclosure.isOpen</code></td>
+                          <td>Boolean — current state.</td>
+                        </tr>
+                        <tr>
+                          <td><code>disclosure.details</code></td>
+                          <td>Reference to the inner <code>&lt;details&gt;</code> element.</td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <table class="docs-token-table">
+                      <thead>
+                        <tr>
+                          <th>Markup attribute / class</th>
+                          <th>Purpose</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><code>.cui-disclosure</code></td>
+                          <td>Required class on the <code>&lt;details&gt;</code> for styling.</td>
+                        </tr>
+                        <tr>
+                          <td><code>.cui-disclosure-body</code></td>
+                          <td>Optional wrapper around the disclosure content for consistent padding.</td>
+                        </tr>
+                        <tr>
+                          <td><code>.cui-disclosure-group</code></td>
+                          <td>Container that lays out adjacent disclosures with consistent spacing.</td>
+                        </tr>
+                        <tr>
+                          <td><code>data-variant="ghost"</code></td>
+                          <td>On the <code>&lt;details&gt;</code>. Borderless treatment for in-flow disclosures.</td>
+                        </tr>
+                        <tr>
+                          <td><code>data-variant="stacked"</code></td>
+                          <td>On the group. Joins adjacent disclosures with shared borders.</td>
+                        </tr>
+                        <tr>
+                          <td><code>data-tone="subtle"</code></td>
+                          <td>Muted surface treatment.</td>
+                        </tr>
+                        <tr>
+                          <td><code>name="&lt;group&gt;"</code></td>
+                          <td>Native attribute on <code>&lt;details&gt;</code>. Siblings sharing a name behave as an accordion.</td>
+                        </tr>
+                        <tr>
+                          <td><code>data-cui-disclosure-target="&lt;id&gt;"</code></td>
+                          <td>On any clickable element. Toggles the matching disclosure.</td>
+                        </tr>
+                        <tr>
+                          <td><code>data-cui-disclosure-action="open | close"</code></td>
+                          <td>On a trigger. Forces the state instead of toggling.</td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <table class="docs-token-table">
+                      <thead>
+                        <tr>
+                          <th>Event</th>
+                          <th>Detail / behavior</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><code>cui-disclosure-toggle</code></td>
+                          <td><code>{ open }</code>. Fires after the inner <code>&lt;details&gt;</code> toggles.</td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <table class="docs-token-table">
+                      <thead>
+                        <tr>
+                          <th>Variable</th>
+                          <th>Default</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><code>--cui-disclosure-bg</code></td>
+                          <td><code>--cui-color-surface-raised</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-disclosure-color</code></td>
+                          <td><code>--cui-color</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-disclosure-border</code></td>
+                          <td><code>--cui-color-border</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-disclosure-radius</code></td>
+                          <td><code>--cui-radius-2</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-disclosure-padding-block</code></td>
+                          <td><code>--cui-space-3</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-disclosure-padding-inline</code></td>
+                          <td><code>--cui-space-4</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-disclosure-marker-color</code></td>
+                          <td><code>--cui-color-muted</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-disclosure-hover-bg</code></td>
+                          <td><code>--cui-color-surface-muted</code></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </details>
+              </cui-disclosure>
             </section>
 
             <section id="notifications" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
@@ -2568,6 +3074,10 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
                 </section>
               </cui-tabs>
 
+              <cui-disclosure>
+                <details class="cui-disclosure" data-variant="ghost">
+                  <summary>API reference</summary>
+                  <div class="cui-disclosure-body">
               <table class="docs-token-table">
                 <thead>
                   <tr>
@@ -2582,6 +3092,8 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
                   </tr>
                   <tr>
                     <td><code>toast.info(msg, opts?)</code> · <code>.success</code> · <code>.warning</code> ·
+                      <code>.danger</code>
+                    </td>
                       <code>.danger</code>
                     </td>
                     <td>Sugar — sets <code>variant</code> for you.</td>
@@ -2616,6 +3128,8 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
                   <tr>
                     <td><code>variant</code></td>
                     <td><code>"info"</code>. One of <code>info | success | warning | danger</code>.
+                      <code>warning</code> and <code>danger</code> render with <code>role="alert"</code>.
+                    </td>
                       <code>warning</code> and <code>danger</code> render with <code>role="alert"</code>.
                     </td>
                   </tr>
@@ -2716,6 +3230,9 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
                   </tr>
                 </tbody>
               </table>
+                  </div>
+                </details>
+              </cui-disclosure>
             </section>
         </div>
       </div>

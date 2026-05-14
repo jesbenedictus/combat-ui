@@ -1,6 +1,7 @@
 import { CuiButton, defineCuiButton } from "./components/button";
 import { CuiCode, defineCuiCode } from "./components/code";
 import { CuiCta, defineCuiCta } from "./components/cta";
+import { CuiDisclosure, defineCuiDisclosure } from "./components/disclosure";
 import { CuiField, defineCuiField } from "./components/field";
 import { CuiForm, defineCuiForm } from "./components/form";
 import { CuiHero, defineCuiHero } from "./components/hero";
@@ -28,6 +29,7 @@ import {
 import { CuiTree, defineCuiTree } from "./components/tree";
 import "./index.css";
 
+export type { CuiDisclosureToggleDetail } from "./components/disclosure";
 export type {
   CuiFieldControl, CuiFieldInvalidDetail, CuiFieldValidator, CuiFieldValidDetail
 } from "./components/field";
@@ -51,7 +53,7 @@ export {
   type ScrollStageOptions,
   type ScrollStageState
 } from "./internal/scroll-coordinator";
-export { CuiButton, CuiCode, CuiCta, CuiField, CuiForm, CuiHero, CuiModal, CuiNavbar, CuiPageIntro, CuiReveal, CuiScrollStage, CuiTabs, CuiThemeToggle, CuiToastRegion, CuiTree, defineCuiButton, defineCuiCode, defineCuiCta, defineCuiField, defineCuiForm, defineCuiHero, defineCuiModal, defineCuiNavbar, defineCuiPageIntro, defineCuiReveal, defineCuiScrollStage, defineCuiTabs, defineCuiThemeToggle, defineCuiToastRegion, defineCuiTree, getTheme, setTheme, toast, type Theme };
+export { CuiButton, CuiCode, CuiCta, CuiDisclosure, CuiField, CuiForm, CuiHero, CuiModal, CuiNavbar, CuiPageIntro, CuiReveal, CuiScrollStage, CuiTabs, CuiThemeToggle, CuiToastRegion, CuiTree, defineCuiButton, defineCuiCode, defineCuiCta, defineCuiDisclosure, defineCuiField, defineCuiForm, defineCuiHero, defineCuiModal, defineCuiNavbar, defineCuiPageIntro, defineCuiReveal, defineCuiScrollStage, defineCuiTabs, defineCuiThemeToggle, defineCuiToastRegion, defineCuiTree, getTheme, setTheme, toast, type Theme };
 
 export function defineCombatUi(
   registry: CustomElementRegistry = customElements,
@@ -71,6 +73,7 @@ export function defineCombatUi(
   defineCuiModal(registry);
   defineCuiToastRegion(registry);
   defineCuiCta(registry);
+  defineCuiDisclosure(registry);
 }
 
 defineCombatUi();

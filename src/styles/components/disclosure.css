@@ -1,0 +1,145 @@
+.cui-disclosure {
+  --cui-disclosure-bg: var(--cui-color-surface-raised, #fff);
+  --cui-disclosure-color: var(--cui-color, #1b1f27);
+  --cui-disclosure-border: var(--cui-color-border, #cfd6df);
+  --cui-disclosure-radius: var(--cui-radius-2, 0.5rem);
+  --cui-disclosure-padding-inline: var(--cui-space-4, 1rem);
+  --cui-disclosure-padding-block: var(--cui-space-3, 0.75rem);
+  --cui-disclosure-summary-color: var(--cui-color, #1b1f27);
+  --cui-disclosure-marker-color: var(--cui-color-muted, #5d6675);
+  --cui-disclosure-hover-bg: var(--cui-color-surface-muted, #edf0f4);
+
+  display: block;
+  border: var(--cui-border-size, 1px) solid var(--cui-disclosure-border);
+  border-radius: var(--cui-disclosure-radius);
+  background: var(--cui-disclosure-bg);
+  color: var(--cui-disclosure-color);
+  overflow: clip;
+}
+
+.cui-disclosure > summary,
+.cui-disclosure > .cui-disclosure-summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--cui-space-3, 0.75rem);
+  padding-block: var(--cui-disclosure-padding-block, 0.75rem);
+  padding-inline: var(--cui-disclosure-padding-inline, 1rem);
+  color: var(--cui-disclosure-summary-color);
+  font-weight: var(--cui-font-weight-strong, 680);
+  cursor: pointer;
+  list-style: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.cui-disclosure > summary::-webkit-details-marker,
+.cui-disclosure > .cui-disclosure-summary::-webkit-details-marker {
+  display: none;
+}
+
+.cui-disclosure > summary::after,
+.cui-disclosure > .cui-disclosure-summary::after {
+  content: "";
+  inline-size: 0.55rem;
+  block-size: 0.55rem;
+  border-block-end: 2px solid var(--cui-disclosure-marker-color);
+  border-inline-end: 2px solid var(--cui-disclosure-marker-color);
+  transform: rotate(45deg);
+  translate: 0 -0.15em;
+  transition: transform 160ms ease, translate 160ms ease;
+}
+
+.cui-disclosure[open] > summary::after,
+.cui-disclosure[open] > .cui-disclosure-summary::after {
+  transform: rotate(225deg);
+  translate: 0 0.15em;
+}
+
+.cui-disclosure > summary:hover,
+.cui-disclosure > .cui-disclosure-summary:hover {
+  background: var(--cui-disclosure-hover-bg);
+}
+
+.cui-disclosure > summary:focus-visible,
+.cui-disclosure > .cui-disclosure-summary:focus-visible {
+  outline: 2px solid var(--cui-color-focus, var(--cui-color-accent, currentColor));
+  outline-offset: -2px;
+}
+
+.cui-disclosure-eyebrow {
+  display: block;
+  margin: 0;
+  color: var(--cui-color-muted, #5d6675);
+  font-size: var(--cui-font-size-neg-1, 0.875rem);
+  font-weight: var(--cui-font-weight-strong, 680);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cui-disclosure-body {
+  padding-block: 0 var(--cui-disclosure-padding-block, 0.75rem);
+  padding-inline: var(--cui-disclosure-padding-inline, 1rem);
+}
+
+.cui-disclosure[data-variant="ghost"] {
+  --cui-disclosure-bg: transparent;
+
+  border-color: transparent;
+  border-block-end: var(--cui-border-size, 1px) solid var(--cui-disclosure-border);
+  border-radius: 0;
+}
+
+.cui-disclosure[data-variant="ghost"] + .cui-disclosure[data-variant="ghost"] {
+  border-block-start: 0;
+}
+
+.cui-disclosure[data-tone="subtle"] {
+  --cui-disclosure-bg: var(--cui-color-surface-muted, #edf0f4);
+  --cui-disclosure-hover-bg: var(--cui-color-surface, #f7f8fa);
+}
+
+.cui-disclosure-group {
+  display: grid;
+  gap: var(--cui-space-2, 0.5rem);
+}
+
+.cui-disclosure-group[data-variant="stacked"] {
+  gap: 0;
+}
+
+.cui-disclosure-group[data-variant="stacked"] .cui-disclosure {
+  border-radius: 0;
+}
+
+.cui-disclosure-group[data-variant="stacked"] .cui-disclosure + .cui-disclosure {
+  border-block-start: 0;
+}
+
+.cui-disclosure-group[data-variant="stacked"] .cui-disclosure:first-child {
+  border-start-start-radius: var(--cui-disclosure-radius, 0.5rem);
+  border-start-end-radius: var(--cui-disclosure-radius, 0.5rem);
+}
+
+.cui-disclosure-group[data-variant="stacked"] .cui-disclosure:last-child {
+  border-end-start-radius: var(--cui-disclosure-radius, 0.5rem);
+  border-end-end-radius: var(--cui-disclosure-radius, 0.5rem);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cui-disclosure[open] > .cui-disclosure-body {
+    animation: cui-disclosure-in 160ms ease;
+  }
+}
+
+@keyframes cui-disclosure-in {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
