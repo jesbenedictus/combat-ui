@@ -23,7 +23,7 @@ validation work (SEO docs, demo sites).
 - [x] Add quote and testimonial blocks.
 - [x] Add CTA sections: simple CTA, split CTA, full-bleed CTA, and sticky CTA.
 - [x] Add image/media blocks: full-bleed media, figure with caption, media card, and overlay card.
-- [ ] Add team / people blocks: person card, team grid, leadership grid, and org chart.
+- [x] Add team / people blocks: person card, team grid, leadership grid, and org chart.
 - [ ] Add blog / news blocks: article card, article list, and category filter.
 - [ ] Add event blocks: event card, event list, and calendar view.
 - [ ] Add contact blocks: contact card, location card, and contact form.

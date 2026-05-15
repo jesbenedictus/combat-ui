@@ -9,18 +9,19 @@ const isDocsRoot = process.argv.some(
 
 const docsDir = resolve(__dirname, "docs");
 const docsPages = [
-  "index",
-  "foundations",
-  "layouts",
-  "theming",
-  "sections",
-  "components",
-  "navigation",
   "atoms",
-  "motion",
-  "overlays",
+  "components",
   "forms",
+  "foundations",
+  "index",
+  "layouts",
+  "map",
+  "motion",
+  "navigation",
+  "overlays",
   "roadmap",
+  "sections",
+  "theming",
 ];
 
 function docsIncludes(): Plugin {
