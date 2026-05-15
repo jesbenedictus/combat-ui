@@ -40,10 +40,10 @@ validation work (SEO docs, demo sites).
 - [x] Add `cui-reveal` for content reveal driven by scroll stages.
 - [x] Add `cui-scroll-stage` sticky 3D track that publishes focus/offset as CSS custom properties.
 - [ ] Add `cui-accordion` for FAQ and disclosure groups (single-open and multi-open modes).
-- [x] Add `cui-disclosure` for generic toggleable content (lightweight wrapper around `<details>`).
+- [x] Add `cui-disclosure` for generic togglable content (lightweight wrapper around `<details>`).
 - [ ] Add `cui-tooltip` for inline contextual labels (positioning, focus / hover triggers, keyboard ESC).
 - [ ] Add `cui-popover` for richer floating content (delegates positioning anchor logic; pairs with tooltip).
-- [ ] Evaluate whether `cui-carousel` is necessary; add only if reference demos need it.
+- [ ] Add `cui-carousel` for nice animated image/content rotations, highly configurable, multiple images/animations.
 
 ## Priority 4: Navigation System
 
