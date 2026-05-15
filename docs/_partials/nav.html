@@ -1,14 +1,36 @@
 <header class="docs-navbar">
   <cui-navbar sticky>
     <a slot="brand" class="cui-nav-link" href="./index.html">Combat UI</a>
-    <a slot="nav" class="cui-nav-link" href="./index.html" data-page="index">Overview</a>
-    <a slot="nav" class="cui-nav-link" href="./foundations.html" data-page="foundations">Foundations</a>
-    <a slot="nav" class="cui-nav-link" href="./components.html" data-page="components">Components</a>
-    <a slot="nav" class="cui-nav-link" href="./forms.html" data-page="forms">Forms</a>
-    <a slot="nav" class="cui-nav-link" href="./layouts.html" data-page="layouts">Layouts</a>
-    <a slot="nav" class="cui-nav-link" href="./theming.html" data-page="theming">Theming</a>
-    <a slot="nav" class="cui-nav-link" href="./roadmap.html" data-page="roadmap">Roadmap</a>
-    <a slot="nav" class="cui-nav-link" href="./examples/" data-page="examples">Demo</a>
+    <nav slot="nav" class="cui-nav" aria-label="Documentation">
+      <a class="cui-nav-link" href="./index.html" data-page="index">Overview</a>
+      <div class="cui-dropdown">
+        <button class="cui-nav-link cui-dropdown-toggle" type="button">Build</button>
+        <div class="cui-dropdown-menu" hidden>
+          <a class="cui-dropdown-item" href="./foundations.html" data-page="foundations">Foundations</a>
+          <a class="cui-dropdown-item" href="./layouts.html" data-page="layouts">Layouts</a>
+          <a class="cui-dropdown-item" href="./theming.html" data-page="theming">Theming</a>
+        </div>
+      </div>
+      <div class="cui-dropdown">
+        <button class="cui-nav-link cui-dropdown-toggle" type="button">Patterns</button>
+        <div class="cui-dropdown-menu" hidden>
+          <a class="cui-dropdown-item" href="./sections.html" data-page="sections">Sections</a>
+          <div class="cui-dropdown">
+            <button class="cui-dropdown-item cui-dropdown-toggle" type="button">Components</button>
+            <div class="cui-dropdown-menu" hidden>
+              <a class="cui-dropdown-item" href="./components.html" data-page="components">Overview</a>
+              <a class="cui-dropdown-item" href="./navigation.html" data-page="navigation">Navigation</a>
+              <a class="cui-dropdown-item" href="./atoms.html" data-page="atoms">Atoms</a>
+              <a class="cui-dropdown-item" href="./motion.html" data-page="motion">Motion</a>
+              <a class="cui-dropdown-item" href="./overlays.html" data-page="overlays">Overlays</a>
+            </div>
+          </div>
+          <a class="cui-dropdown-item" href="./forms.html" data-page="forms">Forms</a>
+        </div>
+      </div>
+      <a class="cui-nav-link" href="./roadmap.html" data-page="roadmap">Roadmap</a>
+      <a class="cui-nav-link" href="./examples/" data-page="examples">Demo</a>
+    </nav>
     <div slot="actions" class="cui-cluster">
       <cui-theme-toggle></cui-theme-toggle>
     </div>

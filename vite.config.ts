@@ -11,10 +11,15 @@ const docsDir = resolve(__dirname, "docs");
 const docsPages = [
   "index",
   "foundations",
-  "components",
-  "forms",
   "layouts",
   "theming",
+  "sections",
+  "components",
+  "navigation",
+  "atoms",
+  "motion",
+  "overlays",
+  "forms",
   "roadmap",
 ];
 
