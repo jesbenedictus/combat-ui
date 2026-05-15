@@ -1,0 +1,1591 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Page-level building blocks: hero, page intro, CTA, content grids, and media blocks for marketing and editorial pages.">
+  <title>Sections · Combat UI</title>
+  <script>
+    try {
+      var t = localStorage.getItem("cui-theme");
+      if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+    } catch (_) { }
+  </script>
+  <script type="module" src="./index.ts"></script>
+  <link rel="stylesheet" href="./site.css">
+</head>
+
+<body class="cui-site">
+  <a class="cui-skip-link" href="#main">Skip to content</a>
+  <!--#include _partials/nav.html?current=sections-->
+  <main id="main" class="cui-page cui-stack">
+    <header class="cui-page-header">
+      <h1>Page sections</h1>
+      <p>Composable, slot-based blocks for the moments every marketing or editorial page needs: a hero, a page intro, a call to action, content grids, and media blocks. Each is a custom element with a CSS-class fallback so it works from CMS-generated HTML.</p>
+    </header>
+
+    <section class="cui-section">
+      <div class="cui-container docs-doc-layout">
+        <aside class="docs-on-page" aria-label="On this page">
+          <a class="cui-nav-link" href="#hero">Hero</a>
+          <a class="cui-nav-link" href="#page-intro">Page intro</a>
+          <a class="cui-nav-link" href="#cta">CTA</a>
+          <a class="cui-nav-link" href="#content-grids">Content grids</a>
+          <a class="cui-nav-link" href="#media-blocks">Media blocks</a>
+        </aside>
+
+        <div class="cui-stack" style="--cui-stack-gap: var(--cui-space-7, 3rem);">
+          <section id="hero" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Hero</h2>
+              <p>
+                Use <code>cui-hero</code> for text-only, split-media, background-image, and full-bleed overlay
+                introductions. Image and video media can stay in light DOM through the <code>media</code> slot.
+              </p>
+            </div>
+
+            <cui-tabs>
+              <button slot="tab" type="button">Image</button>
+              <button slot="tab" type="button">Background</button>
+              <button slot="tab" type="button">Video</button>
+              <button slot="tab" type="button">Text</button>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <cui-hero variant="split"
+                    style="--cui-hero-min-block-size: auto; --cui-hero-padding-block: var(--cui-space-7, 3rem); --cui-hero-title-size: var(--cui-font-size-5, 4rem); --cui-hero-media-min-block-size: 22rem;">
+                    <p slot="eyebrow">Campaign</p>
+                    <h3 slot="title">Launch pages with rich media.</h3>
+                    <p>
+                      Pair concise copy with product visuals, venue photography, or campaign artwork.
+                    </p>
+                    <div slot="actions" class="cui-hero-actions">
+                      <cui-button variant="primary">Start</cui-button>
+                      <cui-button>Preview</cui-button>
+                    </div>
+                    <img slot="media" class="cui-hero-media" src="./hero-image.svg"
+                      alt="Abstract product interface preview">
+                  </cui-hero>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <cui-hero variant="split">
+                        <p slot="eyebrow">Campaign</p>
+                        <h1 slot="title">Launch pages with rich media.</h1>
+                        <p>Pair concise copy with product visuals or campaign artwork.</p>
+                        <div slot="actions" class="cui-hero-actions">
+                          <cui-button variant="primary">Start</cui-button>
+                        </div>
+                        <img slot="media" class="cui-hero-media" src="./hero-image.svg" alt="">
+                      </cui-hero>
+                    </script>
+                  </cui-code>
+                </div>
+              </section>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <cui-hero variant="background" background-src="./hero-image.svg" background-position="center"
+                    style="--cui-hero-min-block-size: 32rem; --cui-hero-padding-block: var(--cui-space-7, 3rem); --cui-hero-title-size: var(--cui-font-size-5, 4rem);">
+                    <p slot="eyebrow">Background</p>
+                    <h3 slot="title">Put imagery behind the message.</h3>
+                    <p>
+                      Background image heroes work well when the visual is decorative and the copy should lead.
+                    </p>
+                    <div slot="actions" class="cui-hero-actions">
+                      <cui-button variant="primary" href="./examples/">Explore</cui-button>
+                    </div>
+                  </cui-hero>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <cui-hero
+                        variant="background"
+                        background-src="./hero-image.svg"
+                        background-position="center"
+                      >
+                        <h1 slot="title">Put imagery behind the message.</h1>
+                        <p>Use this when the image is decorative and the copy should lead.</p>
+                      </cui-hero>
+                    </script>
+                  </cui-code>
+                </div>
+              </section>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <cui-hero variant="overlay"
+                    style="--cui-hero-min-block-size: 34rem; --cui-hero-padding-block: var(--cui-space-7, 3rem); --cui-hero-title-size: var(--cui-font-size-5, 4rem);">
+                    <p slot="eyebrow">Editorial</p>
+                    <h3 slot="title">Video-backed stories with readable copy.</h3>
+                    <p>
+                      Use an overlay hero when motion supports the message and the headline still needs priority.
+                    </p>
+                    <div slot="actions" class="cui-hero-actions">
+                      <cui-button variant="primary" href="./examples/">Watch</cui-button>
+                    </div>
+                    <video slot="media" class="cui-hero-media" autoplay muted loop playsinline
+                      poster="./hero-image.svg">
+                      <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+                        type="video/mp4">
+                    </video>
+                  </cui-hero>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <cui-hero variant="overlay">
+                        <h1 slot="title">Video-backed stories with readable copy.</h1>
+                        <p>Use overlays when motion supports the message.</p>
+                        <video slot="media" class="cui-hero-media" autoplay muted loop playsinline>
+                          <source src="hero.mp4" type="video/mp4">
+                        </video>
+                      </cui-hero>
+                    </script>
+                  </cui-code>
+                </div>
+              </section>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <cui-hero variant="text" align="center"
+                    style="--cui-hero-padding-block: var(--cui-space-7, 3rem); --cui-hero-title-size: var(--cui-font-size-5, 4rem);">
+                    <p slot="eyebrow">Announcement</p>
+                    <h3 slot="title">A focused text hero for direct messages.</h3>
+                    <p>
+                      Text-only heroes keep the first viewport calm for documentation, changelogs, and product updates.
+                    </p>
+                    <div slot="actions" class="cui-hero-actions">
+                      <cui-button variant="primary">Read more</cui-button>
+                    </div>
+                  </cui-hero>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <cui-hero
+                        variant="text"
+                        align="center"
+                        style="--cui-hero-padding-block: var(--cui-space-7, 3rem); --cui-hero-title-size: var(--cui-font-size-5, 4rem);"
+                      >
+                        <p slot="eyebrow">Announcement</p>
+                        <h3 slot="title">A focused text hero for direct messages.</h3>
+                        <p>
+                          Text-only heroes keep the first viewport calm for documentation, changelogs, and product updates.
+                        </p>
+                        <div slot="actions" class="cui-hero-actions">
+                          <cui-button variant="primary">Read more</cui-button>
+                        </div>
+                      </cui-hero>
+                  </script>
+                  </cui-code>
+                </div>
+              </section>
+            </cui-tabs>
+
+            <cui-disclosure>
+              <details class="cui-disclosure" data-variant="ghost">
+                <summary>API reference</summary>
+                <div class="cui-disclosure-body">
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Slot</th>
+                  <th>Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>eyebrow</code></td>
+                  <td>Small kicker text rendered above the title.</td>
+                </tr>
+                <tr>
+                  <td><code>title</code></td>
+                  <td>Display heading. Sized via <code>--cui-hero-title-size</code>.</td>
+                </tr>
+                <tr>
+                  <td><em>(default)</em></td>
+                  <td>Lead copy and supporting paragraphs.</td>
+                </tr>
+                <tr>
+                  <td><code>actions</code></td>
+                  <td>CTA button group. Wrap in a <code>.cui-hero-actions</code> cluster.</td>
+                </tr>
+                <tr>
+                  <td><code>media</code></td>
+                  <td>Image, video, or markup for the split / overlay variants. Use the
+                    <code>.cui-hero-media</code> class for cover fit.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Attribute / property</th>
+                  <th>Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>variant="split | background | overlay | text"</code></td>
+                  <td>Layout preset. <code>split</code> shows media beside copy;
+                    <code>background</code> renders <code>background-src</code> behind the content;
+                    <code>overlay</code> layers content on top of a media slot; <code>text</code> is
+                    copy-only.</td>
+                </tr>
+                <tr>
+                  <td><code>background-src</code></td>
+                  <td>Image URL used by the <code>background</code> variant. Reflected to the
+                    <code>--cui-hero-background-image</code> custom property.</td>
+                </tr>
+                <tr>
+                  <td><code>background-position</code></td>
+                  <td>CSS <code>background-position</code> for the background variant. Defaults to
+                    <code>center</code>.</td>
+                </tr>
+                <tr>
+                  <td><code>background-size</code></td>
+                  <td>CSS <code>background-size</code> for the background variant. Defaults to
+                    <code>cover</code>.</td>
+                </tr>
+                <tr>
+                  <td><code>align="start | center"</code></td>
+                  <td>Horizontal alignment of the content column.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Default</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>--cui-hero-min-block-size</code></td>
+                  <td><code>min(86vb, 48rem)</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-hero-padding-block</code></td>
+                  <td><code>--cui-section-space-hero</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-hero-gap</code></td>
+                  <td><code>--cui-space-7</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-hero-content-size</code></td>
+                  <td><code>42rem</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-hero-media-size</code></td>
+                  <td><code>38rem</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-hero-media-min-block-size</code></td>
+                  <td><code>clamp(18rem, 44vi, 34rem)</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-hero-media-radius</code></td>
+                  <td><code>--cui-radius-2</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-hero-title-size</code></td>
+                  <td><code>--cui-font-size-display</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-hero-overlay</code></td>
+                  <td>Linear gradient — only used by the <code>overlay</code> variant.</td>
+                </tr>
+                <tr>
+                  <td><code>--cui-hero-bg</code> · <code>--cui-hero-color</code></td>
+                  <td>Surface and text overrides.</td>
+                </tr>
+              </tbody>
+            </table>
+                </div>
+              </details>
+            </cui-disclosure>
+          </section>
+
+          <section id="page-intro" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Page intro</h2>
+              <p>
+                Use <code>cui-page-intro</code> as a page header strip: eyebrow, display title, lead copy, optional
+                meta line, action row, and an optional aside column. Variants tune scale and tone for landing, case,
+                vacancy, and campaign pages.
+              </p>
+            </div>
+
+            <cui-tabs>
+              <button slot="tab" type="button">Default</button>
+              <button slot="tab" type="button">Landing</button>
+              <button slot="tab" type="button">Case + aside</button>
+              <button slot="tab" type="button">Inverse</button>
+              <button slot="tab" type="button">Centered</button>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <cui-page-intro>
+                    <p slot="eyebrow">Theming</p>
+                    <h3 slot="title">Composable design tokens for product surfaces.</h3>
+                    <p>
+                      Drop tokens at any scope: globally, per section, or inline.
+                    </p>
+                    <div slot="actions">
+                      <cui-button variant="primary" href="./theming.html">Read tokens</cui-button>
+                      <cui-button href="./components.html">Components</cui-button>
+                    </div>
+                  </cui-page-intro>
+                  <cui-code language="html">
+                    <script type="text/plain">
+                    <cui-page-intro>
+                      <p slot="eyebrow">Theming</p>
+                      <h1 slot="title">Composable design tokens.</h1>
+                      <p>Lead copy with measure-capped width.</p>
+                      <div slot="actions">
+                        <cui-button variant="primary">Read</cui-button>
+                      </div>
+                    </cui-page-intro>
+                    </script>
+                  </cui-code>
+                </div>
+              </section>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <cui-page-intro variant="landing">
+                    <p slot="eyebrow">Combat UI</p>
+                    <h3 slot="title">Progressive components for the modern web.</h3>
+                    <p>Display-scale heading and a roomier content column. Use this on the marketing or product home
+                      page.</p>
+                    <div slot="actions">
+                      <cui-button variant="primary">Get started</cui-button>
+                    </div>
+                  </cui-page-intro>
+                  <cui-code language="html">
+                    <script type="text/plain">
+                    <cui-page-intro variant="landing">
+                      <h1 slot="title">Bigger display heading.</h1>
+                      <p>Roomier content column.</p>
+                    </cui-page-intro>
+                    </script>
+                  </cui-code>
+                </div>
+              </section>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <cui-page-intro variant="case">
+                    <p slot="eyebrow">Case study</p>
+                    <h3 slot="title">Reshaping operational reporting at Atlas.</h3>
+                    <p>Two-column layout: content on the left, aside on the right at <code>≥ 56rem</code>, stacked
+                      below.</p>
+                    <p slot="meta">
+                      <span>Sector — Logistics</span>
+                      <span>Year — 2026</span>
+                      <span>Stack — Combat UI</span>
+                    </p>
+                    <aside slot="aside">
+                      <strong>Stack</strong>
+                      <p style="margin: 0; color: var(--cui-color-muted, #5d6675);">
+                        Combat UI · Vite · TypeScript
+                      </p>
+                    </aside>
+                  </cui-page-intro>
+                  <cui-code language="html">
+                    <script type="text/plain">
+                    <cui-page-intro variant="case">
+                      <p slot="eyebrow">Case study</p>
+                      <h1 slot="title">Project title.</h1>
+                      <p>Lead summary.</p>
+                      <p slot="meta">
+                        <span>Sector — Logistics</span>
+                        <span>Year — 2026</span>
+                      </p>
+                      <aside slot="aside">
+                        <strong>Stack</strong>
+                        <p>Combat UI · Vite · TypeScript</p>
+                      </aside>
+                    </cui-page-intro>
+                    </script>
+                  </cui-code>
+                </div>
+              </section>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <cui-page-intro inverse>
+                    <p slot="eyebrow">Promo</p>
+                    <h3 slot="title">Inverse surface for the headline moment.</h3>
+                    <p>Flips surface and text tokens for emphasis. Pair with <code>full-bleed</code> for a hero band.
+                    </p>
+                    <div slot="actions">
+                      <cui-button variant="primary">Try it</cui-button>
+                    </div>
+                  </cui-page-intro>
+                  <cui-code language="html">
+                    <script type="text/plain">
+                    <cui-page-intro inverse>
+                      <h1 slot="title">Inverse surface.</h1>
+                      <p>Headline moment.</p>
+                    </cui-page-intro>
+                    </script>
+                  </cui-code>
+                </div>
+              </section>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <cui-page-intro align="center">
+                    <p slot="eyebrow">Status</p>
+                    <h3 slot="title">Centered intro for short-form pages.</h3>
+                    <p>Title and copy align to the center axis.</p>
+                  </cui-page-intro>
+                  <cui-code language="html">
+                    <script type="text/plain">
+                    <cui-page-intro align="center">
+                      <h1 slot="title">Centered title.</h1>
+                      <p>Centered copy.</p>
+                    </cui-page-intro>
+                    </script>
+                  </cui-code>
+                </div>
+              </section>
+            </cui-tabs>
+
+            <cui-disclosure>
+              <details class="cui-disclosure" data-variant="ghost">
+                <summary>API reference</summary>
+                <div class="cui-disclosure-body">
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Modifier</th>
+                  <th>Effect</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>variant="landing"</code></td>
+                  <td>Display-scale title, wider content column</td>
+                </tr>
+                <tr>
+                  <td><code>variant="case"</code></td>
+                  <td>Muted background, two-column with aside at <code>≥ 56rem</code></td>
+                </tr>
+                <tr>
+                  <td><code>variant="vacancy"</code></td>
+                  <td>Two-column with aside; tighter content measure</td>
+                </tr>
+                <tr>
+                  <td><code>variant="campaign"</code></td>
+                  <td>Muted background, two-column with aside</td>
+                </tr>
+                <tr>
+                  <td><code>inverse</code></td>
+                  <td>Inverse surface and foreground tokens</td>
+                </tr>
+                <tr>
+                  <td><code>full-bleed</code></td>
+                  <td>Span the full inline-size of the parent</td>
+                </tr>
+                <tr>
+                  <td><code>align="center"</code></td>
+                  <td>Center-align title, copy, and actions</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Slot</th>
+                  <th>Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>eyebrow</code></td>
+                  <td>Kicker text rendered above the title.</td>
+                </tr>
+                <tr>
+                  <td><code>title</code></td>
+                  <td>Display heading for the page.</td>
+                </tr>
+                <tr>
+                  <td><code>meta</code></td>
+                  <td>Meta strip — typically a row of <code>&lt;span&gt;</code> labels (sector, year, stack).</td>
+                </tr>
+                <tr>
+                  <td><em>(default)</em></td>
+                  <td>Lead copy and paragraphs that follow the title.</td>
+                </tr>
+                <tr>
+                  <td><code>actions</code></td>
+                  <td>Primary and secondary CTA buttons.</td>
+                </tr>
+                <tr>
+                  <td><code>aside</code></td>
+                  <td>Optional sidebar column, shown to the right of the content at <code>≥ 56rem</code>.
+                    Used by the <code>case</code>, <code>vacancy</code>, and <code>campaign</code> variants.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Default</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>--cui-page-intro-padding-block</code></td>
+                  <td><code>--cui-section-space-compact</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-page-intro-gap</code></td>
+                  <td><code>--cui-space-5</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-page-intro-content-size</code></td>
+                  <td><code>52rem</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-page-intro-aside-size</code></td>
+                  <td><code>20rem</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-page-intro-title-size</code></td>
+                  <td><code>--cui-font-size-5</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-page-intro-bg</code> · <code>--cui-page-intro-color</code></td>
+                  <td>Surface and text overrides.</td>
+                </tr>
+                <tr>
+                  <td><code>--cui-page-intro-inverse-bg</code> · <code>--cui-page-intro-inverse-color</code> ·
+                    <code>--cui-page-intro-inverse-muted-color</code> ·
+                    <code>--cui-page-intro-inverse-eyebrow-color</code> ·
+                    <code>--cui-page-intro-inverse-aside-bg</code></td>
+                  <td>Inverse-mode overrides (applied when the <code>inverse</code> attribute is present).</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Slot</th>
+                  <th>Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>eyebrow</code></td>
+                  <td>Kicker text rendered above the title.</td>
+                </tr>
+                <tr>
+                  <td><code>title</code></td>
+                  <td>Display heading for the page.</td>
+                </tr>
+                <tr>
+                  <td><code>meta</code></td>
+                  <td>Meta strip — typically a row of <code>&lt;span&gt;</code> labels (sector, year, stack).</td>
+                </tr>
+                <tr>
+                  <td><em>(default)</em></td>
+                  <td>Lead copy and paragraphs that follow the title.</td>
+                </tr>
+                <tr>
+                  <td><code>actions</code></td>
+                  <td>Primary and secondary CTA buttons.</td>
+                </tr>
+                <tr>
+                  <td><code>aside</code></td>
+                  <td>Optional sidebar column, shown to the right of the content at <code>≥ 56rem</code>.
+                    Used by the <code>case</code>, <code>vacancy</code>, and <code>campaign</code> variants.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Default</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>--cui-page-intro-padding-block</code></td>
+                  <td><code>--cui-section-space-compact</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-page-intro-gap</code></td>
+                  <td><code>--cui-space-5</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-page-intro-content-size</code></td>
+                  <td><code>52rem</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-page-intro-aside-size</code></td>
+                  <td><code>20rem</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-page-intro-title-size</code></td>
+                  <td><code>--cui-font-size-5</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-page-intro-bg</code> · <code>--cui-page-intro-color</code></td>
+                  <td>Surface and text overrides.</td>
+                </tr>
+                <tr>
+                  <td><code>--cui-page-intro-inverse-bg</code> · <code>--cui-page-intro-inverse-color</code> ·
+                    <code>--cui-page-intro-inverse-muted-color</code> ·
+                    <code>--cui-page-intro-inverse-eyebrow-color</code> ·
+                    <code>--cui-page-intro-inverse-aside-bg</code></td>
+                  <td>Inverse-mode overrides (applied when the <code>inverse</code> attribute is present).</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p class="cui-caption">
+              See <a href="./theming.html#component-tokens">Theming → Component tokens</a> for the full
+              <code>--cui-page-intro-*</code> token reference.
+            </p>
+                </div>
+              </details>
+            </cui-disclosure>
+          </section>
+
+          <section id="cta" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>CTA</h2>
+              <p>
+                Use `cui-cta` for conversion sections that need simple, split, full-bleed, or sticky placement.
+              </p>
+            </div>
+
+            <cui-tabs>
+              <button slot="tab" type="button">Simple</button>
+              <button slot="tab" type="button">Split</button>
+              <button slot="tab" type="button">Full bleed</button>
+              <button slot="tab" type="button">Sticky</button>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <cui-cta variant="simple">
+                    <p slot="eyebrow">Next step</p>
+                    <h3 slot="title">Start with the component docs.</h3>
+                    <p>Simple CTAs center the message and action for focused sections.</p>
+                    <div slot="actions">
+                      <cui-button variant="primary" href="./components.html">Browse components</cui-button>
+                    </div>
+                  </cui-cta>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <cui-cta variant="simple">
+                        <p slot="eyebrow">Next step</p>
+                        <h1 slot="title">Start with the component docs.</h1>
+                        <p>Simple CTAs center the message and action for focused sections.</p>
+                        <div slot="actions">
+                          <cui-button variant="primary">Browse components</cui-button>
+                        </div>
+                      </cui-cta>
+                    </script>
+                </div>
+              </section>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <cui-cta variant="split">
+                    <p slot="eyebrow">Build faster</p>
+                    <h3 slot="title">Pair supporting copy with actions.</h3>
+                    <p>Split CTAs keep action groups aligned beside the message on wider screens.</p>
+                    <div slot="actions">
+                      <cui-button variant="primary" href="./examples/">Open demo</cui-button>
+                      <cui-button href="./foundations.html">Foundations</cui-button>
+                    </div>
+                  </cui-cta>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <cui-cta variant="split">
+                        <p slot="eyebrow">Build faster</p>
+                        <h1 slot="title">Pair supporting copy with actions.</h1>
+                        <p>Split CTAs keep action groups aligned beside the message on wider screens.</p>
+                        <div slot="actions">
+                          <cui-button variant="primary">Open demo</cui-button>
+                          <cui-button>Foundations</cui-button>
+                        </div>
+                      </cui-cta>
+                    </script>
+                </div>
+              </section>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <cui-cta variant="full-bleed">
+                    <p slot="eyebrow">Launch</p>
+                    <h3 slot="title">Create a strong campaign close.</h3>
+                    <p>Full-bleed CTAs create a section-level break without adding a separate wrapper.</p>
+                    <div slot="actions">
+                      <cui-button variant="primary" href="./examples/">View patterns</cui-button>
+                    </div>
+                  </cui-cta>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <cui-cta variant="full-bleed">
+                        <p slot="eyebrow">Launch</p>
+                        <h1 slot="title">Create a strong campaign close.</h1>
+                        <p>Full-bleed CTAs create a section-level break without adding a separate wrapper.</p>
+                        <div slot="actions">
+                          <cui-button variant="primary">View patterns</cui-button>
+                        </div>
+                      </cui-cta>
+                    </script>
+                  </cui-code>
+                  <cui-cta inverse variant="full-bleed">
+                    <p slot="eyebrow">Inverse full bleed</p>
+                    <h3 slot="title">Make contrast explicit.</h3>
+                    <p>The `inverse` attribute can be applied to simple, split, full-bleed, or sticky CTAs.</p>
+                    <div slot="actions">
+                      <cui-button variant="primary" href="./examples/">View inverse</cui-button>
+                    </div>
+                  </cui-cta>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <cui-cta inverse variant="full-bleed">
+                    <p slot="eyebrow">Inverse full bleed</p>
+                    <h3 slot="title">Make contrast explicit.</h3>
+                    <p>The `inverse` attribute can be applied to simple, split, full-bleed, or sticky CTAs.</p>
+                    <div slot="actions">
+                      <cui-button variant="primary" href="./examples/">View inverse</cui-button>
+                    </div>
+                  </cui-cta>
+                    </script>
+                  </cui-code>
+                </div>
+              </section>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                <cui-cta variant="sticky">
+                  <h3 slot="title">Sticky CTAs stay available during long pages.</h3>
+                  <p>Use them sparingly for application flows, demos, and campaign signup pages.</p>
+                  <div slot="actions">
+                    <cui-button variant="primary" href="./examples/">Continue</cui-button>
+                  </div>
+                </cui-cta>
+                <cui-code language="html">
+                  <script type="text/html">
+                    <cui-cta variant="sticky">
+                      <h1 slot="title">Sticky CTAs stay available during long pages.</h1>
+                      <p>Use them sparingly for application flows, demos, and campaign signup pages.</p>
+                      <div slot="actions">
+                        <cui-button variant="primary">Continue</cui-button>
+                      </div>
+                    </cui-cta>
+                  </script>
+                </div>
+              </section>
+            </cui-tabs>
+
+            <cui-disclosure>
+              <details class="cui-disclosure" data-variant="ghost">
+                <summary>API reference</summary>
+                <div class="cui-disclosure-body">
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Slot</th>
+                  <th>Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>eyebrow</code></td>
+                  <td>Small kicker line above the title.</td>
+                </tr>
+                <tr>
+                  <td><code>title</code></td>
+                  <td>The call-to-action heading.</td>
+                </tr>
+                <tr>
+                  <td><em>(default)</em></td>
+                  <td>Supporting copy beneath the title.</td>
+                </tr>
+                <tr>
+                  <td><code>actions</code></td>
+                  <td>One or more CTA buttons. Flex-wraps automatically.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Attribute</th>
+                  <th>Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>variant="simple | split | full-bleed | sticky"</code></td>
+                  <td>Layout preset. <code>simple</code> is centered; <code>split</code> places actions in a
+                    side column at <code>≥ 48rem</code>; <code>full-bleed</code> spans the viewport with
+                    section-scale padding; <code>sticky</code> pins the CTA to the bottom of the viewport.</td>
+                </tr>
+                <tr>
+                  <td><code>inverse</code></td>
+                  <td>Boolean. Switches to inverse surface and text colors for high-contrast moments.</td>
+                </tr>
+                <tr>
+                  <td><code>align="start | center"</code></td>
+                  <td>Horizontal alignment of content and actions. <code>simple</code> is centered by default.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Default</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>--cui-cta-padding</code></td>
+                  <td><code>--cui-space-6</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-cta-gap</code></td>
+                  <td><code>--cui-space-5</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-cta-content-size</code></td>
+                  <td><code>48rem</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-cta-title-size</code></td>
+                  <td><code>--cui-font-size-4</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-cta-bg</code> · <code>--cui-cta-color</code></td>
+                  <td>Surface and text overrides.</td>
+                </tr>
+                <tr>
+                  <td><code>--cui-cta-inverse-bg</code> · <code>--cui-cta-inverse-color</code> ·
+                    <code>--cui-cta-inverse-muted-color</code> · <code>--cui-cta-inverse-eyebrow-color</code>
+                  </td>
+                  <td>Inverse-mode overrides (applied when <code>inverse</code> is set).</td>
+                </tr>
+                <tr>
+                  <td><code>--cui-cta-sticky-z-index</code></td>
+                  <td><code>20</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-cta-sticky-offset</code></td>
+                  <td><code>--cui-space-4</code></td>
+                </tr>
+              </tbody>
+            </table>
+                </div>
+              </details>
+            </cui-disclosure>
+          </section>
+
+          <section id="content-grids" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Content grids</h2>
+              <p>
+                Use grid classes for feature lists, case cards, general card groups, logo strips, and stats. They are
+                CSS-only, configurable with `data-*` modifiers and `--cui-*` variables, and work from CMS or static
+                HTML.
+              </p>
+            </div>
+
+            <cui-tabs>
+              <button slot="tab" type="button">Features</button>
+              <button slot="tab" type="button">Cases</button>
+              <button slot="tab" type="button">Cards</button>
+              <button slot="tab" type="button">Logos</button>
+              <button slot="tab" type="button">Stats</button>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <div class="cui-feature-grid" data-columns="3" data-gap="spacious"
+                    style="--cui-feature-icon-size: 3rem;">
+                    <article class="cui-feature-card">
+                      <span class="cui-feature-icon" aria-hidden="true">01</span>
+                      <h3>Reusable structure</h3>
+                      <p>Feature cards keep icon, heading, and copy spacing consistent across marketing pages.</p>
+                    </article>
+                    <article class="cui-feature-card" data-align="center">
+                      <span class="cui-feature-icon" aria-hidden="true">02</span>
+                      <h3>Responsive by default</h3>
+                      <p>The grid adapts from single-column mobile layouts to dense desktop sections.</p>
+                    </article>
+                    <article class="cui-feature-card">
+                      <span class="cui-feature-icon" aria-hidden="true">03</span>
+                      <h3>Token-driven</h3>
+                      <p>Grid width, gap, and card padding can be tuned with `--cui-*` variables.</p>
+                    </article>
+                  </div>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <div class="cui-feature-grid" data-columns="3" data-gap="spacious"
+                        style="--cui-feature-icon-size: 3rem;">
+                        <article class="cui-feature-card">
+                          <span class="cui-feature-icon" aria-hidden="true">01</span>
+                          <h3>Reusable structure</h3>
+                          <p>Feature cards keep icon, heading, and copy spacing consistent across marketing pages.</p>
+                        </article>
+                        <article class="cui-feature-card" data-align="center">
+                          <span class="cui-feature-icon" aria-hidden="true">02</span>
+                          <h3>Responsive by default</h3>
+                          <p>The grid adapts from single-column mobile layouts to dense desktop sections.</p>
+                        </article>
+                        <article class="cui-feature-card">
+                          <span class="cui-feature-icon" aria-hidden="true">03</span>
+                          <h3>Token-driven</h3>
+                          <p>Grid width, gap, and card padding can be tuned with `--cui-*` variables.</p>
+                        </article>
+                      </div>
+                    </script>
+                  </cui-code>
+                </div>
+              </section>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <div class="cui-case-grid" data-columns="2" style="--cui-case-card-media-ratio: 4 / 3;">
+                    <article class="cui-case-card" data-variant="flat">
+                      <img class="cui-case-card-media" src="./hero-image.svg" alt="Abstract interface preview">
+                      <div class="cui-case-card-body">
+                        <p class="cui-case-card-meta">Case study</p>
+                        <h3>Campaign launch system</h3>
+                        <p>A reusable content model for event, product, and recruitment campaigns.</p>
+                      </div>
+                    </article>
+                    <article class="cui-case-card">
+                      <img class="cui-case-card-media" src="./hero-image.svg" alt="Abstract interface preview">
+                      <div class="cui-case-card-body">
+                        <p class="cui-case-card-meta">Website</p>
+                        <h3>Agency page toolkit</h3>
+                        <p>Composable sections for service pages, proof blocks, and conversion flows.</p>
+                      </div>
+                    </article>
+                  </div>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <div class="cui-case-grid" data-columns="2" style="--cui-case-card-media-ratio: 4 / 3;">
+                        <article class="cui-case-card" data-variant="flat">
+                          <img class="cui-case-card-media" src="./hero-image.svg" alt="Abstract interface preview">
+                          <div class="cui-case-card-body">
+                            <p class="cui-case-card-meta">Case study</p>
+                            <h3>Campaign launch system</h3>
+                            <p>A reusable content model for event, product, and recruitment campaigns.</p>
+                          </div>
+                        </article>
+                        <article class="cui-case-card">
+                          <img class="cui-case-card-media" src="./hero-image.svg" alt="Abstract interface preview">
+                          <div class="cui-case-card-body">
+                            <p class="cui-case-card-meta">Website</p>
+                            <h3>Agency page toolkit</h3>
+                            <p>Composable sections for service pages, proof blocks, and conversion flows.</p>
+                          </div>
+                        </article>
+                      </div>
+                    </script>
+                  </cui-code>
+                </div>
+              </section>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-card-grid" data-columns="3" data-gap="compact">
+                  <article class="cui-content-card" data-variant="borderless">
+                    <h3>Editorial card</h3>
+                    <p>Use general cards for resource lists, article collections, and compact page modules.</p>
+                  </article>
+                  <article class="cui-content-card">
+                    <h3>CMS friendly</h3>
+                    <p>The classes do not depend on shadow DOM, so generated markup stays readable.</p>
+                  </article>
+                  <article class="cui-content-card">
+                    <h3>Theme aware</h3>
+                    <p>Surface, border, text, and shadow values follow the active theme tokens.</p>
+                  </article>
+                </div>
+              </section>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-logo-strip" data-columns="4" aria-label="Example partners"
+                  style="--cui-logo-item-min-block-size: 4rem;">
+                  <div class="cui-logo-item"><strong>Northstar</strong></div>
+                  <div class="cui-logo-item"><strong>Signal Labs</strong></div>
+                  <div class="cui-logo-item"><strong>Atlas Works</strong></div>
+                  <div class="cui-logo-item"><strong>Field Co.</strong></div>
+                </div>
+              </section>
+
+              <section slot="panel" class="docs-panel">
+                <div class="cui-stack">
+                  <div class="cui-stats-grid" data-columns="3"
+                    style="--cui-stat-value-size: var(--cui-font-size-5, 4rem);">
+                    <div class="cui-stat" data-align="center">
+                      <span class="cui-stat-value">42%</span>
+                      <span class="cui-stat-label">Higher page reuse</span>
+                    </div>
+                    <div class="cui-stat" data-align="center">
+                      <span class="cui-stat-value">18</span>
+                      <span class="cui-stat-label">Reusable sections</span>
+                    </div>
+                    <div class="cui-stat" data-align="center">
+                      <span class="cui-stat-value">3x</span>
+                      <span class="cui-stat-label">Faster campaign assembly</span>
+                    </div>
+                  </div>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <div class="cui-stats-grid" data-columns="3"
+                        style="--cui-stat-value-size: var(--cui-font-size-5, 4rem);">
+                        <div class="cui-stat" data-align="center">
+                          <span class="cui-stat-value">42%</span>
+                          <span class="cui-stat-label">Higher page reuse</span>
+                        </div>
+                        <div class="cui-stat" data-align="center">
+                          <span class="cui-stat-value">18</span>
+                          <span class="cui-stat-label">Reusable sections</span>
+                        </div>
+                        <div class="cui-stat" data-align="center">
+                          <span class="cui-stat-value">3x</span>
+                          <span class="cui-stat-label">Faster campaign assembly</span>
+                        </div>
+                      </div>
+                    </script>
+                  </cui-code>
+                </div>
+              </section>
+            </cui-tabs>
+
+            <cui-disclosure>
+              <details class="cui-disclosure" data-variant="ghost">
+                <summary>API reference</summary>
+                <div class="cui-disclosure-body">
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>.cui-feature-grid</code> / <code>.cui-feature-card</code></td>
+                  <td>Feature lists with consistent icon, heading, and copy spacing.</td>
+                </tr>
+                <tr>
+                  <td><code>.cui-case-grid</code> / <code>.cui-case-card</code> / <code>.cui-case-card-media</code> /
+                    <code>.cui-case-card-body</code> / <code>.cui-case-card-meta</code></td>
+                  <td>Case-study cards with optional media, body, and meta line.</td>
+                </tr>
+                <tr>
+                  <td><code>.cui-card-grid</code> / <code>.cui-content-card</code></td>
+                  <td>General-purpose card grid for resource lists and article tiles.</td>
+                </tr>
+                <tr>
+                  <td><code>.cui-logo-strip</code> / <code>.cui-logo-item</code></td>
+                  <td>Logo / partner strip with consistent block-size cells.</td>
+                </tr>
+                <tr>
+                  <td><code>.cui-stats-grid</code> / <code>.cui-stat</code> / <code>.cui-stat-value</code> /
+                    <code>.cui-stat-label</code></td>
+                  <td>Number-focused grids for metrics, proof points, and KPIs.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Modifier</th>
+                  <th>Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>data-columns="2 | 3 | 4"</code></td>
+                  <td>Sets the column count for any of the grid wrappers.</td>
+                </tr>
+                <tr>
+                  <td><code>data-gap="compact | spacious"</code></td>
+                  <td>Tightens or relaxes the grid gap.</td>
+                </tr>
+                <tr>
+                  <td><code>data-align="start | center"</code></td>
+                  <td>On a feature card or stat block — aligns its inner content.</td>
+                </tr>
+                <tr>
+                  <td><code>data-variant="flat"</code></td>
+                  <td>On a case card — drops the elevation shadow.</td>
+                </tr>
+                <tr>
+                  <td><code>data-variant="borderless"</code></td>
+                  <td>On a content card — drops the surrounding border for editorial layouts.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Default</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>--cui-feature-icon-size</code></td>
+                  <td><code>--cui-size-control</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-case-card-media-ratio</code></td>
+                  <td>Per-instance aspect ratio override (e.g. <code>4 / 3</code>).</td>
+                </tr>
+                <tr>
+                  <td><code>--cui-content-grid-gap</code></td>
+                  <td><code>--cui-space-4</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-logo-item-min-block-size</code></td>
+                  <td><code>4rem</code></td>
+                </tr>
+                <tr>
+                  <td><code>--cui-stat-value-size</code></td>
+                  <td><code>--cui-font-size-5</code></td>
+                </tr>
+              </tbody>
+            </table>
+                </div>
+              </details>
+            </cui-disclosure>
+          </section>
+
+            <section id="media-blocks" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+              <div class="cui-prose">
+                <h2>Media blocks</h2>
+                <p>
+                  Use media blocks for editorial imagery, figure callouts, media-led cards, and overlay cards. They are
+                  CSS-only, work from CMS-generated HTML, and accept any of <code>&lt;img&gt;</code>,
+                  <code>&lt;picture&gt;</code>, <code>&lt;video&gt;</code>, <code>&lt;iframe&gt;</code>, or inline
+                  <code>&lt;svg&gt;</code>.
+                </p>
+              </div>
+
+              <cui-tabs>
+                <button slot="tab" type="button">Full-bleed</button>
+                <button slot="tab" type="button">Figure</button>
+                <button slot="tab" type="button">Media card</button>
+                <button slot="tab" type="button">Overlay card</button>
+
+                <section slot="panel" class="docs-panel">
+                  <div class="cui-stack">
+                    <div class="cui-media-full" data-ratio="wide">
+                      <img src="./hero-image.svg" alt="Abstract Combat UI banner">
+                    </div>
+                    <div class="cui-media-full" data-ratio="wide">
+                      <video autoplay muted loop playsinline poster="./hero-image.svg">
+                        <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+                          type="video/mp4">
+                      </video>
+                    </div>
+                    <cui-code language="html">
+                      <script type="text/html">
+                        <!-- Image -->
+                        <div class="cui-media-full" data-ratio="wide">
+                          <img src="/banner.jpg" alt="Abstract Combat UI banner">
+                        </div>
+
+                        <!-- Video (autoplay, muted, looped) -->
+                        <div class="cui-media-full" data-ratio="wide">
+                          <video autoplay muted loop playsinline poster="/banner.jpg">
+                            <source src="/banner.mp4" type="video/mp4">
+                          </video>
+                        </div>
+
+                        <!-- Edge-to-edge (place inside a section, not inside .cui-container) -->
+                        <div class="cui-media-full" data-bleed="full">
+                          <img src="/banner.jpg" alt="">
+                        </div>
+                      </script>
+                    </cui-code>
+                  </div>
+                </section>
+
+                <section slot="panel" class="docs-panel">
+                  <div class="cui-stack">
+                    <figure class="cui-figure" data-ratio="wide">
+                      <img src="./hero-image.svg" alt="Schematic of the page composition system">
+                      <figcaption>Figure 1. Page composition primitives combine to form section-level patterns.</figcaption>
+                    </figure>
+                    <cui-code language="html">
+                      <script type="text/html">
+                        <figure class="cui-figure" data-ratio="wide">
+                          <img src="/hero-image.svg" alt="Schematic of the page composition system">
+                          <figcaption>
+                            Figure 1. Page composition primitives combine to form section-level patterns.
+                          </figcaption>
+                        </figure>
+
+                        <!-- Centered, with explicit caption class -->
+                        <figure class="cui-figure" data-align="center" data-ratio="square">
+                          <img src="/hero-image.svg" alt="Token diagram">
+                          <p class="cui-figure-caption">Token diagram — Combat UI design tokens.</p>
+                        </figure>
+                      </script>
+                    </cui-code>
+                  </div>
+                </section>
+
+                <section slot="panel" class="docs-panel">
+                  <div class="cui-stack">
+                    <div class="cui-card-grid" data-columns="2">
+                      <article class="cui-media-card">
+                        <img class="cui-media-card-media" src="./hero-image.svg"
+                          alt="Composition pattern preview">
+                        <div class="cui-media-card-body">
+                          <p class="cui-media-card-meta">Pattern</p>
+                          <h3>Editorial spread</h3>
+                          <p>A media-led card pairs a leading visual with eyebrow, title, copy, and an action group.</p>
+                          <div class="cui-media-card-actions">
+                            <cui-button variant="primary" href="#media-blocks">Read more</cui-button>
+                          </div>
+                        </div>
+                      </article>
+                      <article class="cui-media-card" data-variant="flat">
+                        <img class="cui-media-card-media" src="./hero-image.svg"
+                          alt="Composition pattern preview">
+                        <div class="cui-media-card-body">
+                          <p class="cui-media-card-eyebrow">Editorial</p>
+                          <h3>Flat variant</h3>
+                          <p>Use <code>data-variant="flat"</code> to drop the elevation shadow for dense grids.</p>
+                        </div>
+                      </article>
+                    </div>
+                    <article class="cui-media-card" data-orient="row">
+                      <img class="cui-media-card-media" src="./hero-image.svg"
+                        alt="Side-by-side media card">
+                      <div class="cui-media-card-body">
+                        <p class="cui-media-card-eyebrow">Side by side</p>
+                        <h3>Row orientation</h3>
+                        <p>
+                          Set <code>data-orient="row"</code> to place the media beside the body. The layout uses
+                          flex-wrap, so the media stacks above the body when the card is narrower than the combined
+                          flex basis.
+                        </p>
+                        <div class="cui-media-card-actions">
+                          <cui-button variant="primary" href="#media-blocks">Continue reading</cui-button>
+                        </div>
+                      </div>
+                    </article>
+                    <cui-code language="html">
+                      <script type="text/html">
+                        <!-- Default: media on top, body below -->
+                        <article class="cui-media-card">
+                          <img class="cui-media-card-media" src="/cover.jpg" alt="Composition pattern preview">
+                          <div class="cui-media-card-body">
+                            <p class="cui-media-card-meta">Pattern</p>
+                            <h3>Editorial spread</h3>
+                            <p>A media-led card pairs a leading visual with eyebrow, title, copy, and action group.</p>
+                            <div class="cui-media-card-actions">
+                              <cui-button variant="primary">Read more</cui-button>
+                            </div>
+                          </div>
+                        </article>
+
+                        <!-- Row orientation: media beside body; wraps to stack on narrow widths -->
+                        <article class="cui-media-card" data-orient="row">
+                          <img class="cui-media-card-media" src="/cover.jpg" alt="Side-by-side media card">
+                          <div class="cui-media-card-body">
+                            <p class="cui-media-card-eyebrow">Side by side</p>
+                            <h3>Row orientation</h3>
+                            <p>data-orient="row" places the media beside the body.</p>
+                          </div>
+                        </article>
+                      </script>
+                    </cui-code>
+                  </div>
+                </section>
+
+                <section slot="panel" class="docs-panel">
+                  <div class="cui-stack">
+  
+                      <article class="cui-media-overlay">
+                        <img src="./hero-image.svg" alt="Campaign visual">
+                        <div class="cui-media-overlay-body">
+                          <p class="cui-media-overlay-eyebrow">Campaign</p>
+                          <h3 class="cui-media-overlay-title">Tell the story above the fold.</h3>
+                          <p>Overlay cards layer copy on top of a media background with a configurable scrim.</p>
+                          <div class="cui-media-overlay-actions">
+                            <cui-button variant="primary" href="#media-blocks">Read campaign</cui-button>
+                          </div>
+                        </div>
+                      </article>
+                      <article class="cui-media-overlay" data-align="center" data-scrim="solid">
+                        <img src="./hero-image.svg" alt="Centered overlay card">
+                        <div class="cui-media-overlay-body">
+                          <p class="cui-media-overlay-eyebrow">Centered</p>
+                          <h3 class="cui-media-overlay-title">Solid scrim, centered content.</h3>
+                          <p>Use <code>data-align="center"</code> and <code>data-scrim="solid"</code> for poster-style blocks.</p>
+                        </div>
+                      </article>
+                
+                    <cui-code language="html">
+                      <script type="text/html">
+                        <article class="cui-media-overlay">
+                          <img src="/hero-image.svg" alt="Campaign visual">
+                          <div class="cui-media-overlay-body">
+                            <p class="cui-media-overlay-eyebrow">Campaign</p>
+                            <h3 class="cui-media-overlay-title">Tell the story above the fold.</h3>
+                            <p>Overlay cards layer copy on top of a media background with a configurable scrim.</p>
+                            <div class="cui-media-overlay-actions">
+                              <cui-button variant="primary">Read campaign</cui-button>
+                            </div>
+                          </div>
+                        </article>
+
+                        <article class="cui-media-overlay" data-align="center" data-scrim="solid">
+                          <img src="/hero-image.svg" alt="">
+                          <div class="cui-media-overlay-body">
+                            <p class="cui-media-overlay-eyebrow">Centered</p>
+                            <h3 class="cui-media-overlay-title">Solid scrim, centered content.</h3>
+                          </div>
+                        </article>
+                      </script>
+                    </cui-code>
+                  </div>
+                </section>
+              </cui-tabs>
+
+              <cui-disclosure>
+                <details class="cui-disclosure" data-variant="ghost">
+                  <summary>API reference</summary>
+                  <div class="cui-disclosure-body">
+                    <table class="docs-token-table">
+                      <thead>
+                        <tr>
+                          <th>Class</th>
+                          <th>Purpose</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><code>.cui-media-full</code></td>
+                          <td>
+                            Edge-to-edge media wrapper. Constrains aspect ratio and rounds corners; pair with
+                            <code>data-bleed="full"</code> to escape the container gutter for true full-bleed sections.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code>.cui-figure</code> / <code>.cui-figure-caption</code>
+                          </td>
+                          <td>
+                            Native <code>&lt;figure&gt;</code> wrapper with consistent caption styling. Works with a
+                            <code>&lt;figcaption&gt;</code> child or a sibling element using
+                            <code>.cui-figure-caption</code>.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code>.cui-media-card</code> / <code>.cui-media-card-media</code> /
+                            <code>.cui-media-card-body</code>
+                          </td>
+                          <td>
+                            Card with a leading media block above (or beside) eyebrow / meta, heading, copy, and an
+                            action cluster. Drop inside <code>.cui-card-grid</code> for responsive grids.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code>.cui-media-card-eyebrow</code> / <code>.cui-media-card-meta</code> /
+                            <code>.cui-media-card-actions</code>
+                          </td>
+                          <td>Optional eyebrow kicker, meta line, and action cluster within the card body.</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code>.cui-media-overlay</code> / <code>.cui-media-overlay-media</code> /
+                            <code>.cui-media-overlay-body</code>
+                          </td>
+                          <td>
+                            Card with copy overlaid on a media background and a configurable scrim. Body content
+                            elements can use <code>.cui-media-overlay-eyebrow</code>,
+                            <code>.cui-media-overlay-title</code>, and <code>.cui-media-overlay-actions</code>.
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <table class="docs-token-table">
+                      <thead>
+                        <tr>
+                          <th>Modifier</th>
+                          <th>Purpose</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><code>data-ratio="square | portrait | wide | auto"</code></td>
+                          <td>
+                            Sets the aspect ratio on <code>.cui-media-full</code>, <code>.cui-figure</code>, and
+                            <code>.cui-media-overlay</code>. Defaults to <code>16 / 9</code>; <code>auto</code> falls
+                            back to the asset's intrinsic ratio.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>data-bleed="full"</code></td>
+                          <td>
+                            On <code>.cui-media-full</code> or <code>.cui-figure</code> — escapes the container gutter
+                            to span the viewport. Place inside a <code>.cui-section</code>, not inside a
+                            <code>.cui-container</code>.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>data-radius="none"</code></td>
+                          <td>On <code>.cui-media-full</code> — removes the rounded corners.</td>
+                        </tr>
+                        <tr>
+                          <td><code>data-orient="row"</code></td>
+                          <td>
+                            On <code>.cui-media-card</code> — places the media beside the body using flex-wrap. The
+                            media wraps above the body when the card is narrower than the combined flex bases of media
+                            (<code>--cui-media-card-media-size</code>) and body (<code>--cui-media-card-body-min</code>).
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>data-variant="flat | borderless"</code></td>
+                          <td>
+                            On <code>.cui-media-card</code> — drops the elevation shadow, or both the border and
+                            shadow for editorial layouts.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>data-scrim="solid | top | none"</code></td>
+                          <td>
+                            On <code>.cui-media-overlay</code> — replaces the default bottom-up gradient with a flat
+                            solid scrim, a top-down gradient, or no scrim at all.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>data-align="center | end"</code></td>
+                          <td>
+                            On <code>.cui-media-overlay</code> — centers or end-aligns the overlay copy. Defaults to
+                            bottom-start.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>data-align="center"</code></td>
+                          <td>On <code>.cui-figure</code> — centers the media and caption.</td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <table class="docs-token-table">
+                      <thead>
+                        <tr>
+                          <th>Variable</th>
+                          <th>Default</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><code>--cui-media-ratio</code></td>
+                          <td><code>16 / 9</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-media-fit</code></td>
+                          <td><code>cover</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-media-position</code></td>
+                          <td><code>center</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-media-radius</code></td>
+                          <td><code>--cui-radius-2</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-media-bg</code></td>
+                          <td><code>--cui-color-surface-muted</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-media-card-media-ratio</code></td>
+                          <td><code>16 / 10</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-media-card-media-size</code></td>
+                          <td>
+                            <code>18rem</code> — flex basis for the media column when
+                            <code>data-orient="row"</code> is set.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-media-card-media-min-block-size</code></td>
+                          <td><code>12rem</code> — minimum block size of the media column in row orientation.</td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-media-card-body-min</code></td>
+                          <td>
+                            <code>18rem</code> — flex basis for the body column in row orientation. The body wraps
+                            below the media when the card is narrower than this plus the media size.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-media-overlay-color</code></td>
+                          <td><code>oklch(98% 0 0deg)</code> — overlay text color (independent of theme inversion).</td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-media-overlay-min-block-size</code></td>
+                          <td><code>22rem</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-media-overlay-content-size</code></td>
+                          <td><code>32rem</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-media-overlay-padding</code></td>
+                          <td><code>--cui-space-5 --cui-space-6</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-media-overlay-scrim</code></td>
+                          <td>Bottom-up gradient — override for custom scrim colors or directions.</td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-media-overlay-title-size</code></td>
+                          <td><code>--cui-font-size-3</code></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </details>
+              </cui-disclosure>
+            </section>
+        </div>
+      </div>
+    </section>
+
+    <footer class="cui-section" data-spacing="compact">
+      <div class="cui-container cui-cluster docs-prevnext">
+        <cui-button href="./theming.html">Previous: Theming</cui-button>
+        <cui-button href="./components.html">Next: Components</cui-button>
+      </div>
+    </footer>
+  </main>
+</body>
+
+</html>

@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The cui-navbar custom element: sticky positioning, responsive collapse, dropdowns, and nested menus.">
+  <title>Navigation · Combat UI</title>
+  <script>
+    try {
+      var t = localStorage.getItem("cui-theme");
+      if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+    } catch (_) { }
+  </script>
+  <script type="module" src="./index.ts"></script>
+  <link rel="stylesheet" href="./site.css">
+</head>
+
+<body class="cui-site">
+  <a class="cui-skip-link" href="#main">Skip to content</a>
+  <!--#include _partials/nav.html?current=navigation-->
+  <main id="main" class="cui-page cui-stack">
+    <header class="cui-page-header">
+      <h1>Navigation</h1>
+      <p>Navigation primitives for the top of the page. The cui-navbar element handles sticky positioning, responsive collapse, dropdown menus, and nested submenus while leaving links and buttons in light DOM.</p>
+    </header>
+
+    <section class="cui-section">
+      <div class="cui-container docs-doc-layout">
+        <aside class="docs-on-page" aria-label="On this page">
+          <a class="cui-nav-link" href="#navbar">Navbar</a>
+        </aside>
+
+        <div class="cui-stack" style="--cui-stack-gap: var(--cui-space-7, 3rem);">
+            <section id="navbar" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+              <div class="cui-prose">
+                <h2>Navbar</h2>
+                <p>
+                  Bootstrap-like navigation supports configurable sticky positioning, responsive collapse, dropdowns,
+                  and nested menus.
+                </p>
+              </div>
+              <div class="cui-stack">
+                <div class="docs-preview">
+                  <div class="docs-preview-frame">
+                    <cui-navbar style="--cui-dropdown-animation-distance: 0.375rem;">
+                      <a slot="brand" href="#" class="cui-nav-link">Project</a>
+                      <nav slot="nav" class="cui-nav" aria-label="Project demo">
+                        <a class="cui-nav-link" href="#" aria-current="page">Home</a>
+                        <div class="cui-dropdown">
+                          <button class="cui-nav-link cui-dropdown-toggle" type="button">Services</button>
+                          <div class="cui-dropdown-menu" hidden>
+                            <a class="cui-dropdown-item" href="#">Strategy</a>
+                            <a class="cui-dropdown-item" href="#">Design</a>
+                            <div class="cui-dropdown">
+                              <button class="cui-dropdown-item cui-dropdown-toggle" type="button">Development</button>
+                              <div class="cui-dropdown-menu" hidden>
+                                <a class="cui-dropdown-item" href="#">Frontend</a>
+                                <a class="cui-dropdown-item" href="#">CMS</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <a class="cui-nav-link" href="#">Cases</a>
+                      </nav>
+                      <div slot="actions" class="cui-cluster">
+                        <cui-button>Contact</cui-button>
+                      </div>
+                    </cui-navbar>
+                  </div>
+                </div>
+                <cui-code language="html">
+                  <script type="text/html">
+                  <cui-navbar>
+                    <a slot="brand" href="#" class="cui-nav-link">Project</a>
+                    <nav slot="nav" class="cui-nav" aria-label="Project demo">
+                      <a class="cui-nav-link" href="#" aria-current="page">Home</a>
+                      <div class="cui-dropdown">
+                        <button class="cui-nav-link cui-dropdown-toggle" type="button">Services</button>
+                        <div class="cui-dropdown-menu" hidden>
+                          <a class="cui-dropdown-item" href="#">Strategy</a>
+                          <a class="cui-dropdown-item" href="#">Design</a>
+                          <div class="cui-dropdown">
+                            <button class="cui-dropdown-item cui-dropdown-toggle" type="button">Development</button>
+                            <div class="cui-dropdown-menu" hidden>
+                              <a class="cui-dropdown-item" href="#">Frontend</a>
+                              <a class="cui-dropdown-item" href="#">CMS</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <a class="cui-nav-link" href="#">Cases</a>
+                    </nav>
+                    <div slot="actions" class="cui-cluster">
+                      <cui-button>Contact</cui-button>
+                    </div>
+                  </cui-navbar>
+                </script>
+                </cui-code>
+                <cui-code language="javascript">
+                  <script type="text/plain">
+                    const navbar = document.querySelector("cui-navbar");
+                  <script type="text/plain">
+                    const navbar = document.querySelector("cui-navbar");
+                    navbar.sticky = true;
+                    navbar.stickyOffset = "1rem";
+                    navbar.stickyZIndex = "80";
+                    navbar.closeDropdowns();
+                    navbar.closeDropdowns();
+                  </script>
+                </cui-code>
+              </div>
+
+              <cui-disclosure>
+                <details class="cui-disclosure" data-variant="ghost">
+                  <summary>API reference</summary>
+                  <div class="cui-disclosure-body">
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>Slot</th>
+                    <th>Purpose</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>brand</code></td>
+                    <td>Brand mark or logo link. Sits at the inline start.</td>
+                  </tr>
+                  <tr>
+                    <td><code>nav</code></td>
+                    <td>The primary navigation list. Slot in <code>.cui-nav-link</code> anchors and
+                      <code>.cui-dropdown</code> wrappers for nested menus.</td>
+                  </tr>
+                  <tr>
+                    <td><code>actions</code></td>
+                    <td>Trailing actions — theme toggle, CTA button, search. Wrap in a
+                      <code>.cui-cluster</code>.</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>Attribute / property</th>
+                    <th>Purpose</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>sticky</code></td>
+                    <td>Boolean. Pins the navbar to the top of the viewport.</td>
+                  </tr>
+                  <tr>
+                    <td><code>sticky-offset</code></td>
+                    <td>Top offset when sticky. Numeric strings get <code>px</code>; values with a unit pass
+                      through.</td>
+                  </tr>
+                  <tr>
+                    <td><code>sticky-z-index</code></td>
+                    <td>Stacking order when sticky. Defaults to <code>10</code>.</td>
+                  </tr>
+                  <tr>
+                    <td><code>expanded</code></td>
+                    <td>Boolean. Reflects the mobile collapse state. Toggled by the hamburger button.</td>
+                  </tr>
+                  <tr>
+                    <td><code>navbar.toggle(force?)</code></td>
+                    <td>Open / close the mobile collapse panel.</td>
+                  </tr>
+                  <tr>
+                    <td><code>navbar.closeDropdowns(except?)</code></td>
+                    <td>Close every open dropdown. Pass an element to keep its branch open.</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>Markup class</th>
+                    <th>Purpose</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>.cui-nav-link</code></td>
+                    <td>Anchor styling for top-level links. Pair with <code>aria-current="page"</code>
+                      for the active state.</td>
+                  </tr>
+                  <tr>
+                    <td><code>.cui-dropdown</code> / <code>.cui-dropdown-toggle</code> /
+                      <code>.cui-dropdown-menu</code> / <code>.cui-dropdown-item</code></td>
+                    <td>Nested dropdown markup. The toggle is a <code>&lt;button&gt;</code>; the menu has
+                      <code>hidden</code> by default and gets unhidden by the navbar's dropdown logic.</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>Variable</th>
+                    <th>Default</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>--cui-navbar-bg</code></td>
+                    <td><code>--cui-color-surface-raised</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-navbar-color</code></td>
+                    <td><code>--cui-color</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-navbar-border</code></td>
+                    <td><code>--cui-color-border</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-navbar-width</code></td>
+                    <td><code>72rem</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-navbar-gutter</code></td>
+                    <td><code>2rem</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-navbar-size</code></td>
+                    <td><code>3.25rem</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-navbar-padding-block</code></td>
+                    <td><code>0.75rem</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-navbar-sticky-z-index</code></td>
+                    <td><code>10</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-navbar-sticky-offset</code></td>
+                    <td><code>0</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-navbar-link-bg</code> · <code>--cui-navbar-link-color</code> ·
+                      <code>--cui-navbar-link-hover-bg</code> · <code>--cui-navbar-link-hover-color</code> ·
+                      <code>--cui-navbar-link-current-bg</code> · <code>--cui-navbar-link-current-color</code>
+                    </td>
+                    <td>Link state colors.</td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-navbar-animation-duration</code> ·
+                      <code>--cui-navbar-animation-easing</code> ·
+                      <code>--cui-navbar-animation-distance</code></td>
+                    <td>Dropdown open / close motion.</td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-dropdown-animation-distance</code></td>
+                    <td>Per-instance override for the slide distance.</td>
+                  </tr>
+                </tbody>
+              </table>
+                  </div>
+                </details>
+              </cui-disclosure>
+            </section>
+        </div>
+      </div>
+    </section>
+
+    <footer class="cui-section" data-spacing="compact">
+      <div class="cui-container cui-cluster docs-prevnext">
+        <cui-button href="./components.html">Previous: Components</cui-button>
+        <cui-button href="./atoms.html">Next: Atoms</cui-button>
+      </div>
+    </footer>
+  </main>
+</body>
+
+</html>

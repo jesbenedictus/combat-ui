@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Scroll-driven motion primitives: cui-scroll-stage and cui-reveal.">
+  <title>Motion · Combat UI</title>
+  <script>
+    try {
+      var t = localStorage.getItem("cui-theme");
+      if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+    } catch (_) { }
+  </script>
+  <script type="module" src="./index.ts"></script>
+  <link rel="stylesheet" href="./site.css">
+</head>
+
+<body class="cui-site">
+  <a class="cui-skip-link" href="#main">Skip to content</a>
+  <!--#include _partials/nav.html?current=motion-->
+  <main id="main" class="cui-page cui-stack">
+    <header class="cui-page-header">
+      <h1>Motion</h1>
+      <p>Scroll-driven motion that respects reduced-motion preferences. cui-scroll-stage publishes focus and offset as CSS custom properties; cui-reveal layers entry animations on top.</p>
+    </header>
+
+    <section class="cui-section">
+      <div class="cui-container docs-doc-layout">
+        <aside class="docs-on-page" aria-label="On this page">
+          <a class="cui-nav-link" href="#scroll-stage">Scroll stage</a>
+          <a class="cui-nav-link" href="#reveal">Reveal</a>
+        </aside>
+
+        <div class="cui-stack" style="--cui-stack-gap: var(--cui-space-7, 3rem);">
+            <section id="scroll-stage" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+              <div class="cui-prose">
+                <h2>Scroll stage</h2>
+                <p>
+                  <code>cui-scroll-stage</code> is a sticky 3D track that publishes its focus as CSS custom
+                  properties: <code>--cui-stage-focus</code> (0 → 1, peaks when centered),
+                  <code>--cui-stage-offset</code> (-1 → 1, signed distance from center after the hold band), and
+                  <code>--cui-stage-active</code> (0/1). Children animate with vanilla CSS by reading those values.
+                </p>
+                <p>
+                  Scroll through the three stages below. Each applies a different transform recipe to the same
+                  published variables. Stages with a <code>tone</code> attribute write
+                  <code>data-cui-tone</code> to a scoped target while focused; the rig below is marked
+                  <code>data-cui-tone-root</code> so the tint stays inside it instead of bleeding to the whole page.
+                </p>
+              </div>
+
+              <div class="docs-stage-rig" data-cui-tone-root>
+                <cui-scroll-stage tone="dawn" sticky-top="5rem">
+                  <div class="docs-stage-panel" data-tone="dawn">
+                    <div class="docs-stage-bg" data-cui-parallax="0.16" aria-hidden="true"></div>
+                    <div class="docs-stage-veil" aria-hidden="true"></div>
+                    <div class="docs-stage-meter" aria-hidden="true">
+                      <span class="docs-stage-meter-bar"></span>
+                    </div>
+                    <div class="docs-stage-card" data-effect="wheel">
+                      <cui-reveal delay="40ms">
+                        <p class="docs-stage-eyebrow">Stage 01 · effect="wheel" · tone="dawn"</p>
+                      </cui-reveal>
+                      <cui-reveal delay="140ms">
+                        <h3 class="docs-stage-title">Z-translate + rotateY</h3>
+                      </cui-reveal>
+                      <cui-reveal delay="240ms" distance="2rem">
+                        <p>This card reads <code>--cui-stage-focus</code> and <code>--cui-stage-offset</code> and turns
+                          them into a depth-and-rotation move. The stage element holds focus through the hold band so
+                          the panel can settle visually before scrolling on.</p>
+                      </cui-reveal>
+                      <cui-reveal delay="340ms" from="up" distance="1.25rem">
+                        <pre class="docs-stage-code">transform:
+  translate3d(0, 0, calc(var(--cui-stage-focus) * 220px - 320px))
+  rotateY(calc(var(--cui-stage-offset) * 35deg));</pre>
+                      </cui-reveal>
+                    </div>
+                  </div>
+                </cui-scroll-stage>
+
+                <cui-scroll-stage tone="noon" sticky-top="5rem">
+                  <div class="docs-stage-panel" data-tone="noon">
+                    <div class="docs-stage-bg" data-cui-parallax="0.12" aria-hidden="true"></div>
+                    <div class="docs-stage-veil" aria-hidden="true"></div>
+                    <div class="docs-stage-meter" aria-hidden="true">
+                      <span class="docs-stage-meter-bar"></span>
+                    </div>
+                    <div class="docs-stage-card" data-effect="slide">
+                      <cui-reveal delay="40ms">
+                        <p class="docs-stage-eyebrow">Stage 02 · effect="slide" · tone="noon"</p>
+                      </cui-reveal>
+                      <cui-reveal delay="140ms">
+                        <h3 class="docs-stage-title">Signed offset slide</h3>
+                      </cui-reveal>
+                      <cui-reveal delay="240ms" distance="2rem">
+                        <p>Same publisher, different recipe. Here the panel uses the signed
+                          <code>--cui-stage-offset</code> for a horizontal slide that flips direction either side of
+                          center. Notice how the page background tinted as this stage took focus.
+                        </p>
+                      </cui-reveal>
+                      <cui-reveal delay="340ms" from="up" distance="1.25rem">
+                        <pre class="docs-stage-code">transform: translate3d(calc(var(--cui-stage-offset) * -40%), 0, 0);
+opacity: calc(0.3 + var(--cui-stage-focus) * 0.7);</pre>
+                      </cui-reveal>
+                    </div>
+                  </div>
+                </cui-scroll-stage>
+
+                <cui-scroll-stage tone="dusk" sticky-top="5rem">
+                  <div class="docs-stage-panel" data-tone="dusk">
+                    <div class="docs-stage-bg" data-cui-parallax="0.1" aria-hidden="true"></div>
+                    <div class="docs-stage-veil" aria-hidden="true"></div>
+                    <div class="docs-stage-meter" aria-hidden="true">
+                      <span class="docs-stage-meter-bar"></span>
+                    </div>
+                    <div class="docs-stage-card" data-effect="scale">
+                      <cui-reveal delay="40ms">
+                        <p class="docs-stage-eyebrow">Stage 03 · effect="scale" · tone="dusk"</p>
+                      </cui-reveal>
+                      <cui-reveal delay="140ms">
+                        <h3 class="docs-stage-title">Scale + blur</h3>
+                      </cui-reveal>
+                      <cui-reveal delay="240ms" distance="2rem">
+                        <p>One last recipe: a scale-up paired with a defocus blur that clears as focus approaches 1.
+                          None of these stages know about each other's transforms — they just expose state.</p>
+                      </cui-reveal>
+                      <cui-reveal delay="340ms" from="up" distance="1.25rem">
+                        <pre class="docs-stage-code">transform: scale(calc(0.72 + var(--cui-stage-focus) * 0.28));
+filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
+                      </cui-reveal>
+                    </div>
+                  </div>
+                </cui-scroll-stage>
+              </div>
+
+              <cui-code language="html">
+                <script type="text/html">
+                  <div class="my-rig" data-cui-tone-root>
+                    <cui-scroll-stage tone="dawn" sticky-top="5rem">
+                      <div class="my-panel">
+                        <div class="my-bg" data-cui-parallax="0.16"></div>
+                        <div class="my-card">
+                          <cui-reveal delay="40ms"><p>Eyebrow</p></cui-reveal>
+                          <cui-reveal delay="140ms"><h3>Title</h3></cui-reveal>
+                          <cui-reveal delay="240ms"><p>Body copy</p></cui-reveal>
+                        </div>
+                      </div>
+                    </cui-scroll-stage>
+                  </div>
+
+                  <!-- Choreograph in your own CSS by reading the published vars -->
+                  <style>
+                    .my-card {
+                      transform:
+                        translate3d(0, 0, calc(var(--cui-stage-focus) * 220px - 320px))
+                        rotateY(calc(var(--cui-stage-offset) * 35deg));
+                      opacity: calc(0.2 + var(--cui-stage-focus) * 0.8);
+                    }
+                    .my-rig { transition: background-color 600ms ease; }
+                    .my-rig[data-cui-tone="dawn"] { background: oklch(98% 0.02 70deg); }
+                  </style>
+                </script>
+              </cui-code>
+
+              <cui-disclosure>
+                <details class="cui-disclosure" data-variant="ghost">
+                  <summary>API reference</summary>
+                  <div class="cui-disclosure-body">
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>Attribute / variable</th>
+                    <th>Purpose</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>focus-bias</code> (-1..1)</td>
+                    <td>Shift what counts as "centered" in viewport space.</td>
+                  </tr>
+                  <tr>
+                    <td><code>hold</code> (0..1)</td>
+                    <td>Dwell band where focus stays at 1 before falling off.</td>
+                  </tr>
+                  <tr>
+                    <td><code>threshold</code> (0..1)</td>
+                    <td>Focus level at which <code>--cui-stage-active</code> flips to 1.</td>
+                  </tr>
+                  <tr>
+                    <td><code>sticky-top</code></td>
+                    <td>Top offset for the sticky inner track (match your navbar height).</td>
+                  </tr>
+                  <tr>
+                    <td><code>min-block-size</code></td>
+                    <td>Scroll runway length. Longer = slower wheel.</td>
+                  </tr>
+                  <tr>
+                    <td><code>tone</code></td>
+                    <td>Key written to <code>data-cui-tone</code> on the resolved target while this stage is most focused.</td>
+                  </tr>
+                  <tr>
+                    <td><code>tone-target</code></td>
+                    <td>Selector for where the tone is written. Defaults to the nearest <code>[data-cui-tone-root]</code> ancestor, falling back to the stage element itself. Use <code>"document"</code> to opt into the old page-wide behavior.</td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-stage-focus</code></td>
+                    <td>Published 0..1. Peaks when stage is centered.</td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-stage-offset</code></td>
+                    <td>Published -1..1. Signed distance from center after hold.</td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-stage-active</code></td>
+                    <td>Published 0 or 1. Mirror of the <code>.is-active</code> class.</td>
+                  </tr>
+                </tbody>
+              </table>
+                  </div>
+                </details>
+              </cui-disclosure>
+            </section>
+
+            <section id="reveal" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+              <div class="cui-prose">
+                <h2>Reveal</h2>
+                <p>
+                  <code>cui-reveal</code> wraps content that should fade and slide into place as its ancestor
+                  stage becomes focused. Direction via <code>from</code>, timing via <code>delay</code>, travel
+                  distance via <code>distance</code>. It's a pure-CSS element — it reads
+                  <code>--cui-stage-focus</code> from its surrounding stage and interpolates. Outside a stage,
+                  reveals stay fully visible.
+                </p>
+              </div>
+
+              <cui-scroll-stage sticky-top="5rem" hold="0.22" class="docs-reveal-rig">
+                <div class="docs-reveal-panel">
+                  <div class="docs-reveal-grid">
+                    <cui-reveal delay="40ms" from="up">
+                      <div class="docs-reveal-card">
+                        <strong>from="up"</strong>
+                        <span>delay 40ms</span>
+                      </div>
+                    </cui-reveal>
+                    <cui-reveal delay="140ms" from="down">
+                      <div class="docs-reveal-card">
+                        <strong>from="down"</strong>
+                        <span>delay 140ms</span>
+                      </div>
+                    </cui-reveal>
+                    <cui-reveal delay="240ms" from="left">
+                      <div class="docs-reveal-card">
+                        <strong>from="left"</strong>
+                        <span>delay 240ms</span>
+                      </div>
+                    </cui-reveal>
+                    <cui-reveal delay="340ms" from="right">
+                      <div class="docs-reveal-card">
+                        <strong>from="right"</strong>
+                        <span>delay 340ms</span>
+                      </div>
+                    </cui-reveal>
+                    <cui-reveal delay="440ms" from="fade">
+                      <div class="docs-reveal-card">
+                        <strong>from="fade"</strong>
+                        <span>delay 440ms</span>
+                      </div>
+                    </cui-reveal>
+                    <cui-reveal delay="540ms" from="up" distance="4rem">
+                      <div class="docs-reveal-card">
+                        <strong>distance="4rem"</strong>
+                        <span>longer travel</span>
+                      </div>
+                    </cui-reveal>
+                  </div>
+                </div>
+              </cui-scroll-stage>
+
+              <cui-code language="html">
+                <script type="text/html">
+                  <cui-scroll-stage sticky-top="5rem">
+                    <cui-reveal delay="40ms" from="up">
+                      <p>Slides in from below</p>
+                    </cui-reveal>
+                    <cui-reveal delay="140ms" from="left" distance="3rem">
+                      <h3>Slides in from the left, longer travel</h3>
+                    </cui-reveal>
+                    <cui-reveal delay="240ms" from="fade">
+                      <p>Pure opacity fade</p>
+                    </cui-reveal>
+                  </cui-scroll-stage>
+                </script>
+              </cui-code>
+
+              <cui-disclosure>
+                <details class="cui-disclosure" data-variant="ghost">
+                  <summary>API reference</summary>
+                  <div class="cui-disclosure-body">
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>Attribute</th>
+                    <th>Purpose</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>from</code></td>
+                    <td><code>up</code> · <code>down</code> · <code>left</code> · <code>right</code> · <code>fade</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>delay</code></td>
+                    <td>Transition delay. Unitless numbers are treated as ms.</td>
+                  </tr>
+                  <tr>
+                    <td><code>distance</code></td>
+                    <td>Travel magnitude. Unitless numbers are treated as px.</td>
+                  </tr>
+                  <tr>
+                    <td><code>threshold</code></td>
+                    <td>Focus level at which the reveal starts. Defaults to 0.6.</td>
+                  </tr>
+                </tbody>
+              </table>
+                  </div>
+                </details>
+              </cui-disclosure>
+            </section>
+        </div>
+      </div>
+    </section>
+
+    <footer class="cui-section" data-spacing="compact">
+      <div class="cui-container cui-cluster docs-prevnext">
+        <cui-button href="./atoms.html">Previous: Atoms</cui-button>
+        <cui-button href="./overlays.html">Next: Overlays</cui-button>
+      </div>
+    </footer>
+  </main>
+</body>
+
+</html>

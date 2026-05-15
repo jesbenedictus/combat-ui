@@ -629,7 +629,7 @@
     white-space: pre;
   }
 
-  /* Body tone routing — subtle, theme-aware tints */
+  /* Stage-rig tone routing — subtle, theme-aware tints scoped to the rig */
   :root {
     --docs-tone-dawn: oklch(98% 0.025 70deg);
     --docs-tone-noon: oklch(98% 0.022 220deg);
@@ -642,16 +642,17 @@
     --docs-tone-dusk: oklch(15% 0.05 290deg);
   }
 
-  body {
+  .docs-stage-rig {
     transition: background-color 600ms ease;
+    border-radius: var(--cui-radius-2, 0.5rem);
   }
-  html[data-cui-tone="dawn"] body {
+  .docs-stage-rig[data-cui-tone="dawn"] {
     background: var(--docs-tone-dawn);
   }
-  html[data-cui-tone="noon"] body {
+  .docs-stage-rig[data-cui-tone="noon"] {
     background: var(--docs-tone-noon);
   }
-  html[data-cui-tone="dusk"] body {
+  .docs-stage-rig[data-cui-tone="dusk"] {
     background: var(--docs-tone-dusk);
   }
 

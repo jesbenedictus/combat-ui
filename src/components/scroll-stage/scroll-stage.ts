@@ -22,6 +22,7 @@ export class CuiScrollStage extends CombatElement {
     "hold",
     "threshold",
     "tone",
+    "tone-target",
     "sticky-top",
     "min-block-size",
   ];
@@ -44,15 +45,30 @@ export class CuiScrollStage extends CombatElement {
 
     this.syncCssVars();
 
+    const tone = this.getAttribute("tone");
     this.handle = {
       element: this,
-      tone: this.getAttribute("tone"),
+      tone,
+      toneTarget: tone === null ? null : this.resolveToneTarget(),
       options: this.readOptions(),
       onUpdate: (state) => this.applyState(state),
     };
 
     getScrollCoordinator().registerStage(this.handle);
     this.parallax = attachCuiParallax(this);
+  }
+
+  private resolveToneTarget(): Element {
+    const attr = this.getAttribute("tone-target");
+    if (attr !== null && attr.trim() !== "") {
+      const value = attr.trim();
+      if (value === "document" || value === ":root") {
+        return document.documentElement;
+      }
+      const found = document.querySelector(value);
+      if (found !== null) return found;
+    }
+    return this.closest("[data-cui-tone-root]") ?? this;
   }
 
   disconnectedCallback(): void {
@@ -73,7 +89,12 @@ export class CuiScrollStage extends CombatElement {
     if (this.handle === null) return;
 
     if (name === "tone") {
-      this.handle.tone = this.getAttribute("tone");
+      const tone = this.getAttribute("tone");
+      this.handle.tone = tone;
+      this.handle.toneTarget = tone === null ? null : this.resolveToneTarget();
+    } else if (name === "tone-target") {
+      this.handle.toneTarget =
+        this.handle.tone === null ? null : this.resolveToneTarget();
     } else if (name === "sticky-top" || name === "min-block-size") {
       this.syncCssVars();
     } else {
