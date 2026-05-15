@@ -22,7 +22,7 @@
   <main id="main" class="cui-page cui-stack">
     <header class="cui-page-header">
       <h1>Page sections</h1>
-      <p>Composable, slot-based blocks for the moments every marketing or editorial page needs: a hero, a page intro, a call to action, content grids, and media blocks. Each is a custom element with a CSS-class fallback so it works from CMS-generated HTML.</p>
+      <p>Composable, slot-based blocks for the moments every marketing or editorial page needs: a hero, a page intro, a call to action, content grids, media blocks, and team / people blocks. Each is a custom element with a CSS-class fallback so it works from CMS-generated HTML.</p>
     </header>
 
     <section class="cui-section">
@@ -1569,6 +1569,646 @@
                         <tr>
                           <td><code>--cui-media-overlay-title-size</code></td>
                           <td><code>--cui-font-size-3</code></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </details>
+              </cui-disclosure>
+            </section>
+
+            <section id="team-blocks" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+              <div class="cui-prose">
+                <h2>Team &amp; people</h2>
+                <p>
+                  Person cards, team grids, leadership grids, and org charts. Markup stays semantic — an
+                  <code>&lt;article&gt;</code> per person, nested <code>&lt;ol&gt;</code> for the org chart — so the
+                  content is accessible to screen readers and search engines. All four blocks are CSS-only and work
+                  from CMS-generated HTML; no JavaScript is required.
+                </p>
+                <p>
+                  The org chart uses CSS connector lines drawn from pseudo-elements; no SVG is required. For richer
+                  vector diagramming (curved connectors, custom routing) you can layer an
+                  <code>&lt;svg aria-hidden="true"&gt;</code> overlay above the chart and position it absolutely — the
+                  underlying <code>&lt;ol&gt;</code> remains the source of truth for SEO and assistive tech.
+                </p>
+              </div>
+
+              <cui-tabs>
+                <button slot="tab" type="button">Person card</button>
+                <button slot="tab" type="button">Team grid</button>
+                <button slot="tab" type="button">Leadership</button>
+                <button slot="tab" type="button">Org chart</button>
+
+                <section slot="panel" class="docs-panel">
+                  <div class="cui-stack">
+                    <div class="cui-team-grid" data-columns="3" data-gap="spacious">
+                      <article class="cui-person" data-align="center">
+                        <img class="cui-person-photo" src="./hero-image.svg" alt="Portrait of Avery Quinn">
+                        <div class="cui-person-body">
+                          <p class="cui-person-meta">Engineering</p>
+                          <h3 class="cui-person-name">Avery Quinn</h3>
+                          <p class="cui-person-role">Staff engineer · Platform</p>
+                        </div>
+                      </article>
+                      <article class="cui-person" data-orient="row">
+                        <img class="cui-person-photo" src="./hero-image.svg" alt="Portrait of Niamh Rosado">
+                        <div class="cui-person-body">
+                          <h3 class="cui-person-name">Niamh Rosado</h3>
+                          <p class="cui-person-role">Design lead · Marketing</p>
+                          <p class="cui-person-bio">Niamh shapes the design system and reviews every section pattern.</p>
+                          <ul class="cui-person-links">
+                            <li><a href="mailto:niamh@example.com">Email</a></li>
+                            <li><a href="https://example.com">Site</a></li>
+                          </ul>
+                        </div>
+                      </article>
+                      <article class="cui-person" data-photo="square">
+                        <img class="cui-person-photo" src="./hero-image.svg" alt="Portrait of Mateo Ferreira">
+                        <div class="cui-person-body">
+                          <h3 class="cui-person-name">Mateo Ferreira</h3>
+                          <p class="cui-person-role">PM · Growth</p>
+                          <p class="cui-person-bio">Leads the recruitment site and applicant funnel work.</p>
+                        </div>
+                      </article>
+                    </div>
+                    <cui-code language="html">
+                      <script type="text/html">
+                        <!-- Default: stacked photo + body -->
+                        <article class="cui-person" data-align="center">
+                          <img class="cui-person-photo" src="/people/avery.jpg" alt="Portrait of Avery Quinn">
+                          <div class="cui-person-body">
+                            <p class="cui-person-meta">Engineering</p>
+                            <h3 class="cui-person-name">Avery Quinn</h3>
+                            <p class="cui-person-role">Staff engineer · Platform</p>
+                          </div>
+                        </article>
+
+                        <!-- Side-by-side photo + body, with links -->
+                        <article class="cui-person" data-orient="row">
+                          <img class="cui-person-photo" src="/people/niamh.jpg" alt="Portrait of Niamh Rosado">
+                          <div class="cui-person-body">
+                            <h3 class="cui-person-name">Niamh Rosado</h3>
+                            <p class="cui-person-role">Design lead · Marketing</p>
+                            <p class="cui-person-bio">Niamh shapes the design system.</p>
+                            <ul class="cui-person-links">
+                              <li><a href="mailto:niamh@example.com">Email</a></li>
+                              <li><a href="https://example.com">Site</a></li>
+                            </ul>
+                          </div>
+                        </article>
+
+                        <!-- Square photo variant -->
+                        <article class="cui-person" data-photo="square">
+                          <img class="cui-person-photo" src="/people/mateo.jpg" alt="Portrait of Mateo Ferreira">
+                          <div class="cui-person-body">
+                            <h3 class="cui-person-name">Mateo Ferreira</h3>
+                            <p class="cui-person-role">PM · Growth</p>
+                          </div>
+                        </article>
+                      </script>
+                    </cui-code>
+                  </div>
+                </section>
+
+                <section slot="panel" class="docs-panel">
+                  <div class="cui-stack">
+                    <div class="cui-team-grid" data-columns="4" data-gap="compact">
+                      <article class="cui-person" data-align="center" data-variant="flat">
+                        <img class="cui-person-photo" src="./hero-image.svg" alt="Portrait of Avery Quinn">
+                        <div class="cui-person-body">
+                          <h3 class="cui-person-name">Avery Quinn</h3>
+                          <p class="cui-person-role">Staff engineer</p>
+                        </div>
+                      </article>
+                      <article class="cui-person" data-align="center" data-variant="flat">
+                        <img class="cui-person-photo" src="./hero-image.svg" alt="Portrait of Niamh Rosado">
+                        <div class="cui-person-body">
+                          <h3 class="cui-person-name">Niamh Rosado</h3>
+                          <p class="cui-person-role">Design lead</p>
+                        </div>
+                      </article>
+                      <article class="cui-person" data-align="center" data-variant="flat">
+                        <img class="cui-person-photo" src="./hero-image.svg" alt="Portrait of Mateo Ferreira">
+                        <div class="cui-person-body">
+                          <h3 class="cui-person-name">Mateo Ferreira</h3>
+                          <p class="cui-person-role">PM</p>
+                        </div>
+                      </article>
+                      <article class="cui-person" data-align="center" data-variant="flat">
+                        <img class="cui-person-photo" src="./hero-image.svg" alt="Portrait of Linnea Park">
+                        <div class="cui-person-body">
+                          <h3 class="cui-person-name">Linnea Park</h3>
+                          <p class="cui-person-role">QA engineer</p>
+                        </div>
+                      </article>
+                    </div>
+                    <cui-code language="html">
+                      <script type="text/html">
+                        <div class="cui-team-grid" data-columns="4" data-gap="compact">
+                          <article class="cui-person" data-align="center" data-variant="flat">
+                            <img class="cui-person-photo" src="/people/avery.jpg" alt="Portrait of Avery Quinn">
+                            <div class="cui-person-body">
+                              <h3 class="cui-person-name">Avery Quinn</h3>
+                              <p class="cui-person-role">Staff engineer</p>
+                            </div>
+                          </article>
+                          <!-- repeat per teammate -->
+                        </div>
+                      </script>
+                    </cui-code>
+                  </div>
+                </section>
+
+                <section slot="panel" class="docs-panel">
+                  <div class="cui-stack">
+                    <div class="cui-team-grid" data-variant="leadership" data-columns="2">
+                      <article class="cui-person" data-variant="leadership" data-orient="row">
+                        <img class="cui-person-photo" src="./hero-image.svg" alt="Portrait of Sasha Lindgren">
+                        <div class="cui-person-body">
+                          <p class="cui-person-meta">CEO</p>
+                          <h3 class="cui-person-name">Sasha Lindgren</h3>
+                          <p class="cui-person-role">Founder &amp; CEO</p>
+                          <p class="cui-person-bio">
+                            Sasha leads strategy and external partnerships, and previously founded two design-system
+                            consultancies serving agencies across the EU.
+                          </p>
+                          <ul class="cui-person-links">
+                            <li><a href="mailto:sasha@example.com">Email</a></li>
+                            <li><a href="https://example.com">LinkedIn</a></li>
+                          </ul>
+                        </div>
+                      </article>
+                      <article class="cui-person" data-variant="leadership" data-orient="row">
+                        <img class="cui-person-photo" src="./hero-image.svg" alt="Portrait of Tomasz Nair">
+                        <div class="cui-person-body">
+                          <p class="cui-person-meta">CTO</p>
+                          <h3 class="cui-person-name">Tomasz Nair</h3>
+                          <p class="cui-person-role">Chief technology officer</p>
+                          <p class="cui-person-bio">
+                            Tomasz drives the platform roadmap. A long-time contributor to web component standards
+                            and progressive enhancement patterns.
+                          </p>
+                          <ul class="cui-person-links">
+                            <li><a href="mailto:tomasz@example.com">Email</a></li>
+                          </ul>
+                        </div>
+                      </article>
+                    </div>
+                    <cui-code language="html">
+                      <script type="text/html">
+                        <!-- The grid variant scales gap and minimum column width; the
+                             card variant scales photo, padding, type sizes. Apply both
+                             for the canonical leadership layout. -->
+                        <div class="cui-team-grid" data-variant="leadership" data-columns="2">
+                          <article class="cui-person" data-variant="leadership" data-orient="row">
+                            <img class="cui-person-photo" src="/people/sasha.jpg" alt="Portrait of Sasha Lindgren">
+                            <div class="cui-person-body">
+                              <p class="cui-person-meta">CEO</p>
+                              <h3 class="cui-person-name">Sasha Lindgren</h3>
+                              <p class="cui-person-role">Founder &amp; CEO</p>
+                              <p class="cui-person-bio">Sasha leads strategy and external partnerships.</p>
+                              <ul class="cui-person-links">
+                                <li><a href="mailto:sasha@example.com">Email</a></li>
+                              </ul>
+                            </div>
+                          </article>
+                          <!-- repeat per leader -->
+                        </div>
+                      </script>
+                    </cui-code>
+                  </div>
+                </section>
+
+                <section slot="panel" class="docs-panel">
+                  <div class="cui-stack">
+                    <ol class="cui-org-chart" aria-label="Combat UI organisation chart">
+                      <li class="cui-org-node">
+                        <article class="cui-person cui-org-card" data-align="center">
+                          <img class="cui-person-photo" src="./hero-image.svg" alt="">
+                          <div class="cui-person-body">
+                            <p class="cui-person-meta">CEO</p>
+                            <h3 class="cui-person-name">Sasha Lindgren</h3>
+                            <p class="cui-person-role">Founder &amp; CEO</p>
+                          </div>
+                        </article>
+                        <ol class="cui-org-children">
+                          <li class="cui-org-node">
+                            <article class="cui-person cui-org-card" data-align="center">
+                              <img class="cui-person-photo" src="./hero-image.svg" alt="">
+                              <div class="cui-person-body">
+                                <p class="cui-person-meta">CTO</p>
+                                <h3 class="cui-person-name">Tomasz Nair</h3>
+                                <p class="cui-person-role">Technology</p>
+                              </div>
+                            </article>
+                            <ol class="cui-org-children">
+                              <li class="cui-org-node">
+                                <article class="cui-person cui-org-card" data-align="center">
+                                  <img class="cui-person-photo" src="./hero-image.svg" alt="">
+                                  <div class="cui-person-body">
+                                    <h3 class="cui-person-name">Avery Quinn</h3>
+                                    <p class="cui-person-role">Staff engineer</p>
+                                  </div>
+                                </article>
+                              </li>
+                              <li class="cui-org-node">
+                                <article class="cui-person cui-org-card" data-align="center">
+                                  <img class="cui-person-photo" src="./hero-image.svg" alt="">
+                                  <div class="cui-person-body">
+                                    <h3 class="cui-person-name">Linnea Park</h3>
+                                    <p class="cui-person-role">QA engineer</p>
+                                  </div>
+                                </article>
+                              </li>
+                            </ol>
+                          </li>
+                          <li class="cui-org-node">
+                            <article class="cui-person cui-org-card" data-align="center">
+                              <img class="cui-person-photo" src="./hero-image.svg" alt="">
+                              <div class="cui-person-body">
+                                <p class="cui-person-meta">CMO</p>
+                                <h3 class="cui-person-name">Niamh Rosado</h3>
+                                <p class="cui-person-role">Marketing</p>
+                              </div>
+                            </article>
+                            <ol class="cui-org-children">
+                              <li class="cui-org-node">
+                                <article class="cui-person cui-org-card" data-align="center">
+                                  <img class="cui-person-photo" src="./hero-image.svg" alt="">
+                                  <div class="cui-person-body">
+                                    <h3 class="cui-person-name">Mateo Ferreira</h3>
+                                    <p class="cui-person-role">PM · Growth</p>
+                                  </div>
+                                </article>
+                              </li>
+                            </ol>
+                          </li>
+                        </ol>
+                      </li>
+                    </ol>
+
+                    <div class="cui-prose">
+                      <h3>Horizontal layout</h3>
+                      <p>
+                        Use <code>data-layout="horizontal"</code> for deep hierarchies that read better left-to-right,
+                        or for narrow viewports where vertical trees overflow.
+                      </p>
+                    </div>
+                    <ol class="cui-org-chart" data-layout="horizontal" data-line="dashed"
+                      aria-label="Horizontal organisation chart">
+                      <li class="cui-org-node">
+                        <article class="cui-person cui-org-card">
+                          <div class="cui-person-body">
+                            <h3 class="cui-person-name">Sasha Lindgren</h3>
+                            <p class="cui-person-role">CEO</p>
+                          </div>
+                        </article>
+                        <ol class="cui-org-children">
+                          <li class="cui-org-node">
+                            <article class="cui-person cui-org-card">
+                              <div class="cui-person-body">
+                                <h3 class="cui-person-name">Tomasz Nair</h3>
+                                <p class="cui-person-role">CTO</p>
+                              </div>
+                            </article>
+                          </li>
+                          <li class="cui-org-node">
+                            <article class="cui-person cui-org-card">
+                              <div class="cui-person-body">
+                                <h3 class="cui-person-name">Niamh Rosado</h3>
+                                <p class="cui-person-role">CMO</p>
+                              </div>
+                            </article>
+                          </li>
+                          <li class="cui-org-node">
+                            <article class="cui-person cui-org-card">
+                              <div class="cui-person-body">
+                                <h3 class="cui-person-name">Mateo Ferreira</h3>
+                                <p class="cui-person-role">PM · Growth</p>
+                              </div>
+                            </article>
+                          </li>
+                        </ol>
+                      </li>
+                    </ol>
+
+                    <cui-code language="html">
+                      <script type="text/html">
+                        <!-- Semantic, SEO-friendly: every node is an <article> inside an <li>.
+                             Search engines and screen readers see a hierarchical list of people. -->
+                        <ol class="cui-org-chart" aria-label="Organisation chart">
+                          <li class="cui-org-node">
+                            <article class="cui-person cui-org-card" data-align="center">
+                              <img class="cui-person-photo" src="/people/sasha.jpg" alt="">
+                              <div class="cui-person-body">
+                                <p class="cui-person-meta">CEO</p>
+                                <h3 class="cui-person-name">Sasha Lindgren</h3>
+                                <p class="cui-person-role">Founder &amp; CEO</p>
+                              </div>
+                            </article>
+                            <ol class="cui-org-children">
+                              <li class="cui-org-node">
+                                <article class="cui-person cui-org-card" data-align="center">
+                                  <div class="cui-person-body">
+                                    <h3 class="cui-person-name">Tomasz Nair</h3>
+                                    <p class="cui-person-role">CTO</p>
+                                  </div>
+                                </article>
+                                <ol class="cui-org-children">
+                                  <li class="cui-org-node">
+                                    <article class="cui-person cui-org-card" data-align="center">
+                                      <div class="cui-person-body">
+                                        <h3 class="cui-person-name">Avery Quinn</h3>
+                                        <p class="cui-person-role">Staff engineer</p>
+                                      </div>
+                                    </article>
+                                  </li>
+                                </ol>
+                              </li>
+                            </ol>
+                          </li>
+                        </ol>
+
+                        <!-- Horizontal layout, dashed connectors -->
+                        <ol class="cui-org-chart" data-layout="horizontal" data-line="dashed"
+                          aria-label="Horizontal organisation chart">
+                          <!-- ...same nesting structure... -->
+                        </ol>
+
+                        <!-- Optional: overlay an SVG for curved connectors. The <ol> stays
+                             the SEO source; the SVG is decorative. -->
+                        <div style="position: relative;">
+                          <ol class="cui-org-chart" data-line="dashed" aria-label="...">
+                            ...
+                          </ol>
+                          <svg aria-hidden="true" focusable="false"
+                            style="position: absolute; inset: 0; pointer-events: none;">
+                            <path d="M..." stroke="currentColor" fill="none" />
+                          </svg>
+                        </div>
+                      </script>
+                    </cui-code>
+                  </div>
+                </section>
+              </cui-tabs>
+
+              <cui-disclosure>
+                <details class="cui-disclosure" data-variant="ghost">
+                  <summary>API reference</summary>
+                  <div class="cui-disclosure-body">
+                    <table class="docs-token-table">
+                      <thead>
+                        <tr>
+                          <th>Class</th>
+                          <th>Purpose</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><code>.cui-person</code></td>
+                          <td>
+                            Person card container. Apply to an <code>&lt;article&gt;</code> or
+                            <code>&lt;a&gt;</code>; link variant gets an accent border on hover / focus.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>.cui-person-photo</code></td>
+                          <td>
+                            Portrait. Defaults to a circular crop; use <code>data-photo="square | rounded"</code> on the
+                            parent <code>.cui-person</code> to override.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>.cui-person-body</code></td>
+                          <td>Wrapping grid for the name, role, bio, meta, and links.</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code>.cui-person-name</code> / <code>.cui-person-role</code> /
+                            <code>.cui-person-bio</code> / <code>.cui-person-meta</code>
+                          </td>
+                          <td>
+                            Heading, role (small subtitle), longer bio paragraph, and an uppercase eyebrow line
+                            (department or pronouns).
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>.cui-person-links</code></td>
+                          <td>
+                            <code>&lt;ul&gt;</code> wrapper for contact / social links. Renders as a horizontal cluster,
+                            list semantics retained for assistive tech.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>.cui-team-grid</code></td>
+                          <td>
+                            Responsive grid wrapper around <code>.cui-person</code> children. Supports
+                            <code>data-columns</code>, <code>data-gap</code>, and
+                            <code>data-variant="leadership"</code>.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code>.cui-org-chart</code> / <code>.cui-org-node</code> /
+                            <code>.cui-org-children</code> / <code>.cui-org-card</code>
+                          </td>
+                          <td>
+                            Semantic org chart. <code>.cui-org-chart</code> is the root <code>&lt;ol&gt;</code>;
+                            <code>.cui-org-node</code> is each <code>&lt;li&gt;</code> containing one card and an
+                            optional nested <code>.cui-org-children</code> list. Add <code>.cui-org-card</code>
+                            alongside <code>.cui-person</code> for tighter org-card sizing.
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <table class="docs-token-table">
+                      <thead>
+                        <tr>
+                          <th>Modifier</th>
+                          <th>Purpose</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><code>data-orient="row"</code></td>
+                          <td>
+                            On <code>.cui-person</code> — photo beside the body instead of above. Useful for leadership
+                            cards or single-column lists.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>data-align="center"</code></td>
+                          <td>On <code>.cui-person</code> — centers photo, name, role, and links.</td>
+                        </tr>
+                        <tr>
+                          <td><code>data-photo="square | rounded"</code></td>
+                          <td>
+                            On <code>.cui-person</code> — swaps the circular crop for a square or slightly-rounded
+                            crop.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>data-variant="flat | borderless | leadership"</code></td>
+                          <td>
+                            On <code>.cui-person</code> — <code>flat</code> drops the shadow; <code>borderless</code>
+                            drops border and shadow (for editorial layouts); <code>leadership</code> scales photo,
+                            padding, and type sizes.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>data-columns="2 | 3 | 4"</code></td>
+                          <td>On <code>.cui-team-grid</code> — fixed column count from <code>48rem</code> and up.</td>
+                        </tr>
+                        <tr>
+                          <td><code>data-gap="compact | spacious"</code></td>
+                          <td>On <code>.cui-team-grid</code> — tightens or relaxes the grid gap.</td>
+                        </tr>
+                        <tr>
+                          <td><code>data-variant="leadership"</code></td>
+                          <td>
+                            On <code>.cui-team-grid</code> — wider minimum column, larger gap, and applies leadership
+                            sizing to all child <code>.cui-person</code> cards.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>data-layout="vertical | horizontal"</code></td>
+                          <td>
+                            On <code>.cui-org-chart</code> — top-down (default) or left-to-right hierarchy. Horizontal
+                            works well for deep trees on narrow viewports.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>data-line="dashed"</code></td>
+                          <td>On <code>.cui-org-chart</code> — dashed connector lines instead of solid.</td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <table class="docs-token-table">
+                      <thead>
+                        <tr>
+                          <th>Variable</th>
+                          <th>Default</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><code>--cui-person-photo-size</code></td>
+                          <td>
+                            <code>--cui-space-7</code> (column orient) ·
+                            <code>--cui-person-photo-row-size</code> (<code>7rem</code>) in row orient ·
+                            <code>--cui-person-photo-leadership-size</code> (<code>11rem</code>) for leadership.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-person-photo-ratio</code></td>
+                          <td><code>1 / 1</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-person-photo-radius</code></td>
+                          <td><code>50%</code> (overridden by <code>data-photo</code> modifiers).</td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-person-padding</code></td>
+                          <td><code>--cui-space-5</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-person-gap</code></td>
+                          <td><code>--cui-space-4</code> — gap between photo and body inside the card.</td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-person-body-gap</code></td>
+                          <td><code>--cui-space-1</code> — gap between body children (name, role, bio).</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code>--cui-person-name-size</code> / <code>--cui-person-role-size</code>
+                          </td>
+                          <td>
+                            <code>--cui-font-size-1</code> / <code>--cui-font-size-0</code> (leadership scales up to
+                            <code>--cui-font-size-2</code> / <code>--cui-font-size-1</code>).
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-person-meta-color</code></td>
+                          <td><code>--cui-color-accent</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-team-grid-min</code></td>
+                          <td>
+                            <code>16rem</code> default · <code>20rem</code> when
+                            <code>data-variant="leadership"</code> is set.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-org-gap</code></td>
+                          <td><code>--cui-space-5</code> — gap between sibling nodes.</td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-org-link-size</code></td>
+                          <td><code>--cui-space-5</code> — connector arm length.</td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-org-line-width</code></td>
+                          <td><code>2px</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-org-line-color</code></td>
+                          <td><code>--cui-color-border</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-org-card-min-inline-size</code></td>
+                          <td><code>14rem</code> — minimum node width so cards stay legible.</td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <table class="docs-token-table">
+                      <thead>
+                        <tr>
+                          <th>Markup contract</th>
+                          <th>Notes</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><code>&lt;article class="cui-person"&gt;</code></td>
+                          <td>
+                            Use <code>&lt;article&gt;</code> for standalone person cards (each is independently
+                            meaningful). Heading levels inside should follow your page outline.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>&lt;ol class="cui-org-chart"&gt;</code></td>
+                          <td>
+                            Ordered list reflects reporting hierarchy. Always provide an <code>aria-label</code> or
+                            <code>aria-labelledby</code> describing what the chart represents.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>&lt;ol class="cui-org-children"&gt;</code></td>
+                          <td>
+                            Nested ordered list of direct reports. Nest as deep as the org demands; CSS connectors
+                            keep working at any depth.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Optional SVG overlay</td>
+                          <td>
+                            For curved or animated connectors, layer an <code>&lt;svg aria-hidden="true"&gt;</code>
+                            on top of the chart using <code>position: absolute</code>. The list remains the SEO source;
+                            the SVG is purely decorative.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Schema.org / JSON-LD</td>
+                          <td>
+                            Pair the chart with <code>Organization</code> and <code>Person</code> JSON-LD for richer
+                            search results. The block does not emit JSON-LD itself — add it once per page based on the
+                            same data you use to render the cards.
+                          </td>
                         </tr>
                       </tbody>
                     </table>
