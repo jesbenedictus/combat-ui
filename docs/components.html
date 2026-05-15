@@ -34,6 +34,7 @@
           <a class="cui-nav-link" href="#page-intro">Page intro</a>
           <a class="cui-nav-link" href="#cta">CTA</a>
           <a class="cui-nav-link" href="#content-grids">Content grids</a>
+          <a class="cui-nav-link" href="#media-blocks">Media blocks</a>
           <a class="cui-nav-link" href="#navbar">Navbar</a>
           <a class="cui-nav-link" href="#buttons-tabs">Buttons & tabs</a>
           <a class="cui-nav-link" href="#code">Code</a>
@@ -1183,6 +1184,407 @@
                 </div>
               </details>
             </cui-disclosure>
+
+            <section id="media-blocks" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+              <div class="cui-prose">
+                <h2>Media blocks</h2>
+                <p>
+                  Use media blocks for editorial imagery, figure callouts, media-led cards, and overlay cards. They are
+                  CSS-only, work from CMS-generated HTML, and accept any of <code>&lt;img&gt;</code>,
+                  <code>&lt;picture&gt;</code>, <code>&lt;video&gt;</code>, <code>&lt;iframe&gt;</code>, or inline
+                  <code>&lt;svg&gt;</code>.
+                </p>
+              </div>
+
+              <cui-tabs>
+                <button slot="tab" type="button">Full-bleed</button>
+                <button slot="tab" type="button">Figure</button>
+                <button slot="tab" type="button">Media card</button>
+                <button slot="tab" type="button">Overlay card</button>
+
+                <section slot="panel" class="docs-panel">
+                  <div class="cui-stack">
+                    <div class="cui-media-full" data-ratio="wide">
+                      <img src="./hero-image.svg" alt="Abstract Combat UI banner">
+                    </div>
+                    <div class="cui-media-full" data-ratio="wide">
+                      <video autoplay muted loop playsinline poster="./hero-image.svg">
+                        <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+                          type="video/mp4">
+                      </video>
+                    </div>
+                    <cui-code language="html">
+                      <script type="text/html">
+                        <!-- Image -->
+                        <div class="cui-media-full" data-ratio="wide">
+                          <img src="/banner.jpg" alt="Abstract Combat UI banner">
+                        </div>
+
+                        <!-- Video (autoplay, muted, looped) -->
+                        <div class="cui-media-full" data-ratio="wide">
+                          <video autoplay muted loop playsinline poster="/banner.jpg">
+                            <source src="/banner.mp4" type="video/mp4">
+                          </video>
+                        </div>
+
+                        <!-- Edge-to-edge (place inside a section, not inside .cui-container) -->
+                        <div class="cui-media-full" data-bleed="full">
+                          <img src="/banner.jpg" alt="">
+                        </div>
+                      </script>
+                    </cui-code>
+                  </div>
+                </section>
+
+                <section slot="panel" class="docs-panel">
+                  <div class="cui-stack">
+                    <figure class="cui-figure" data-ratio="wide">
+                      <img src="./hero-image.svg" alt="Schematic of the page composition system">
+                      <figcaption>Figure 1. Page composition primitives combine to form section-level patterns.</figcaption>
+                    </figure>
+                    <cui-code language="html">
+                      <script type="text/html">
+                        <figure class="cui-figure" data-ratio="wide">
+                          <img src="/hero-image.svg" alt="Schematic of the page composition system">
+                          <figcaption>
+                            Figure 1. Page composition primitives combine to form section-level patterns.
+                          </figcaption>
+                        </figure>
+
+                        <!-- Centered, with explicit caption class -->
+                        <figure class="cui-figure" data-align="center" data-ratio="square">
+                          <img src="/hero-image.svg" alt="Token diagram">
+                          <p class="cui-figure-caption">Token diagram — Combat UI design tokens.</p>
+                        </figure>
+                      </script>
+                    </cui-code>
+                  </div>
+                </section>
+
+                <section slot="panel" class="docs-panel">
+                  <div class="cui-stack">
+                    <div class="cui-card-grid" data-columns="2">
+                      <article class="cui-media-card">
+                        <img class="cui-media-card-media" src="./hero-image.svg"
+                          alt="Composition pattern preview">
+                        <div class="cui-media-card-body">
+                          <p class="cui-media-card-meta">Pattern</p>
+                          <h3>Editorial spread</h3>
+                          <p>A media-led card pairs a leading visual with eyebrow, title, copy, and an action group.</p>
+                          <div class="cui-media-card-actions">
+                            <cui-button variant="primary" href="#media-blocks">Read more</cui-button>
+                          </div>
+                        </div>
+                      </article>
+                      <article class="cui-media-card" data-variant="flat">
+                        <img class="cui-media-card-media" src="./hero-image.svg"
+                          alt="Composition pattern preview">
+                        <div class="cui-media-card-body">
+                          <p class="cui-media-card-eyebrow">Editorial</p>
+                          <h3>Flat variant</h3>
+                          <p>Use <code>data-variant="flat"</code> to drop the elevation shadow for dense grids.</p>
+                        </div>
+                      </article>
+                    </div>
+                    <article class="cui-media-card" data-orient="row">
+                      <img class="cui-media-card-media" src="./hero-image.svg"
+                        alt="Side-by-side media card">
+                      <div class="cui-media-card-body">
+                        <p class="cui-media-card-eyebrow">Side by side</p>
+                        <h3>Row orientation</h3>
+                        <p>
+                          Set <code>data-orient="row"</code> to place the media beside the body. The layout uses
+                          flex-wrap, so the media stacks above the body when the card is narrower than the combined
+                          flex basis.
+                        </p>
+                        <div class="cui-media-card-actions">
+                          <cui-button variant="primary" href="#media-blocks">Continue reading</cui-button>
+                        </div>
+                      </div>
+                    </article>
+                    <cui-code language="html">
+                      <script type="text/html">
+                        <!-- Default: media on top, body below -->
+                        <article class="cui-media-card">
+                          <img class="cui-media-card-media" src="/cover.jpg" alt="Composition pattern preview">
+                          <div class="cui-media-card-body">
+                            <p class="cui-media-card-meta">Pattern</p>
+                            <h3>Editorial spread</h3>
+                            <p>A media-led card pairs a leading visual with eyebrow, title, copy, and action group.</p>
+                            <div class="cui-media-card-actions">
+                              <cui-button variant="primary">Read more</cui-button>
+                            </div>
+                          </div>
+                        </article>
+
+                        <!-- Row orientation: media beside body; wraps to stack on narrow widths -->
+                        <article class="cui-media-card" data-orient="row">
+                          <img class="cui-media-card-media" src="/cover.jpg" alt="Side-by-side media card">
+                          <div class="cui-media-card-body">
+                            <p class="cui-media-card-eyebrow">Side by side</p>
+                            <h3>Row orientation</h3>
+                            <p>data-orient="row" places the media beside the body.</p>
+                          </div>
+                        </article>
+                      </script>
+                    </cui-code>
+                  </div>
+                </section>
+
+                <section slot="panel" class="docs-panel">
+                  <div class="cui-stack">
+  
+                      <article class="cui-media-overlay">
+                        <img src="./hero-image.svg" alt="Campaign visual">
+                        <div class="cui-media-overlay-body">
+                          <p class="cui-media-overlay-eyebrow">Campaign</p>
+                          <h3 class="cui-media-overlay-title">Tell the story above the fold.</h3>
+                          <p>Overlay cards layer copy on top of a media background with a configurable scrim.</p>
+                          <div class="cui-media-overlay-actions">
+                            <cui-button variant="primary" href="#media-blocks">Read campaign</cui-button>
+                          </div>
+                        </div>
+                      </article>
+                      <article class="cui-media-overlay" data-align="center" data-scrim="solid">
+                        <img src="./hero-image.svg" alt="Centered overlay card">
+                        <div class="cui-media-overlay-body">
+                          <p class="cui-media-overlay-eyebrow">Centered</p>
+                          <h3 class="cui-media-overlay-title">Solid scrim, centered content.</h3>
+                          <p>Use <code>data-align="center"</code> and <code>data-scrim="solid"</code> for poster-style blocks.</p>
+                        </div>
+                      </article>
+                
+                    <cui-code language="html">
+                      <script type="text/html">
+                        <article class="cui-media-overlay">
+                          <img src="/hero-image.svg" alt="Campaign visual">
+                          <div class="cui-media-overlay-body">
+                            <p class="cui-media-overlay-eyebrow">Campaign</p>
+                            <h3 class="cui-media-overlay-title">Tell the story above the fold.</h3>
+                            <p>Overlay cards layer copy on top of a media background with a configurable scrim.</p>
+                            <div class="cui-media-overlay-actions">
+                              <cui-button variant="primary">Read campaign</cui-button>
+                            </div>
+                          </div>
+                        </article>
+
+                        <article class="cui-media-overlay" data-align="center" data-scrim="solid">
+                          <img src="/hero-image.svg" alt="">
+                          <div class="cui-media-overlay-body">
+                            <p class="cui-media-overlay-eyebrow">Centered</p>
+                            <h3 class="cui-media-overlay-title">Solid scrim, centered content.</h3>
+                          </div>
+                        </article>
+                      </script>
+                    </cui-code>
+                  </div>
+                </section>
+              </cui-tabs>
+
+              <cui-disclosure>
+                <details class="cui-disclosure" data-variant="ghost">
+                  <summary>API reference</summary>
+                  <div class="cui-disclosure-body">
+                    <table class="docs-token-table">
+                      <thead>
+                        <tr>
+                          <th>Class</th>
+                          <th>Purpose</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><code>.cui-media-full</code></td>
+                          <td>
+                            Edge-to-edge media wrapper. Constrains aspect ratio and rounds corners; pair with
+                            <code>data-bleed="full"</code> to escape the container gutter for true full-bleed sections.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code>.cui-figure</code> / <code>.cui-figure-caption</code>
+                          </td>
+                          <td>
+                            Native <code>&lt;figure&gt;</code> wrapper with consistent caption styling. Works with a
+                            <code>&lt;figcaption&gt;</code> child or a sibling element using
+                            <code>.cui-figure-caption</code>.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code>.cui-media-card</code> / <code>.cui-media-card-media</code> /
+                            <code>.cui-media-card-body</code>
+                          </td>
+                          <td>
+                            Card with a leading media block above (or beside) eyebrow / meta, heading, copy, and an
+                            action cluster. Drop inside <code>.cui-card-grid</code> for responsive grids.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code>.cui-media-card-eyebrow</code> / <code>.cui-media-card-meta</code> /
+                            <code>.cui-media-card-actions</code>
+                          </td>
+                          <td>Optional eyebrow kicker, meta line, and action cluster within the card body.</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code>.cui-media-overlay</code> / <code>.cui-media-overlay-media</code> /
+                            <code>.cui-media-overlay-body</code>
+                          </td>
+                          <td>
+                            Card with copy overlaid on a media background and a configurable scrim. Body content
+                            elements can use <code>.cui-media-overlay-eyebrow</code>,
+                            <code>.cui-media-overlay-title</code>, and <code>.cui-media-overlay-actions</code>.
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <table class="docs-token-table">
+                      <thead>
+                        <tr>
+                          <th>Modifier</th>
+                          <th>Purpose</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><code>data-ratio="square | portrait | wide | auto"</code></td>
+                          <td>
+                            Sets the aspect ratio on <code>.cui-media-full</code>, <code>.cui-figure</code>, and
+                            <code>.cui-media-overlay</code>. Defaults to <code>16 / 9</code>; <code>auto</code> falls
+                            back to the asset's intrinsic ratio.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>data-bleed="full"</code></td>
+                          <td>
+                            On <code>.cui-media-full</code> or <code>.cui-figure</code> — escapes the container gutter
+                            to span the viewport. Place inside a <code>.cui-section</code>, not inside a
+                            <code>.cui-container</code>.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>data-radius="none"</code></td>
+                          <td>On <code>.cui-media-full</code> — removes the rounded corners.</td>
+                        </tr>
+                        <tr>
+                          <td><code>data-orient="row"</code></td>
+                          <td>
+                            On <code>.cui-media-card</code> — places the media beside the body using flex-wrap. The
+                            media wraps above the body when the card is narrower than the combined flex bases of media
+                            (<code>--cui-media-card-media-size</code>) and body (<code>--cui-media-card-body-min</code>).
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>data-variant="flat | borderless"</code></td>
+                          <td>
+                            On <code>.cui-media-card</code> — drops the elevation shadow, or both the border and
+                            shadow for editorial layouts.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>data-scrim="solid | top | none"</code></td>
+                          <td>
+                            On <code>.cui-media-overlay</code> — replaces the default bottom-up gradient with a flat
+                            solid scrim, a top-down gradient, or no scrim at all.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>data-align="center | end"</code></td>
+                          <td>
+                            On <code>.cui-media-overlay</code> — centers or end-aligns the overlay copy. Defaults to
+                            bottom-start.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>data-align="center"</code></td>
+                          <td>On <code>.cui-figure</code> — centers the media and caption.</td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <table class="docs-token-table">
+                      <thead>
+                        <tr>
+                          <th>Variable</th>
+                          <th>Default</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><code>--cui-media-ratio</code></td>
+                          <td><code>16 / 9</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-media-fit</code></td>
+                          <td><code>cover</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-media-position</code></td>
+                          <td><code>center</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-media-radius</code></td>
+                          <td><code>--cui-radius-2</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-media-bg</code></td>
+                          <td><code>--cui-color-surface-muted</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-media-card-media-ratio</code></td>
+                          <td><code>16 / 10</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-media-card-media-size</code></td>
+                          <td>
+                            <code>18rem</code> — flex basis for the media column when
+                            <code>data-orient="row"</code> is set.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-media-card-media-min-block-size</code></td>
+                          <td><code>12rem</code> — minimum block size of the media column in row orientation.</td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-media-card-body-min</code></td>
+                          <td>
+                            <code>18rem</code> — flex basis for the body column in row orientation. The body wraps
+                            below the media when the card is narrower than this plus the media size.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-media-overlay-color</code></td>
+                          <td><code>oklch(98% 0 0deg)</code> — overlay text color (independent of theme inversion).</td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-media-overlay-min-block-size</code></td>
+                          <td><code>22rem</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-media-overlay-content-size</code></td>
+                          <td><code>32rem</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-media-overlay-padding</code></td>
+                          <td><code>--cui-space-5 --cui-space-6</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-media-overlay-scrim</code></td>
+                          <td>Bottom-up gradient — override for custom scrim colors or directions.</td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-media-overlay-title-size</code></td>
+                          <td><code>--cui-font-size-3</code></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </details>
+              </cui-disclosure>
+            </section>
 
             <section id="navbar" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
               <div class="cui-prose">

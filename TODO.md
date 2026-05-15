@@ -22,7 +22,7 @@ validation work (SEO docs, demo sites).
 - [x] Add content grids: feature grid, case grid, card grid, logo strip, and stats grid.
 - [x] Add quote and testimonial blocks.
 - [x] Add CTA sections: simple CTA, split CTA, full-bleed CTA, and sticky CTA.
-- [ ] Add image/media blocks: full-bleed media, figure with caption, media card, and overlay card.
+- [x] Add image/media blocks: full-bleed media, figure with caption, media card, and overlay card.
 - [ ] Add visual rhythm examples for agency, recruitment, and campaign-style pages.
 
 ## Priority 3: Interactive Components
@@ -35,7 +35,7 @@ validation work (SEO docs, demo sites).
 - [x] Add `cui-reveal` for content reveal driven by scroll stages.
 - [x] Add `cui-scroll-stage` sticky 3D track that publishes focus/offset as CSS custom properties.
 - [ ] Add `cui-accordion` for FAQ and disclosure groups (single-open and multi-open modes).
-- [ ] Add `cui-disclosure` for generic toggleable content (lightweight wrapper around `<details>`).
+- [x] Add `cui-disclosure` for generic toggleable content (lightweight wrapper around `<details>`).
 - [ ] Add `cui-tooltip` for inline contextual labels (positioning, focus / hover triggers, keyboard ESC).
 - [ ] Add `cui-popover` for richer floating content (delegates positioning anchor logic; pairs with tooltip).
 - [ ] Evaluate whether `cui-carousel` is necessary; add only if reference demos need it.

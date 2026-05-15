@@ -58,7 +58,8 @@
             </header>
             <ul class="docs-roadmap-list">
               <li data-status="done">Add <code>src/styles/website.css</code> and import it from
-                <code>src/index.css</code>.</li>
+                <code>src/index.css</code>.
+              </li>
               <li data-status="done">Add website-scale spacing tokens for compact, normal, spacious, and hero sections.
               </li>
               <li data-status="done">Add content width tokens for narrow prose, standard containers, wide containers,
@@ -67,9 +68,11 @@
                 text, captions, and metadata.</li>
               <li data-status="done">Add foundational website classes: <code>cui-site</code>,
                 <code>cui-container</code>, <code>cui-container-narrow</code>, <code>cui-container-wide</code>,
-                <code>cui-flow</code>, and <code>cui-prose</code>.</li>
+                <code>cui-flow</code>, and <code>cui-prose</code>.
+              </li>
               <li data-status="done">Add section variants: <code>cui-section</code>, <code>cui-section-muted</code>,
-                <code>cui-section-inverse</code>, and <code>cui-section-accent</code>.</li>
+                <code>cui-section-inverse</code>, and <code>cui-section-accent</code>.
+              </li>
               <li data-status="done">Add skip-link styles and document the expected landmark structure for SEO and
                 accessibility.</li>
             </ul>
@@ -81,11 +84,12 @@
                 <p class="docs-roadmap-eyebrow">Priority 2</p>
                 <h2 class="docs-roadmap-title">Design Page Sections</h2>
               </div>
-              <span class="docs-roadmap-status" data-state="in-progress">5 / 7</span>
+              <span class="docs-roadmap-status" data-state="in-progress">6 / 12</span>
             </header>
             <ul class="docs-roadmap-list">
               <li data-status="done">Add hero patterns: <code>cui-hero</code>, <code>cui-hero-media</code>,
-                <code>cui-hero-split</code>, and <code>cui-hero-campaign</code>.</li>
+                <code>cui-hero-split</code>, and <code>cui-hero-campaign</code>.
+              </li>
               <li data-status="done">Add page intro patterns for landing pages, case pages, vacancy pages, and campaign
                 pages.</li>
               <li data-status="done">Add content grids: feature grid, case grid, card grid, logo strip, and stats grid.
@@ -94,9 +98,18 @@
               <li data-status="done">
                 Add CTA sections: simple CTA, split CTA, full-bleed CTA, and sticky CTA.
               </li>
-              <li data-status="todo">Add image / media blocks: full-bleed media, figure with caption, media card, and
+              <li data-status="done">Add image / media blocks: full-bleed media, figure with caption, media card, and
                 overlay card.</li>
-              <li data-status="todo">Add visual rhythm examples for agency, recruitment, and campaign-style pages.</li>
+              <li data-status="todo">Add team / people blocks: person card, team grid, leadership grid, and org chart.
+              </li>
+              <li data-status="todo">Add blog / news blocks: article card, article list, and category filter.</li>
+              <li data-status="todo">Add event blocks: event card, event list, and calendar view.</li>
+              <li data-status="todo">Add contact blocks: contact card, location card, and contact form.</li>
+              <li data-status="todo">Add generic utility sections: split content, alternating media and text, and
+                sidebar
+                layout.</li>
+              <li data-status="todo">Add a todo list component, with status indicators and actions (todo, in-progress,
+                done, maybe configurable?).</li>
             </ul>
           </section>
 
@@ -110,21 +123,25 @@
             </header>
             <ul class="docs-roadmap-list">
               <li data-status="done">Add <code>cui-modal</code> over native <code>&lt;dialog&gt;</code> with
-                <code>data-cui-modal-target</code> triggers and <code>data-cui-modal-close</code> actions.</li>
+                <code>data-cui-modal-target</code> triggers and <code>data-cui-modal-close</code> actions.
+              </li>
               <li data-status="done">Add <code>.cui-alert</code> light-DOM classes (variants, tones, dismiss).</li>
               <li data-status="done">Add floating notifications: <code>cui-toast-region</code> + programmatic
-                <code>toast()</code> function with sugar variants and a handle API.</li>
+                <code>toast()</code> function with sugar variants and a handle API.
+              </li>
               <li data-status="done">Add <code>cui-field</code> and <code>cui-form</code> with native-validity-based
                 validation, async validators, server errors, and slot-based i18n (<code>error-&lt;key&gt;</code> slots +
-                <code>cui-field-invalid</code> event).</li>
+                <code>cui-field-invalid</code> event).
+              </li>
               <li data-status="done">Add <code>cui-tree</code> with drag-and-drop reordering, keyboard navigation, and a
                 cancelable context-menu hook.</li>
               <li data-status="done">Add <code>cui-reveal</code> for content reveal driven by scroll stages.</li>
               <li data-status="done">Add <code>cui-scroll-stage</code> sticky 3D track that publishes focus/offset as
                 CSS custom properties.</li>
-              <li data-status="todo">Add <code>cui-accordion</code> for FAQ and disclosure groups (single-open and
+              <li data-status="in-progress">Add <code>cui-accordion</code> for FAQ and disclosure groups (single-open
+                and
                 multi-open modes).</li>
-              <li data-status="todo">Add <code>cui-disclosure</code> for generic toggleable content (lightweight wrapper
+              <li data-status="done">Add <code>cui-disclosure</code> for generic toggleable content (lightweight wrapper
                 around <code>&lt;details&gt;</code>).</li>
               <li data-status="todo">Add <code>cui-tooltip</code> for inline contextual labels (positioning, focus /
                 hover triggers, keyboard ESC).</li>
@@ -150,24 +167,29 @@
             </p>
             <ul class="docs-roadmap-list">
               <li data-status="todo">Add data-viz tokens: <code>--cui-chart-track</code>, <code>--cui-chart-fill</code>,
-                <code>--cui-chart-accent-1..n</code>, sizing scale, grid color, label color, animation duration.</li>
+                <code>--cui-chart-accent-1..n</code>, sizing scale, grid color, label color, animation duration.
+              </li>
               <li data-status="todo">Add <code>.cui-badge</code> light-DOM class with
                 <code>data-variant="info|success|warning|danger|neutral"</code> and a <code>data-tone</code> mirror of
-                <code>.cui-alert</code> for filled / solid.</li>
+                <code>.cui-alert</code> for filled / solid.
+              </li>
               <li data-status="todo">Add <code>.cui-progress</code> and <code>.cui-progress-bar</code> light-DOM classes
                 (linear, segmented, with optional label slot).</li>
               <li data-status="todo">Add <code>.cui-meter</code> light-DOM class mirroring the native
-                <code>&lt;meter&gt;</code> thresholds (low / optimum / high) with shared accent tokens.</li>
+                <code>&lt;meter&gt;</code> thresholds (low / optimum / high) with shared accent tokens.
+              </li>
               <li data-status="todo">Add <code>cui-progress</code> component for animated, value-driven progress
                 (<code>value</code>, <code>max</code>, <code>indeterminate</code>).</li>
               <li data-status="todo">Add <code>cui-sparkline</code> component — small inline SVG trend chart from a
-                <code>data-values="…"</code> attribute.</li>
+                <code>data-values="…"</code> attribute.
+              </li>
               <li data-status="todo">Add <code>cui-bar-chart</code> light-DOM block (HTML data rows → CSS bars; works
                 without JS, accessible by default).</li>
               <li data-status="todo">Add <code>cui-ring-chart</code> / donut for single-value progress and multi-segment
                 ratios (CSS <code>conic-gradient</code> first; SVG fallback if needed).</li>
               <li data-status="todo">Add big-number / delta block (<code>.cui-stat-delta</code> extension to
-                <code>cui-stat</code>) for "X% growth" call-outs.</li>
+                <code>cui-stat</code>) for "X% growth" call-outs.
+              </li>
               <li data-status="todo">Add comparison / before-after block (split image or two-column metric).</li>
               <li data-status="todo">Document recommended JSON shapes so CMS content can drive each chart without JS.
               </li>
@@ -184,7 +206,8 @@
             </header>
             <ul class="docs-roadmap-list">
               <li data-status="done">Mobile responsive collapse panel via <code>expanded</code> attribute on
-                <code>cui-navbar</code>.</li>
+                <code>cui-navbar</code>.
+              </li>
               <li data-status="done">Active-link styling via <code>aria-current="page"</code>.</li>
               <li data-status="done">Click-outside and ESC close for nested dropdowns.</li>
               <li data-status="todo">Extend <code>cui-navbar</code> with mega-menu support (multi-column dropdown panel
@@ -193,7 +216,8 @@
               <li data-status="todo">Add a true drawer mode for the mobile navbar (off-canvas, focus trap — leverage the
                 modal primitive).</li>
               <li data-status="todo">Add active-section styling pattern driven by scroll position (pair with
-                <code>cui-scroll-stage</code> or an <code>IntersectionObserver</code> helper).</li>
+                <code>cui-scroll-stage</code> or an <code>IntersectionObserver</code> helper).
+              </li>
               <li data-status="todo">Improve nested-dropdown keyboard behavior (arrow-key item traversal, Home / End,
                 type-ahead).</li>
               <li data-status="todo">Add navbar example variants for agency sites, recruitment sites, and campaign
@@ -225,11 +249,13 @@
                 navbar, and nav dropdowns.</li>
               <li data-status="todo">Add global motion tokens: <code>--cui-motion-duration-*</code>,
                 <code>--cui-motion-easing-*</code>, <code>--cui-motion-distance-*</code>,
-                <code>--cui-motion-stagger-*</code>.</li>
+                <code>--cui-motion-stagger-*</code>.
+              </li>
               <li data-status="todo">Migrate existing ad-hoc transition durations / easings in component CSS to the
                 shared tokens.</li>
               <li data-status="todo">Audit every motion-using component for a
-                <code>prefers-reduced-motion: reduce</code> fallback.</li>
+                <code>prefers-reduced-motion: reduce</code> fallback.
+              </li>
               <li data-status="todo">Add animation examples for dropdowns, heroes, cards, and section reveals tied to
                 the new tokens.</li>
             </ul>
