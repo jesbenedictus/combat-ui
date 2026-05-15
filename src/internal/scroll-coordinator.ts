@@ -14,6 +14,7 @@ export interface ScrollStageHandle {
   element: HTMLElement;
   options: ScrollStageOptions;
   tone: string | null;
+  toneTarget: Element | null;
   onUpdate(state: ScrollStageState): void;
 }
 
@@ -48,7 +49,7 @@ class ScrollCoordinator {
   private rafId: number | null = null;
   private dirty = true;
   private reduceMotion = false;
-  private activeTone: string | null = null;
+  private readonly activeTones = new Map<Element, string>();
 
   constructor() {
     if (typeof window === "undefined") {
@@ -92,8 +93,12 @@ class ScrollCoordinator {
     this.stages.delete(handle);
     this.visibleStages.delete(handle);
     this.observer?.unobserve(handle.element);
-    if (this.activeTone === handle.tone) {
-      this.recomputeTone();
+    if (
+      handle.tone !== null &&
+      handle.toneTarget !== null &&
+      this.activeTones.has(handle.toneTarget)
+    ) {
+      this.recomputeTones();
     }
   }
 
@@ -161,8 +166,7 @@ class ScrollCoordinator {
     const viewportHeight = window.innerHeight;
     const viewportWidth = window.innerWidth;
 
-    let bestTone: string | null = null;
-    let bestFocus = 0;
+    const bestPerTarget = new Map<Element, { tone: string; focus: number }>();
 
     for (const handle of this.visibleStages) {
       const state = this.reduceMotion
@@ -170,18 +174,28 @@ class ScrollCoordinator {
         : this.computeStageState(handle, viewportHeight);
       handle.onUpdate(state);
 
-      if (handle.tone !== null && state.focus > bestFocus) {
-        bestFocus = state.focus;
-        bestTone = handle.tone;
+      if (handle.tone === null || handle.toneTarget === null) continue;
+      const current = bestPerTarget.get(handle.toneTarget);
+      if (current === undefined || state.focus > current.focus) {
+        bestPerTarget.set(handle.toneTarget, {
+          tone: handle.tone,
+          focus: state.focus,
+        });
       }
     }
 
-    if (bestTone !== null && bestFocus >= TONE_SET_FOCUS) {
-      if (bestTone !== this.activeTone) {
-        this.setActiveTone(bestTone);
+    for (const [target, { tone, focus }] of bestPerTarget) {
+      if (focus >= TONE_SET_FOCUS && this.activeTones.get(target) !== tone) {
+        this.setActiveTone(target, tone);
+      } else if (focus < TONE_CLEAR_FOCUS && this.activeTones.has(target)) {
+        this.setActiveTone(target, null);
       }
-    } else if (bestFocus < TONE_CLEAR_FOCUS && this.activeTone !== null) {
-      this.setActiveTone(null);
+    }
+
+    for (const target of this.activeTones.keys()) {
+      if (!bestPerTarget.has(target)) {
+        this.setActiveTone(target, null);
+      }
     }
 
     for (const handle of this.visibleParallaxes) {
@@ -223,28 +237,45 @@ class ScrollCoordinator {
     return { focus, offset, active: focus > threshold };
   }
 
-  private recomputeTone(): void {
-    let bestTone: string | null = null;
-    let bestFocus = TONE_SET_FOCUS;
+  private recomputeTones(): void {
+    const bestPerTarget = new Map<Element, { tone: string; focus: number }>();
     for (const handle of this.visibleStages) {
-      if (handle.tone === null) continue;
+      if (handle.tone === null || handle.toneTarget === null) continue;
       const state = this.computeStageState(handle, window.innerHeight);
-      if (state.focus >= bestFocus) {
-        bestFocus = state.focus;
-        bestTone = handle.tone;
+      const current = bestPerTarget.get(handle.toneTarget);
+      if (current === undefined || state.focus > current.focus) {
+        bestPerTarget.set(handle.toneTarget, {
+          tone: handle.tone,
+          focus: state.focus,
+        });
       }
     }
-    this.setActiveTone(bestTone);
+
+    for (const target of this.activeTones.keys()) {
+      if (!bestPerTarget.has(target)) {
+        this.setActiveTone(target, null);
+      }
+    }
+    for (const [target, { tone, focus }] of bestPerTarget) {
+      if (focus >= TONE_SET_FOCUS) {
+        if (this.activeTones.get(target) !== tone) {
+          this.setActiveTone(target, tone);
+        }
+      } else if (this.activeTones.has(target)) {
+        this.setActiveTone(target, null);
+      }
+    }
   }
 
-  private setActiveTone(tone: string | null): void {
-    if (this.activeTone === tone) return;
-    this.activeTone = tone;
-    if (typeof document === "undefined") return;
+  private setActiveTone(target: Element, tone: string | null): void {
     if (tone === null) {
-      document.documentElement.removeAttribute("data-cui-tone");
+      if (!this.activeTones.has(target)) return;
+      this.activeTones.delete(target);
+      target.removeAttribute("data-cui-tone");
     } else {
-      document.documentElement.setAttribute("data-cui-tone", tone);
+      if (this.activeTones.get(target) === tone) return;
+      this.activeTones.set(target, tone);
+      target.setAttribute("data-cui-tone", tone);
     }
   }
 }

@@ -45,12 +45,12 @@
                 <p>
                   Scroll through the three stages below. Each applies a different transform recipe to the same
                   published variables. Stages with a <code>tone</code> attribute write
-                  <code>data-cui-tone</code> to <code>&lt;html&gt;</code> while focused, so the page background
-                  can cross-fade.
+                  <code>data-cui-tone</code> to a scoped target while focused; the rig below is marked
+                  <code>data-cui-tone-root</code> so the tint stays inside it instead of bleeding to the whole page.
                 </p>
               </div>
 
-              <div class="docs-stage-rig">
+              <div class="docs-stage-rig" data-cui-tone-root>
                 <cui-scroll-stage tone="dawn" sticky-top="5rem">
                   <div class="docs-stage-panel" data-tone="dawn">
                     <div class="docs-stage-bg" data-cui-parallax="0.16" aria-hidden="true"></div>
@@ -136,16 +136,18 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
 
               <cui-code language="html">
                 <script type="text/html">
-                  <cui-scroll-stage tone="dawn" sticky-top="5rem">
-                    <div class="my-panel">
-                      <div class="my-bg" data-cui-parallax="0.16"></div>
-                      <div class="my-card">
-                        <cui-reveal delay="40ms"><p>Eyebrow</p></cui-reveal>
-                        <cui-reveal delay="140ms"><h3>Title</h3></cui-reveal>
-                        <cui-reveal delay="240ms"><p>Body copy</p></cui-reveal>
+                  <div class="my-rig" data-cui-tone-root>
+                    <cui-scroll-stage tone="dawn" sticky-top="5rem">
+                      <div class="my-panel">
+                        <div class="my-bg" data-cui-parallax="0.16"></div>
+                        <div class="my-card">
+                          <cui-reveal delay="40ms"><p>Eyebrow</p></cui-reveal>
+                          <cui-reveal delay="140ms"><h3>Title</h3></cui-reveal>
+                          <cui-reveal delay="240ms"><p>Body copy</p></cui-reveal>
+                        </div>
                       </div>
-                    </div>
-                  </cui-scroll-stage>
+                    </cui-scroll-stage>
+                  </div>
 
                   <!-- Choreograph in your own CSS by reading the published vars -->
                   <style>
@@ -155,8 +157,8 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
                         rotateY(calc(var(--cui-stage-offset) * 35deg));
                       opacity: calc(0.2 + var(--cui-stage-focus) * 0.8);
                     }
-                    html { transition: background-color 600ms ease; }
-                    html[data-cui-tone="dawn"] body { background: oklch(98% 0.02 70deg); }
+                    .my-rig { transition: background-color 600ms ease; }
+                    .my-rig[data-cui-tone="dawn"] { background: oklch(98% 0.02 70deg); }
                   </style>
                 </script>
               </cui-code>
@@ -195,7 +197,11 @@ filter: blur(calc((1 - var(--cui-stage-focus)) * 8px));</pre>
                   </tr>
                   <tr>
                     <td><code>tone</code></td>
-                    <td>Key routed to <code>&lt;html data-cui-tone&gt;</code> while this stage is most focused.</td>
+                    <td>Key written to <code>data-cui-tone</code> on the resolved target while this stage is most focused.</td>
+                  </tr>
+                  <tr>
+                    <td><code>tone-target</code></td>
+                    <td>Selector for where the tone is written. Defaults to the nearest <code>[data-cui-tone-root]</code> ancestor, falling back to the stage element itself. Use <code>"document"</code> to opt into the old page-wide behavior.</td>
                   </tr>
                   <tr>
                     <td><code>--cui-stage-focus</code></td>
