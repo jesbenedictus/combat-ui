@@ -10,6 +10,32 @@ export interface CuiArticleFilterChangeDetail {
 const CARD_SELECTOR = ".cui-article-card";
 const TARGET_SELECTOR = ".cui-article-grid, .cui-article-list";
 
+/**
+ * Filters a sibling or selector-targeted list of article cards by category.
+ * Reads `data-category` from each `.cui-article-card` and shows/hides cards
+ * based on which radio/checkbox inputs inside the filter are checked.
+ * 
+ * @element cui-article-filter
+ * 
+ * @slot - Radio or checkbox inputs (typically wrapped in labels). Each input's
+ *   `value` is matched against the `data-category` on the target cards.
+ * 
+ * @attr {string} target - CSS selector for the element containing the cards.
+ *   If omitted, the filter will look for a sibling `.cui-article-grid` or `.cui-article-list` to filter.
+ * 
+ * @fires {CustomEvent<CuiArticleFilterChangeDetail>} cui-article-filter-change - 
+ *   Fires when the visible-category set changes. `detail.selected` is the array of currently checked values.
+ * 
+ * @example
+ * <cui-article-filter target="#news-grid">
+ *   <label><input type="checkbox" value="product"> Product</label>
+ *   <label><input type="checkbox" value="company"> Company</label>
+ * </cui-article-filter>
+ * <div id="news-grid" class="cui-article-grid">
+ *   <article class="cui-article-card" data-category="product">...</article>
+ *   <article class="cui-article-card" data-category="company">...</article>
+ * </div>
+ */
 export class CuiArticleFilter extends CombatElement {
   static readonly tagName = "cui-article-filter";
   static override readonly styles = [cssStyleSheet(articleFilterCss)];
