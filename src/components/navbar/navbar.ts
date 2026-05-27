@@ -1,6 +1,41 @@
 import { CombatElement, cssStyleSheet } from "../../internal/base-element";
 import style from "./navbar.css?inline";
 
+/**
+ * Responsive site navigation with collapsible mobile panel, nested
+ * dropdowns, and optional sticky positioning. Brand, links, and action
+ * buttons are all slotted so the markup stays semantic and SEO-friendly.
+ *
+ * @element cui-navbar
+ *
+ * @slot brand - Site logo or wordmark (typically an `<a>` to the home page).
+ * @slot nav - Primary navigation. Use a `<ul>` with `<li>` items; nest a
+ *   `.cui-dropdown` for menus.
+ * @slot actions - Trailing actions (sign-in button, theme toggle, etc.).
+ *
+ * @attr {boolean} expanded - Mobile collapse panel state. Toggled by the
+ *   built-in burger button; can also be set programmatically.
+ * @attr {boolean} sticky - Enables `position: sticky` on the navbar.
+ * @attr {string} sticky-offset - CSS length used as `top` while sticky
+ *   (e.g. `0`, `var(--cui-space-2)`).
+ * @attr {string} sticky-z-index - CSS `z-index` while sticky.
+ *
+ * @example
+ * <cui-navbar sticky sticky-offset="0">
+ *   <a slot="brand" href="/" class="cui-navbar-brand">Combat UI</a>
+ *   <ul slot="nav" class="cui-navbar-nav">
+ *     <li><a href="/components" aria-current="page">Components</a></li>
+ *     <li class="cui-dropdown">
+ *       <button class="cui-dropdown-toggle">Resources</button>
+ *       <ul class="cui-dropdown-menu">
+ *         <li><a href="/docs">Docs</a></li>
+ *         <li><a href="/blog">Blog</a></li>
+ *       </ul>
+ *     </li>
+ *   </ul>
+ *   <div slot="actions"><cui-theme-toggle></cui-theme-toggle></div>
+ * </cui-navbar>
+ */
 export class CuiNavbar extends CombatElement {
   static readonly tagName = "cui-navbar";
   static override styles = [cssStyleSheet(style)];
