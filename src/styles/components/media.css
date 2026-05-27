@@ -9,6 +9,40 @@
   --cui-media-bg: var(--cui-color-surface-muted, #edf0f4);
 }
 
+/**
+ * Full-width media block — a media element (image, video,
+ * picture, iframe, svg) that fills the inline-size of its
+ * container, with a configurable aspect ratio and corner radius.
+ * Children get `object-fit: cover` by default so any aspect ratio
+ * renders cleanly. Use `[data-bleed="full"]` to escape a
+ * constrained container and span the full viewport — same trick
+ * `.cui-full-bleed` uses, but with the media-specific defaults.
+ *
+ * @block cui-media-full
+ * @summary Full-width media with configurable ratio and bleed.
+ * @variant square | portrait | wide | auto — Maps to `[data-ratio]`.
+ *   `square` 1:1, `portrait` 3:4, `wide` 21:9, `auto` lets the
+ *   media drive its own height.
+ * @variant none — Maps to `[data-radius]`. Drops the corner radius.
+ * @variant full — Maps to `[data-bleed]`. Spans the viewport
+ *   inline-size and drops the corner radius.
+ * @cssvar --cui-media-radius — Corner radius. Defaults to `--cui-radius-2`.
+ * @cssvar --cui-media-ratio — Default aspect ratio. Defaults to `16 / 9`.
+ * @cssvar --cui-media-fit — `object-fit` for child media. Defaults to `cover`.
+ * @cssvar --cui-media-position — `object-position` for child media. Defaults to `center`.
+ * @cssvar --cui-media-bg — Background behind the media (visible while loading). Defaults to `--cui-color-surface-muted`.
+ *
+ * @example
+ *   <div class="cui-media-full" data-ratio="wide">
+ *     <img src="/hero.jpg" alt="">
+ *   </div>
+ *
+ * @example
+ *   <!-- Full-bleed inside .cui-prose -->
+ *   <div class="cui-media-full" data-bleed="full">
+ *     <img src="/wide.jpg" alt="">
+ *   </div>
+ */
 .cui-media-full {
   display: block;
   inline-size: 100%;
@@ -57,6 +91,33 @@
   border-radius: 0;
 }
 
+/**
+ * Figure block — media plus caption. A small grid that stacks the
+ * media element above the caption, with margin reset for use
+ * inside flow content. The first-child media slot accepts
+ * `.cui-figure-media` or any bare `<img>` / `<video>` /
+ * `<picture>` / `<iframe>` / `<svg>`.
+ *
+ * @block cui-figure
+ * @summary Media + caption pair with configurable ratio and bleed.
+ * @variant square | portrait | wide | auto — Maps to `[data-ratio]`.
+ * @variant center — Maps to `[data-align]`. Centers the figure
+ *   and its caption text.
+ * @variant full — Maps to `[data-bleed]`. Media bleeds to the
+ *   viewport edge; caption stays inside the container measure.
+ * @cssvar --cui-figure-gap — Gap between media and caption. Defaults to `--cui-space-3`.
+ * @cssvar --cui-figure-ratio — Figure-specific ratio override. Defaults to `--cui-media-ratio`.
+ * @cssvar --cui-media-radius — Media corner radius. Defaults to `--cui-radius-2`.
+ * @cssvar --cui-media-fit — Media `object-fit`. Defaults to `cover`.
+ * @cssvar --cui-media-position — Media `object-position`. Defaults to `center`.
+ * @cssvar --cui-media-bg — Background behind the media. Defaults to `--cui-color-surface-muted`.
+ *
+ * @example
+ *   <figure class="cui-figure" data-ratio="wide">
+ *     <img src="/diagram.jpg" alt="System architecture">
+ *     <figcaption class="cui-figure-caption">Figure 1: simplified.</figcaption>
+ *   </figure>
+ */
 .cui-figure {
   display: grid;
   gap: var(--cui-figure-gap, var(--cui-space-3, 0.75rem));
@@ -91,6 +152,16 @@
   --cui-figure-ratio: auto;
 }
 
+/**
+ * Caption text inside `.cui-figure`. Applies to the explicit
+ * `.cui-figure-caption` class and to direct `<figcaption>`
+ * children of `.cui-figure` — either works, so you can skip the
+ * class on a semantic `<figcaption>`. Muted, caption-sized
+ * (`--cui-font-size-caption`).
+ *
+ * @block cui-figure-caption
+ * @summary Caption text below a figure (covers `<figcaption>` directly).
+ */
 .cui-figure-caption,
 .cui-figure > figcaption {
   color: var(--cui-color-muted, #5d6675);
@@ -119,6 +190,37 @@
   margin-inline: auto;
 }
 
+/**
+ * Media card — a bordered, elevated card with media on top and a
+ * body column below. Shares the `--cui-content-card-*` token
+ * family with the rest of the card system, so it visually matches
+ * feature / case / person / article cards in mixed layouts. Set
+ * `[data-orient="row"]` to pair media beside body, similar to the
+ * article-card row variant.
+ *
+ * @block cui-media-card
+ * @summary Card with media region and content body.
+ * @variant row — Maps to `[data-orient]`. Media beside body; collapses to stacked on narrow widths.
+ * @variant flat | borderless — Maps to `[data-variant]`. `flat`
+ *   drops the shadow. `borderless` drops shadow and border.
+ * @cssvar --cui-media-card-radius — Card corner radius. Defaults to `--cui-radius-2`.
+ * @cssvar --cui-media-card-media-ratio — Media aspect ratio. Defaults to `16 / 10`.
+ * @cssvar --cui-media-card-media-size — Media flex-basis in row orient. Defaults to 18rem.
+ *
+ * @example
+ *   <article class="cui-media-card">
+ *     <img class="cui-media-card-media" src="/feature.jpg" alt="">
+ *     <div class="cui-media-card-body">
+ *       <p class="cui-media-card-eyebrow">Spotlight</p>
+ *       <h3>Card title</h3>
+ *       <p>Card description.</p>
+ *       <p class="cui-media-card-meta">5 min read</p>
+ *       <div class="cui-media-card-actions">
+ *         <a class="cui-button" href="/post">Read more</a>
+ *       </div>
+ *     </div>
+ *   </article>
+ */
 .cui-media-card {
   display: grid;
   gap: 0;
@@ -139,6 +241,15 @@
   --cui-content-card-shadow: none;
 }
 
+/**
+ * Media region of `.cui-media-card`. The combined selector with
+ * `.cui-media-card > :where(img, video, picture, iframe, svg):first-child`
+ * means a bare first-child media element gets the same styling
+ * — class is optional when media is the first child.
+ *
+ * @block cui-media-card-media
+ * @summary Media region inside a media card (covers bare first-child media too).
+ */
 .cui-media-card-media,
 .cui-media-card > :where(img, video, picture, iframe, svg):first-child {
   inline-size: 100%;
@@ -148,6 +259,17 @@
   object-position: var(--cui-media-position, center);
 }
 
+/**
+ * Content column inside `.cui-media-card`. A grid that stacks
+ * eyebrow / title / body / meta / actions with the shared
+ * `--cui-content-card-gap` between rows; direct heading and
+ * paragraph children get `margin: 0`, and `<p>` siblings inherit
+ * the muted content-card color (so descriptions read as
+ * secondary text without an explicit class).
+ *
+ * @block cui-media-card-body
+ * @summary Stacked content column inside a media card.
+ */
 .cui-media-card-body {
   display: grid;
   gap: var(--cui-content-card-gap, var(--cui-space-3, 0.75rem));
@@ -162,6 +284,14 @@
   color: var(--cui-content-card-muted-color, var(--cui-color-muted, #5d6675));
 }
 
+/**
+ * Eyebrow / kicker inside `.cui-media-card-body`. Small-caps,
+ * accent-tinted, tracked.
+ *
+ * @block cui-media-card-eyebrow
+ * @summary Accent-tinted eyebrow above the title.
+ * @cssvar --cui-media-card-eyebrow-color — Eyebrow tint. Defaults to `--cui-color-accent`.
+ */
 .cui-media-card-eyebrow {
   color: var(--cui-media-card-eyebrow-color, var(--cui-color-accent, oklch(57% 0.18 246deg)));
   font-size: var(--cui-text-eyebrow-size, 0.875rem);
@@ -170,12 +300,27 @@
   text-transform: uppercase;
 }
 
+/**
+ * Metadata line inside `.cui-media-card-body` — date, reading
+ * time, byline. Muted and bold.
+ *
+ * @block cui-media-card-meta
+ * @summary Muted metadata line inside a media card body.
+ */
 .cui-media-card-meta {
   color: var(--cui-color-muted, #5d6675);
   font-size: var(--cui-text-metadata-size, 0.875rem);
   font-weight: var(--cui-font-weight-strong, 680);
 }
 
+/**
+ * Actions row inside `.cui-media-card-body`. Flex-wrap with
+ * `--cui-space-3` gap and a small top margin to separate it from
+ * the body copy.
+ *
+ * @block cui-media-card-actions
+ * @summary Flex-wrap row of action buttons inside a media card body.
+ */
 .cui-media-card-actions {
   display: flex;
   flex-wrap: wrap;
@@ -202,6 +347,48 @@
   min-inline-size: 0;
 }
 
+/**
+ * Media overlay block — a background image (or video) with text
+ * overlaid on top, separated by a configurable scrim. Use for
+ * hero cards, feature blocks where the image and copy share the
+ * same surface. Block-axis alignment of the body defaults to the
+ * end (text reads from the bottom up); `[data-align]` controls
+ * both the block-axis and inline-axis alignment.
+ *
+ * The scrim is a `::before` gradient by default (transparent at
+ * top, opaque at bottom). `[data-scrim]` swaps it for a solid
+ * tint, a top-anchored gradient, or removes it entirely.
+ *
+ * @block cui-media-overlay
+ * @summary Media block with text overlay and scrim.
+ * @variant square | portrait | wide | auto — Maps to `[data-ratio]`.
+ * @variant solid | top | none — Maps to `[data-scrim]`. `solid`
+ *   replaces the gradient with a uniform tint; `top` anchors the
+ *   gradient at the top instead; `none` removes the scrim entirely.
+ * @variant start | center | end — Maps to `[data-align]`. Aligns
+ *   the body along the block axis and (for `center` / `end`)
+ *   shifts inline alignment to match.
+ * @cssvar --cui-media-overlay-radius — Corner radius. Defaults to `--cui-radius-2`.
+ * @cssvar --cui-media-overlay-ratio — Aspect ratio. Defaults to `--cui-media-ratio` (16 / 9).
+ * @cssvar --cui-media-overlay-min-block-size — Minimum block-size. Defaults to 22rem.
+ * @cssvar --cui-media-overlay-color — Foreground color over the scrim. Defaults to near-white.
+ * @cssvar --cui-media-overlay-scrim — `::before` background; defaults to a transparent-to-dark gradient.
+ * @cssvar --cui-media-overlay-padding — Body padding inside the overlay. Defaults to `--cui-space-5 --cui-space-6`.
+ * @cssvar --cui-media-overlay-content-size — Body max-inline-size. Defaults to 32rem.
+ *
+ * @example
+ *   <section class="cui-media-overlay" data-align="start">
+ *     <img src="/feature.jpg" alt="">
+ *     <div class="cui-media-overlay-body">
+ *       <p class="cui-media-overlay-eyebrow">Featured</p>
+ *       <h2 class="cui-media-overlay-title">A bold headline</h2>
+ *       <p>Two sentences of supporting copy.</p>
+ *       <div class="cui-media-overlay-actions">
+ *         <a class="cui-button" data-variant="primary" href="/x">Read more</a>
+ *       </div>
+ *     </div>
+ *   </section>
+ */
 .cui-media-overlay {
   position: relative;
   display: grid;
@@ -232,6 +419,18 @@
   --cui-media-overlay-ratio: auto;
 }
 
+/**
+ * Background media element inside `.cui-media-overlay`. The
+ * combined selector with
+ * `.cui-media-overlay > :where(img, video, picture, iframe, svg):first-child`
+ * means a bare first-child media element gets the same absolute-
+ * positioned full-cover styling — class is optional. The media
+ * sits below both the scrim (`::before`) and the body content via
+ * a z-index of -2.
+ *
+ * @block cui-media-overlay-media
+ * @summary Absolutely-positioned background media inside an overlay.
+ */
 .cui-media-overlay-media,
 .cui-media-overlay > :where(img, video, picture, iframe, svg):first-child {
   position: absolute;
@@ -280,6 +479,16 @@
   display: none;
 }
 
+/**
+ * Content body of `.cui-media-overlay`. A grid stack with
+ * `--cui-space-3` gap, padded according to
+ * `--cui-media-overlay-padding`, capped at
+ * `--cui-media-overlay-content-size` inline-size so long copy
+ * stays readable.
+ *
+ * @block cui-media-overlay-body
+ * @summary Content body inside a media overlay (capped width, padded).
+ */
 .cui-media-overlay-body {
   display: grid;
   gap: var(--cui-space-3, 0.75rem);
@@ -294,6 +503,14 @@
   color: inherit;
 }
 
+/**
+ * Eyebrow inside `.cui-media-overlay-body`. Small-caps, tracked,
+ * tinted near-white by default for contrast over the dark scrim.
+ *
+ * @block cui-media-overlay-eyebrow
+ * @summary Eyebrow text above the overlay title.
+ * @cssvar --cui-media-overlay-eyebrow-color — Eyebrow tint. Defaults to translucent white.
+ */
 .cui-media-overlay-eyebrow {
   color: var(--cui-media-overlay-eyebrow-color, hsl(0deg 0% 100% / 86%));
   font-size: var(--cui-text-eyebrow-size, 0.875rem);
@@ -302,6 +519,14 @@
   text-transform: uppercase;
 }
 
+/**
+ * Title inside `.cui-media-overlay-body`. Display-weight, sized
+ * at `--cui-font-size-3` by default, tight line-height, balanced.
+ *
+ * @block cui-media-overlay-title
+ * @summary Display-weight title inside a media overlay.
+ * @cssvar --cui-media-overlay-title-size — Title font size. Defaults to `--cui-font-size-3`.
+ */
 .cui-media-overlay-title {
   font-size: var(--cui-media-overlay-title-size, var(--cui-font-size-3, 2rem));
   font-weight: var(--cui-font-weight-display, 760);
@@ -309,6 +534,15 @@
   text-wrap: balance;
 }
 
+/**
+ * Actions row inside `.cui-media-overlay-body`. Flex-wrap with
+ * `--cui-space-3` gap and a small top margin. Use one or two
+ * `.cui-button`s with `data-variant="primary"` for the primary
+ * CTA — neutral buttons can disappear into the scrim.
+ *
+ * @block cui-media-overlay-actions
+ * @summary Flex-wrap row of action buttons inside a media overlay body.
+ */
 .cui-media-overlay-actions {
   display: flex;
   flex-wrap: wrap;
