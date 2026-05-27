@@ -1,3 +1,53 @@
+/**
+ * Light-DOM callout for inline status messages. Renders an icon column,
+ * a body column, and an optional dismiss column in a three-column grid.
+ * Use it for non-blocking feedback (success, info, warning, error) that
+ * don't stop the user; for blocking feedback, use `cui-modal` instead.
+ *
+ * The default appearance is a bordered card with an accent rail on the 
+ * inline-start edge. `[data-variant]` changes the accent hue; `[data-tone]`
+ * switches betweeen the default outline look, a subtle fille background, 
+ * and a solid filled background where the accent becomes the surface.
+ * 
+ * @block cui-alert
+ * @summary Inline callout banner with variant, tone, and dismiss controls.
+ * @variant info | success | warning | danger - Maps to `[data-variant]`.
+ *   Changes the accent hue (`--cui-alert-accent`); omit for the default
+ *   neutral accent.
+ * @tone filled | solid - Maps to `[data-tone]`. `filled` tints the
+ *   background with the accent; `solid` paints the accent as the
+ *   background and inverts the text color. Omit for the default outlined style.
+ * @cssvar --cui-alert-bg - Background color of the callout body.
+ * @cssvar --cui-alert-color - Foreground text color inside the callout.
+ * @cssvar --cui-alert-border - Border color around the callout.
+ * @cssvar --cui-alert-accent - Accent color for the inline rail and icon,
+ *   variants override this.
+ * @cssvar --cui-alert-on-accent — Foreground color used when `[data-tone="solid"]`
+ *   inverts the surface to the accent color.
+ * @cssvar --cui-alert-radius — Outer corner radius.
+ *
+ * @example
+ *   <div class="cui-alert" data-variant="info">
+ *     <span class="cui-alert-icon" aria-hidden="true">i</span>
+ *     <div class="cui-alert-body">
+ *       <p class="cui-alert-title">Heads up</p>
+ *       <p class="cui-alert-message">Your changes have been saved.</p>
+ *     </div>
+ *   </div>
+ *
+ * @example
+ *   <div class="cui-alert" data-variant="warning" data-tone="solid" role="alert">
+ *     <span class="cui-alert-icon" aria-hidden="true">!</span>
+ *     <div class="cui-alert-body">
+ *       <p class="cui-alert-title">Session expiring</p>
+ *       <p class="cui-alert-message">You'll be signed out in 2 minutes.</p>
+ *       <div class="cui-alert-actions">
+ *         <button class="cui-button" data-variant="primary">Stay signed in</button>
+ *       </div>
+ *     </div>
+ *     <button class="cui-alert-dismiss" type="button" aria-label="Dismiss">×</button>
+ *   </div>
+ */
 .cui-alert {
   --cui-alert-bg: var(--cui-color-surface-raised, #fff);
   --cui-alert-color: var(--cui-color, #1b1f27);
@@ -34,6 +84,16 @@
   --cui-alert-accent: var(--cui-color-danger, oklch(58% 0.20 25deg));
 }
 
+/**
+ * Icon column inside `.cui-alert`. A small circular tinted badge that
+ * consumes `--cui-alert-accent` for its background and color. Wrap a
+ * single short glyph or letter; mark the element `aria-hidden="true"`
+ * if the icon is decorative (the alert's accessible name should come
+ * from the title/message text).
+ *
+ * @block cui-alert-icon
+ * @summary Circular icon badge for the alert's leading column.
+ */
 .cui-alert-icon {
   display: inline-grid;
   place-items: center;
@@ -47,6 +107,15 @@
   line-height: 1;
 }
 
+/**
+ * Content column inside `.cui-alert`. A vertically-aligned stack
+ * (`align-self: center`) that holds the title, message, and any
+ * action buttons. Use this so the alert's text wraps independently
+ * of the icon column and the dismiss column.
+ *
+ * @block cui-alert-body
+ * @summary Content column of the alert: title, message, actions.
+ */
 .cui-alert-body {
   display: grid;
   gap: var(--cui-space-1, 0.25rem);
@@ -54,24 +123,62 @@
   min-inline-size: 0;
 }
 
+/**
+ * Bold lead line at the top of `.cui-alert-body`. Pick the semantic
+ * element to match the alert's role on the page (`<p>` for inline
+ * messages, a heading element when the alert is a page-level banner)
+ * — the class only handles font weight and margin reset, not the
+ * document outline.
+ *
+ * @block cui-alert-title
+ * @summary Bold lead line inside the alert body.
+ */
 .cui-alert-title {
   margin: 0;
   font-weight: var(--cui-font-weight-strong, 680);
   line-height: 1.3;
 }
 
+/**
+ * Message text inside `.cui-alert-body`. Applies implicitly to any
+ * `<p>` child of the body (no class required); use the explicit
+ * `.cui-alert-message` class on non-paragraph elements such as a
+ * `<span>` for a one-line message or a `<div>` wrapping multiple
+ * lines.
+ *
+ * @block cui-alert-message
+ * @summary Message text paragraph(s) inside the alert body.
+ */
 .cui-alert-body > p,
 .cui-alert-message {
   margin: 0;
   line-height: 1.4;
 }
 
+/**
+ * Actions row at the bottom of `.cui-alert-body`. A horizontal flex
+ * container with consistent gap and top margin, intended for one or
+ * two `cui-button`s that follow the message text.
+ *
+ * @block cui-alert-actions
+ * @summary Flex row of action buttons inside the alert body.
+ */
 .cui-alert-actions {
   display: flex;
   gap: var(--cui-space-2, 0.5rem);
   margin-block-start: var(--cui-space-2, 0.5rem);
 }
 
+/**
+ * Dismiss button in the trailing column of `.cui-alert`. Render as
+ * `<button type="button" aria-label="Dismiss">×</button>` — the
+ * visible glyph is decorative, the accessible name comes from
+ * `aria-label`. Wire up the click handler in JS; this class is
+ * style-only and does not toggle the alert's visibility.
+ *
+ * @block cui-alert-dismiss
+ * @summary Trailing dismiss button on the alert.
+ */
 .cui-alert-dismiss {
   appearance: none;
   border: 0;
