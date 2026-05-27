@@ -52,7 +52,8 @@
     "check:css": "stylelint \"src/**/*.css\" \"docs/**/*.css\" \"examples/**/*.css\"",
     "check:html": "eslint \"docs/**/*.html\" \"examples/**/*.html\"",
     "clean": "rimraf dist dist-docs .tsbuildinfo",
-    "manifest": "cem analyze --config custom-elements-manifest.config.mjs"
+    "manifest": "cem analyze --config custom-elements-manifest.config.mjs",
+    "blocks": "node scripts/build-blocks.mjs"
   },
   "browserslist": [
     "baseline 2025 with downstream"
