@@ -1,6 +1,36 @@
 import { CombatElement, cssStyleSheet } from "../../internal/base-element";
 import heroCss from "./hero.css?inline";
 
+/**
+ * Hero section with optional responsive background image and content + media
+ * regions. All copy and media stay in light DOM via slots.
+ *
+ * @element cui-hero
+ *
+ * @slot - Body copy beneath the title.
+ * @slot eyebrow - Small label above the title.
+ * @slot title - Main hero headline. Use a heading element.
+ * @slot actions - Primary and secondary CTAs (typically `cui-button`s).
+ * @slot media - Hero artwork (image, illustration, video) shown alongside or
+ *   behind the copy depending on layout class.
+ *
+ * @attr {string} background-src - URL of the background image. Sets a CSS
+ *   custom property the stylesheet consumes; omit for no background.
+ * @attr {string} background-position - CSS `background-position` value
+ *   (`center`, `50% 30%`, …) for the background image.
+ * @attr {string} background-size - CSS `background-size` value (`cover`,
+ *   `contain`, …) for the background image.
+ *
+ * @example
+ * <cui-hero background-src="/hero.jpg" background-position="center">
+ *   <span slot="eyebrow">New release</span>
+ *   <h1 slot="title">Modern websites without the framework tax</h1>
+ *   <p>Web components and light-DOM blocks that ship in any stack.</p>
+ *   <div slot="actions">
+ *     <cui-button href="/start">Get started</cui-button>
+ *   </div>
+ * </cui-hero>
+ */
 export class CuiHero extends CombatElement {
   static readonly tagName = "cui-hero";
   static override styles = [cssStyleSheet(heroCss)];
