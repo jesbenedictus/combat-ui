@@ -81,6 +81,53 @@ function parseNumber(value: string | null): number | null {
   return Number.isFinite(num) ? num : null;
 }
 
+/**
+ * Leaflet-backed interactive map with clustered points, GeoJSON regions,
+ * theme-aware tiles, and a lazy-loaded library bundle. Points and regions
+ * are declared as light-DOM children so content stays SEO-visible and
+ * server-renderable.
+ *
+ * @element cui-map
+ *
+ * @slot - Fallback content shown before the library loads or when JS is
+ *   disabled (e.g. a static `<address>` list).
+ * @slot title - Accessible title for the map (becomes an `aria-label`).
+ * @slot legend - Visual legend rendered alongside the map.
+ * @slot marker-icon - Template for custom marker icons. Cloned per point.
+ *
+ * @attr {string} center - Initial center as `"lat,lng"` (e.g. `52.37,4.89`).
+ * @attr {string} zoom - Initial zoom level.
+ * @attr {string} min-zoom - Minimum zoom level allowed.
+ * @attr {string} max-zoom - Maximum zoom level allowed.
+ * @attr {string} tile-url - Tile URL template. Defaults to OpenStreetMap.
+ * @attr {string} tile-attribution - HTML attribution string for the tiles.
+ * @attr {string} tile-subdomains - Comma-separated subdomain list for the
+ *   tile URL template.
+ * @attr {boolean} cluster - Group nearby markers into clusters.
+ * @attr {boolean} fit-bounds - Auto-zoom to fit all points/regions on load.
+ * @attr {boolean} interactive - Enable pan/zoom (default true).
+ * @attr {boolean} scroll-wheel-zoom - Enable scroll-wheel zoom.
+ *
+ * @fires {CustomEvent<CuiMapReadyDetail>} cui-map-ready - Fires once the
+ *   library has loaded and the map is interactive.
+ * @fires {CustomEvent<CuiMapPointClickDetail>} cui-map-point-click - Fires
+ *   when a marker is clicked.
+ * @fires {CustomEvent<CuiMapRegionClickDetail>} cui-map-region-click - Fires
+ *   when a GeoJSON region is clicked.
+ * @fires {CustomEvent<CuiMapBoundsChangeDetail>} cui-map-bounds-change -
+ *   Fires after the user pans or zooms.
+ *
+ * @example
+ * <cui-map center="52.37,4.89" zoom="11" cluster fit-bounds>
+ *   <span slot="title">Office locations</span>
+ *   <a class="cui-map-point" data-lat="52.37" data-lng="4.89"
+ *      data-category="office" href="/locations/amsterdam">Amsterdam</a>
+ *   <script type="application/geo+json" class="cui-map-region"
+ *           data-color="#0066ff" data-label="Service area">
+ *     { "type": "Polygon", "coordinates": [ ... ] }
+ *   </script>
+ * </cui-map>
+ */
 export class CuiMap extends CombatElement {
   static readonly tagName = "cui-map";
   static override readonly styles = [
