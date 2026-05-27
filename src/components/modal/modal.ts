@@ -29,6 +29,38 @@ function installTriggerListener(): void {
   });
 }
 
+/**
+ * Modal dialog built over the native `<dialog>` element. Backdrop dismiss,
+ * ESC handling, and focus management come from the platform; this element
+ * adds attribute control, an open/close JS API, typed close events, and
+ * remote triggering via `data-cui-modal-target` from anywhere on the page.
+ *
+ * @element cui-modal
+ *
+ * @slot - The dialog body. Wrap with a `<div>` or semantic landmark; include
+ *   a close affordance (any element with `data-cui-modal-close`) for users
+ *   who can't dismiss via ESC.
+ *
+ * @attr {boolean} open - Reflects the dialog's open state. Set or remove to
+ *   open/close imperatively.
+ *
+ * @fires {CustomEvent} cui-modal-open - Fires after the dialog opens.
+ * @fires {CustomEvent<CuiModalCloseDetail>} cui-modal-close - Fires after
+ *   the dialog closes. `detail.returnValue` carries the dialog's
+ *   `returnValue` (set via `close(value)` or `<form method="dialog">`).
+ * @fires {CustomEvent} cui-modal-cancel - Fires when the user cancels via
+ *   ESC or backdrop click (before `cui-modal-close`).
+ *
+ * @example
+ * <button type="button" data-cui-modal-target="confirm-delete">Delete</button>
+ *
+ * <cui-modal id="confirm-delete">
+ *   <h2>Delete this item?</h2>
+ *   <p>This cannot be undone.</p>
+ *   <cui-button data-cui-modal-close>Cancel</cui-button>
+ *   <cui-button data-cui-modal-close="confirm">Delete</cui-button>
+ * </cui-modal>
+ */
 export class CuiModal extends CombatElement {
   static readonly tagName = "cui-modal";
   static override styles = [cssStyleSheet(modalCss)];
