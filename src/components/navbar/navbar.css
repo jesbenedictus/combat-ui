@@ -30,7 +30,7 @@
 
 nav {
   display: grid;
-  inline-size: min(100% - var(--cui-navbar-gutter, 2rem), var(--cui-navbar-width, 72rem));
+  inline-size: min(100% - var(--cui-navbar-gutter, 2rem), var(--cui-navbar-width, var(--cui-container, 72rem)));
   margin-inline: auto;
   padding-block: var(--cui-navbar-padding-block, 0.75rem);
 }
