@@ -14,6 +14,41 @@ const DEFAULTS = {
   threshold: 0.6,
 } as const;
 
+/**
+ * Scroll-driven "stage" element that publishes its focus/offset/active state
+ * as CSS custom properties on itself (and optionally on a tone target like
+ * `:root`), so child layouts and parallax effects can react via CSS alone.
+ * Pair with `cui-reveal` for entry animations or with the exported
+ * `attachCuiParallax()` helper for parallax bindings.
+ *
+ * @element cui-scroll-stage
+ *
+ * @slot - Stage content. Typically a sticky inner region plus the layers
+ *   that move with scroll progress.
+ *
+ * @attr {string} focus-bias - Where in the viewport the stage is considered
+ *   "in focus". CSS length or unit-less ratio.
+ * @attr {string} hold - How long to keep the stage at full focus before
+ *   easing out, as a CSS length or ratio.
+ * @attr {string} threshold - Minimum viewport overlap before the stage
+ *   starts publishing focus (0–1).
+ * @attr {string} tone - Tone value to publish on the tone target while the
+ *   stage is active (e.g. `dark`, `inverse`).
+ * @attr {string} tone-target - CSS selector that should receive the tone
+ *   attribute. Accepts `document` or `:root` to target the root element.
+ * @attr {string} sticky-top - CSS `top` value applied to the inner sticky
+ *   region.
+ * @attr {string} min-block-size - Minimum block-size of the stage; controls
+ *   how much scroll the stage consumes.
+ *
+ * @example
+ * <cui-scroll-stage min-block-size="200vh" sticky-top="0" tone="dark"
+ *                   tone-target=":root">
+ *   <div class="cui-scroll-stage-sticky">
+ *     <h2>Sticky headline driven by scroll progress</h2>
+ *   </div>
+ * </cui-scroll-stage>
+ */
 export class CuiScrollStage extends CombatElement {
   static readonly tagName = "cui-scroll-stage";
   static override styles = [cssStyleSheet(scrollStageCss)];
