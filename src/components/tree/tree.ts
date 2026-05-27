@@ -18,6 +18,52 @@ export interface CuiTreeContextDetail {
   y: number;
 }
 
+/**
+ * Hierarchical tree with selection, expand/collapse, keyboard navigation,
+ * and optional drag-and-drop reordering. Each item is a light-DOM
+ * `.cui-tree-item` with a unique `data-id`; nested `<ul>`s become subtrees.
+ * Consumers handle persistence — the element fires events but does not
+ * mutate item structure on its own.
+ *
+ * @element cui-tree
+ *
+ * @slot - Tree markup: nested `<ul>` / `<li class="cui-tree-item">` with
+ *   `data-id` on each item and optional `.cui-tree-toggle` controls for
+ *   expand/collapse.
+ *
+ * @attr {boolean} selectable - Whether items can be selected. Default true.
+ * @attr {boolean} draggable-items - Enables drag-and-drop reordering.
+ *   Consumers must handle the resulting `cui-tree-drop` event to persist
+ *   the new structure.
+ *
+ * @fires {CustomEvent<CuiTreeItemDetail>} cui-tree-item-select - Fires when
+ *   an item is selected. `detail.id` is the selected `data-id`.
+ * @fires {CustomEvent<CuiTreeItemDetail>} cui-tree-expand - Fires when a
+ *   subtree expands.
+ * @fires {CustomEvent<CuiTreeItemDetail>} cui-tree-collapse - Fires when a
+ *   subtree collapses.
+ * @fires {CustomEvent<CuiTreeContextDetail>} cui-tree-contextmenu - Fires
+ *   on right-click / context-menu key. Call `detail.preventDefault()` to
+ *   suppress the native menu and render your own.
+ * @fires {CustomEvent<CuiTreeItemDetail>} cui-tree-dragstart - Fires when
+ *   a drag begins.
+ * @fires {CustomEvent<CuiTreeDropDetail>} cui-tree-drop - Fires on a valid
+ *   drop. `detail.position` is `before`, `after`, or `inside`. Consumers
+ *   apply the structural change in their event handler.
+ *
+ * @example
+ * <cui-tree selectable draggable-items>
+ *   <ul>
+ *     <li class="cui-tree-item" data-id="docs">
+ *       <button class="cui-tree-toggle" aria-expanded="true"></button>
+ *       <span>Docs</span>
+ *       <ul>
+ *         <li class="cui-tree-item" data-id="docs/intro"><span>Intro</span></li>
+ *       </ul>
+ *     </li>
+ *   </ul>
+ * </cui-tree>
+ */
 export class CuiTree extends CombatElement {
   static readonly tagName = "cui-tree";
   static override styles = [cssStyleSheet(treeCss)];
