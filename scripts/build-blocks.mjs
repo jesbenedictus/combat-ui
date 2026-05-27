@@ -23,17 +23,24 @@ async function main() {
 
   /** @type {import("./parse-css-doc.mjs").Block[]} */
   const allBlocks = [];
+  /** @type {import("./parse-css-doc.mjs").TokenGroup[]} */
+  const allTokenGroups = [];
   /** @type {Set<string>} */
   const documentedClasses = new Set();
 
   for (const absPath of files) {
     const rel = toPosix(relative(ROOT, absPath));
     const text = await readFile(absPath, "utf-8");
-    const blocks = parseCssDoc(text, rel);
+    const { blocks, tokenGroups } = parseCssDoc(text, rel);
     for (const block of blocks) {
       allBlocks.push(block);
-      const leading = /^\.([\w-]+)/.exec(block.selector)?.[1];
-      if (leading) documentedClasses.add(leading);
+      for (const part of block.selector.split(",")) {
+        const leading = /\.([\w-]+)/.exec(part.trim())?.[1];
+        if (leading) documentedClasses.add(leading);
+      }
+    }
+    for (const group of tokenGroups) {
+      allTokenGroups.push(group);
     }
   }
 
@@ -42,8 +49,9 @@ async function main() {
     OUTPUT,
     JSON.stringify(
       {
-        schemaVersion: "1.0.0",
+        schemaVersion: "1.1.0",
         blocks: allBlocks,
+        tokenGroups: allTokenGroups,
       },
       null,
       2,
@@ -52,10 +60,20 @@ async function main() {
   );
 
   const undocumentedCount = await reportUndocumented(files, documentedClasses);
-  const noun = allBlocks.length === 1 ? "block" : "blocks";
+
+  const parts = [
+    `${allBlocks.length} ${allBlocks.length === 1 ? "block" : "blocks"}`,
+  ];
+  if (allTokenGroups.length > 0) {
+    parts.push(
+      `${allTokenGroups.length} ${
+        allTokenGroups.length === 1 ? "token group" : "token groups"
+      }`,
+    );
+  }
   console.log(
-    `Wrote ${allBlocks.length} ${noun} to ${relative(ROOT, OUTPUT)}` +
-      (undocumentedCount ? ` (${undocumentedCount} undocumented)` : ""),
+    `Wrote ${parts.join(" and ")} to ${toPosix(relative(ROOT, OUTPUT))}` +
+      (undocumentedCount > 0 ? ` (${undocumentedCount} undocumented).` : "."),
   );
 }
 
@@ -67,13 +85,12 @@ async function collectFiles() {
   /** @type {string[]} */
   const files = [];
   for (const pattern of GLOBS) {
-    for await(const file of glob(pattern, { cwd: ROOT })) {
+    for await (const file of glob(pattern, { cwd: ROOT })) {
       files.push(resolve(ROOT, file));
     }
   }
   return files.sort();
 }
-
 
 /**
  * Reports any CSS classes that are not documented with an @block tag.
@@ -82,7 +99,7 @@ async function collectFiles() {
  * @return {Promise<number>} The number of undocumented classes found.
  */
 async function reportUndocumented(files, documentedClasses) {
-  /** @type {Map<string, Array<{className: string, line: number}>} */
+  /** @type {Map<string, Array<{className: string, line: number}>>} */
   const undocumentedByFile = new Map();
 
   for (const absPath of files) {
@@ -91,7 +108,8 @@ async function reportUndocumented(files, documentedClasses) {
     const seenInFile = new Set();
     for (const match of text.matchAll(SELECTOR_LINE)) {
       const className = match[1].slice(1);
-      if (documentedClasses.has(className) || seenInFile.has(className)) continue;
+      if (documentedClasses.has(className) || seenInFile.has(className))
+        continue;
       seenInFile.add(className);
       const offset = match.index ?? 0;
       const line = countLinesUpTo(text, offset);
@@ -101,10 +119,15 @@ async function reportUndocumented(files, documentedClasses) {
     }
   }
 
-  let total = [...undocumentedByFile.values()].reduce((n, l) => n + l.length, 0);
+  let total = [...undocumentedByFile.values()].reduce(
+    (n, l) => n + l.length,
+    0,
+  );
   if (total === 0) return 0;
 
-  process.stderr.write(`\n${total} undocumented .cui- block${total > 1 ? "s" : ""} (annotate or ignore):\n`);
+  process.stderr.write(
+    `\n${total} undocumented .cui- block${total > 1 ? "s" : ""} (annotate or ignore):\n`,
+  );
   for (const [file, items] of undocumentedByFile) {
     process.stderr.write(`  ${file}:\n`);
     for (const { className, line } of items) {

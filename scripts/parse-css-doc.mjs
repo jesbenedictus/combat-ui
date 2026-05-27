@@ -23,9 +23,19 @@
  * @property {string[]} examples
  * @property {string} sourcePath
  * @property {number} sourceLine
+ *
+ * @typedef {object} TokenGroup
+ * @property {string} name
+ * @property {string} selector
+ * @property {string} [summary]
+ * @property {string} [description]
+ * @property {NamedItem[]} tokens
+ * @property {string[]} examples
+ * @property {string} sourcePath
+ * @property {number} sourceLine
  */
 const DOC_BLOCK = /\/\*\*([\s\S]*?)\*\/[ \t\r\n]*([^{]+?)\{/g;
-const TAG_LINE = /^@(\w+)(?:[ \t]+(.*))?$/;
+const TAG_LINE = /^@([\w-]+)(?:[ \t]+(.*))?$/;
 const SEPARATOR = / [—-] /;
 
 /**
@@ -34,20 +44,29 @@ const SEPARATOR = / [—-] /;
  * an `@block <name>` tag. Comment blocks without an `@block` tag are ignored.
  * @param {string} cssText
  * @param {string} sourcePath
- * @returns {Block[]}
+ * @returns {{ blocks: Block[]; tokenGroups: TokenGroup[] }}
  */
 export function parseCssDoc(cssText, sourcePath) {
   const text = cssText.replace(/\r\n/g, "\n");
-  const blocks = [];
+  /** @type {{ blocks: Block[]; tokenGroups: TokenGroup[] }} */
+  const result = { blocks: [], tokenGroups: [] };
   for (const match of text.matchAll(DOC_BLOCK)) {
     const [, body, rawSelector] = match;
     const offset = match.index ?? 0;
     const sourceLine = countLinesUpTo(text, offset);
     const parsed = parseCommentBody(body);
-    if (!parsed.tags.block?.[0]?.trim()) continue;
-    blocks.push(buildBlock(parsed, rawSelector.trim(), sourcePath, sourceLine));
+
+    if (parsed.tags.block?.[0]?.trim()) {
+      result.blocks.push(
+        buildBlock(parsed, rawSelector, sourcePath, sourceLine),
+      );
+    } else if (parsed.tags["token-group"]?.[0]?.trim()) {
+      result.tokenGroups.push(
+        buildTokenGroup(parsed, rawSelector, sourcePath, sourceLine),
+      );
+    }
   }
-  return blocks;
+  return result;
 }
 
 /**
@@ -149,6 +168,35 @@ function buildBlock(parsed, rawSelector, sourcePath, sourceLine) {
   if (summary) block.summary = summary;
   if (description) block.description = description;
   return block;
+}
+
+/**
+ * @param {{ description: string; tags: Record<string, string[]> }} parsed
+ * @param {string} rawSelector
+ * @param {string} sourcePath
+ * @param {number} sourceLine
+ * @returns {TokenGroup}
+ */
+function buildTokenGroup(parsed, rawSelector, sourcePath, sourceLine) {
+  const { description, tags } = parsed;
+  const name = (tags["token-group"]?.[0] ?? "").trim();
+  const summary = tags.summary?.[0]?.replace(/\s+/g, " ").trim();
+  const selector = rawSelector.replace(/\s+/g, " ").trim();
+
+  /** @type {TokenGroup} */
+  const group = {
+    name,
+    selector,
+    tokens: (tags.cssvar ?? [])
+      .map(parseSingleNamed)
+      .filter((item) => item.name.startsWith("--")),
+    examples: (tags.example ?? []).map(normalizeExample),
+    sourcePath,
+    sourceLine,
+  };
+  if (summary) group.summary = summary;
+  if (description) group.description = description;
+  return group;
 }
 
 /**
