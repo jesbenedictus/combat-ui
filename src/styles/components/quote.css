@@ -10,10 +10,68 @@
   padding: var(--cui-quote-padding, var(--cui-space-6, 2rem));
 }
 
+/**
+ * Editorial quote card. Wraps a `<blockquote>` (or `.cui-quote-body`)
+ * with optional `.cui-quote-mark`, `.cui-quote-footer`,
+ * `.cui-quote-author`, and `.cui-quote-meta`. Shares its surface
+ * styling with `.cui-testimonial` via a combined base rule; the
+ * unique behavior here is a 52rem max-inline-size (so the quote
+ * line lengths stay readable on wide pages). Pair with
+ * `[data-align="center"]` to center the card and its inner text.
+ *
+ * @block cui-quote
+ * @summary Editorial quote card with shared base styling.
+ * @variant pull | accent — Maps to `[data-variant]`. `pull` removes
+ *   the box and uses block-axis border lines (inline pull-quote);
+ *   `accent` adds a 4× inline-start accent rail.
+ * @variant inverse — Presence of `[data-inverse]`. Swaps colors to
+ *   the `--cui-color-inverse-*` palette for dark-section quotes.
+ * @variant center — Maps to `[data-align]`. Centers content and
+ *   centers the footer row.
+ * @cssvar --cui-quote-bg — Card background. Defaults to `--cui-color-surface-raised`.
+ * @cssvar --cui-quote-border — Border color. Defaults to `--cui-color-border`.
+ * @cssvar --cui-quote-color — Foreground. Defaults to `--cui-color`.
+ * @cssvar --cui-quote-muted-color — Footer / meta foreground. Defaults to `--cui-color-muted`.
+ * @cssvar --cui-quote-accent — Mark + accent-rail color. Defaults to `--cui-color-accent`.
+ * @cssvar --cui-quote-shadow — Drop shadow. Defaults to `--cui-shadow-1`.
+ * @cssvar --cui-quote-radius — Corner radius. Defaults to `--cui-radius-2`.
+ * @cssvar --cui-quote-padding — Inner padding. Defaults to `--cui-space-6`.
+ * @cssvar --cui-quote-gap — Gap between mark / body / footer. Defaults to `--cui-space-4`.
+ * @cssvar --cui-quote-size — Max-inline-size of the card. Defaults to 52rem.
+ *
+ * @example
+ *   <figure class="cui-quote">
+ *     <span class="cui-quote-mark" aria-hidden="true">"</span>
+ *     <blockquote class="cui-quote-body">
+ *       Combat UI feels like writing HTML in 2026 actually does.
+ *     </blockquote>
+ *     <figcaption class="cui-quote-footer">
+ *       <cite class="cui-quote-author">Jane Smith</cite>
+ *       <span class="cui-quote-meta">Principal Engineer, Combat</span>
+ *     </figcaption>
+ *   </figure>
+ *
+ * @example
+ *   <!-- Pull quote inside an article -->
+ *   <figure class="cui-quote" data-variant="pull" data-align="center">
+ *     <blockquote class="cui-quote-body">A single bold sentence.</blockquote>
+ *   </figure>
+ */
 .cui-quote {
   max-inline-size: var(--cui-quote-size, 52rem);
 }
 
+/**
+ * Body text inside `.cui-quote` and `.cui-testimonial`. Applies
+ * to `<blockquote>` and `<p>` direct children of either card, and
+ * to the explicit `.cui-quote-body` / `.cui-testimonial-body`
+ * classes. Bold, tight line-height, with `text-wrap: balance` so
+ * line lengths even out across the quote.
+ *
+ * @block cui-quote-body
+ * @summary Bold body text for quote and testimonial cards (`<blockquote>` / `<p>` covered too).
+ * @cssvar --cui-quote-body-size — Body font size. Defaults to `--cui-font-size-2`.
+ */
 .cui-quote > :where(blockquote, p),
 .cui-testimonial > :where(blockquote, p),
 .cui-quote-body,
@@ -26,6 +84,17 @@
   text-wrap: balance;
 }
 
+/**
+ * Decorative quotation mark glyph for `.cui-quote`. Render as
+ * `<span class="cui-quote-mark" aria-hidden="true">"</span>` so
+ * the glyph doesn't pollute screen-reader output. Size is the
+ * display scale (`--cui-font-size-display`) with line-height 0.75
+ * so the mark sits visually on the same baseline as the body.
+ *
+ * @block cui-quote-mark
+ * @summary Decorative oversized quotation mark.
+ * @cssvar --cui-quote-mark-size — Glyph font size. Defaults to `--cui-font-size-display`.
+ */
 .cui-quote-mark {
   color: var(--cui-quote-accent, var(--cui-color-accent, oklch(57% 0.18 246deg)));
   font-size: var(--cui-quote-mark-size, var(--cui-font-size-display, 5.5rem));
@@ -33,6 +102,15 @@
   line-height: 0.75;
 }
 
+/**
+ * Footer row inside `.cui-quote` (or its `.cui-testimonial-author`
+ * sibling). A flex row that pairs the avatar (testimonial) or a
+ * cite element (quote) with name + meta. Muted by default;
+ * `[data-align="center"]` on the parent centers the footer too.
+ *
+ * @block cui-quote-footer
+ * @summary Footer row: avatar + name + meta.
+ */
 .cui-quote-footer,
 .cui-testimonial-author {
   display: flex;
@@ -46,28 +124,102 @@
   font-style: normal;
 }
 
+/**
+ * Name line inside `.cui-quote-footer` / `.cui-testimonial-author`.
+ * Bold, full-strength color (overrides the muted footer color),
+ * `font-style: normal` so `<cite>` doesn't render italic.
+ *
+ * @block cui-quote-author
+ * @summary Bold name inside a quote or testimonial footer.
+ */
 .cui-quote-author,
 .cui-testimonial-name {
   color: var(--cui-quote-color, var(--cui-color, #1b1f27));
   font-weight: var(--cui-font-weight-strong, 680);
 }
 
+/**
+ * Metadata line inside `.cui-quote-footer` / `.cui-testimonial-author`
+ * — role, company, date, location. Muted and slightly smaller than
+ * the name above it.
+ *
+ * @block cui-quote-meta
+ * @summary Muted role / company / date line in a quote or testimonial footer.
+ */
 .cui-quote-meta,
 .cui-testimonial-role {
   color: var(--cui-quote-muted-color, var(--cui-color-muted, #5d6675));
   font-size: var(--cui-text-metadata-size, 0.875rem);
 }
 
+/**
+ * Grid container for `.cui-testimonial` cards. Auto-fits columns
+ * of at least `--cui-testimonial-grid-min` (18rem default); gap
+ * follows `--cui-content-grid-gap`.
+ *
+ * @block cui-testimonial-grid
+ * @summary Responsive grid of testimonial cards (18rem min).
+ * @cssvar --cui-testimonial-grid-min — Minimum column width. Defaults to 18rem.
+ *
+ * @example
+ *   <div class="cui-testimonial-grid">
+ *     <article class="cui-testimonial">…</article>
+ *     <article class="cui-testimonial">…</article>
+ *     <article class="cui-testimonial">…</article>
+ *   </div>
+ */
 .cui-testimonial-grid {
   display: grid;
   gap: var(--cui-content-grid-gap, var(--cui-space-4, 1rem));
   grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--cui-testimonial-grid-min, 18rem)), 1fr));
 }
 
+/**
+ * Customer-testimonial card. Inherits the shared card chrome from
+ * the combined `.cui-quote, .cui-testimonial` base — same surface
+ * tokens, same variants (`accent`, `inverse`, `center`); see
+ * `.cui-quote` for the full customization-token list. The
+ * testimonial-specific addition is `align-content: start` so the
+ * card stays top-aligned in a grid of mixed-height neighbors.
+ *
+ * Use `.cui-testimonial-author` (instead of `.cui-quote-footer`)
+ * for the attribution row when you have an avatar — the styles
+ * are equivalent, but the name lines up with the picture in a
+ * way readers expect from testimonial layouts.
+ *
+ * @block cui-testimonial
+ * @summary Customer-testimonial card; shares the cui-quote base.
+ * @variant accent — Maps to `[data-variant]`. Inline-start accent rail.
+ * @variant inverse — Presence of `[data-inverse]`. Dark-surface palette.
+ * @variant center — Maps to `[data-align]`. Centered content + footer.
+ *
+ * @example
+ *   <article class="cui-testimonial">
+ *     <p class="cui-testimonial-body">
+ *       We shipped our redesign in three weeks.
+ *     </p>
+ *     <div class="cui-testimonial-author">
+ *       <img class="cui-testimonial-avatar" src="/jane.jpg" alt="">
+ *       <div class="cui-testimonial-author-text">
+ *         <span class="cui-testimonial-name">Jane Smith</span>
+ *         <span class="cui-testimonial-role">Head of Design, Acme</span>
+ *       </div>
+ *     </div>
+ *   </article>
+ */
 .cui-testimonial {
   align-content: start;
 }
 
+/**
+ * Avatar image inside `.cui-testimonial-author`. A circular 3rem
+ * × 3rem element with cover-fit so any aspect ratio renders
+ * cleanly. Apply directly to `<img>`.
+ *
+ * @block cui-testimonial-avatar
+ * @summary Circular avatar image (3rem default) inside a testimonial author row.
+ * @cssvar --cui-testimonial-avatar-size — Avatar dimensions (square). Defaults to 3rem.
+ */
 .cui-testimonial-avatar {
   inline-size: var(--cui-testimonial-avatar-size, 3rem);
   block-size: var(--cui-testimonial-avatar-size, 3rem);
@@ -76,6 +228,15 @@
   object-fit: cover;
 }
 
+/**
+ * Wrapper around the name + role pair inside
+ * `.cui-testimonial-author`. A small grid that stacks the two
+ * lines with `--cui-space-1` between them; the avatar sits to
+ * the inline-start side at the flex level above.
+ *
+ * @block cui-testimonial-author-text
+ * @summary Name + role stack inside a testimonial author row.
+ */
 .cui-testimonial-author-text {
   display: grid;
   gap: var(--cui-space-1, 0.25rem);

@@ -1,3 +1,62 @@
+/**
+ * Person card — a vertically stacked card with optional photo,
+ * name, role, metadata, bio, and links. Apply to any container,
+ * or wrap an `<a>` to make the whole card a link (hover surfaces
+ * an accent border). The card itself shares its surface tokens
+ * with `.cui-content-card` so it visually matches feature/case
+ * cards in mixed layouts.
+ *
+ * Photo shape is controlled by `[data-photo]`; layout by
+ * `[data-orient]`; alignment by `[data-align]`; chrome and
+ * proportions by `[data-variant]`. `leadership` is a one-shot
+ * preset that boosts photo size, padding, and typography in one
+ * step — use it on solo bios or hero people.
+ *
+ * @block cui-person
+ * @summary Person card with photo, name, role, meta, bio, links.
+ * @variant square | rounded — Maps to `[data-photo]`. `square` uses
+ *   `--cui-radius-2`; `rounded` uses `--cui-radius-1`; the default
+ *   is a full circle.
+ * @variant row — Maps to `[data-orient]`. Lays photo + body
+ *   horizontally with a larger default photo size.
+ * @variant center — Maps to `[data-align]`. Centers content and
+ *   the links row.
+ * @variant flat | borderless | leadership — Maps to `[data-variant]`.
+ *   `flat` drops the shadow. `borderless` drops shadow + border
+ *   + inline padding (use inside a card grid). `leadership`
+ *   scales photo, padding, gaps, and typography up for hero bios.
+ * @cssvar --cui-person-photo-size — Max photo width. Defaults to `--cui-space-7`.
+ * @cssvar --cui-person-photo-ratio — Photo aspect ratio. Defaults to `1 / 1`.
+ * @cssvar --cui-person-radius — Card corner radius. Defaults to `--cui-radius-2`.
+ * @cssvar --cui-person-gap — Gap between photo and body. Defaults to `--cui-space-4`.
+ * @cssvar --cui-person-body-gap — Gap between name / role / meta inside the body. Defaults to `--cui-space-1`.
+ * @cssvar --cui-person-padding — Card padding. Defaults to `--cui-space-5`.
+ *
+ * @example
+ *   <a class="cui-person" data-orient="row" href="/team/jane">
+ *     <img class="cui-person-photo" src="/team/jane.jpg" alt="">
+ *     <div class="cui-person-body">
+ *       <p class="cui-person-meta">Engineering</p>
+ *       <h3 class="cui-person-name">Jane Smith</h3>
+ *       <p class="cui-person-role">Principal Engineer</p>
+ *     </div>
+ *   </a>
+ *
+ * @example
+ *   <!-- Leadership preset -->
+ *   <article class="cui-person" data-variant="leadership" data-align="center">
+ *     <img class="cui-person-photo" src="/team/lead.jpg" alt="">
+ *     <div class="cui-person-body">
+ *       <h3 class="cui-person-name">Alex Doe</h3>
+ *       <p class="cui-person-role">CEO &amp; Co-founder</p>
+ *       <p class="cui-person-bio">Two sentences of context…</p>
+ *       <ul class="cui-person-links">
+ *         <li><a href="https://example.com">Site</a></li>
+ *         <li><a href="https://linkedin.com/in/lead">LinkedIn</a></li>
+ *       </ul>
+ *     </div>
+ *   </article>
+ */
 .cui-person {
   --cui-person-photo-size: var(--cui-space-7, 3rem);
   --cui-person-photo-ratio: 1 / 1;
@@ -27,6 +86,16 @@ a.cui-person:focus-visible {
   border-color: var(--cui-color-accent, oklch(57% 0.18 246deg));
 }
 
+/**
+ * Photo element inside `.cui-person`. Apply directly to `<img>` —
+ * a same-selector `.cui-person > img:first-child` rule means
+ * untagged first-child images get the same styling automatically,
+ * so the class is optional when the photo is the first child of
+ * the card.
+ *
+ * @block cui-person-photo
+ * @summary Photo element inside `.cui-person` (or any first-child `<img>`).
+ */
 .cui-person-photo,
 .cui-person > img:first-child {
   display: block;
@@ -47,6 +116,15 @@ a.cui-person:focus-visible {
   --cui-person-photo-radius: var(--cui-radius-1, 0.25rem);
 }
 
+/**
+ * Content column of a `.cui-person`. A small grid that stacks
+ * name / role / meta / bio with `--cui-person-body-gap` between
+ * them; child headings and paragraphs are zero-margin so the
+ * gap controls rhythm.
+ *
+ * @block cui-person-body
+ * @summary Stacked content column of a person card.
+ */
 .cui-person-body {
   display: grid;
   gap: var(--cui-person-body-gap, var(--cui-space-1, 0.25rem));
@@ -57,6 +135,16 @@ a.cui-person:focus-visible {
   margin: 0;
 }
 
+/**
+ * Name line inside `.cui-person-body`. Bold, sized at
+ * `--cui-person-name-size` (defaults to `--cui-font-size-1`,
+ * scaled up by the `leadership` variant). Pick a heading element
+ * to fit the surrounding outline (`<h3>` inside a team grid,
+ * `<h2>` on a dedicated bio page).
+ *
+ * @block cui-person-name
+ * @summary Bold name line; size driven by `--cui-person-name-size`.
+ */
 .cui-person-name {
   color: var(--cui-color, #1b1f27);
   font-size: var(--cui-person-name-size, var(--cui-font-size-1, 1.1875rem));
@@ -64,12 +152,28 @@ a.cui-person:focus-visible {
   line-height: var(--cui-line-height-tight, 1.2);
 }
 
+/**
+ * Role line inside `.cui-person-body`. Muted, sized at
+ * `--cui-person-role-size` (defaults to `--cui-font-size-0`,
+ * scaled up by the `leadership` variant).
+ *
+ * @block cui-person-role
+ * @summary Muted role line beneath the name.
+ */
 .cui-person-role {
   color: var(--cui-color-muted, #5d6675);
   font-size: var(--cui-person-role-size, var(--cui-font-size-0, 1rem));
   font-weight: var(--cui-font-weight-regular, 450);
 }
 
+/**
+ * Eyebrow / category label above the name — small-caps, tracked,
+ * accent-tinted. Use for department, team, or status ("Engineering",
+ * "On sabbatical"). Customize the tint via `--cui-person-meta-color`.
+ *
+ * @block cui-person-meta
+ * @summary Accent-tinted eyebrow label above the name.
+ */
 .cui-person-meta {
   color: var(--cui-person-meta-color, var(--cui-color-accent, oklch(57% 0.18 246deg)));
   font-size: var(--cui-text-eyebrow-size, 0.875rem);
@@ -78,6 +182,15 @@ a.cui-person:focus-visible {
   text-transform: uppercase;
 }
 
+/**
+ * Bio paragraph inside `.cui-person-body`. Muted body text with a
+ * small top margin to separate it from the name/role pair. Use
+ * for a two-or-three-sentence summary; longer bios belong on a
+ * dedicated page reached via the card link.
+ *
+ * @block cui-person-bio
+ * @summary Muted bio paragraph beneath the name/role pair.
+ */
 .cui-person-bio {
   color: var(--cui-color-muted, #5d6675);
   font-size: var(--cui-font-size-0, 1rem);
@@ -85,6 +198,16 @@ a.cui-person:focus-visible {
   margin-block-start: var(--cui-space-2, 0.5rem);
 }
 
+/**
+ * Links row at the bottom of `.cui-person-body` — a flex-wrap
+ * list of small bold links (LinkedIn, personal site, talks).
+ * Render as `<ul class="cui-person-links">` with `<li><a>…</a></li>`
+ * items; the class strips list-style and margins so the layout
+ * comes from the flex container.
+ *
+ * @block cui-person-links
+ * @summary Flex-wrap link list at the bottom of the person card.
+ */
 .cui-person-links {
   display: flex;
   flex-wrap: wrap;
@@ -149,6 +272,32 @@ a.cui-person:focus-visible {
   --cui-person-gap: var(--cui-space-5, 1.5rem);
 }
 
+/**
+ * Grid container for `.cui-person` cards. Auto-fits columns of
+ * at least `--cui-team-grid-min` (16rem default; 20rem in
+ * `leadership` variant). Gap, column count, and child sizing
+ * follow the same `[data-gap]` / `[data-columns]` /
+ * `[data-variant]` conventions as `.cui-feature-grid`,
+ * `.cui-case-grid`, and friends.
+ *
+ * @block cui-team-grid
+ * @summary Responsive grid for person cards (16rem min by default).
+ * @variant compact | spacious — Maps to `[data-gap]`. Override
+ *   `--cui-content-grid-gap` to `--cui-space-3` or `--cui-space-6`.
+ * @variant leadership — Maps to `[data-variant]`. Widens columns
+ *   to 20rem min, spaces them at `--cui-space-6`, and scales every
+ *   child `.cui-person` to the leadership preset.
+ * @variant 2 | 3 | 4 — Maps to `[data-columns]`. Pin the grid to a
+ *   fixed column count at viewports ≥48rem; below that, falls back
+ *   to auto-fit.
+ *
+ * @example
+ *   <div class="cui-team-grid" data-columns="3">
+ *     <article class="cui-person">…</article>
+ *     <article class="cui-person">…</article>
+ *     <article class="cui-person">…</article>
+ *   </div>
+ */
 .cui-team-grid {
   display: grid;
   align-items: stretch;
@@ -197,6 +346,53 @@ a.cui-person:focus-visible {
   }
 }
 
+/**
+ * Org-chart container — a CSS-only tree drawing that arranges
+ * `.cui-org-node` items vertically by default or horizontally via
+ * `[data-layout="horizontal"]`. Connector lines are drawn by
+ * masking the line color (`--cui-org-line-color`) with embedded
+ * SVG mask images; each connector shape (T-piece, first-child
+ * corner, last-child corner, only-child straight line) is its
+ * own custom property so consumers can swap in curved or dotted
+ * variants without forking the chart logic.
+ *
+ * The `dashed` line variant ships a pre-built set of stroke-
+ * dasharray SVGs for the eight connector shapes.
+ *
+ * @block cui-org-chart
+ * @summary CSS-only org-chart drawing with SVG-mask connectors.
+ * @variant horizontal — Maps to `[data-layout]`. Lays out parents
+ *   inline-start to inline-end with horizontal connectors.
+ * @variant dashed — Maps to `[data-line]`. Swaps in a stroke-
+ *   dasharray connector set for a dashed link aesthetic.
+ * @cssvar --cui-org-gap — Gap between sibling `.cui-org-node`s. Defaults to `--cui-space-5`.
+ * @cssvar --cui-org-link-size — Length of each connector segment. Defaults to `--cui-space-5`.
+ * @cssvar --cui-org-line-color — Connector line color. Defaults to `--cui-color-border`.
+ * @cssvar --cui-org-card-min-inline-size — Minimum width of each card slot. Defaults to 14rem.
+ * @cssvar --cui-org-v-middle — Vertical layout: middle-child connector SVG (T-piece).
+ * @cssvar --cui-org-v-first — Vertical layout: first-child connector SVG (┐).
+ * @cssvar --cui-org-v-last — Vertical layout: last-child connector SVG (┌).
+ * @cssvar --cui-org-v-only — Vertical layout: only-child / parent-down link SVG (│).
+ * @cssvar --cui-org-h-middle — Horizontal layout: middle-child connector SVG.
+ * @cssvar --cui-org-h-first — Horizontal layout: first-child connector SVG.
+ * @cssvar --cui-org-h-last — Horizontal layout: last-child connector SVG.
+ * @cssvar --cui-org-h-only — Horizontal layout: only-child / parent-link SVG.
+ *
+ * @example
+ *   <ol class="cui-org-chart">
+ *     <li class="cui-org-node">
+ *       <article class="cui-person" data-orient="row">…</article>
+ *       <ol class="cui-org-children">
+ *         <li class="cui-org-node">
+ *           <article class="cui-person" data-orient="row">…</article>
+ *         </li>
+ *         <li class="cui-org-node">
+ *           <article class="cui-person" data-orient="row">…</article>
+ *         </li>
+ *       </ol>
+ *     </li>
+ *   </ol>
+ */
 .cui-org-chart {
   --cui-org-gap: var(--cui-space-5, 1.5rem);
   --cui-org-link-size: var(--cui-space-5, 1.5rem);
@@ -239,6 +435,17 @@ a.cui-person:focus-visible {
   list-style: none;
 }
 
+/**
+ * Node inside `.cui-org-chart` — one card slot in the tree. Wraps
+ * a `.cui-person` (or any `.cui-org-card`) child and any nested
+ * `.cui-org-children` list. Connector lines for the up-link to
+ * the parent and any inline-start/end siblings are drawn via
+ * pseudo-elements that pick the right mask image from the chart's
+ * connector set.
+ *
+ * @block cui-org-node
+ * @summary One card slot in `.cui-org-chart`; renders its own up-link connector.
+ */
 .cui-org-node {
   display: flex;
   flex-direction: column;
@@ -254,6 +461,16 @@ a.cui-person:focus-visible {
   inline-size: 100%;
 }
 
+/**
+ * Container for nested `.cui-org-node`s beneath a parent node.
+ * Lays out children inline-start to inline-end (or block-start
+ * to block-end in horizontal layout) with `--cui-org-gap`
+ * between them. Renders the parent's down-link via a `::before`
+ * pseudo-element using the chart's only-child connector SVG.
+ *
+ * @block cui-org-children
+ * @summary Nested-children list inside `.cui-org-node`; draws the parent down-link.
+ */
 .cui-org-children {
   display: flex;
   position: relative;
