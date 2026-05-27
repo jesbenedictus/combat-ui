@@ -10,7 +10,34 @@
   initial-value: 1;
 }
 
-/* Typography */
+/**
+ * Typography scale and weights. Sizes use `clamp()` so they scale fluidly
+ * between roughly 320px and 1280px viewports; pick the closest size by
+ * editorial role, not pixel target. Weights pair with the variable Inter
+ * font — `regular` for body, `strong` for emphasis and most headings,
+ * `display` for hero titles only.
+ *
+ * @token-group typography
+ * @summary Font family, fluid size scale, line heights, weights.
+ * @cssvar --cui-font-family — Default sans stack. Inter first, system fallbacks.
+ * @cssvar --cui-font-size-neg-1 — 0.81–0.875rem. Captions, metadata, code.
+ * @cssvar --cui-font-size-0 — 0.94–1rem. Body copy.
+ * @cssvar --cui-font-size-1 — 1.06–1.19rem. Lead paragraphs, h4-level headings.
+ * @cssvar --cui-font-size-2 — 1.25–1.5rem. h3-level headings.
+ * @cssvar --cui-font-size-3 — 1.5–2rem. h2-level headings.
+ * @cssvar --cui-font-size-4 — 1.88–2.75rem. h1-level headings, stat values.
+ * @cssvar --cui-font-size-5 — 2.38–4rem. Section heroes.
+ * @cssvar --cui-font-size-display — 3–5.5rem. Landing-page display headings.
+ * @cssvar --cui-font-size-eyebrow — 0.875rem. Kicker/eyebrow above titles.
+ * @cssvar --cui-font-size-caption — 0.875rem. Image captions, figure text.
+ * @cssvar --cui-font-size-metadata — 0.875rem. Inline metadata (author, date).
+ * @cssvar --cui-line-height — 1.55. Default body line-height.
+ * @cssvar --cui-line-height-tight — 1.2. Headings, stat values.
+ * @cssvar --cui-line-height-display — 0.98. Display headings (negative leading).
+ * @cssvar --cui-font-weight-regular — 450. Body text.
+ * @cssvar --cui-font-weight-strong — 680. Emphasis, headings up to size-4.
+ * @cssvar --cui-font-weight-display — 760. Display headings, hero titles.
+ */
 :root {
   --cui-font-family:
     "Inter", ui-sans-serif, system-ui, "-apple-system", "BlinkMacSystemFont",
@@ -34,7 +61,30 @@
   --cui-font-weight-display: 760;
 }
 
-/* Color base (light theme defaults) */
+/**
+ * Color tokens for the default light theme, plus the `color-scheme`
+ * declaration that tells the browser the page supports both light and
+ * dark (so native form controls and scrollbars adapt). The surface
+ * tokens form a three-step ladder (surface → surface-muted →
+ * surface-raised) for back-to-front depth. The `inverse-*` tokens are
+ * declared only in the theme overrides — don't reach for them here.
+ *
+ * @token-group color-base
+ * @summary Light-theme color tokens (foreground, surfaces, semantic accents).
+ * @cssvar --cui-color — Default foreground text color.
+ * @cssvar --cui-color-muted — Secondary text (captions, metadata, helpers).
+ * @cssvar --cui-color-accent — Primary accent (links, focus, brand fills).
+ * @cssvar --cui-color-on-accent — Foreground when sitting on an accent fill.
+ * @cssvar --cui-color-danger — Destructive / error tone.
+ * @cssvar --cui-color-success — Affirmative / success tone.
+ * @cssvar --cui-color-warning — Caution / warning tone.
+ * @cssvar --cui-color-raised — Pure white. Use sparingly when `surface-raised` isn't enough.
+ * @cssvar --cui-color-surface — Default page background.
+ * @cssvar --cui-color-surface-muted — Subtle differentiation (chips, hover fills).
+ * @cssvar --cui-color-surface-raised — Elevated surfaces (cards, modals, dropdowns).
+ * @cssvar --cui-color-border — Default border color across components.
+ * @cssvar --cui-color-focus — Focus-ring color. Defaults to `--cui-color-accent`.
+ */
 :root {
   color-scheme: light dark;
 
@@ -54,20 +104,20 @@
 }
 
 /**
- * Spacing scale, in rem. Increments are roughly geometric - each step
- * is about 1.5-2x the previous one. Compose larger spacings by stacking
- * `--cui-space-*` and `--cui-section-space-*`, don't reach for bespoke
- * pixel values.
- * 
+ * Spacing scale, in rem. Steps are roughly geometric — each is 1.5–2×
+ * the previous one. Use these in every spacing property; bespoke pixel
+ * values should be rare. Compose larger spaces by jumping a level
+ * rather than stacking smaller values.
+ *
  * @token-group spacing
- * @summary Spacing scale: `--cui-space-1` through `--cui-space-7`.
- * @cssvar --cui-space-1 - 0.25rem. Tight inline gaps (icon-to-text, chip padding).
+ * @summary Spacing scale: `--cui-space-1` (0.25rem) through `--cui-space-7` (3rem).
+ * @cssvar --cui-space-1 — 0.25rem. Tight inline gaps (icon-to-text, chip padding).
  * @cssvar --cui-space-2 — 0.5rem. Default control padding, list-item gaps.
- * @cssvar --cui-space-3 — 0.75rem. Compact stack gaps.
- * @cssvar --cui-space-4 — 1rem. Default block/stack spacing.
+ * @cssvar --cui-space-3 — 0.75rem. Compact stack gaps, button gaps.
+ * @cssvar --cui-space-4 — 1rem. Default block / stack spacing.
  * @cssvar --cui-space-5 — 1.5rem. Card padding, section subdivisions.
  * @cssvar --cui-space-6 — 2rem. Large stack gaps, grid gutters.
- * @cssvar --cui-space-7 — 3rem. Page-section padding. 
+ * @cssvar --cui-space-7 — 3rem. Page-section padding.
  */
 :root {
   --cui-space-1: 0.25rem;
@@ -79,7 +129,19 @@
   --cui-space-7: 3rem;
 }
 
-/* Section spacing (page-level vertical rhythm) */
+/**
+ * Vertical rhythm tokens for page-level section padding. Each value is
+ * a `clamp()` that scales between a mobile minimum and a large-desktop
+ * maximum. Pick by editorial intent, not by screen size — `compact` for
+ * tightly packed FAQ/logo blocks, `hero` for landing-page openings.
+ *
+ * @token-group section-spacing
+ * @summary Page-level vertical rhythm clamps (compact / default / spacious / hero).
+ * @cssvar --cui-section-space-compact — clamp(2.5rem, 7vi, 5rem). Tight sections (FAQ, logo strip).
+ * @cssvar --cui-section-space — clamp(4rem, 10vi, 8rem). Default `<section>` padding.
+ * @cssvar --cui-section-space-spacious — clamp(5.5rem, 14vi, 11rem). Marketing sections, case studies.
+ * @cssvar --cui-section-space-hero — clamp(6rem, 18vi, 14rem). Hero sections, landing-page openings.
+ */
 :root {
   --cui-section-space-compact: clamp(2.5rem, 7vi, 5rem);
   --cui-section-space: clamp(4rem, 10vi, 8rem);
@@ -87,7 +149,20 @@
   --cui-section-space-hero: clamp(6rem, 18vi, 14rem);
 }
 
-/* Surface treatments (radii, borders, shadows) */
+/**
+ * Surface-treatment tokens used across every component: corner radii,
+ * border thickness, and the two-step shadow scale. Radii are kept small
+ * to match Combat UI's flat aesthetic; shadows are tuned to read well
+ * against both light and dark surfaces.
+ *
+ * @token-group surface
+ * @summary Radii, border thickness, and shadow scale for component surfaces.
+ * @cssvar --cui-radius-1 — 0.25rem. Default control and small-card radius.
+ * @cssvar --cui-radius-2 — 0.5rem. Cards, modals, dropdowns.
+ * @cssvar --cui-border-size — 1px. Default border thickness across components.
+ * @cssvar --cui-shadow-1 — Subtle two-layer shadow. Default elevation.
+ * @cssvar --cui-shadow-2 — Pronounced shadow. Floating overlays (dropdowns, popovers).
+ */
 :root {
   --cui-radius-1: 0.25rem;
   --cui-radius-2: 0.5rem;
@@ -97,7 +172,21 @@
   --cui-shadow-2: 0 12px 28px hsl(220deg 25% 10% / 14%);
 }
 
-/* Interactive controls (sizing + focus) */
+/**
+ * Interactive control sizing and focus-ring tokens. `--cui-control-size`
+ * is computed from the `--cui-density` and `--cui-control-scale`
+ * `@property` inputs declared at the top of this file — set those to
+ * scale the entire control surface up or down without redefining
+ * individual heights. Focus-ring tokens are consumed by every focusable
+ * control via the shared `outline` declarations.
+ *
+ * @token-group control
+ * @summary Control height/radius and focus-ring sizing.
+ * @cssvar --cui-control-size — Default interactive control min-block-size. Computed from `--cui-density` and `--cui-control-scale`; resolves to 2.5rem at density 1.
+ * @cssvar --cui-control-radius — Corner radius for controls. Defaults to `--cui-radius-1`.
+ * @cssvar --cui-focus-size — 2px. Focus-ring outline width.
+ * @cssvar --cui-focus-offset — 2px. Focus-ring outline offset.
+ */
 :root {
   --cui-control-size: calc(
     (2.5rem + (var(--cui-density, 1) - 1) * 0.35rem) *
@@ -108,7 +197,19 @@
   --cui-focus-offset: 2px;
 }
 
-/* Container widths */
+/**
+ * Maximum content widths for page-level containers. `.cui-container`
+ * uses `--cui-container` as its max-inline-size with a fluid gutter on
+ * each side. The narrow/wide variants are for tighter editorial content
+ * (articles, case studies) and dashboard / full-bleed layouts.
+ *
+ * @token-group containers
+ * @summary Page container max widths and gutter.
+ * @cssvar --cui-container — 72rem. Default container max-width.
+ * @cssvar --cui-container-narrow — 48rem. Narrow editorial measure (articles, vacancies).
+ * @cssvar --cui-container-wide — 96rem. Wide containers (dashboards, full-bleed sections).
+ * @cssvar --cui-container-gutter — clamp(1rem, 4vi, 2rem). Side gutter outside the container.
+ */
 :root {
   --cui-container: 72rem;
   --cui-container-narrow: 48rem;
@@ -116,7 +217,20 @@
   --cui-container-gutter: clamp(1rem, 4vi, 2rem);
 }
 
-/* Content measures */
+/**
+ * Optimal-reading-width tokens. `prose-measure` (72ch) is the broad
+ * comfortable line; `content-measure` / `content-size` (68ch) is the
+ * standard `.cui-content` cap. The center/cover sizes drive full-
+ * viewport layouts (intro screens, takeovers).
+ *
+ * @token-group content-measures
+ * @summary Reading-width and full-viewport sizing tokens.
+ * @cssvar --cui-prose-measure — 72ch. `.cui-prose` reading width.
+ * @cssvar --cui-content-measure — 68ch. `.cui-content` reading width.
+ * @cssvar --cui-content-size — 68ch. Default `.cui-content` size.
+ * @cssvar --cui-center-size — 100vb. `.cui-center` layout size.
+ * @cssvar --cui-cover-size — 100vb. `.cui-cover` layout size.
+ */
 :root {
   --cui-prose-measure: 72ch;
   --cui-content-measure: 68ch;
@@ -125,7 +239,36 @@
   --cui-cover-size: 100vb;
 }
 
-/* Layout primitives (stack, cluster, grid, switcher, split, flow, content-grid) */
+/**
+ * Tokens for the Every-Layout-style primitives in `layout.css` —
+ * `.cui-stack`, `.cui-cluster`, `.cui-grid`, `.cui-switcher`,
+ * `.cui-split`, `.cui-flow`, and `.cui-content-grid`. Each primitive
+ * consumes a small set to control gaps, thresholds, and proportions.
+ * Override per-instance via inline `style="--cui-stack-gap: …"` or
+ * per-scope via a parent rule — custom properties inherit, so a
+ * section-level override flows into every nested primitive.
+ *
+ * @token-group layout
+ * @summary Tokens for stack / cluster / grid / switcher / split / flow / content-grid primitives.
+ * @cssvar --cui-flow-space — `.cui-flow` vertical rhythm gap. Defaults to `--cui-space-4`.
+ * @cssvar --cui-stack-gap — `.cui-stack` gap between children. Defaults to `--cui-space-4`.
+ * @cssvar --cui-cluster-align — `.cui-cluster` align-items. Defaults to `center`.
+ * @cssvar --cui-cluster-justify — `.cui-cluster` justify-content. Defaults to `flex-start`.
+ * @cssvar --cui-cluster-gap — `.cui-cluster` gap. Defaults to `--cui-space-3`.
+ * @cssvar --cui-grid-min — `.cui-grid` minimum column width. Defaults to 16rem.
+ * @cssvar --cui-grid-gap — `.cui-grid` gap. Defaults to `--cui-space-4`.
+ * @cssvar --cui-switcher-gap — `.cui-switcher` gap. Defaults to `--cui-space-4`.
+ * @cssvar --cui-switcher-threshold — Container width at which `.cui-switcher` flips from row to column. Defaults to 40rem.
+ * @cssvar --cui-split-gap — `.cui-split` gap. Defaults to `--cui-space-6`.
+ * @cssvar --cui-split-start — `.cui-split` start-side fraction. Defaults to `1fr`.
+ * @cssvar --cui-split-end — `.cui-split` end-side fraction. Defaults to `1fr`.
+ * @cssvar --cui-split-align — `.cui-split` align-items. Defaults to `center`.
+ * @cssvar --cui-content-grid-gap — `.cui-content-grid` default gap. Defaults to `--cui-space-4`.
+ * @cssvar --cui-content-grid-row-gap — `.cui-content-grid` row gap. Inherits `--cui-content-grid-gap`.
+ * @cssvar --cui-content-grid-column-gap — `.cui-content-grid` column gap. Inherits `--cui-content-grid-gap`.
+ * @cssvar --cui-content-grid-align — `.cui-content-grid` align-items. Defaults to `stretch`.
+ * @cssvar --cui-content-grid-justify — `.cui-content-grid` justify-content. Defaults to `stretch`.
+ */
 :root {
   --cui-flow-space: var(--cui-space-4, 1rem);
   --cui-stack-gap: var(--cui-space-4, 1rem);
@@ -153,7 +296,16 @@
   --cui-content-grid-justify: stretch;
 }
 
-/* Shell and app layout sizes */
+/**
+ * Sizing tokens for the app-shell primitives in `layout.css`. Use
+ * `.cui-shell` and `.cui-app` to compose top-bar / sidebar / main
+ * regions; these tokens set the bar height and sidebar width.
+ *
+ * @token-group shell
+ * @summary Shell-bar and app-sidebar sizing.
+ * @cssvar --cui-shell-bar-size — 4rem. `.cui-shell-bar` height.
+ * @cssvar --cui-app-sidebar-size — 16rem. `.cui-app-sidebar` width.
+ */
 :root {
   --cui-shell-bar-size: 4rem;
   --cui-app-sidebar-size: 16rem;
@@ -183,7 +335,37 @@
   }
 }
 
-/* Dark theme — explicit via [data-theme="dark"]. */
+/**
+ * Dark-theme color overrides applied when the user explicitly picks
+ * dark mode via `[data-theme="dark"]` on `<html>` / `<body>`. The same
+ * set of overrides also applies automatically via the
+ * `@media (prefers-color-scheme: dark)` block above when no explicit
+ * theme is pinned — that block isn't separately documented because its
+ * content is identical to this one.
+ *
+ * Sets `color-scheme: dark` so native form controls and scrollbars
+ * adapt. The `--cui-color-inverse-*` group exists only in the theme
+ * overrides — use it for elements that visually invert relative to the
+ * page (a dark CTA strip on a light page, a light callout on a dark
+ * page, etc.).
+ *
+ * @token-group color-dark
+ * @summary Dark-theme overrides for color and surface tokens.
+ * @cssvar --cui-color — Inverted foreground.
+ * @cssvar --cui-color-muted — Inverted secondary text.
+ * @cssvar --cui-color-surface — Inverted page background.
+ * @cssvar --cui-color-surface-raised — Inverted elevated surface.
+ * @cssvar --cui-color-surface-muted — Inverted subtle surface.
+ * @cssvar --cui-color-border — Inverted border.
+ * @cssvar --cui-color-on-accent — Foreground when on an accent fill.
+ * @cssvar --cui-color-inverse — Foreground when reading against an inverse surface.
+ * @cssvar --cui-color-inverse-muted — Secondary text on an inverse surface.
+ * @cssvar --cui-color-inverse-surface — Inverse surface (light block on a dark page).
+ * @cssvar --cui-color-inverse-surface-raised — Inverse elevated surface.
+ * @cssvar --cui-color-inverse-surface-muted — Inverse subtle surface.
+ * @cssvar --cui-color-inverse-border — Border on inverse surfaces.
+ * @cssvar --cui-color-inverse-eyebrow — Eyebrow / kicker color on inverse surfaces.
+ */
 :where(:root[data-theme="dark"], [data-theme="dark"]) {
   color-scheme: dark;
 
@@ -203,7 +385,33 @@
   --cui-color-inverse-eyebrow: var(--cui-color-accent, oklch(57% 0.18 246deg));
 }
 
-/* Light theme — explicit via [data-theme="light"]. */
+/**
+ * Light-theme color overrides applied when the user explicitly picks
+ * light mode via `[data-theme="light"]` — useful for forcing light on
+ * a specific surface (a docs page inside a dark dashboard, an opt-out
+ * for users who prefer dark globally but not here).
+ *
+ * Mirrors `color-dark` with light-side values. The `--cui-color-inverse-*`
+ * tokens here are darker tones, since on a light page the "inverse"
+ * surface is dark.
+ *
+ * @token-group color-light
+ * @summary Light-theme overrides for color and surface tokens (explicit opt-in).
+ * @cssvar --cui-color — Light foreground.
+ * @cssvar --cui-color-muted — Light secondary text.
+ * @cssvar --cui-color-surface — Light page background.
+ * @cssvar --cui-color-surface-raised — Light elevated surface.
+ * @cssvar --cui-color-surface-muted — Light subtle surface.
+ * @cssvar --cui-color-border — Light border.
+ * @cssvar --cui-color-on-accent — Foreground when on an accent fill.
+ * @cssvar --cui-color-inverse — Foreground on an inverse (dark) surface.
+ * @cssvar --cui-color-inverse-muted — Secondary text on inverse surface.
+ * @cssvar --cui-color-inverse-surface — Inverse (dark) surface color.
+ * @cssvar --cui-color-inverse-surface-raised — Inverse elevated surface.
+ * @cssvar --cui-color-inverse-surface-muted — Inverse subtle surface.
+ * @cssvar --cui-color-inverse-border — Border on inverse surfaces.
+ * @cssvar --cui-color-inverse-eyebrow — Eyebrow color on inverse surfaces.
+ */
 :where(:root[data-theme="light"], [data-theme="light"]) {
   color-scheme: light;
 
