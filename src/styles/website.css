@@ -1,9 +1,52 @@
+/**
+ * Page-level surface — apply to `<body>` or the outermost wrapper
+ * to set the default page background and foreground color from
+ * the surface tokens. Pairs with the theme overrides in
+ * tokens.css so the page background follows the active theme
+ * without any per-page wiring.
+ *
+ * @block cui-site
+ * @summary Page-level surface; min-block-size + default colors.
+ *
+ * @example
+ *   <body class="cui-site">
+ *     <a class="cui-skip-link" href="#main">Skip to content</a>
+ *     <header><!-- nav --></header>
+ *     <main id="main" class="cui-page">…</main>
+ *   </body>
+ */
 .cui-site {
   min-block-size: 100vb;
   background: var(--cui-color-surface, oklch(98% 0.01 265deg));
   color: var(--cui-color, oklch(24% 0.04 264deg));
 }
 
+/**
+ * Horizontal container primitive. Centers content with
+ * `margin-inline: auto`, caps inline-size at `--cui-container-size`
+ * (which itself defaults to `--cui-container`, 72rem), and applies
+ * a fluid gutter on each side via `--cui-container-gutter`.
+ * Establishes a `container-type: inline-size` context so child
+ * layouts (`.cui-sidebar`, content-grid family) can use container
+ * queries.
+ *
+ * Use this as the inline-axis wrapper inside a `.cui-section`,
+ * `.cui-hero`, or any full-bleed surface where you want capped
+ * content. Combine with `.cui-container-narrow` / `.cui-container-wide`
+ * for the alternate widths.
+ *
+ * @block cui-container
+ * @summary Centered horizontal container; max-width + fluid gutter.
+ * @cssvar --cui-container-size — Override the container max-width inline (or via a parent class). Defaults to `--cui-container`.
+ *
+ * @example
+ *   <section class="cui-section cui-section-muted">
+ *     <div class="cui-container">
+ *       <h2>Section title</h2>
+ *       <p>Content inside the section, capped at 72rem.</p>
+ *     </div>
+ *   </section>
+ */
 .cui-container {
   container-type: inline-size;
   inline-size: min(
@@ -13,57 +56,199 @@
   margin-inline: auto;
 }
 
+/**
+ * Narrow container variant — overrides `--cui-container-size` to
+ * `--cui-container-narrow` (48rem). Use as a modifier alongside
+ * `.cui-container` for editorial content that wants a tighter
+ * measure (articles, vacancies, single-column long-form).
+ *
+ * @block cui-container-narrow
+ * @summary Narrow container modifier; sets `--cui-container-size` to 48rem.
+ *
+ * @example
+ *   <div class="cui-container cui-container-narrow">
+ *     <article class="cui-prose">…</article>
+ *   </div>
+ */
 .cui-container-narrow {
   --cui-container-size: var(--cui-container-narrow, 48rem);
 }
 
+/**
+ * Wide container variant — overrides `--cui-container-size` to
+ * `--cui-container-wide` (96rem). Use as a modifier alongside
+ * `.cui-container` for dashboards, full-bleed marketing surfaces,
+ * or any layout where the standard 72rem cap feels cramped.
+ *
+ * @block cui-container-wide
+ * @summary Wide container modifier; sets `--cui-container-size` to 96rem.
+ */
 .cui-container-wide {
   --cui-container-size: var(--cui-container-wide, 96rem);
 }
 
 /**
- * Section padding utility — applies `--cui-space-6` block-axis
- * padding. The richer page-section primitive (with section-
- * spacing tokens, muted/inverse/accent tones, hero variant) lives
- * in `website.css`. Use this class only when you need the plain
- * padding utility and nothing else.
+ * Page-level section primitive — applies `--cui-section-space`
+ * (a fluid clamp that scales 4–8rem) as block-axis padding so
+ * sections breathe consistently across viewport sizes. Use on
+ * `<section>` elements that divide the page; pair with
+ * `.cui-container` inside to cap the content's inline-size.
+ *
+ * Spacing rhythm comes in three additional sizes via
+ * `[data-spacing]` (or the matching `.cui-section-compact` /
+ * `-spacious` / `-hero` modifier classes — both forms work).
+ * Tone comes via the separate `.cui-section-muted` /
+ * `.cui-section-inverse` / `.cui-section-accent` modifier
+ * classes; combine spacing and tone freely.
  *
  * @block cui-section
- * @summary Block-axis padding utility (`--cui-space-6` both sides).
+ * @summary Page-level section; fluid block padding via `--cui-section-space`.
+ * @variant compact | spacious | hero — Maps to `[data-spacing]`.
+ *   Switches `padding-block` to the matching `--cui-section-space-*`
+ *   clamp. Aliased by `.cui-section-compact`, `.cui-section-spacious`,
+ *   and `.cui-section-hero` for class-based composition.
+ *
+ * @example
+ *   <section class="cui-section">
+ *     <div class="cui-container">
+ *       <h2>Default section</h2>
+ *     </div>
+ *   </section>
+ *
+ * @example
+ *   <!-- Hero spacing, accent tone, capped content -->
+ *   <section class="cui-section cui-section-hero cui-section-accent">
+ *     <div class="cui-container">
+ *       <h1 class="cui-display">Landing-page hero</h1>
+ *       <p class="cui-lead">A balanced lead paragraph.</p>
+ *     </div>
+ *   </section>
  */
 .cui-section {
   padding-block: var(--cui-section-space, clamp(4rem, 10vi, 8rem));
 }
 
+/**
+ * Compact spacing modifier for `.cui-section`. Sets
+ * `padding-block` to `--cui-section-space-compact` (clamp 2.5–5rem).
+ * Use on tightly-packed sections like FAQ lists, logo strips,
+ * and short interstitial bands.
+ *
+ * Equivalent to `[data-spacing="compact"]` on `.cui-section` —
+ * both forms produce identical output.
+ *
+ * @block cui-section-compact
+ * @summary Compact section spacing (`--cui-section-space-compact`).
+ */
 .cui-section[data-spacing="compact"],
 .cui-section-compact {
     padding-block: var(--cui-section-space-compact, clamp(2.5rem, 7vi, 5rem));
 }
 
+/**
+ * Spacious spacing modifier for `.cui-section`. Sets
+ * `padding-block` to `--cui-section-space-spacious` (clamp
+ * 5.5–11rem). Use on marketing sections and editorial features
+ * that need extra breathing room.
+ *
+ * Equivalent to `[data-spacing="spacious"]` on `.cui-section`.
+ *
+ * @block cui-section-spacious
+ * @summary Spacious section spacing (`--cui-section-space-spacious`).
+ */
 .cui-section[data-spacing="spacious"],
 .cui-section-spacious {
     padding-block: var(--cui-section-space-spacious, clamp(5.5rem, 14vi, 11rem));
 }
 
+/**
+ * Hero spacing modifier for `.cui-section`. Sets `padding-block`
+ * to `--cui-section-space-hero` (clamp 6–14rem). Use on
+ * landing-page heroes and other top-of-page openings that should
+ * dominate the fold.
+ *
+ * Equivalent to `[data-spacing="hero"]` on `.cui-section`.
+ *
+ * @block cui-section-hero
+ * @summary Hero-sized section spacing (`--cui-section-space-hero`).
+ */
 .cui-section[data-spacing="hero"],
 .cui-section-hero {
     padding-block: var(--cui-section-space-hero, clamp(6rem, 18vi, 14rem));
 }
 
+/**
+ * Muted-tone modifier for `.cui-section`. Applies
+ * `--cui-color-surface-muted` as the section background — useful
+ * for visually separating sections without changing typography
+ * or contrast.
+ *
+ * @block cui-section-muted
+ * @summary Muted background tone for a `.cui-section`.
+ */
 .cui-section-muted {
     background: var(--cui-color-surface-muted, #edf0f4);
 }
 
+/**
+ * Inverse-tone modifier for `.cui-section`. Flips the section to
+ * a dark surface with light foreground — same colors the dark
+ * theme uses for the page itself, but applied to a single
+ * section. Pair with `.cui-eyebrow` / `.cui-display` / `.cui-lead`
+ * inside; their `--cui-color-inverse-*` overrides take over for
+ * the right contrast.
+ *
+ * @block cui-section-inverse
+ * @summary Inverse (dark) background tone for a `.cui-section`.
+ */
 .cui-section-inverse {
     background: var(--cui-color, #1b1f27);
     color: var(--cui-color-surface, #f7f8fa);
 }
 
+/**
+ * Accent-tone modifier for `.cui-section`. Paints the section
+ * with `--cui-color-accent` and switches foreground to
+ * `--cui-color-on-accent`. Use sparingly — accent sections
+ * compete with primary CTAs for visual weight, so reserve for
+ * deliberate brand moments (top-of-page promos, conversion
+ * bands).
+ *
+ * @block cui-section-accent
+ * @summary Accent-colored background for a `.cui-section`.
+ */
 .cui-section-accent {
     background: var(--cui-color-accent, oklch(57% 0.18 246deg));
     color: var(--cui-color-on-accent, #fff);
 }
 
+/**
+ * Vertical-rhythm utility — applies a consistent
+ * `--cui-flow-space` gap (default `--cui-space-4`) between
+ * every direct child via the "owl selector" (`> * + *`). First
+ * child gets no top margin; every subsequent sibling gets the
+ * flow space as `margin-block-start`. Same pattern as Heydon
+ * Pickering's Every-Layout flow.
+ *
+ * Use on content where children have varied semantics (headings,
+ * paragraphs, lists, figures) and you want a uniform rhythm
+ * without enumerating every child selector. Override per-element
+ * via inline `style="--cui-flow-space: …"` on the next sibling
+ * to insert a bigger gap (the value reads on the *next* child).
+ *
+ * @block cui-flow
+ * @summary Owl-selector vertical rhythm utility.
+ * @cssvar --cui-flow-space — Gap between direct children (read on the *next* child). Defaults to `--cui-space-4`.
+ *
+ * @example
+ *   <article class="cui-flow">
+ *     <h2>Article title</h2>
+ *     <p>First paragraph.</p>
+ *     <p>Second paragraph.</p>
+ *     <h3 style="--cui-flow-space: var(--cui-space-6)">Subsection</h3>
+ *     <p>Subsection paragraph (larger gap before this h3).</p>
+ *   </article>
+ */
 .cui-flow > * {
     margin-block: 0;
 }
@@ -72,6 +257,37 @@
     margin-block-start: var(--cui-flow-space, var(--cui-space-4, 1rem));
 }
 
+/**
+ * Long-form prose container. Caps inline-size at
+ * `--cui-prose-measure` (72ch default) and applies the editorial
+ * typography hierarchy to direct heading / paragraph / list /
+ * quote / pre children:
+ *
+ *   - Headings get tight line-height and `text-wrap: balance`;
+ *     `<h1>` is sized at `--cui-font-size-5`, `<h2>` at `-4`.
+ *   - Paragraphs and list items get the muted color.
+ *   - Every direct child gets `margin-block: 0 --cui-space-4`
+ *     so the bottom margin handles vertical rhythm.
+ *
+ * Use for blog posts, case studies, vacancy detail pages — any
+ * long-form text content. Wrap inside `.cui-container-narrow`
+ * for the canonical editorial measure.
+ *
+ * @block cui-prose
+ * @summary Long-form prose container with editorial typography hierarchy.
+ *
+ * @example
+ *   <article class="cui-prose">
+ *     <h1>Article title</h1>
+ *     <p>Lead paragraph that sets the tone.</p>
+ *     <h2>Section heading</h2>
+ *     <p>Body paragraph with the standard measure.</p>
+ *     <ul>
+ *       <li>List item.</li>
+ *       <li>Another list item.</li>
+ *     </ul>
+ *   </article>
+ */
 .cui-prose {
     max-inline-size: var(--cui-prose-measure, 72ch);
     font-size: var(--cui-font-size-1, 1.1875rem);
@@ -99,6 +315,17 @@
     color: var(--cui-color-muted, #5d6675);
 }
 
+/**
+ * Display headline class — `--cui-font-size-display` (5.5rem at
+ * peak), display weight (760), tight line-height (0.98),
+ * `text-wrap: balance`, and a 13ch max-inline-size so the
+ * headline wraps to two or three lines on typical viewports.
+ * Use on landing-page hero headlines and other display-scale
+ * moments.
+ *
+ * @block cui-display
+ * @summary Display-scale headline class; capped at 13ch.
+ */
 .cui-display {
     max-inline-size: 13ch;
     font-size: var(--cui-font-size-display, 5.5rem);
@@ -108,6 +335,16 @@
     text-wrap: balance;
 }
 
+/**
+ * Lead paragraph class — `--cui-font-size-2` (1.5rem at peak),
+ * muted color, looser line-height (1.4), capped at the content
+ * measure (68ch). Use directly under a hero or article headline
+ * for the lead paragraph; visually distinguishes the opening
+ * from the body that follows.
+ *
+ * @block cui-lead
+ * @summary Lead paragraph; sized at `--cui-font-size-2`, muted.
+ */
 .cui-lead {
     max-inline-size: var(--cui-content-measure, 68ch);
     color: var(--cui-color-muted, #5d6675);
@@ -115,6 +352,23 @@
     line-height: 1.4;
 }
 
+/**
+ * Eyebrow / kicker class — small-caps, accent-tinted, tracked
+ * (`letter-spacing: 0.08em`), uppercase. Both `.cui-eyebrow` and
+ * `.cui-kicker` are aliases for the same styling — pick the
+ * name that fits the editorial intent (eyebrow above a title,
+ * kicker as a pre-title hook).
+ *
+ * @block cui-eyebrow
+ * @summary Small-caps accent-tinted label above a title (`.cui-kicker` is an alias).
+ *
+ * @example
+ *   <header class="cui-flow">
+ *     <p class="cui-eyebrow">For agencies</p>
+ *     <h1 class="cui-display">Ship sites that survive accessibility audits</h1>
+ *     <p class="cui-lead">A lead sentence below.</p>
+ *   </header>
+ */
 .cui-eyebrow,
 .cui-kicker {
     color: var(--cui-color-accent, oklch(57% 0.18 246deg));
@@ -124,17 +378,58 @@
     text-transform: uppercase;
 }
 
+/**
+ * Caption text class — muted, caption-sized
+ * (`--cui-font-size-caption`). Use on `<figcaption>`, image
+ * captions, and small descriptive text below media. For inline
+ * metadata (date, byline, reading time), use `.cui-metadata`
+ * instead — bolder weight, same size.
+ *
+ * @block cui-caption
+ * @summary Muted caption text; sized at `--cui-font-size-caption`.
+ */
 .cui-caption {
     color: var(--cui-color-muted, #5d6675);
     font-size: var(--cui-font-size-caption, 0.875rem);
 }
 
+/**
+ * Metadata text class — muted, metadata-sized
+ * (`--cui-font-size-metadata`), bold. Use for inline metadata
+ * lines (author + date + reading time, location + role, etc.)
+ * where caption-weight is too soft.
+ *
+ * @block cui-metadata
+ * @summary Muted bold metadata text.
+ */
 .cui-metadata {
     color: var(--cui-color-muted, #5d6675);
     font-size: var(--cui-font-size-metadata, 0.875rem);
     font-weight: var(--cui-font-weight-strong, 680);
 }
 
+/**
+ * Skip-to-content link — visually hidden by default (translated
+ * out of the viewport), revealed when focused via keyboard so
+ * users can jump straight to `<main>` without tabbing through
+ * the navigation. Place as the **first** focusable element
+ * inside `<body>`, with `href="#main"` (or whichever ID your
+ * main landmark uses).
+ *
+ * Accent background, on-accent foreground; matches the focus
+ * ring's accent tint so keyboard users see the link reveal as a
+ * deliberate, branded affordance.
+ *
+ * @block cui-skip-link
+ * @summary Keyboard-accessible "skip to content" link.
+ *
+ * @example
+ *   <body class="cui-site">
+ *     <a class="cui-skip-link" href="#main">Skip to content</a>
+ *     <nav>…</nav>
+ *     <main id="main">…</main>
+ *   </body>
+ */
 .cui-skip-link {
     position: fixed;
     z-index: 100;
