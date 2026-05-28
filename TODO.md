@@ -25,7 +25,7 @@ validation work (SEO docs, demo sites).
 - [x] Add image/media blocks: full-bleed media, figure with caption, media card, and overlay card.
 - [x] Add team / people blocks: person card, team grid, leadership grid, and org chart.
 - [x] Add blog / news blocks: article card, article list, and category filter.
-- [ ] Add event blocks: event card, event list, and calendar view.
+- [x] Add event blocks: event card, event list, and calendar view.
 - [ ] Add contact blocks: contact card, location card, and contact form.
 - [ ] Add generic utility sections: split content, alternating media and text, and sidebar layout.
 - [ ] Add a todo list component, with status indicators and actions (todo, in-progress, done, maybe configurable?).

@@ -3,8 +3,10 @@ import {
   defineCuiArticleFilter,
 } from "./components/article-filter";
 import { CuiButton, defineCuiButton } from "./components/button";
+import { CuiCalendar, defineCuiCalendar } from "./components/calendar";
 import { CuiCode, defineCuiCode } from "./components/code";
 import { CuiCta, defineCuiCta } from "./components/cta";
+import { CuiDayPlanner, defineCuiDayPlanner } from "./components/day-planner";
 import { CuiDisclosure, defineCuiDisclosure } from "./components/disclosure";
 import { CuiField, defineCuiField } from "./components/field";
 import { CuiForm, defineCuiForm } from "./components/form";
@@ -35,6 +37,19 @@ import { CuiMap, defineCuiMap } from "./components/map";
 import "./index.css";
 
 export type { CuiArticleFilterChangeDetail } from "./components/article-filter";
+export type {
+  CuiCalendarDaySelectDetail,
+  CuiCalendarEvent,
+  CuiCalendarEventSelectDetail,
+  CuiCalendarNavigateDetail,
+  CuiCalendarWeekdayStart,
+} from "./components/calendar";
+export type {
+  CuiDayPlannerEvent,
+  CuiDayPlannerEventSelectDetail,
+  CuiDayPlannerNavigateDetail,
+  CuiDayPlannerSlotSelectDetail,
+} from "./components/day-planner";
 export type { CuiDisclosureToggleDetail } from "./components/disclosure";
 export type {
   CuiFieldControl,
@@ -74,8 +89,10 @@ export {
 export {
   CuiArticleFilter,
   CuiButton,
+  CuiCalendar,
   CuiCode,
   CuiCta,
+  CuiDayPlanner,
   CuiDisclosure,
   CuiField,
   CuiForm,
@@ -92,8 +109,10 @@ export {
   CuiMap,
   defineCuiArticleFilter,
   defineCuiButton,
+  defineCuiCalendar,
   defineCuiCode,
   defineCuiCta,
+  defineCuiDayPlanner,
   defineCuiDisclosure,
   defineCuiField,
   defineCuiForm,
@@ -135,6 +154,8 @@ export function defineCombatUi(
   defineCuiDisclosure(registry);
   defineCuiMap(registry);
   defineCuiArticleFilter(registry);
+  defineCuiCalendar(registry);
+  defineCuiDayPlanner(registry);
 }
 
 defineCombatUi();

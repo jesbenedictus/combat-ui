@@ -1,0 +1,216 @@
+/**
+ * Itinerary — narrative day-in-the-life / agenda / programme block.
+ * A vertically stacked list of cards, each pairing a short marker
+ * (time, day number, step) with a title and body copy. Use for
+ * "what does a workday look like" recruitment sections, conference
+ * programmes, onboarding flows, course curriculum, or tour
+ * schedules — anywhere the editorial copy matters more than the
+ * exact placement on a clock.
+ *
+ * Render the container as `<ol>` when the order is meaningful (it
+ * usually is); strip the list chrome via the block class. Each
+ * item is a `<li>` (or any element) carrying
+ * `.cui-itinerary-item`; markers can be `<time datetime>` for
+ * real times, or plain `<span>` for "Day 1" / "Step 2" labels.
+ *
+ * @block cui-itinerary
+ * @summary Vertical narrative timeline; marker + title + body per row.
+ * @variant compact | bare — Maps to `[data-variant]`. `compact`
+ *   tightens padding and shrinks the marker column. `bare` drops
+ *   the card chrome and inserts a hairline divider between rows.
+ * @cssvar --cui-itinerary-gap — Gap between rows. Defaults to `--cui-space-4`.
+ * @cssvar --cui-itinerary-marker-size — Marker column width. Defaults to 6rem.
+ * @cssvar --cui-itinerary-marker-color — Marker text color. Defaults to `--cui-color-accent`.
+ * @cssvar --cui-itinerary-padding — Card padding. Defaults to `--cui-space-5`.
+ * @cssvar --cui-itinerary-radius — Card corner radius. Defaults to `--cui-radius-3`.
+ *
+ * @example
+ *   <ol class="cui-itinerary">
+ *     <li class="cui-itinerary-item">
+ *       <time class="cui-itinerary-marker" datetime="08:30">08:30</time>
+ *       <div class="cui-itinerary-body">
+ *         <h3 class="cui-itinerary-title">Coffee with the team</h3>
+ *         <p class="cui-itinerary-text">
+ *           Talk through the day's plan, share blockers, and split work.
+ *         </p>
+ *       </div>
+ *     </li>
+ *     <li class="cui-itinerary-item">
+ *       <time class="cui-itinerary-marker" datetime="09:30">09:30</time>
+ *       <div class="cui-itinerary-body">
+ *         <h3 class="cui-itinerary-title">Into the city</h3>
+ *         <p class="cui-itinerary-text">…</p>
+ *       </div>
+ *     </li>
+ *   </ol>
+ *
+ * @example
+ *   <!-- Free-form markers for an onboarding flow -->
+ *   <ol class="cui-itinerary" data-variant="compact">
+ *     <li class="cui-itinerary-item">
+ *       <span class="cui-itinerary-marker">Day 1</span>
+ *       <div class="cui-itinerary-body">
+ *         <h3 class="cui-itinerary-title">Setup &amp; intros</h3>
+ *         <p class="cui-itinerary-text">…</p>
+ *       </div>
+ *     </li>
+ *   </ol>
+ */
+.cui-itinerary {
+  --cui-itinerary-gap: var(--cui-space-4, 1rem);
+  --cui-itinerary-marker-size: 6rem;
+  --cui-itinerary-marker-color: var(--cui-color-accent, oklch(57% 0.18 246deg));
+  --cui-itinerary-padding: var(--cui-space-5, 1.5rem);
+  --cui-itinerary-radius: var(--cui-radius-3, 0.75rem);
+  --cui-itinerary-body-gap: var(--cui-space-3, 0.75rem);
+
+  display: grid;
+  gap: var(--cui-itinerary-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/**
+ * Row of a `.cui-itinerary`. A two-column flex container with the
+ * marker on the start side and the body on the end side; wraps to
+ * a single column at narrow widths. Carries the card chrome
+ * (border + radius + surface) by default — drop it with the
+ * container's `[data-variant="bare"]`.
+ *
+ * @block cui-itinerary-item
+ * @summary Itinerary row: marker beside body, card chrome by default.
+ */
+.cui-itinerary-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cui-space-4, 1rem);
+  padding: var(--cui-itinerary-padding);
+  border: var(--cui-border-size, 1px) solid var(--cui-color-border, #cfd6df);
+  border-radius: var(--cui-itinerary-radius);
+  background: var(--cui-content-card-bg, var(--cui-color-surface-raised, #fff));
+  color: var(--cui-color, #1b1f27);
+}
+
+.cui-itinerary-item[hidden] {
+  display: none;
+}
+
+/**
+ * Marker column inside a `.cui-itinerary-item`. Accent-tinted,
+ * bold, with extra letter-spacing so a short label reads as a
+ * distinct landmark beside the prose. Use `<time>` when the
+ * marker is a clock time; use any inline element otherwise.
+ *
+ * @block cui-itinerary-marker
+ * @summary Accent-tinted marker (time / day / step) on the start side.
+ */
+.cui-itinerary-marker {
+  flex: 0 0 var(--cui-itinerary-marker-size, 6rem);
+  align-self: flex-start;
+  color: var(--cui-itinerary-marker-color, var(--cui-color-accent, oklch(57% 0.18 246deg)));
+  font-size: var(--cui-font-size-1, 1.1875rem);
+  font-weight: var(--cui-font-weight-strong, 680);
+  letter-spacing: 0.16em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+/**
+ * Body column inside a `.cui-itinerary-item`. A small grid that
+ * stacks title and paragraph copy; direct heading and paragraph
+ * children get `margin: 0` so the grid gap controls rhythm.
+ *
+ * @block cui-itinerary-body
+ * @summary Stacked content column inside an itinerary row.
+ */
+.cui-itinerary-body {
+  display: grid;
+  flex: 1 1 var(--cui-itinerary-body-min, 18rem);
+  gap: var(--cui-itinerary-body-gap, var(--cui-space-3, 0.75rem));
+  min-inline-size: 0;
+}
+
+.cui-itinerary-body > :where(h1, h2, h3, h4, h5, h6, p) {
+  margin: 0;
+}
+
+/**
+ * Title heading inside `.cui-itinerary-body`. Bold, tight
+ * line-height — render as a real heading (`<h3>` inside a section
+ * with an `<h2>` above) so the page outline stays clean.
+ *
+ * @block cui-itinerary-title
+ * @summary Bold row title inside an itinerary body.
+ */
+.cui-itinerary-title {
+  font-size: var(--cui-font-size-1, 1.1875rem);
+  font-weight: var(--cui-font-weight-strong, 680);
+  line-height: var(--cui-line-height-tight, 1.2);
+}
+
+/**
+ * Paragraph copy inside `.cui-itinerary-body`. Muted default body
+ * text — keep to one or two sentences per row; longer prose
+ * belongs in a `cui-prose` section.
+ *
+ * @block cui-itinerary-text
+ * @summary Muted paragraph copy beneath the itinerary title.
+ */
+.cui-itinerary-text {
+  color: var(--cui-color-muted, #5d6675);
+  line-height: var(--cui-line-height, 1.55);
+}
+
+/* Compact: tighter padding, smaller marker column, lighter chrome. */
+.cui-itinerary[data-variant="compact"] {
+  --cui-itinerary-marker-size: 4.5rem;
+  --cui-itinerary-padding: var(--cui-space-4, 1rem);
+  --cui-itinerary-gap: var(--cui-space-2, 0.5rem);
+  --cui-itinerary-body-gap: var(--cui-space-2, 0.5rem);
+}
+
+.cui-itinerary[data-variant="compact"] .cui-itinerary-marker {
+  font-size: var(--cui-font-size-0, 1rem);
+}
+
+/* Bare: drop card chrome, hairline divider between rows. */
+.cui-itinerary[data-variant="bare"] {
+  --cui-itinerary-gap: 0;
+}
+
+.cui-itinerary[data-variant="bare"] > .cui-itinerary-item {
+  border: 0;
+  border-block-end: var(--cui-border-size-line, 1px) solid var(--cui-color-border, #cfd6df);
+  border-radius: 0;
+  background: transparent;
+  padding-inline: 0;
+}
+
+.cui-itinerary[data-variant="bare"] > .cui-itinerary-item:last-child {
+  border-block-end: 0;
+}
+
+/* Marker swatches: ongoing / past / cancelled tones for status mirroring
+   the event card vocabulary. Opt in via [data-status] on the item. */
+.cui-itinerary-item[data-status="past"] {
+  opacity: 0.78;
+}
+
+.cui-itinerary-item[data-status="past"] .cui-itinerary-marker {
+  color: var(--cui-color-muted, #5d6675);
+}
+
+.cui-itinerary-item[data-status="ongoing"] .cui-itinerary-marker {
+  color: var(--cui-color-success, oklch(58% 0.16 150deg));
+}
+
+.cui-itinerary-item[data-status="cancelled"] .cui-itinerary-marker {
+  color: var(--cui-color-danger, oklch(58% 0.19 28deg));
+}
+
+.cui-itinerary-item[data-status="cancelled"] .cui-itinerary-title {
+  text-decoration: line-through;
+  text-decoration-color: var(--cui-color-danger, oklch(58% 0.19 28deg));
+}

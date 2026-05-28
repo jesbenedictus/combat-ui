@@ -1,0 +1,279 @@
+:host {
+  --cui-day-planner-track-min-block-size: 36rem;
+  --cui-day-planner-hour-rows: 16; /* end-hour minus start-hour */
+  --cui-day-planner-row-block-size: 3rem;
+  --cui-day-planner-border: var(--cui-color-border, #cfd6df);
+  --cui-day-planner-surface: var(--cui-color-surface-raised, #fff);
+  --cui-day-planner-muted-surface: var(--cui-color-surface, #f7f8fa);
+  --cui-day-planner-muted-text: var(--cui-color-muted, #5d6675);
+  --cui-day-planner-text: var(--cui-color, #1b1f27);
+  --cui-day-planner-accent: var(--cui-color-accent, oklch(57% 0.18 246deg));
+  --cui-day-planner-event-bg: color-mix(in oklab, var(--cui-day-planner-accent) 18%, var(--cui-day-planner-surface));
+  --cui-day-planner-event-color: var(--cui-day-planner-accent);
+  --cui-day-planner-now-color: var(--cui-color-danger, oklch(58% 0.19 28deg));
+  --cui-day-planner-radius: var(--cui-radius-2, 0.5rem);
+  --cui-day-planner-label-inline-size: 4.5rem;
+
+  display: block;
+  color: var(--cui-day-planner-text);
+}
+
+:host([hidden]) {
+  display: none;
+}
+
+.frame {
+  display: grid;
+  gap: var(--cui-space-4, 1rem);
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--cui-space-3, 0.75rem);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--cui-font-size-2, 1.5rem);
+  font-weight: var(--cui-font-weight-strong, 680);
+  line-height: 1.2;
+}
+
+.nav {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cui-space-2, 0.5rem);
+}
+
+.nav button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 2.25rem;
+  min-block-size: 2.25rem;
+  padding: var(--cui-space-1, 0.25rem) var(--cui-space-3, 0.75rem);
+  border: var(--cui-border-size, 1px) solid var(--cui-day-planner-border);
+  border-radius: var(--cui-radius-1, 0.25rem);
+  background: var(--cui-day-planner-surface);
+  color: inherit;
+  font: inherit;
+  font-weight: var(--cui-font-weight-strong, 680);
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .nav button {
+    transition:
+      background-color 160ms ease,
+      border-color 160ms ease;
+  }
+}
+
+.nav button:hover {
+  background: var(--cui-day-planner-muted-surface);
+  border-color: var(--cui-day-planner-muted-text);
+}
+
+.nav button:focus-visible {
+  outline: var(--cui-focus-size, 2px) solid var(--cui-color-focus, var(--cui-day-planner-accent));
+  outline-offset: var(--cui-focus-offset, 2px);
+}
+
+.board {
+  display: grid;
+  grid-template-columns: var(--cui-day-planner-label-inline-size, 4.5rem) 1fr;
+  overflow: hidden;
+  border: var(--cui-border-size, 1px) solid var(--cui-day-planner-border);
+  border-radius: var(--cui-day-planner-radius);
+  background: var(--cui-day-planner-surface);
+}
+
+.labels,
+.track {
+  display: grid;
+  grid-template-rows: repeat(var(--cui-day-planner-hour-rows, 16), var(--cui-day-planner-row-block-size, 3rem));
+  min-block-size: var(--cui-day-planner-track-min-block-size, 36rem);
+}
+
+.labels {
+  background: var(--cui-day-planner-muted-surface);
+  color: var(--cui-day-planner-muted-text);
+}
+
+.label {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: var(--cui-space-2, 0.5rem) var(--cui-space-3, 0.75rem) 0;
+  border-block-start: var(--cui-border-size, 1px) solid var(--cui-day-planner-border);
+  font-size: var(--cui-font-size-neg-1, 0.875rem);
+  font-weight: var(--cui-font-weight-strong, 680);
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.label:first-child {
+  border-block-start: 0;
+}
+
+.track {
+  position: relative;
+}
+
+.row {
+  border-block-start: var(--cui-border-size, 1px) solid var(--cui-day-planner-border);
+}
+
+.row:first-child {
+  border-block-start: 0;
+}
+
+.row::before {
+  content: "";
+  display: block;
+  block-size: 50%;
+  border-block-end: 1px dashed color-mix(in oklab, var(--cui-day-planner-border) 70%, transparent);
+}
+
+:host([slot-minutes="60"]) .row::before {
+  display: none;
+}
+
+:host([slot-minutes="15"]) .row::before {
+  block-size: 25%;
+  box-shadow:
+    0 var(--cui-day-planner-row-block-size, 3rem) 0 -2.75rem
+      color-mix(in oklab, var(--cui-day-planner-border) 70%, transparent),
+    0 calc(var(--cui-day-planner-row-block-size, 3rem) * 0.5) 0 -2.75rem
+      color-mix(in oklab, var(--cui-day-planner-border) 50%, transparent),
+    0 calc(var(--cui-day-planner-row-block-size, 3rem) * 0.75) 0 -2.75rem
+      color-mix(in oklab, var(--cui-day-planner-border) 70%, transparent);
+}
+
+.row[data-hover="true"] {
+  background: color-mix(in oklab, var(--cui-day-planner-accent) 6%, transparent);
+}
+
+.events {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.event {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 4px 6px;
+  border: 1px solid color-mix(in oklab, var(--cui-day-planner-accent) 30%, transparent);
+  border-radius: var(--cui-radius-1, 0.25rem);
+  background: var(--cui-day-planner-event-bg);
+  color: var(--cui-day-planner-event-color);
+  font-size: 0.75rem;
+  font-weight: var(--cui-font-weight-strong, 680);
+  text-align: start;
+  text-decoration: none;
+  overflow: hidden;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.event:focus-visible {
+  outline: var(--cui-focus-size, 2px) solid var(--cui-color-focus, var(--cui-day-planner-accent));
+  outline-offset: 1px;
+  z-index: 2;
+}
+
+.event-title {
+  display: block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.event-time {
+  display: block;
+  font-weight: var(--cui-font-weight, 500);
+  font-size: 0.7rem;
+  opacity: 0.85;
+}
+
+.event[data-status="ongoing"] {
+  --cui-day-planner-event-color: var(--cui-color-success, oklch(58% 0.16 150deg));
+  --cui-day-planner-event-bg: color-mix(in oklab, var(--cui-color-success, oklch(58% 0.16 150deg)) 16%, var(--cui-day-planner-surface));
+
+  border-color: color-mix(in oklab, var(--cui-color-success, oklch(58% 0.16 150deg)) 30%, transparent);
+}
+
+.event[data-status="past"] {
+  --cui-day-planner-event-color: var(--cui-day-planner-muted-text);
+  --cui-day-planner-event-bg: var(--cui-day-planner-muted-surface);
+
+  border-color: var(--cui-day-planner-border);
+}
+
+.event[data-status="cancelled"] {
+  --cui-day-planner-event-color: var(--cui-color-danger, oklch(58% 0.19 28deg));
+  --cui-day-planner-event-bg: color-mix(in oklab, var(--cui-color-danger, oklch(58% 0.19 28deg)) 14%, var(--cui-day-planner-surface));
+
+  border-color: color-mix(in oklab, var(--cui-color-danger, oklch(58% 0.19 28deg)) 30%, transparent);
+  text-decoration: line-through;
+}
+
+.event[data-status="sold-out"] {
+  --cui-day-planner-event-color: var(--cui-day-planner-text);
+  --cui-day-planner-event-bg: color-mix(in oklab, var(--cui-color-warning, oklch(72% 0.16 82deg)) 26%, var(--cui-day-planner-surface));
+
+  border-color: color-mix(in oklab, var(--cui-color-warning, oklch(72% 0.16 82deg)) 40%, transparent);
+}
+
+.now-line {
+  position: absolute;
+  inset-inline: 0;
+  block-size: 2px;
+  background: var(--cui-day-planner-now-color);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.now-line::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: -5px;
+  inset-block-start: -4px;
+  inline-size: 10px;
+  block-size: 10px;
+  border-radius: 50%;
+  background: var(--cui-day-planner-now-color);
+}
+
+.list-region {
+  display: block;
+}
+
+:host([events-hidden]) .list-region {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (width < 32rem) {
+  :host {
+    --cui-day-planner-label-inline-size: 3rem;
+    --cui-day-planner-row-block-size: 2.5rem;
+  }
+
+  .label {
+    padding-inline: var(--cui-space-1, 0.25rem);
+  }
+}

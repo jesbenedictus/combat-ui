@@ -36,6 +36,7 @@
           <a class="cui-nav-link" href="#team-blocks">Team &amp; people</a>
           <a class="cui-nav-link" href="#map">Map</a>
           <a class="cui-nav-link" href="#blog-blocks">Blog &amp; news</a>
+          <a class="cui-nav-link" href="#event-blocks">Events &amp; calendar</a>
         </aside>
 
         <div class="cui-stack" style="--cui-stack-gap: var(--cui-space-7, 3rem);">
@@ -2962,6 +2963,776 @@
                             element. An empty <code>value=""</code> means "all categories". Mix
                             checkboxes for multi-select.
                           </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </details>
+              </cui-disclosure>
+            </section>
+
+            <section id="event-blocks" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+              <div class="cui-prose">
+                <h2>Events &amp; calendar</h2>
+                <p>
+                  Event cards, lists, and a month-view calendar component. Each card is a semantic
+                  <code>&lt;article&gt;</code> with a real <code>&lt;time&gt;</code> element, status pill, and
+                  link, so search engines and feed readers index the listing before the calendar JS loads.
+                  The <code>cui-calendar</code> component enhances a slotted list of event cards into an
+                  interactive month grid; <code>cui-day-planner</code> renders the same card list as a
+                  vertical day timeline with column-packed overlap, hour rules, and a now-line. The source
+                  cards stay in the DOM (visible by default, or visually hidden via
+                  <code>events-hidden</code>) so the page degrades cleanly.
+                </p>
+              </div>
+
+              <cui-tabs>
+                <button slot="tab" type="button">Event card</button>
+                <button slot="tab" type="button">List</button>
+                <button slot="tab" type="button">Agenda</button>
+                <button slot="tab" type="button">Calendar</button>
+                <button slot="tab" type="button">Day planner</button>
+                <button slot="tab" type="button">Itinerary</button>
+
+                <section slot="panel" class="docs-panel">
+                  <div class="cui-stack">
+                    <article class="cui-event-card" data-status="upcoming" data-category="workshop">
+                      <time class="cui-event-card-date" datetime="2026-06-15T10:00">
+                        <span class="cui-event-card-date-month">Jun</span>
+                        <span class="cui-event-card-date-day">15</span>
+                        <span class="cui-event-card-date-year">2026</span>
+                      </time>
+                      <div class="cui-event-card-body">
+                        <p class="cui-event-card-category">
+                          <a href="#event-blocks">Workshop</a>
+                        </p>
+                        <h3 class="cui-event-card-title">
+                          <a href="#event-blocks">CSS fundamentals · hands-on workshop</a>
+                        </h3>
+                        <ul class="cui-event-card-meta">
+                          <li class="cui-event-card-time">
+                            <time datetime="2026-06-15T10:00">10:00</time>–<time datetime="2026-06-15T12:00">12:00</time>
+                          </li>
+                          <li class="cui-event-card-location">Studio · Amsterdam</li>
+                          <li>24 seats</li>
+                        </ul>
+                        <p class="cui-event-card-excerpt">
+                          Two-hour workshop on modern layout primitives — grid, flex, container queries — with
+                          a take-home exercise set and feedback on submissions.
+                        </p>
+                        <div class="cui-event-card-actions">
+                          <cui-button href="#event-blocks">Register</cui-button>
+                          <cui-button href="#event-blocks" variant="ghost">Add to calendar</cui-button>
+                        </div>
+                      </div>
+                      <span class="cui-event-card-status">Upcoming</span>
+                    </article>
+
+                    <article class="cui-event-card" data-variant="featured" data-status="ongoing"
+                      data-category="conference">
+                      <time class="cui-event-card-date" datetime="2026-05-28T09:00">
+                        <span class="cui-event-card-date-month">May</span>
+                        <span class="cui-event-card-date-day">28</span>
+                        <span class="cui-event-card-date-year">2026</span>
+                      </time>
+                      <div class="cui-event-card-body">
+                        <p class="cui-event-card-category">Conference</p>
+                        <h3 class="cui-event-card-title">
+                          <a href="#event-blocks">Combat UI Summit 2026</a>
+                        </h3>
+                        <ul class="cui-event-card-meta">
+                          <li class="cui-event-card-time">All day</li>
+                          <li class="cui-event-card-location">Felix Meritis · Amsterdam</li>
+                        </ul>
+                        <p class="cui-event-card-excerpt">
+                          Talks from product, design, and engineering teams shipping component libraries at
+                          scale. Featured variant uses a larger date block and title.
+                        </p>
+                        <div class="cui-event-card-actions">
+                          <cui-button href="#event-blocks">Live stream</cui-button>
+                        </div>
+                      </div>
+                      <span class="cui-event-card-status">Live now</span>
+                    </article>
+
+                    <article class="cui-event-card" data-status="cancelled" data-category="meetup">
+                      <time class="cui-event-card-date" datetime="2026-04-12T18:30">
+                        <span class="cui-event-card-date-month">Apr</span>
+                        <span class="cui-event-card-date-day">12</span>
+                        <span class="cui-event-card-date-year">2026</span>
+                      </time>
+                      <div class="cui-event-card-body">
+                        <p class="cui-event-card-category">Meetup</p>
+                        <h3 class="cui-event-card-title">
+                          <a href="#event-blocks">Component patterns dinner</a>
+                        </h3>
+                        <ul class="cui-event-card-meta">
+                          <li class="cui-event-card-time">
+                            <time datetime="2026-04-12T18:30">18:30</time>–<time datetime="2026-04-12T21:00">21:00</time>
+                          </li>
+                          <li class="cui-event-card-location">Café Bouwman</li>
+                        </ul>
+                        <p class="cui-event-card-excerpt">
+                          Cancelled — venue lost power the morning of the event. Refunds processed via the
+                          original payment method within five business days.
+                        </p>
+                      </div>
+                      <span class="cui-event-card-status">Cancelled</span>
+                    </article>
+
+                    <cui-code language="html">
+                      <script type="text/html">
+                        <article class="cui-event-card" data-status="upcoming">
+                          <time class="cui-event-card-date" datetime="2026-06-15T10:00">
+                            <span class="cui-event-card-date-month">Jun</span>
+                            <span class="cui-event-card-date-day">15</span>
+                            <span class="cui-event-card-date-year">2026</span>
+                          </time>
+                          <div class="cui-event-card-body">
+                            <p class="cui-event-card-category">Workshop</p>
+                            <h3 class="cui-event-card-title">
+                              <a href="/events/css">CSS fundamentals</a>
+                            </h3>
+                            <ul class="cui-event-card-meta">
+                              <li class="cui-event-card-time">10:00–12:00</li>
+                              <li class="cui-event-card-location">Studio · Amsterdam</li>
+                            </ul>
+                            <p class="cui-event-card-excerpt">Hands-on workshop on modern layout.</p>
+                            <div class="cui-event-card-actions">
+                              <a class="cui-button" href="/events/css">Register</a>
+                            </div>
+                          </div>
+                          <span class="cui-event-card-status">Upcoming</span>
+                        </article>
+                      </script>
+                    </cui-code>
+                  </div>
+                </section>
+
+                <section slot="panel" class="docs-panel">
+                  <div class="cui-event-list" data-variant="stacked">
+                    <article class="cui-event-card" data-variant="compact" data-status="upcoming">
+                      <time class="cui-event-card-date" datetime="2026-06-15T10:00">
+                        <span class="cui-event-card-date-month">Jun</span>
+                        <span class="cui-event-card-date-day">15</span>
+                        <span class="cui-event-card-date-year">2026</span>
+                      </time>
+                      <div class="cui-event-card-body">
+                        <h3 class="cui-event-card-title">
+                          <a href="#event-blocks">CSS fundamentals workshop</a>
+                        </h3>
+                        <ul class="cui-event-card-meta">
+                          <li class="cui-event-card-time">10:00–12:00</li>
+                          <li class="cui-event-card-location">Studio · Amsterdam</li>
+                        </ul>
+                      </div>
+                    </article>
+                    <article class="cui-event-card" data-variant="compact" data-status="upcoming">
+                      <time class="cui-event-card-date" datetime="2026-06-22T19:00">
+                        <span class="cui-event-card-date-month">Jun</span>
+                        <span class="cui-event-card-date-day">22</span>
+                        <span class="cui-event-card-date-year">2026</span>
+                      </time>
+                      <div class="cui-event-card-body">
+                        <h3 class="cui-event-card-title">
+                          <a href="#event-blocks">Component review night</a>
+                        </h3>
+                        <ul class="cui-event-card-meta">
+                          <li class="cui-event-card-time">19:00–21:30</li>
+                          <li class="cui-event-card-location">Studio · Amsterdam</li>
+                        </ul>
+                      </div>
+                    </article>
+                    <article class="cui-event-card" data-variant="compact" data-status="past">
+                      <time class="cui-event-card-date" datetime="2026-05-12T18:30">
+                        <span class="cui-event-card-date-month">May</span>
+                        <span class="cui-event-card-date-day">12</span>
+                        <span class="cui-event-card-date-year">2026</span>
+                      </time>
+                      <div class="cui-event-card-body">
+                        <h3 class="cui-event-card-title">
+                          <a href="#event-blocks">Spring open house</a>
+                        </h3>
+                        <ul class="cui-event-card-meta">
+                          <li class="cui-event-card-time">18:30–21:00</li>
+                          <li class="cui-event-card-location">Studio · Amsterdam</li>
+                        </ul>
+                      </div>
+                    </article>
+                  </div>
+
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <div class="cui-event-list" data-variant="stacked">
+                        <article class="cui-event-card" data-variant="compact" data-status="upcoming">…</article>
+                        <article class="cui-event-card" data-variant="compact" data-status="upcoming">…</article>
+                      </div>
+                    </script>
+                  </cui-code>
+                </section>
+
+                <section slot="panel" class="docs-panel">
+                  <div class="cui-event-list" data-variant="agenda">
+                    <h3 class="cui-event-list-day">
+                      <time datetime="2026-06-15">Monday, June 15</time>
+                    </h3>
+                    <article class="cui-event-card" data-variant="compact" data-status="upcoming">
+                      <time class="cui-event-card-date" datetime="2026-06-15T10:00">
+                        <span class="cui-event-card-date-month">Jun</span>
+                        <span class="cui-event-card-date-day">15</span>
+                      </time>
+                      <div class="cui-event-card-body">
+                        <h3 class="cui-event-card-title">
+                          <a href="#event-blocks">CSS fundamentals workshop</a>
+                        </h3>
+                        <ul class="cui-event-card-meta">
+                          <li class="cui-event-card-time">10:00–12:00</li>
+                          <li class="cui-event-card-location">Studio</li>
+                        </ul>
+                      </div>
+                    </article>
+                    <article class="cui-event-card" data-variant="compact" data-status="upcoming">
+                      <time class="cui-event-card-date" datetime="2026-06-15T14:00">
+                        <span class="cui-event-card-date-month">Jun</span>
+                        <span class="cui-event-card-date-day">15</span>
+                      </time>
+                      <div class="cui-event-card-body">
+                        <h3 class="cui-event-card-title">
+                          <a href="#event-blocks">Q&amp;A · ask the maintainers</a>
+                        </h3>
+                        <ul class="cui-event-card-meta">
+                          <li class="cui-event-card-time">14:00–15:00</li>
+                          <li class="cui-event-card-location">Online</li>
+                        </ul>
+                      </div>
+                    </article>
+
+                    <h3 class="cui-event-list-day">
+                      <time datetime="2026-06-16">Tuesday, June 16</time>
+                    </h3>
+                    <article class="cui-event-card" data-variant="compact" data-status="upcoming">
+                      <time class="cui-event-card-date" datetime="2026-06-16T19:00">
+                        <span class="cui-event-card-date-month">Jun</span>
+                        <span class="cui-event-card-date-day">16</span>
+                      </time>
+                      <div class="cui-event-card-body">
+                        <h3 class="cui-event-card-title">
+                          <a href="#event-blocks">Component review night</a>
+                        </h3>
+                        <ul class="cui-event-card-meta">
+                          <li class="cui-event-card-time">19:00–21:30</li>
+                          <li class="cui-event-card-location">Studio</li>
+                        </ul>
+                      </div>
+                    </article>
+                  </div>
+
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <div class="cui-event-list" data-variant="agenda">
+                        <h3 class="cui-event-list-day">
+                          <time datetime="2026-06-15">Monday, June 15</time>
+                        </h3>
+                        <article class="cui-event-card" data-variant="compact">…</article>
+                        <article class="cui-event-card" data-variant="compact">…</article>
+                      </div>
+                    </script>
+                  </cui-code>
+                </section>
+
+                <section slot="panel" class="docs-panel">
+                  <cui-calendar year="2026" month="6">
+                    <article class="cui-event-card" data-status="upcoming">
+                      <time class="cui-event-card-date" datetime="2026-06-03T19:00">
+                        <span class="cui-event-card-date-month">Jun</span>
+                        <span class="cui-event-card-date-day">3</span>
+                      </time>
+                      <div class="cui-event-card-body">
+                        <h3 class="cui-event-card-title">
+                          <a href="#event-blocks">Office hours</a>
+                        </h3>
+                      </div>
+                    </article>
+                    <article class="cui-event-card" data-status="upcoming">
+                      <time class="cui-event-card-date" datetime="2026-06-15T10:00">
+                        <span class="cui-event-card-date-month">Jun</span>
+                        <span class="cui-event-card-date-day">15</span>
+                      </time>
+                      <div class="cui-event-card-body">
+                        <h3 class="cui-event-card-title">
+                          <a href="#event-blocks">CSS fundamentals workshop</a>
+                        </h3>
+                      </div>
+                    </article>
+                    <article class="cui-event-card" data-status="upcoming">
+                      <time class="cui-event-card-date" datetime="2026-06-15T14:00">
+                        <span class="cui-event-card-date-month">Jun</span>
+                        <span class="cui-event-card-date-day">15</span>
+                      </time>
+                      <div class="cui-event-card-body">
+                        <h3 class="cui-event-card-title">
+                          <a href="#event-blocks">Q&amp;A · maintainers</a>
+                        </h3>
+                      </div>
+                    </article>
+                    <article class="cui-event-card" data-status="upcoming">
+                      <time class="cui-event-card-date" datetime="2026-06-22T19:00">
+                        <span class="cui-event-card-date-month">Jun</span>
+                        <span class="cui-event-card-date-day">22</span>
+                      </time>
+                      <div class="cui-event-card-body">
+                        <h3 class="cui-event-card-title">
+                          <a href="#event-blocks">Component review night</a>
+                        </h3>
+                      </div>
+                    </article>
+                    <article class="cui-event-card" data-status="cancelled">
+                      <time class="cui-event-card-date" datetime="2026-06-09T18:30">
+                        <span class="cui-event-card-date-month">Jun</span>
+                        <span class="cui-event-card-date-day">9</span>
+                      </time>
+                      <div class="cui-event-card-body">
+                        <h3 class="cui-event-card-title">
+                          <a href="#event-blocks">Patterns dinner</a>
+                        </h3>
+                      </div>
+                    </article>
+                  </cui-calendar>
+
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <cui-calendar year="2026" month="6">
+                        <article class="cui-event-card" data-status="upcoming">
+                          <time class="cui-event-card-date" datetime="2026-06-15T10:00">…</time>
+                          <div class="cui-event-card-body">
+                            <h3 class="cui-event-card-title">
+                              <a href="/events/css">CSS fundamentals</a>
+                            </h3>
+                          </div>
+                        </article>
+                      </cui-calendar>
+                    </script>
+                  </cui-code>
+                </section>
+
+                <section slot="panel" class="docs-panel">
+                  <cui-day-planner date="2026-06-15" start-hour="8" end-hour="19">
+                    <article class="cui-event-card" data-status="upcoming">
+                      <time class="cui-event-card-date" datetime="2026-06-15T09:00">
+                        <span class="cui-event-card-date-month">Jun</span>
+                        <span class="cui-event-card-date-day">15</span>
+                      </time>
+                      <time datetime="2026-06-15T09:30" hidden></time>
+                      <div class="cui-event-card-body">
+                        <h3 class="cui-event-card-title">
+                          <a href="#event-blocks">Stand-up</a>
+                        </h3>
+                      </div>
+                    </article>
+                    <article class="cui-event-card" data-status="upcoming">
+                      <time class="cui-event-card-date" datetime="2026-06-15T10:00">
+                        <span class="cui-event-card-date-month">Jun</span>
+                        <span class="cui-event-card-date-day">15</span>
+                      </time>
+                      <time datetime="2026-06-15T12:00" hidden></time>
+                      <div class="cui-event-card-body">
+                        <h3 class="cui-event-card-title">
+                          <a href="#event-blocks">CSS fundamentals workshop</a>
+                        </h3>
+                      </div>
+                    </article>
+                    <article class="cui-event-card" data-status="ongoing">
+                      <time class="cui-event-card-date" datetime="2026-06-15T11:00">
+                        <span class="cui-event-card-date-month">Jun</span>
+                        <span class="cui-event-card-date-day">15</span>
+                      </time>
+                      <time datetime="2026-06-15T11:45" hidden></time>
+                      <div class="cui-event-card-body">
+                        <h3 class="cui-event-card-title">
+                          <a href="#event-blocks">Customer call</a>
+                        </h3>
+                      </div>
+                    </article>
+                    <article class="cui-event-card" data-status="upcoming">
+                      <time class="cui-event-card-date" datetime="2026-06-15T13:00">
+                        <span class="cui-event-card-date-month">Jun</span>
+                        <span class="cui-event-card-date-day">15</span>
+                      </time>
+                      <time datetime="2026-06-15T14:30" hidden></time>
+                      <div class="cui-event-card-body">
+                        <h3 class="cui-event-card-title">
+                          <a href="#event-blocks">Lunch &amp; sketch</a>
+                        </h3>
+                      </div>
+                    </article>
+                    <article class="cui-event-card" data-status="upcoming">
+                      <time class="cui-event-card-date" datetime="2026-06-15T15:00">
+                        <span class="cui-event-card-date-month">Jun</span>
+                        <span class="cui-event-card-date-day">15</span>
+                      </time>
+                      <time datetime="2026-06-15T17:00" hidden></time>
+                      <div class="cui-event-card-body">
+                        <h3 class="cui-event-card-title">
+                          <a href="#event-blocks">Design review</a>
+                        </h3>
+                      </div>
+                    </article>
+                    <article class="cui-event-card" data-status="cancelled">
+                      <time class="cui-event-card-date" datetime="2026-06-15T16:00">
+                        <span class="cui-event-card-date-month">Jun</span>
+                        <span class="cui-event-card-date-day">15</span>
+                      </time>
+                      <time datetime="2026-06-15T16:30" hidden></time>
+                      <div class="cui-event-card-body">
+                        <h3 class="cui-event-card-title">
+                          <a href="#event-blocks">1:1 with mentor</a>
+                        </h3>
+                      </div>
+                    </article>
+                    <article class="cui-event-card" data-status="upcoming">
+                      <time class="cui-event-card-date" datetime="2026-06-15T17:30">
+                        <span class="cui-event-card-date-month">Jun</span>
+                        <span class="cui-event-card-date-day">15</span>
+                      </time>
+                      <time datetime="2026-06-15T18:30" hidden></time>
+                      <div class="cui-event-card-body">
+                        <h3 class="cui-event-card-title">
+                          <a href="#event-blocks">Gym</a>
+                        </h3>
+                      </div>
+                    </article>
+                  </cui-day-planner>
+
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <cui-day-planner date="2026-06-15" start-hour="8" end-hour="19">
+                        <article class="cui-event-card" data-status="upcoming">
+                          <time class="cui-event-card-date" datetime="2026-06-15T10:00">
+                            <span class="cui-event-card-date-month">Jun</span>
+                            <span class="cui-event-card-date-day">15</span>
+                          </time>
+                          <time datetime="2026-06-15T12:00" hidden></time>
+                          <div class="cui-event-card-body">
+                            <h3 class="cui-event-card-title">
+                              <a href="/events/css">CSS fundamentals</a>
+                            </h3>
+                          </div>
+                        </article>
+                      </cui-day-planner>
+                    </script>
+                  </cui-code>
+                </section>
+
+                <section slot="panel" class="docs-panel">
+                  <ol class="cui-itinerary">
+                    <li class="cui-itinerary-item">
+                      <time class="cui-itinerary-marker" datetime="08:30">08:30</time>
+                      <div class="cui-itinerary-body">
+                        <h3 class="cui-itinerary-title">Coffee with the team</h3>
+                        <p class="cui-itinerary-text">
+                          You talk through what's happening in the city. Reports come in from
+                          residents and businesses, and the team splits them up between you.
+                        </p>
+                      </div>
+                    </li>
+                    <li class="cui-itinerary-item">
+                      <time class="cui-itinerary-marker" datetime="09:30">09:30</time>
+                      <div class="cui-itinerary-body">
+                        <h3 class="cui-itinerary-title">Into the neighbourhood</h3>
+                        <p class="cui-itinerary-text">
+                          You head out with a colleague to follow up on reports. Along the
+                          way you spot a wrongly parked car, rubbish next to a container, and
+                          a stray dog. You talk to people, resolve what you can, and refer
+                          the rest.
+                        </p>
+                      </div>
+                    </li>
+                    <li class="cui-itinerary-item">
+                      <time class="cui-itinerary-marker" datetime="12:30">12:30</time>
+                      <div class="cui-itinerary-body">
+                        <h3 class="cui-itinerary-title">Lunch</h3>
+                        <p class="cui-itinerary-text">
+                          Back at the city office for lunch — a chance to recharge, catch up,
+                          and laugh with the team. You work hard and have fun doing it.
+                        </p>
+                      </div>
+                    </li>
+                    <li class="cui-itinerary-item">
+                      <time class="cui-itinerary-marker" datetime="13:30">13:30</time>
+                      <div class="cui-itinerary-body">
+                        <h3 class="cui-itinerary-title">Partner meeting</h3>
+                        <p class="cui-itinerary-text">
+                          Sync with police, public-safety colleagues, and a handful of
+                          partners. There's an integrated operation tomorrow and everyone
+                          wants to be prepared — safety first.
+                        </p>
+                      </div>
+                    </li>
+                    <li class="cui-itinerary-item">
+                      <time class="cui-itinerary-marker" datetime="16:30">16:30</time>
+                      <div class="cui-itinerary-body">
+                        <h3 class="cui-itinerary-title">Debrief</h3>
+                        <p class="cui-itinerary-text">
+                          Feedback loops, reporting, and admin. It takes about half an hour
+                          at the end of each day.
+                        </p>
+                      </div>
+                    </li>
+                    <li class="cui-itinerary-item">
+                      <time class="cui-itinerary-marker" datetime="17:00">17:00</time>
+                      <div class="cui-itinerary-body">
+                        <h3 class="cui-itinerary-title">Home</h3>
+                        <p class="cui-itinerary-text">
+                          Off home, with enough energy left for the rest of your life.
+                        </p>
+                      </div>
+                    </li>
+                  </ol>
+
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <ol class="cui-itinerary">
+                        <li class="cui-itinerary-item">
+                          <time class="cui-itinerary-marker" datetime="08:30">08:30</time>
+                          <div class="cui-itinerary-body">
+                            <h3 class="cui-itinerary-title">Coffee with the team</h3>
+                            <p class="cui-itinerary-text">Talk through the day's plan…</p>
+                          </div>
+                        </li>
+                        <li class="cui-itinerary-item">
+                          <time class="cui-itinerary-marker" datetime="09:30">09:30</time>
+                          <div class="cui-itinerary-body">
+                            <h3 class="cui-itinerary-title">Into the neighbourhood</h3>
+                            <p class="cui-itinerary-text">Follow up on reports with a colleague…</p>
+                          </div>
+                        </li>
+                      </ol>
+                    </script>
+                  </cui-code>
+
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <!-- Free-form markers — works for Day 1 / Step 2 / Sprint 4 -->
+                      <ol class="cui-itinerary" data-variant="compact">
+                        <li class="cui-itinerary-item">
+                          <span class="cui-itinerary-marker">Day 1</span>
+                          <div class="cui-itinerary-body">
+                            <h3 class="cui-itinerary-title">Setup &amp; intros</h3>
+                            <p class="cui-itinerary-text">Laptop, accounts, team lunch.</p>
+                          </div>
+                        </li>
+                      </ol>
+                    </script>
+                  </cui-code>
+                </section>
+              </cui-tabs>
+
+              <cui-disclosure>
+                <details class="cui-disclosure" data-variant="ghost">
+                  <summary>API reference</summary>
+                  <div class="cui-disclosure-body">
+                    <table class="docs-token-table">
+                      <thead>
+                        <tr>
+                          <th>Class</th>
+                          <th>Purpose</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><code>.cui-event-card</code></td>
+                          <td>
+                            Container for one event. Carry <code>data-status</code> to tone the date block
+                            and status pill; <code>data-variant="featured | compact | flat | borderless"</code>
+                            to swap chrome; <code>data-orient="stacked"</code> for poster-style layouts.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>.cui-event-card-date</code></td>
+                          <td>
+                            Render as <code>&lt;time datetime&gt;</code> with month / day / year spans.
+                            The <code>cui-calendar</code> component reads the first <code>&lt;time&gt;</code>
+                            inside the card to plot the event.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>.cui-event-grid</code></td>
+                          <td>Auto-fit grid of event cards (22rem min). Pin columns with
+                            <code>[data-columns="2 | 3"]</code>.</td>
+                        </tr>
+                        <tr>
+                          <td><code>.cui-event-list</code></td>
+                          <td>
+                            Single-column list. <code>data-variant="stacked"</code> drops card chrome to
+                            hairline separators; <code>data-variant="agenda"</code> renders
+                            <code>.cui-event-list-day</code> headers between groups.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>.cui-itinerary</code></td>
+                          <td>
+                            Narrative day-in-the-life / programme block. Render as <code>&lt;ol&gt;</code>
+                            with <code>.cui-itinerary-item</code> rows; marker can be
+                            <code>&lt;time datetime&gt;</code> or free-form text (Day 1, Step 2).
+                            <code>data-variant="compact"</code> tightens spacing;
+                            <code>data-variant="bare"</code> drops card chrome.
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <table class="docs-token-table">
+                      <thead>
+                        <tr>
+                          <th><code>cui-calendar</code> API</th>
+                          <th>Purpose</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><code>year</code> / <code>month</code></td>
+                          <td>Initial visible month. Defaults to today.</td>
+                        </tr>
+                        <tr>
+                          <td><code>weekday-start="monday | sunday"</code></td>
+                          <td>First column of the grid. Defaults to <code>monday</code>.</td>
+                        </tr>
+                        <tr>
+                          <td><code>locale</code></td>
+                          <td>BCP-47 locale used for month and weekday labels. Falls back to
+                            <code>document.documentElement.lang</code>, then
+                            <code>navigator.language</code>.</td>
+                        </tr>
+                        <tr>
+                          <td><code>events-hidden</code></td>
+                          <td>Visually hide the slotted event list while keeping it in the DOM for
+                            screen readers and search engines.</td>
+                        </tr>
+                        <tr>
+                          <td><code>calendar.next()</code> / <code>previous()</code> /
+                            <code>goTo(year, month)</code></td>
+                          <td>Programmatic navigation. <code>month</code> is 1-indexed.</td>
+                        </tr>
+                        <tr>
+                          <td><code>calendar.refresh()</code></td>
+                          <td>Re-read slotted event cards. Call after dynamically adding cards.</td>
+                        </tr>
+                        <tr>
+                          <td><code>cui-calendar-day-select</code> event</td>
+                          <td>Bubbles with <code>{ date, iso, events }</code> when a day cell is
+                            activated.</td>
+                        </tr>
+                        <tr>
+                          <td><code>cui-calendar-event-select</code> event</td>
+                          <td>Cancelable; bubbles with <code>{ date, iso, event }</code> when an event
+                            pill is activated. Call <code>preventDefault()</code> to stop the link
+                            from following.</td>
+                        </tr>
+                        <tr>
+                          <td><code>cui-calendar-navigate</code> event</td>
+                          <td>Bubbles with <code>{ year, month }</code> after the visible month
+                            changes.</td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <table class="docs-token-table">
+                      <thead>
+                        <tr>
+                          <th><code>cui-day-planner</code> API</th>
+                          <th>Purpose</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><code>date="YYYY-MM-DD"</code></td>
+                          <td>Visible day. Defaults to today.</td>
+                        </tr>
+                        <tr>
+                          <td><code>start-hour</code> / <code>end-hour</code></td>
+                          <td>Visible window. Defaults to <code>7</code>–<code>22</code>.</td>
+                        </tr>
+                        <tr>
+                          <td><code>slot-minutes="15 | 30 | 60"</code></td>
+                          <td>Minor-gridline cadence. Defaults to <code>60</code>.</td>
+                        </tr>
+                        <tr>
+                          <td><code>now-line</code></td>
+                          <td>Set to <code>false</code> to hide the today now-line. Defaults to on.</td>
+                        </tr>
+                        <tr>
+                          <td>Event end times</td>
+                          <td>
+                            Read from a second <code>&lt;time datetime&gt;</code> on the card, or from a
+                            <code>data-end</code> attribute (full ISO or <code>HH:MM</code>). Cards without
+                            an end default to a 60-minute block.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>planner.next()</code> / <code>previous()</code> /
+                            <code>goTo(iso | Date)</code></td>
+                          <td>Programmatic navigation.</td>
+                        </tr>
+                        <tr>
+                          <td><code>cui-day-planner-event-select</code> event</td>
+                          <td>Cancelable; bubbles with <code>{ iso, date, event }</code> when an event
+                            block is activated.</td>
+                        </tr>
+                        <tr>
+                          <td><code>cui-day-planner-slot-select</code> event</td>
+                          <td>Bubbles with <code>{ iso, date, minutes }</code> (minutes from midnight,
+                            rounded to <code>slot-minutes</code>) when an empty slot is clicked.</td>
+                        </tr>
+                        <tr>
+                          <td><code>cui-day-planner-navigate</code> event</td>
+                          <td>Bubbles with <code>{ iso }</code> after the visible day changes.</td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <table class="docs-token-table">
+                      <thead>
+                        <tr>
+                          <th>Variable</th>
+                          <th>Default</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><code>--cui-event-card-date-size</code></td>
+                          <td><code>7rem</code> (featured: 9rem; compact: 5.5rem)</td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-event-card-title-size</code></td>
+                          <td><code>--cui-font-size-2</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-event-grid-min</code></td>
+                          <td><code>22rem</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-event-list-gap</code></td>
+                          <td><code>--cui-space-3</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-calendar-cell-min-size</code></td>
+                          <td><code>4.5rem</code> (small screens: 3.25rem)</td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-calendar-accent</code></td>
+                          <td><code>--cui-color-accent</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-day-planner-row-block-size</code></td>
+                          <td><code>3rem</code> (small screens: 2.5rem)</td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-day-planner-label-inline-size</code></td>
+                          <td><code>4.5rem</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-day-planner-event-bg</code></td>
+                          <td>Accent-tinted surface; status attribute swaps tone.</td>
                         </tr>
                       </tbody>
                     </table>

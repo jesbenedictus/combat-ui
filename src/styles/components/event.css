@@ -1,0 +1,583 @@
+/**
+ * Event card — meeting, workshop, conference, or community session.
+ * A grid container that pairs a prominent date block with a body
+ * column holding category, title, time, location, excerpt, and
+ * actions. Use `[data-orient="row"]` to keep the date beside the
+ * body at narrow widths (default already does this); use
+ * `[data-orient="stacked"]` to stack the date on top for poster-
+ * style listings.
+ *
+ * Carries a `data-status` of `upcoming`, `ongoing`, `past`,
+ * `cancelled`, or `sold-out`. The status both colors a small
+ * pill (`.cui-event-card-status`) and tones the date block
+ * automatically — past events drop to muted, cancelled events
+ * strike through the title, sold-out events tint the status pill
+ * warning.
+ *
+ * Wire it to data from a CMS; the optional `cui-calendar`
+ * component reads `<time datetime>` from the first child of each
+ * `.cui-event-card-date` to drive its month grid.
+ *
+ * @block cui-event-card
+ * @summary Event card with prominent date, title, meta, status pill.
+ * @variant row | stacked — Maps to `[data-orient]`. `row` is the
+ *   default (date beside body, collapses at narrow widths via
+ *   flex-wrap). `stacked` pins the date above the body.
+ * @variant featured | compact | flat | borderless — Maps to
+ *   `[data-variant]`. `featured` enlarges the date block and the
+ *   title. `compact` removes the excerpt and tightens spacing —
+ *   sidebars and agenda rows. `flat` drops the shadow.
+ *   `borderless` drops shadow and border (use inside a list with
+ *   its own dividers).
+ * @variant upcoming | ongoing | past | cancelled | sold-out —
+ *   Maps to `[data-status]`. Controls the status pill tone and
+ *   the date-block tone; `cancelled` also strikes through the
+ *   title.
+ * @cssvar --cui-event-card-radius — Card corner radius. Defaults to `--cui-radius-2`.
+ * @cssvar --cui-event-card-padding — Body padding. Defaults to `--cui-space-5`.
+ * @cssvar --cui-event-card-gap — Gap between body children. Defaults to `--cui-space-2`.
+ * @cssvar --cui-event-card-date-size — Date block inline-size in row orient. Defaults to 7rem.
+ * @cssvar --cui-event-card-date-bg — Date block background. Defaults to `--cui-color-surface-muted`.
+ * @cssvar --cui-event-card-date-color — Date block text color. Defaults to `--cui-color`.
+ * @cssvar --cui-event-card-title-size — Title font size. Defaults to `--cui-font-size-2`.
+ *
+ * @example
+ *   <article class="cui-event-card" data-status="upcoming" data-category="workshop">
+ *     <time class="cui-event-card-date" datetime="2026-06-15T10:00">
+ *       <span class="cui-event-card-date-month">Jun</span>
+ *       <span class="cui-event-card-date-day">15</span>
+ *       <span class="cui-event-card-date-year">2026</span>
+ *     </time>
+ *     <div class="cui-event-card-body">
+ *       <p class="cui-event-card-category">Workshop</p>
+ *       <h3 class="cui-event-card-title">
+ *         <a href="/events/css-fundamentals">CSS fundamentals workshop</a>
+ *       </h3>
+ *       <ul class="cui-event-card-meta">
+ *         <li class="cui-event-card-time">
+ *           <time datetime="2026-06-15T10:00">10:00</time>–<time datetime="2026-06-15T12:00">12:00</time>
+ *         </li>
+ *         <li class="cui-event-card-location">Studio · Amsterdam</li>
+ *       </ul>
+ *       <p class="cui-event-card-excerpt">Two-sentence summary.</p>
+ *       <div class="cui-event-card-actions">
+ *         <a class="cui-button" href="/events/css-fundamentals">Register</a>
+ *       </div>
+ *     </div>
+ *     <span class="cui-event-card-status">Upcoming</span>
+ *   </article>
+ */
+.cui-event-card {
+  --cui-event-card-radius: var(--cui-radius-2, 0.5rem);
+  --cui-event-card-padding: var(--cui-space-5, 1.5rem);
+  --cui-event-card-gap: var(--cui-space-2, 0.5rem);
+  --cui-event-card-date-size: 7rem;
+  --cui-event-card-date-bg: var(--cui-color-surface-muted, #edf0f4);
+  --cui-event-card-date-color: var(--cui-color, #1b1f27);
+  --cui-event-card-title-size: var(--cui-font-size-2, 1.5rem);
+
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 0;
+  overflow: hidden;
+  border: var(--cui-border-size, 1px) solid
+    var(--cui-content-card-border, var(--cui-color-border, #cfd6df));
+  border-radius: var(--cui-event-card-radius);
+  background: var(--cui-content-card-bg, var(--cui-color-surface-raised, #fff));
+  color: var(--cui-color, #1b1f27);
+  box-shadow: var(
+    --cui-content-card-shadow,
+    var(--cui-shadow-1, 0 1px 2px hsl(220deg 25% 10% / 12%))
+  );
+}
+
+.cui-event-card[hidden] {
+  display: none;
+}
+
+/**
+ * Date block inside `.cui-event-card`. A vertical stack of month,
+ * day, and (optional) year, sized for legibility at a glance and
+ * tinted via `--cui-event-card-date-bg`. Render as a `<time>` so
+ * the machine-readable datetime stays attached to the human label.
+ *
+ * @block cui-event-card-date
+ * @summary Date block with month / day / year stack inside an event card.
+ */
+.cui-event-card-date {
+  display: flex;
+  flex: 0 0 var(--cui-event-card-date-size, 7rem);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--cui-space-1, 0.25rem);
+  padding: var(--cui-space-4, 1rem) var(--cui-space-3, 0.75rem);
+  background: var(--cui-event-card-date-bg);
+  color: var(--cui-event-card-date-color);
+  text-align: center;
+  line-height: 1;
+}
+
+.cui-event-card-date-month {
+  font-size: var(--cui-font-size-eyebrow, 0.875rem);
+  font-weight: var(--cui-font-weight-strong, 680);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.cui-event-card-date-day {
+  font-size: var(--cui-font-size-4, 2.75rem);
+  font-weight: var(--cui-font-weight-display, 760);
+  line-height: 1;
+}
+
+.cui-event-card-date-year {
+  color: var(--cui-color-muted, #5d6675);
+  font-size: var(--cui-font-size-neg-1, 0.875rem);
+  font-weight: var(--cui-font-weight-strong, 680);
+}
+
+/**
+ * Content column of `.cui-event-card`. A small grid that stacks
+ * category, title, meta, excerpt, and actions; direct heading and
+ * paragraph children get `margin: 0` so the grid gap controls
+ * rhythm.
+ *
+ * @block cui-event-card-body
+ * @summary Stacked content column inside an event card.
+ */
+.cui-event-card-body {
+  display: grid;
+  flex: 2 1 var(--cui-event-card-body-min, 18rem);
+  align-content: start;
+  gap: var(--cui-event-card-gap, var(--cui-space-2, 0.5rem));
+  min-inline-size: 0;
+  padding: var(--cui-event-card-padding, var(--cui-space-5, 1.5rem));
+}
+
+.cui-event-card-body > :where(h1, h2, h3, h4, h5, h6, p) {
+  margin: 0;
+}
+
+/**
+ * Category eyebrow inside `.cui-event-card-body`. Small-caps,
+ * accent-tinted, with an embedded `<a>` that inherits the color
+ * and underlines on hover.
+ *
+ * @block cui-event-card-category
+ * @summary Accent-tinted category label above the event title.
+ * @cssvar --cui-event-card-category-color — Category tint. Defaults to `--cui-color-accent`.
+ */
+.cui-event-card-category {
+  color: var(
+    --cui-event-card-category-color,
+    var(--cui-color-accent, oklch(57% 0.18 246deg))
+  );
+  font-size: var(--cui-font-size-eyebrow, 0.875rem);
+  font-weight: var(--cui-font-weight-strong, 680);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cui-event-card-category a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cui-event-card-category a:hover,
+.cui-event-card-category a:focus-visible {
+  text-decoration: underline;
+}
+
+/**
+ * Event title inside `.cui-event-card-body`. Sized at
+ * `--cui-event-card-title-size`, bold, tight line-height, with
+ * `text-wrap: balance` for even line lengths. Wrap the link as a
+ * child `<a>` so the whole title is clickable while the heading
+ * element keeps its outline role.
+ *
+ * @block cui-event-card-title
+ * @summary Bold event title; link colors shift to accent on hover.
+ */
+.cui-event-card-title {
+  font-size: var(--cui-event-card-title-size, var(--cui-font-size-2, 1.5rem));
+  font-weight: var(--cui-font-weight-strong, 680);
+  line-height: var(--cui-line-height-tight, 1.2);
+  text-wrap: balance;
+}
+
+.cui-event-card-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cui-event-card-title a:hover,
+.cui-event-card-title a:focus-visible {
+  color: var(--cui-color-accent, oklch(57% 0.18 246deg));
+}
+
+/**
+ * Excerpt paragraph inside `.cui-event-card-body`. Muted body
+ * text — keep to two or three lines for grid rows; longer
+ * descriptions belong on the event detail page.
+ *
+ * @block cui-event-card-excerpt
+ * @summary Muted excerpt paragraph beneath the event title.
+ */
+.cui-event-card-excerpt {
+  color: var(--cui-color-muted, #5d6675);
+  line-height: var(--cui-line-height, 1.55);
+}
+
+/**
+ * Metadata row inside `.cui-event-card-body` — time range,
+ * location, capacity, price. Renders as a flex-wrap `<ul>` with
+ * `·` separators inserted via `::before` between adjacent items.
+ *
+ * @block cui-event-card-meta
+ * @summary Flex-wrap list of event metadata with `·` separators.
+ */
+.cui-event-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cui-space-2, 0.5rem) var(--cui-space-3, 0.75rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--cui-color-muted, #5d6675);
+  font-size: var(--cui-font-size-neg-1, 0.875rem);
+}
+
+.cui-event-card-meta > * {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cui-space-2, 0.5rem);
+  margin: 0;
+}
+
+.cui-event-card-meta > * + *::before {
+  content: "·";
+  margin-inline-end: var(--cui-space-2, 0.5rem);
+  color: var(--cui-color-border, #cfd6df);
+}
+
+/**
+ * Time range inside `.cui-event-card-meta`. Bold, full-strength
+ * color — overrides the muted meta-row color so the start / end
+ * time stands out next to location and capacity items.
+ *
+ * @block cui-event-card-time
+ * @summary Bold time-range entry inside the meta row.
+ */
+.cui-event-card-time {
+  color: var(--cui-color, #1b1f27);
+  font-weight: var(--cui-font-weight-strong, 680);
+}
+
+/**
+ * Location entry inside `.cui-event-card-meta`. Muted, paired
+ * with an optional inline icon — semantic markup carries the
+ * place name and (optionally) a link to a map block.
+ *
+ * @block cui-event-card-location
+ * @summary Muted location entry inside the meta row.
+ */
+.cui-event-card-location {
+  color: var(--cui-color-muted, #5d6675);
+}
+
+/**
+ * Actions row at the bottom of `.cui-event-card-body`. Flex-wrap
+ * row with `--cui-space-3` gap and a small top margin. Place one
+ * or two `.cui-button`s here for "Register" / "Add to calendar"
+ * affordances.
+ *
+ * @block cui-event-card-actions
+ * @summary Flex-wrap row of action buttons inside an event card.
+ */
+.cui-event-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cui-space-3, 0.75rem);
+  margin-block-start: var(--cui-space-3, 0.75rem);
+}
+
+/**
+ * Status pill inside `.cui-event-card`. Absolutely positioned in
+ * the top-end corner of the card; tone follows the card's
+ * `[data-status]`. Carry only the status word inside — the
+ * surrounding card markup supplies the rest of the context.
+ *
+ * @block cui-event-card-status
+ * @summary Top-end status pill; tone follows the card's `[data-status]`.
+ */
+.cui-event-card-status {
+  position: absolute;
+  inset-block-start: var(--cui-space-3, 0.75rem);
+  inset-inline-end: var(--cui-space-3, 0.75rem);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cui-space-1, 0.25rem);
+  padding: var(--cui-space-1, 0.25rem) var(--cui-space-3, 0.75rem);
+  border-radius: 999px;
+  background: var(--cui-color-surface-muted, #edf0f4);
+  color: var(--cui-color, #1b1f27);
+  font-size: var(--cui-font-size-neg-1, 0.875rem);
+  font-weight: var(--cui-font-weight-strong, 680);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Stacked orientation: date stripe above body. */
+.cui-event-card[data-orient="stacked"] {
+  flex-direction: column;
+}
+
+.cui-event-card[data-orient="stacked"] > .cui-event-card-date {
+  flex: 0 0 auto;
+  flex-direction: row;
+  inline-size: 100%;
+  gap: var(--cui-space-3, 0.75rem);
+}
+
+.cui-event-card[data-orient="stacked"] .cui-event-card-date-day {
+  font-size: var(--cui-font-size-3, 2rem);
+}
+
+/* Featured: larger date block and title. */
+.cui-event-card[data-variant="featured"] {
+  --cui-event-card-date-size: 9rem;
+  --cui-event-card-title-size: var(--cui-font-size-3, 2rem);
+  --cui-event-card-padding: var(--cui-space-6, 2rem);
+}
+
+.cui-event-card[data-variant="featured"] .cui-event-card-date-day {
+  font-size: var(--cui-font-size-5, 4rem);
+}
+
+/* Compact: agenda-style row, no excerpt, tighter spacing. */
+.cui-event-card[data-variant="compact"] {
+  --cui-event-card-date-size: 5.5rem;
+  --cui-event-card-title-size: var(--cui-font-size-1, 1.1875rem);
+  --cui-event-card-padding: var(--cui-space-4, 1rem);
+}
+
+.cui-event-card[data-variant="compact"] .cui-event-card-date-day {
+  font-size: var(--cui-font-size-3, 2rem);
+}
+
+.cui-event-card[data-variant="compact"] .cui-event-card-excerpt {
+  display: none;
+}
+
+.cui-event-card[data-variant="flat"] {
+  --cui-content-card-shadow: none;
+}
+
+.cui-event-card[data-variant="borderless"] {
+  --cui-border-size: 0;
+  --cui-content-card-shadow: none;
+}
+
+/* Status tones — applied via [data-status] on the card so the pill
+   and the date block stay in sync. */
+.cui-event-card[data-status="upcoming"] > .cui-event-card-status {
+  background: color-mix(in oklab, var(--cui-color-accent, oklch(57% 0.18 246deg)) 14%, transparent);
+  color: var(--cui-color-accent, oklch(57% 0.18 246deg));
+}
+
+.cui-event-card[data-status="ongoing"] > .cui-event-card-status {
+  background: color-mix(in oklab, var(--cui-color-success, oklch(58% 0.16 150deg)) 16%, transparent);
+  color: var(--cui-color-success, oklch(58% 0.16 150deg));
+}
+
+.cui-event-card[data-status="ongoing"] {
+  --cui-event-card-date-bg: color-mix(in oklab, var(--cui-color-success, oklch(58% 0.16 150deg)) 18%, var(--cui-color-surface-muted, #edf0f4));
+}
+
+.cui-event-card[data-status="past"] {
+  --cui-event-card-date-bg: var(--cui-color-surface-muted, #edf0f4);
+  --cui-event-card-date-color: var(--cui-color-muted, #5d6675);
+
+  opacity: 0.78;
+}
+
+.cui-event-card[data-status="past"] > .cui-event-card-status {
+  background: var(--cui-color-surface-muted, #edf0f4);
+  color: var(--cui-color-muted, #5d6675);
+}
+
+.cui-event-card[data-status="cancelled"] {
+  --cui-event-card-date-bg: color-mix(in oklab, var(--cui-color-danger, oklch(58% 0.19 28deg)) 12%, var(--cui-color-surface-muted, #edf0f4));
+  --cui-event-card-date-color: var(--cui-color-muted, #5d6675);
+}
+
+.cui-event-card[data-status="cancelled"] > .cui-event-card-status {
+  background: color-mix(in oklab, var(--cui-color-danger, oklch(58% 0.19 28deg)) 16%, transparent);
+  color: var(--cui-color-danger, oklch(58% 0.19 28deg));
+}
+
+.cui-event-card[data-status="cancelled"] .cui-event-card-title {
+  text-decoration: line-through;
+  text-decoration-color: var(--cui-color-danger, oklch(58% 0.19 28deg));
+  text-decoration-thickness: 2px;
+}
+
+.cui-event-card[data-status="sold-out"] > .cui-event-card-status {
+  background: color-mix(in oklab, var(--cui-color-warning, oklch(72% 0.16 82deg)) 22%, transparent);
+  color: var(--cui-color, #1b1f27);
+}
+
+/* --- Event grid ----------------------------------------------------- */
+
+/**
+ * Grid container for `.cui-event-card`s. Auto-fits columns of at
+ * least `--cui-event-grid-min` (22rem default — wider than the
+ * article grid since event cards carry a date block beside the
+ * body). Gap and column-count follow the same `[data-gap]` /
+ * `[data-columns]` conventions as the article grid family.
+ *
+ * @block cui-event-grid
+ * @summary Responsive grid of event cards (22rem min).
+ * @variant compact | spacious — Maps to `[data-gap]`. Override
+ *   `--cui-content-grid-gap` to `--cui-space-3` or `--cui-space-7`.
+ * @variant 2 | 3 — Maps to `[data-columns]`. Pin to fixed columns
+ *   at viewports ≥48rem; below, falls back to auto-fit.
+ * @cssvar --cui-event-grid-min — Minimum column width. Defaults to 22rem.
+ *
+ * @example
+ *   <div class="cui-event-grid" data-columns="2">
+ *     <article class="cui-event-card">…</article>
+ *     <article class="cui-event-card">…</article>
+ *   </div>
+ */
+.cui-event-grid {
+  display: grid;
+  align-items: stretch;
+  gap: var(
+      --cui-content-grid-row-gap,
+      var(--cui-content-grid-gap, var(--cui-space-5, 1.5rem))
+    )
+    var(
+      --cui-content-grid-column-gap,
+      var(--cui-content-grid-gap, var(--cui-space-5, 1.5rem))
+    );
+  grid-template-columns: var(
+    --cui-content-grid-columns,
+    repeat(auto-fit, minmax(min(100%, var(--cui-event-grid-min, 22rem)), 1fr))
+  );
+}
+
+.cui-event-grid[data-gap="compact"] {
+  --cui-content-grid-gap: var(--cui-space-3, 0.75rem);
+}
+
+.cui-event-grid[data-gap="spacious"] {
+  --cui-content-grid-gap: var(--cui-space-7, 3rem);
+}
+
+@media (width >= 48rem) {
+  .cui-event-grid[data-columns="2"] {
+    --cui-content-grid-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cui-event-grid[data-columns="3"] {
+    --cui-content-grid-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* --- Event list (single column, agenda-friendly) -------------------- */
+
+/**
+ * Single-column list of `.cui-event-card`s. Useful for upcoming-
+ * events pages, sidebar agendas, and any place a grid would feel
+ * too dense. The `stacked` variant collapses card chrome to
+ * hairline separators between rows. The `agenda` variant groups
+ * the list by `<h3>` date headers — author-supplied — and tightens
+ * the spacing between cards within each group.
+ *
+ * @block cui-event-list
+ * @summary Single-column list of event cards; `stacked` and `agenda` variants.
+ * @variant compact | spacious — Maps to `[data-gap]`. Override
+ *   `--cui-event-list-gap` to `--cui-space-3` or `--cui-space-7`.
+ * @variant stacked — Maps to `[data-variant]`. Removes gap;
+ *   drops card chrome on each child and inserts hairline borders
+ *   between siblings.
+ * @variant agenda — Maps to `[data-variant]`. Renders `<h3>`
+ *   children as sticky date headers; tightens row gap; pairs well
+ *   with `data-variant="compact"` event cards.
+ * @cssvar --cui-event-list-gap — Gap between cards. Defaults to `--cui-space-3`.
+ *
+ * @example
+ *   <div class="cui-event-list" data-variant="agenda">
+ *     <h3 class="cui-event-list-day">
+ *       <time datetime="2026-06-15">Monday, June 15</time>
+ *     </h3>
+ *     <article class="cui-event-card" data-variant="compact">…</article>
+ *     <article class="cui-event-card" data-variant="compact">…</article>
+ *     <h3 class="cui-event-list-day">
+ *       <time datetime="2026-06-16">Tuesday, June 16</time>
+ *     </h3>
+ *     <article class="cui-event-card" data-variant="compact">…</article>
+ *   </div>
+ */
+.cui-event-list {
+  display: grid;
+  gap: var(--cui-event-list-gap, var(--cui-space-3, 0.75rem));
+}
+
+.cui-event-list[data-gap="compact"] {
+  --cui-event-list-gap: var(--cui-space-2, 0.5rem);
+}
+
+.cui-event-list[data-gap="spacious"] {
+  --cui-event-list-gap: var(--cui-space-5, 1.5rem);
+}
+
+/* Stacked variant: hairline separators instead of cards. */
+.cui-event-list[data-variant="stacked"] {
+  --cui-event-list-gap: 0;
+}
+
+.cui-event-list[data-variant="stacked"] > .cui-event-card {
+  --cui-border-size: 0;
+  --cui-content-card-shadow: none;
+  --cui-event-card-radius: 0;
+
+  border-block-end: var(--cui-border-size-line, 1px) solid
+    var(--cui-color-border, #cfd6df);
+  padding-block: var(--cui-space-3, 0.75rem);
+}
+
+.cui-event-list[data-variant="stacked"] > .cui-event-card:last-child {
+  border-block-end: 0;
+}
+
+/**
+ * Date header inside a `.cui-event-list[data-variant="agenda"]`.
+ * Renders as a small-caps eyebrow above the rows for that day,
+ * with a hairline divider beneath. Use a `<time datetime>` child
+ * so the machine-readable date stays attached to the human label.
+ *
+ * @block cui-event-list-day
+ * @summary Date-header eyebrow inside an agenda-style event list.
+ */
+.cui-event-list-day {
+  margin: 0;
+  margin-block-start: var(--cui-space-4, 1rem);
+  padding-block-end: var(--cui-space-2, 0.5rem);
+  border-block-end: var(--cui-border-size-line, 1px) solid
+    var(--cui-color-border, #cfd6df);
+  color: var(--cui-color-muted, #5d6675);
+  font-size: var(--cui-font-size-eyebrow, 0.875rem);
+  font-weight: var(--cui-font-weight-strong, 680);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cui-event-list-day:first-child {
+  margin-block-start: 0;
+}
