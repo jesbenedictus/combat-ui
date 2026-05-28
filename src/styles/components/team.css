@@ -396,10 +396,8 @@ a.cui-person:focus-visible {
 .cui-org-chart {
   --cui-org-gap: var(--cui-space-5, 1.5rem);
   --cui-org-link-size: var(--cui-space-5, 1.5rem);
-  --cui-org-line-width: 2px;
   --cui-org-line-color: var(--cui-color-border, #cfd6df);
   --cui-org-card-min-inline-size: 14rem;
-  --cui-org-dash: 6 6;
 
   /*
    * Connector SVGs (used as mask images, see below). Each renders one of the
