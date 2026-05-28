@@ -1,6 +1,18 @@
 // @ts-check
 
 /**
+ * CUI Blocks manifest — schema 1.1.0.
+ * Describes the light-DOM CSS "blocks" (BEM-ish class families) and the
+ * design-token groups they consume. Companion to the Custom Elements
+ * Manifest in dist/custom-elements.json.
+ *
+ * @typedef {object} BlocksManifest
+ * @property {string} schemaVersion         Manifest schema version (expected "1.1.0").
+ * @property {Block[]} blocks               One entry per CSS block / sub-element.
+ * @property {TokenGroup[]} tokenGroups     Design-token groups (typography, color, spacing, etc.).
+ */
+
+/**
  * Parses CSSDoc comment blocks from CSS source. A doc block  is a
  * `/** ... *\/` comment immediately preceding a selector and containing
  * an `@block <name>` tag. Comment blocks without an `@block` tag are ignored.
