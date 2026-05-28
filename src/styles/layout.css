@@ -17,7 +17,10 @@
  */
 .cui-page {
   container-type: inline-size;
-  inline-size: min(100% - 2rem, 72rem);
+  inline-size: min(
+    100% - var(--cui-container-gutter, 2rem),
+    var(--cui-container, 72rem)
+  );
   margin-inline: auto;
   padding-block: var(--cui-space-6, 2rem);
 }
@@ -34,7 +37,10 @@
  */
 .cui-page-narrow {
   container-type: inline-size;
-  inline-size: min(100% - 2rem, 48rem);
+  inline-size: min(
+    100% - var(--cui-container-gutter, 2rem),
+    var(--cui-container-narrow, 48rem)
+  );
   margin-inline: auto;
   padding-block: var(--cui-space-6, 2rem);
 }
@@ -51,7 +57,10 @@
  */
 .cui-page-wide {
   container-type: inline-size;
-  inline-size: min(100% - 2rem, 96rem);
+  inline-size: min(
+    100% - var(--cui-container-gutter, 2rem),
+    var(--cui-container-wide, 96rem)
+  );
   margin-inline: auto;
   padding-block: var(--cui-space-6, 2rem);
 }
