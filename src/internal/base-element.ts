@@ -11,7 +11,7 @@ export function supportsConstructableStyleSheets(): boolean {
 export function cssStyleSheet(cssText: string): CSSStyleSheet {
   let sheet = sheetCache.get(cssText);
 
-  if (sheet === undefined) {
+  if (!sheet) {
     sheet = new CSSStyleSheet();
     sheet.replaceSync(cssText);
     sheetCache.set(cssText, sheet);
@@ -64,38 +64,14 @@ export class CombatElement extends HTMLElement {
   }
 
   private adoptStyles(): void {
-    if (!this.shadowRoot || this.hasAdoptedStyles()) {
-      return;
-    }
+   const root = this.shadowRoot;
+   if (!root || root.adoptedStyleSheets.length > 0) return;
 
-    const styles = normalizeStyles(
-      (this.constructor as typeof CombatElement).styles,
-    );
-
-    if (styles.length === 0) {
-      return;
-    }
-
-    if (supportsConstructableStyleSheets()) {
-      const sheets = styles.map((style) => {
-        return typeof style === "string" ? cssStyleSheet(style) : style;
-      });
-
-      this.shadowRoot.adoptedStyleSheets = [
-        ...this.shadowRoot.adoptedStyleSheets,
-        ...sheets,
-      ];
-
-      return;
-    }
-
-    const style = document.createElement("style");
-    style.dataset.combatUi = "styles";
-    style.textContent = styles
-      .map((s) => (typeof s === "string" ? s : Array.from(s.cssRules, (rule) => rule.cssText).join("\n")))
-      .join("\n");
-
-    this.shadowRoot.prepend(style);
+   const styles = (this.constructor as typeof CombatElement).styles;
+   const list = Array.isArray(styles) ? styles : [styles];
+   root.adoptedStyleSheets = list.map((s) =>
+    typeof s === "string" ? cssStyleSheet(s) : s,
+   );
   }
 
   private appendShadowTemplate(html: string): void {
