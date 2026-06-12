@@ -25,13 +25,10 @@ import { CombatElement, cssStyleSheet } from "../../internal/base-element";
  */
 export class CuiPageIntro extends CombatElement {
   static override styles = [cssStyleSheet(style)];
-  static readonly tagName = "cui-page-intro";
+  static override tagName = "cui-page-intro";
 
   connectedCallback(): void {
-    this.adoptStyles();
-    if (!this.shadowRoot?.querySelector("section")) {
-      this.appendShadowTemplate(this.template());
-    }
+      this.renderTemplate(this.template());
   }
   
   private template(): string {
@@ -53,11 +50,5 @@ export class CuiPageIntro extends CombatElement {
           </div>
         </section>
       `
-  }
-}
-
-export function defineCuiPageIntro(registry = customElements) {
-  if (!registry.get(CuiPageIntro.tagName)) {
-    registry.define(CuiPageIntro.tagName, CuiPageIntro);
   }
 }

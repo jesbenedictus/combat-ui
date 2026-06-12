@@ -50,7 +50,7 @@ const DEFAULTS = {
  * </cui-scroll-stage>
  */
 export class CuiScrollStage extends CombatElement {
-  static readonly tagName = "cui-scroll-stage";
+  static override tagName = "cui-scroll-stage";
   static override styles = [cssStyleSheet(scrollStageCss)];
   static observedAttributes = [
     "focus-bias",
@@ -66,17 +66,13 @@ export class CuiScrollStage extends CombatElement {
   private parallax: ParallaxRegistration | null = null;
 
   connectedCallback(): void {
-    this.adoptStyles();
-
-    if (!this.shadowRoot?.querySelector(".track")) {
-      this.appendShadowTemplate(`
-        <div class="track" part="track">
-          <div class="stage" part="stage">
-            <slot></slot>
-          </div>
+    this.renderTemplate(`
+      <div class="track" part="track">
+        <div class="stage" part="stage">
+          <slot></slot>
         </div>
-      `);
-    }
+      </div>
+    `);
 
     this.syncCssVars();
 
@@ -176,11 +172,5 @@ export class CuiScrollStage extends CombatElement {
     this.style.setProperty("--cui-stage-offset", state.offset.toFixed(4));
     this.style.setProperty("--cui-stage-active", state.active ? "1" : "0");
     this.classList.toggle("is-active", state.active);
-  }
-}
-
-export function defineCuiScrollStage(registry: CustomElementRegistry = customElements): void {
-  if (!registry.get(CuiScrollStage.tagName)) {
-    registry.define(CuiScrollStage.tagName, CuiScrollStage);
   }
 }

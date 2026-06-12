@@ -106,7 +106,7 @@ function parseIso(iso: string): { y: number; m: number; d: number } | null {
  * </cui-calendar>
  */
 export class CuiCalendar extends CombatElement {
-  static readonly tagName = "cui-calendar";
+  static override tagName = "cui-calendar";
   static override readonly styles = [cssStyleSheet(calendarCss)];
   static observedAttributes = [
     "year",
@@ -133,7 +133,6 @@ export class CuiCalendar extends CombatElement {
   }
 
   connectedCallback(): void {
-    this.adoptStyles();
     this.applyAttributes();
     this.renderFrame();
     this.collectEvents();
@@ -209,9 +208,7 @@ export class CuiCalendar extends CombatElement {
   }
 
   private renderFrame(): void {
-    if (this.shadowRoot?.querySelector(".frame")) return;
-
-    this.appendShadowTemplate(`
+    this.renderTemplate(`
       <div class="frame" part="frame">
         <div class="header" part="header">
           <h2 class="title" part="title" aria-live="polite"></h2>
@@ -532,13 +529,5 @@ export class CuiCalendar extends CombatElement {
     this.slotObserver?.disconnect();
     this.slotObserver = new MutationObserver(() => this.refresh());
     this.slotObserver.observe(this, { childList: true, subtree: true });
-  }
-}
-
-export function defineCuiCalendar(
-  registry: CustomElementRegistry = customElements,
-): void {
-  if (!registry.get(CuiCalendar.tagName)) {
-    registry.define(CuiCalendar.tagName, CuiCalendar);
   }
 }

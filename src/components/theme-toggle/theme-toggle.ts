@@ -41,7 +41,7 @@ const defaultAriaLabels: Record<Theme, string> = {
  * </cui-theme-toggle>
  */
 export class CuiThemeToggle extends CombatElement {
-  static readonly tagName = "cui-theme-toggle";
+  static override tagName = "cui-theme-toggle";
 
   static override styles = [cssStyleSheet(themeToggleStyles)];
 
@@ -56,12 +56,13 @@ export class CuiThemeToggle extends CombatElement {
     ];
   }
 
+  private eventsBound = false;
+
   private readonly handleThemeChange = () => {
     this.render();
   };
 
   connectedCallback() {
-    this.adoptStyles();
     this.render();
     document.addEventListener(themeChangeEvent, this.handleThemeChange);
   }
@@ -75,14 +76,14 @@ export class CuiThemeToggle extends CombatElement {
   }
 
   private render() {
-    if (!this.shadowRoot?.querySelector("button")) {
-      this.appendShadowTemplate(`
-        <button part="button" type="button">
-          <span part="icon" aria-hidden="true"></span>
-          <span part="label"></span>
-        </button>
-      `);
-
+    this.renderTemplate(`
+      <button part="button" type="button">
+        <span part="icon" aria-hidden="true"></span>
+        <span part="label"></span>
+      </button>
+    `);
+    if (!this.eventsBound) {
+      this.eventsBound = true;
       this.shadowRoot
         ?.querySelector("button")
         ?.addEventListener("click", () => this.cycleTheme());
@@ -182,8 +183,3 @@ if (typeof window !== "undefined") {
   });
 }
 
-export function defineCuiThemeToggle(registry = customElements) {
-  if (!registry.get("cui-theme-toggle")) {
-    registry.define("cui-theme-toggle", CuiThemeToggle);
-  }
-}

@@ -57,17 +57,14 @@ export interface CuiFormErrorDetail {
  * });
  */
 export class CuiForm extends CombatElement {
-  static readonly tagName = "cui-form";
+  static override tagName = "cui-form";
   static override styles = [cssStyleSheet(formCss)];
 
   private abortController: AbortController | null = null;
   private submitHandler: CuiFormSubmitHandler | null = null;
 
   connectedCallback(): void {
-    this.adoptStyles();
-    if (!this.shadowRoot?.querySelector("slot")) {
-      this.appendShadowTemplate(`<slot></slot>`);
-    }
+    this.renderTemplate(`<slot></slot>`);
     this.bindEvents();
   }
 
@@ -163,13 +160,5 @@ export class CuiForm extends CombatElement {
     } finally {
       this.busy = false;
     }
-  }
-}
-
-export function defineCuiForm(
-  registry: CustomElementRegistry = customElements,
-): void {
-  if (!registry.get(CuiForm.tagName)) {
-    registry.define(CuiForm.tagName, CuiForm);
   }
 }

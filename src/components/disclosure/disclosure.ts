@@ -73,7 +73,7 @@ function installTriggerListener(): void {
  * </button>
  */
 export class CuiDisclosure extends CombatElement {
-  static readonly tagName = "cui-disclosure";
+  static override tagName = "cui-disclosure";
   static override styles = [cssStyleSheet(disclosureCss)];
   static observedAttributes = ["open"];
 
@@ -81,10 +81,7 @@ export class CuiDisclosure extends CombatElement {
   private boundDetails: HTMLDetailsElement | null = null;
 
   connectedCallback(): void {
-    this.adoptStyles();
-    if (!this.shadowRoot?.querySelector("slot")) {
-      this.appendShadowTemplate(`<slot></slot>`);
-    }
+    this.renderTemplate(`<slot></slot>`);
     this.bindDetails();
     installTriggerListener();
   }
@@ -155,14 +152,6 @@ export class CuiDisclosure extends CombatElement {
         bubbles: true,
       }),
     );
-  }
-}
-
-export function defineCuiDisclosure(
-  registry: CustomElementRegistry = customElements,
-): void {
-  if (!registry.get(CuiDisclosure.tagName)) {
-    registry.define(CuiDisclosure.tagName, CuiDisclosure);
   }
 }
 

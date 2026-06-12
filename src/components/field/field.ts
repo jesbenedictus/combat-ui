@@ -74,7 +74,7 @@ const VALIDITY_KEYS: (keyof ValidityState)[] = [
  * </cui-field>
  */
 export class CuiField extends CombatElement {
-  static readonly tagName = "cui-field";
+  static override tagName = "cui-field";
   static override styles = [cssStyleSheet(fieldCss)];
   static observedAttributes = ["required"];
 
@@ -86,11 +86,7 @@ export class CuiField extends CombatElement {
   private uid = `cui-field-${++CuiField.instanceCount}`;
 
   connectedCallback(): void {
-    this.adoptStyles();
-
-    if (!this.shadowRoot?.querySelector("[part='control']")) {
-      this.appendShadowTemplate(this.template());
-    }
+    this.renderTemplate(this.template());
     this.bindEvents();
     this.sync();
   }
@@ -388,14 +384,5 @@ export class CuiField extends CombatElement {
         <p part="error" hidden></p>
       </div>
     `;
-  }
-}
-
-
-export function defineCuiField(
-  registry: CustomElementRegistry = customElements,
-): void {
-  if (!registry.get(CuiField.tagName)) {
-    registry.define(CuiField.tagName, CuiField);
   }
 }

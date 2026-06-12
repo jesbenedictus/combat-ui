@@ -1,4 +1,4 @@
-export { CuiField, defineCuiField } from "./field";
+export { CuiField } from "./field";
 export type {
   CuiFieldControl,
   CuiFieldValidator,

@@ -1,6 +1,5 @@
 export {
   CuiToastRegion,
-  defineCuiToastRegion,
   toast,
 } from "./toast";
 export type {

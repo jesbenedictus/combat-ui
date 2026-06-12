@@ -1,1 +1,1 @@
-export { CuiCta, defineCuiCta } from './cta';
+export { CuiCta } from './cta';

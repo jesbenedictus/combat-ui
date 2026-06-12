@@ -1,1 +1,1 @@
-export { CuiReveal, defineCuiReveal } from "./reveal";
+export { CuiReveal } from "./reveal";

@@ -1,6 +1,5 @@
 export {
   CuiDayPlanner,
-  defineCuiDayPlanner,
   type CuiDayPlannerEvent,
   type CuiDayPlannerEventSelectDetail,
   type CuiDayPlannerNavigateDetail,

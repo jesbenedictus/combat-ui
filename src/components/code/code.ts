@@ -57,16 +57,13 @@ const javascriptKeywords = new Set([
  */
 export class CuiCode extends CombatElement {
   static override styles = [cssStyleSheet(styles)];
-  static readonly tagName = "cui-code";
+  static override tagName = "cui-code";
 
   private _source: string = "";
 
   connectedCallback(): void {
-    this.adoptStyles();
-
+    this.renderTemplate(this.template());
     if (!this.shadowRoot?.querySelector(".frame")) {
-      this.appendShadowTemplate(this.template());
-
       this.shadowRoot?.querySelector(".copy")?.addEventListener("click", () => this.copyToClipboard());
     }
 
@@ -132,24 +129,18 @@ export class CuiCode extends CombatElement {
   }
 }
 
-export function defineCuiCode(registry: CustomElementRegistry = customElements): void {
-  if (!registry.get(CuiCode.tagName)) {
-    registry.define(CuiCode.tagName, CuiCode);
-  }
-}
-
 function normalizeSource(source: string): string {
   const lines = source.replace(/^\n/, "").replace(/\s+$/, "").split("\n");
-  const indent = lines.filter(l =>l.trim()).reduce((smallestIndent, line) => {
-      const currentIndent = line.match(/^\s*/)?.[0].length ?? 0;
-      return Math.min(smallestIndent, currentIndent);
-    }, Infinity);
+  const indent = lines.filter(l => l.trim()).reduce((smallestIndent, line) => {
+    const currentIndent = line.match(/^\s*/)?.[0].length ?? 0;
+    return Math.min(smallestIndent, currentIndent);
+  }, Infinity);
 
-    if (!Number.isFinite(indent) || indent === 0) {
-      return lines.join("\n");
-    }
+  if (!Number.isFinite(indent) || indent === 0) {
+    return lines.join("\n");
+  }
 
-    return lines.map(line => line.slice(indent)).join("\n");
+  return lines.map(line => line.slice(indent)).join("\n");
 }
 
 function highlight(source: string, language: string): string {

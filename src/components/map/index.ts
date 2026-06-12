@@ -1,1 +1,1 @@
-export { CuiMap, defineCuiMap } from "./map";
+export { CuiMap } from "./map";
