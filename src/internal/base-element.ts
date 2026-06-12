@@ -47,6 +47,22 @@ export class CombatElement extends HTMLElement {
     this.appendShadowTemplate(html);
   }
 
+  protected setNullableAttribute(name: string, value: string | number | null): void {
+    if (value === null || value === "") {
+      this.removeAttribute(name);
+    } else {
+      this.setAttribute(name, String(value));
+    }
+  }
+
+  protected setCssVar(variable: string, value: string | null): void {
+    if (value === null) {
+      this.style.removeProperty(variable);
+    } else {
+      this.style.setProperty(variable, value);
+    }
+  }
+
   private adoptStyles(): void {
     if (!this.shadowRoot || this.hasAdoptedStyles()) {
       return;
@@ -82,7 +98,7 @@ export class CombatElement extends HTMLElement {
     this.shadowRoot.prepend(style);
   }
 
-  protected appendShadowTemplate(html: string): void {
+  private appendShadowTemplate(html: string): void {
     if (!this.shadowRoot) {
       return;
     }
