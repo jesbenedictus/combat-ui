@@ -36,7 +36,7 @@ export class CuiButton extends CombatElement {
   }
 
   attributeChangedCallback(): void {
-    // this.render();
+    this.render();
     this.sync();
   }
 
