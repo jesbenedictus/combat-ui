@@ -1,1 +1,1 @@
-export { defineCuiButton, CuiButton } from './button.js';
+export { CuiButton } from './button.js';

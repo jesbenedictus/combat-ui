@@ -62,17 +62,14 @@ function installTriggerListener(): void {
  * </cui-modal>
  */
 export class CuiModal extends CombatElement {
-  static readonly tagName = "cui-modal";
+  static override tagName = "cui-modal";
   static override styles = [cssStyleSheet(modalCss)];
   static observedAttributes = ["open"];
 
   private abortController: AbortController | null = null;
 
   connectedCallback(): void {
-    this.adoptStyles();
-    if (!this.shadowRoot?.querySelector("slot")) {
-      this.appendShadowTemplate(`<slot></slot>`);
-    }
+    this.renderTemplate(`<slot></slot>`);
     this.bindEvents();
     installTriggerListener();
     if (this.hasAttribute("open")) {
@@ -205,13 +202,5 @@ export class CuiModal extends CombatElement {
       },
       { signal, capture: true },
     );
-  }
-}
-
-export function defineCuiModal(
-  registry: CustomElementRegistry = customElements,
-): void {
-  if (!registry.get(CuiModal.tagName)) {
-    registry.define(CuiModal.tagName, CuiModal);
   }
 }

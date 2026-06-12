@@ -1,4 +1,4 @@
-import { CombatElement, cssStyleSheet } from "../../internal/base-element";
+import { CombatElement, cssStyleSheet, defineElement } from "../../internal/base-element";
 import toastCss from "./toast.css?inline";
 
 export type CuiToastVariant = "info" | "success" | "warning" | "danger";
@@ -68,15 +68,13 @@ const VARIANT_ICONS: Record<CuiToastVariant, string> = {
  * <cui-toast-region placement="block-start-center"></cui-toast-region>
  */
 export class CuiToastRegion extends CombatElement {
-  static readonly tagName = "cui-toast-region";
+  static override tagName = "cui-toast-region";
   static override styles = [cssStyleSheet(toastCss)];
   static observedAttributes = ["placement"];
 
   connectedCallback(): void {
-    this.adoptStyles();
-    if (!this.shadowRoot?.querySelector("slot")) {
-      this.appendShadowTemplate(`<slot></slot>`);
-    }
+    this.renderTemplate(`<slot></slot>`);
+
     if (!this.hasAttribute("role")) this.setAttribute("role", "region");
     if (!this.hasAttribute("aria-label")) {
       this.setAttribute("aria-label", "Notifications");
@@ -96,7 +94,7 @@ export class CuiToastRegion extends CombatElement {
 const regionCache = new Map<CuiToastPlacement, CuiToastRegion>();
 
 function ensureRegion(placement: CuiToastPlacement): CuiToastRegion {
-  defineCuiToastRegion();
+  defineElement(CuiToastRegion);
   const cached = regionCache.get(placement);
   if (cached?.isConnected) return cached;
   const existing = document.querySelector<CuiToastRegion>(
@@ -270,11 +268,3 @@ export const toast: CuiToastFn = Object.assign(createToast, {
     createToast({ ...opts, message, variant: "danger" }),
 });
 
-export function defineCuiToastRegion(
-  registry: CustomElementRegistry = customElements,
-): void {
-  if (!registry.get(CuiToastRegion.tagName)) {
-    registry.define(CuiToastRegion.tagName, CuiToastRegion);
-  }
-  installDismissHandler();
-}

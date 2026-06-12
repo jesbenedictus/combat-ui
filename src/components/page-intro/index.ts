@@ -1,1 +1,1 @@
-export { CuiPageIntro, defineCuiPageIntro } from "./page-intro";
+export { CuiPageIntro } from "./page-intro";

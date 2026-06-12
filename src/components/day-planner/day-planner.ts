@@ -187,7 +187,7 @@ function readEndFromCard(card: HTMLElement, start: Date): Date | null {
  * </cui-day-planner>
  */
 export class CuiDayPlanner extends CombatElement {
-  static readonly tagName = "cui-day-planner";
+  static override tagName = "cui-day-planner";
   static override readonly styles = [cssStyleSheet(dayPlannerCss)];
   static observedAttributes = [
     "date",
@@ -215,7 +215,6 @@ export class CuiDayPlanner extends CombatElement {
   }
 
   connectedCallback(): void {
-    this.adoptStyles();
     this.applyAttributes();
     this.renderFrame();
     this.collectEvents();
@@ -308,15 +307,7 @@ export class CuiDayPlanner extends CombatElement {
   }
 
   private renderFrame(): void {
-    if (this.shadowRoot?.querySelector(".frame")) {
-      this.board = this.shadowRoot?.querySelector(".board") ?? null;
-      this.labels = this.shadowRoot?.querySelector(".labels") ?? null;
-      this.track = this.shadowRoot?.querySelector(".track") ?? null;
-      this.titleEl = this.shadowRoot?.querySelector(".title") ?? null;
-      return;
-    }
-
-    this.appendShadowTemplate(`
+    this.renderTemplate(`
       <div class="frame" part="frame">
         <div class="header" part="header">
           <h2 class="title" part="title" aria-live="polite"></h2>
@@ -602,13 +593,5 @@ export class CuiDayPlanner extends CombatElement {
     this.slotObserver?.disconnect();
     this.slotObserver = new MutationObserver(() => this.refresh());
     this.slotObserver.observe(this, { childList: true, subtree: true });
-  }
-}
-
-export function defineCuiDayPlanner(
-  registry: CustomElementRegistry = customElements,
-): void {
-  if (!registry.get(CuiDayPlanner.tagName)) {
-    registry.define(CuiDayPlanner.tagName, CuiDayPlanner);
   }
 }

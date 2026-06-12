@@ -25,31 +25,21 @@ import { CombatElement, cssStyleSheet } from '../../internal/base-element';
  * </cui-cta>
  */
 export class CuiCta extends CombatElement {
-  static tagName = 'cui-cta';
-  static override styles = cssStyleSheet(ctaCss);
+  static override tagName = 'cui-cta';
+  static override styles = [cssStyleSheet(ctaCss)];
 
   connectedCallback(): void {
-    this.adoptStyles();
-
-    if (!this.shadowRoot?.querySelector(".cta")) {
-      this.appendShadowTemplate(`
-        <section class="cta" part="cta">
-          <div class="content" part="content">
-            <slot name="eyebrow"></slot>
-            <slot name="title"></slot>
-            <slot></slot>
-          </div>
-          <div class="actions" part="actions">
-            <slot name="actions"></slot>
-          </div>
-        </section>
-      `);
-    }
-  }
-}
-
-export function defineCuiCta(registry: CustomElementRegistry = customElements): void {
-  if (!registry.get(CuiCta.tagName)) {
-    registry.define(CuiCta.tagName, CuiCta);
+    this.renderTemplate(`
+      <section class="cta" part="cta">
+        <div class="content" part="content">
+          <slot name="eyebrow"></slot>
+          <slot name="title"></slot>
+          <slot></slot>
+        </div>
+        <div class="actions" part="actions">
+          <slot name="actions"></slot>
+        </div>
+      </section>
+    `);
   }
 }

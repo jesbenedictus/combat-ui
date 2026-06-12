@@ -1,2 +1,2 @@
-export { CuiDisclosure, defineCuiDisclosure } from "./disclosure";
+export { CuiDisclosure } from "./disclosure";
 export type { CuiDisclosureToggleDetail } from "./disclosure";

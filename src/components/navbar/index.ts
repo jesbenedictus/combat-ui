@@ -1,1 +1,1 @@
-export { defineCuiNavbar, CuiNavbar } from './navbar.js';
+export { CuiNavbar } from './navbar.js';

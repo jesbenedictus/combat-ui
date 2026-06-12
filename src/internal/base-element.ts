@@ -26,6 +26,9 @@ function normalizeStyles(styles: CombatStyles): Array<CSSStyleSheet | string> {
 
 export class CombatElement extends HTMLElement {
   static readonly styles: CombatStyles = [];
+  public static readonly tagName: string;
+
+  private rendered: boolean = false;
 
   constructor() {
     super();
@@ -35,7 +38,16 @@ export class CombatElement extends HTMLElement {
     }
   }
 
-  protected adoptStyles(): void {
+  protected renderTemplate(html: string): void {
+    this.adoptStyles();
+    if (!this.shadowRoot || this.rendered) {
+      return;
+    }
+    this.rendered = true;
+    this.appendShadowTemplate(html);
+  }
+
+  private adoptStyles(): void {
     if (!this.shadowRoot || this.hasAdoptedStyles()) {
       return;
     }
@@ -89,5 +101,19 @@ export class CombatElement extends HTMLElement {
       this.shadowRoot.querySelector("style[data-combat-ui='styles']") !== null ||
       this.shadowRoot.adoptedStyleSheets.length > 0
     );
+  }
+}
+
+export interface CombatElementConstructor {
+  new (): CombatElement;
+  readonly tagName: string;
+}
+
+export function defineElement(
+  ctor: CombatElementConstructor,
+  registry: CustomElementRegistry = customElements,
+): void {
+  if (!registry.get(ctor.tagName)) {
+    registry.define(ctor.tagName, ctor);
   }
 }

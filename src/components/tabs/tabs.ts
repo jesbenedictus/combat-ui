@@ -21,22 +21,23 @@ import tabsCss from "./tabs.css?inline";
  * </cui-tabs>
  */
 export class CuiTabs extends CombatElement {
-  static readonly tagName = "cui-tabs";
+  static override tagName = "cui-tabs";
   static override styles = [cssStyleSheet(tabsCss)];
 
+  private eventsBound = false;
+
   connectedCallback(): void {
-    this.adoptStyles();
-
-    if (!this.shadowRoot?.querySelector("[part='tablist']")) {
-      this.appendShadowTemplate(`
-        <div part="tablist" role="tablist">
-          <slot name="tab"></slot>
-        </div>
-        <div part="panels">
-          <slot name="panel"></slot>
-        </div>
+    this.renderTemplate(`
+      <div part="tablist" role="tablist">
+      <slot name="tab"></slot>
+      </div>
+      <div part="panels">
+      <slot name="panel"></slot>
+      </div>
       `);
-
+      
+    if (!this.eventsBound) {
+      this.eventsBound = true;
       this.addEventListener("click", (event) => this.handleClick(event));
       this.addEventListener("keydown", (event) => this.handleKeydown(event));
       this.shadowRoot?.querySelectorAll("slot").forEach((slot) => {
@@ -132,10 +133,3 @@ export class CuiTabs extends CombatElement {
   }
 }
 
-export function defineCuiTabs(
-  registry: CustomElementRegistry = customElements,
-): void {
-  if (!registry.get(CuiTabs.tagName)) {
-    registry.define(CuiTabs.tagName, CuiTabs);
-  }
-}

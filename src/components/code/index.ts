@@ -1,1 +1,1 @@
-export {CuiCode, defineCuiCode} from "./code";
+export { CuiCode } from "./code";

@@ -1,2 +1,2 @@
-export { CuiModal, defineCuiModal } from "./modal";
+export { CuiModal } from "./modal";
 export type { CuiModalCloseDetail } from "./modal";

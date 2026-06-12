@@ -22,16 +22,12 @@ import { CombatElement, cssStyleSheet } from "../../internal/base-element";
  * </cui-reveal>
  */
 export class CuiReveal extends CombatElement {
-  static readonly tagName = "cui-reveal";
+  static override tagName = "cui-reveal";
   static override styles = [cssStyleSheet(revealCss)];
   static observedAttributes = ["delay", "distance", "threshold"];
 
   connectedCallback(): void {
-    this.adoptStyles();
-
-    if (!this.shadowRoot?.querySelector("slot")) {
-      this.appendShadowTemplate(`<slot></slot>`);
-    }
+    this.renderTemplate(`<slot></slot>`);
 
     this.syncVars();
   }
@@ -68,9 +64,4 @@ export class CuiReveal extends CombatElement {
       this.style.removeProperty("--cui-reveal-threshold");
     }
   }
-}
-
-export function defineCuiReveal(registry: CustomElementRegistry = customElements): void {
-  if (registry.get(CuiReveal.tagName)) return;
-  registry.define(CuiReveal.tagName, CuiReveal);
 }

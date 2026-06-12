@@ -65,7 +65,7 @@ export interface CuiTreeContextDetail {
  * </cui-tree>
  */
 export class CuiTree extends CombatElement {
-  static readonly tagName = "cui-tree";
+  static override tagName = "cui-tree";
   static override styles = [cssStyleSheet(treeCss)];
   static observedAttributes = ["selectable", "draggable-items"];
 
@@ -74,10 +74,7 @@ export class CuiTree extends CombatElement {
   private dragSource: HTMLElement | null = null;
 
   connectedCallback(): void {
-    this.adoptStyles();
-    if (!this.shadowRoot?.querySelector("slot")) {
-      this.appendShadowTemplate(`<slot></slot>`);
-    }
+    this.renderTemplate(`<slot></slot>`);
 
     this.bindEvents();
     this.sync();
@@ -430,10 +427,3 @@ export class CuiTree extends CombatElement {
   }
 }
 
-export function defineCuiTree(
-  registry: CustomElementRegistry = customElements,
-): void {
-  if (!registry.get(CuiTree.tagName)) {
-    registry.define(CuiTree.tagName, CuiTree);
-  }
-}
