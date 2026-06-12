@@ -36,13 +36,11 @@ import { defineElement } from "./internal/base-element";
 export type { CuiArticleFilterChangeDetail } from "./components/article-filter";
 export type {
   CuiCalendarDaySelectDetail,
-  CuiCalendarEvent,
   CuiCalendarEventSelectDetail,
   CuiCalendarNavigateDetail,
   CuiCalendarWeekdayStart,
 } from "./components/calendar";
 export type {
-  CuiDayPlannerEvent,
   CuiDayPlannerEventSelectDetail,
   CuiDayPlannerNavigateDetail,
   CuiDayPlannerSlotSelectDetail,

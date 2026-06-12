@@ -121,13 +121,4 @@ export class CuiHero extends CombatElement {
       this.style.removeProperty("--cui-hero-background-size");
     }
   }
-
-  private setNullableAttribute(name: string, value: string | null): void {
-    if (value === null || value === "") {
-      this.removeAttribute(name);
-      return;
-    }
-
-    this.setAttribute(name, value);
-  }
 }
