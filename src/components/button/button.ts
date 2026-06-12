@@ -23,7 +23,7 @@ const stringAttributes = ["href", "target", "rel", "type"] as const;
  * <cui-button href="/docs" target="_blank" rel="noopener">Documentation</cui-button>
  */
 export class CuiButton extends CombatElement {
-  static readonly tagName = "cui-button";
+  static override tagName = "cui-button";
   static override styles = [cssStyleSheet(buttonCss)];
 
   static get observedAttributes(): string[] {
@@ -31,7 +31,6 @@ export class CuiButton extends CombatElement {
   }
 
   connectedCallback(): void {
-    this.adoptStyles();
     this.render();
     this.sync();
   }
@@ -98,7 +97,7 @@ export class CuiButton extends CombatElement {
 
     currentControl?.remove();
 
-    this.appendShadowTemplate(
+    this.renderTemplate(
       shouldRenderLink
         ? `
           <a class="control" part="button">
@@ -145,15 +144,6 @@ export class CuiButton extends CombatElement {
     return this.shadowRoot?.querySelector(".control") ?? null;
   }
 
-  private setNullableAttribute(name: string, value: string | null): void {
-    if (value === null || value === "") {
-      this.removeAttribute(name);
-      return;
-    }
-
-    this.setAttribute(name, value);
-  }
-
   private syncOptionalAttribute(
     element: HTMLElement,
     name: "rel" | "target"
@@ -166,13 +156,5 @@ export class CuiButton extends CombatElement {
     }
 
     element.removeAttribute(name);
-  }
-}
-
-export function defineCuiButton(
-  registry: CustomElementRegistry = customElements
-): void {
-  if (!registry.get(CuiButton.tagName)) {
-    registry.define(CuiButton.tagName, CuiButton);
   }
 }

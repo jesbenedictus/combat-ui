@@ -1,1 +1,1 @@
-export { CuiThemeToggle, getTheme, setTheme, defineCuiThemeToggle, type Theme } from "./theme-toggle";
+export { CuiThemeToggle, getTheme, setTheme, type Theme } from "./theme-toggle";

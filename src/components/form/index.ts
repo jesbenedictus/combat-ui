@@ -1,4 +1,4 @@
-export { CuiForm, defineCuiForm } from "./form";
+export { CuiForm } from "./form";
 export type {
   CuiFormSubmitHandler,
   CuiFormSubmitDetail,

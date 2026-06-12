@@ -1,4 +1,4 @@
-export { CuiTree, defineCuiTree } from "./tree";
+export { CuiTree } from "./tree";
 export type {
   CuiTreeDropPosition,
   CuiTreeDropDetail,

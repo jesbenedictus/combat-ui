@@ -37,7 +37,7 @@ import style from "./navbar.css?inline";
  * </cui-navbar>
  */
 export class CuiNavbar extends CombatElement {
-  static readonly tagName = "cui-navbar";
+  static override tagName = "cui-navbar";
   static override styles = [cssStyleSheet(style)];
   static observedAttributes = [
     "expanded",
@@ -51,11 +51,7 @@ export class CuiNavbar extends CombatElement {
   private collapseId = `cui-navbar-collapse-${++CuiNavbar.instanceCounter}`;
 
   connectedCallback(): void {
-    this.adoptStyles();
-
-    if (!this.shadowRoot?.querySelector("nav")) {
-      this.appendShadowTemplate(this.template());
-    }
+    this.renderTemplate(this.template());
 
     this.bindEvents();
     this.sync();
@@ -261,13 +257,5 @@ export class CuiNavbar extends CombatElement {
         .forEach((nested) => nested.removeAttribute("data-open"));
     }
     this.syncDropdowns();
-  }
-}
-
-export function defineCuiNavbar(
-  registry: CustomElementRegistry = customElements,
-): void {
-  if (!registry.get(CuiNavbar.tagName)) {
-    registry.define(CuiNavbar.tagName, CuiNavbar);
   }
 }

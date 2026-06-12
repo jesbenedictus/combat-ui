@@ -1,5 +1,5 @@
 import type * as Leaflet from "leaflet";
-import type {} from "leaflet.markercluster";
+import type { } from "leaflet.markercluster";
 import { CombatElement, cssStyleSheet } from "../../internal/base-element";
 import leafletCss from "leaflet/dist/leaflet.css?inline";
 import clusterCss from "leaflet.markercluster/dist/MarkerCluster.css?inline";
@@ -129,7 +129,7 @@ function parseNumber(value: string | null): number | null {
  * </cui-map>
  */
 export class CuiMap extends CombatElement {
-  static readonly tagName = "cui-map";
+  static override tagName = "cui-map";
   static override readonly styles = [
     cssStyleSheet(leafletCss),
     cssStyleSheet(clusterCss),
@@ -162,20 +162,16 @@ export class CuiMap extends CombatElement {
   private ready = false;
 
   connectedCallback(): void {
-    this.adoptStyles();
-
-    if (!this.shadowRoot?.querySelector(".map")) {
-      this.appendShadowTemplate(`
-        <div class="map" part="map">
-          <slot name="title"></slot>
-          <div class="canvas" part="canvas" role="region"></div>
-          <slot name="legend"></slot>
-          <div class="fallback" part="fallback">
-            <slot></slot>
-          </div>
+    this.renderTemplate(`
+      <div class="map" part="map">
+        <slot name="title"></slot>
+        <div class="canvas" part="canvas" role="region"></div>
+        <slot name="legend"></slot>
+        <div class="fallback" part="fallback">
+          <slot></slot>
         </div>
-      `);
-    }
+      </div>
+    `);
 
     this.syncAriaLabel();
     this.observeIntersection();
@@ -438,19 +434,19 @@ export class CuiMap extends CombatElement {
       // anchoring — Leaflet centres them on the lat/lng by default.
       const icon = template
         ? leaflet.divIcon({
-            className: "cui-map-marker",
-            html: template.innerHTML,
-          })
+          className: "cui-map-marker",
+          html: template.innerHTML,
+        })
         : leaflet.divIcon({
-            className: "cui-map-marker cui-map-marker--default",
-            html:
-              '<svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">' +
-              '<path fill="currentColor" d="M12 0C5.4 0 0 5.4 0 12c0 8 12 20 12 20s12-12 12-20C24 5.4 18.6 0 12 0z"/>' +
-              "</svg>",
-            iconSize: [28, 37],
-            iconAnchor: [14, 37],
-            popupAnchor: [0, -32],
-          });
+          className: "cui-map-marker cui-map-marker--default",
+          html:
+            '<svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">' +
+            '<path fill="currentColor" d="M12 0C5.4 0 0 5.4 0 12c0 8 12 20 12 20s12-12 12-20C24 5.4 18.6 0 12 0z"/>' +
+            "</svg>",
+          iconSize: [28, 37],
+          iconAnchor: [14, 37],
+          popupAnchor: [0, -32],
+        });
 
       const marker = leaflet.marker([lat, lng], {
         icon,
@@ -507,10 +503,10 @@ export class CuiMap extends CombatElement {
           parsed.type === "Feature"
             ? (parsed as GeoJSON.Feature)
             : {
-                type: "Feature",
-                geometry: parsed as GeoJSON.Geometry,
-                properties: {},
-              };
+              type: "Feature",
+              geometry: parsed as GeoJSON.Geometry,
+              properties: {},
+            };
         entries.push({ script, feature });
       } catch {
         // Skip invalid JSON
@@ -592,11 +588,5 @@ export class CuiMap extends CombatElement {
       typeof window.matchMedia === "function" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     );
-  }
-}
-
-export function defineCuiMap(registry: CustomElementRegistry = customElements): void {
-  if (!registry.get(CuiMap.tagName)) {
-    registry.define(CuiMap.tagName, CuiMap);
   }
 }

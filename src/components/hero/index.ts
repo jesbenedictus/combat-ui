@@ -1,1 +1,1 @@
-export { CuiHero, defineCuiHero } from "./hero";
+export { CuiHero } from "./hero";

@@ -1,40 +1,37 @@
 import {
   CuiArticleFilter,
-  defineCuiArticleFilter,
 } from "./components/article-filter";
-import { CuiButton, defineCuiButton } from "./components/button";
-import { CuiCalendar, defineCuiCalendar } from "./components/calendar";
-import { CuiCode, defineCuiCode } from "./components/code";
-import { CuiCta, defineCuiCta } from "./components/cta";
-import { CuiDayPlanner, defineCuiDayPlanner } from "./components/day-planner";
-import { CuiDisclosure, defineCuiDisclosure } from "./components/disclosure";
-import { CuiField, defineCuiField } from "./components/field";
-import { CuiForm, defineCuiForm } from "./components/form";
-import { CuiHero, defineCuiHero } from "./components/hero";
-import { CuiModal, defineCuiModal } from "./components/modal";
-import { CuiNavbar, defineCuiNavbar } from "./components/navbar";
-import { CuiPageIntro, defineCuiPageIntro } from "./components/page-intro";
-import { CuiReveal, defineCuiReveal } from "./components/reveal";
+import { CuiButton } from "./components/button";
+import { CuiCalendar } from "./components/calendar";
+import { CuiCode } from "./components/code";
+import { CuiCta } from "./components/cta";
+import { CuiDayPlanner } from "./components/day-planner";
+import { CuiDisclosure } from "./components/disclosure";
+import { CuiField } from "./components/field";
+import { CuiForm } from "./components/form";
+import { CuiHero } from "./components/hero";
+import { CuiModal } from "./components/modal";
+import { CuiNavbar } from "./components/navbar";
+import { CuiPageIntro } from "./components/page-intro";
+import { CuiReveal } from "./components/reveal";
 import {
   CuiScrollStage,
-  defineCuiScrollStage,
 } from "./components/scroll-stage";
-import { CuiTabs, defineCuiTabs } from "./components/tabs";
+import { CuiTabs } from "./components/tabs";
 import {
   CuiThemeToggle,
-  defineCuiThemeToggle,
   getTheme,
   setTheme,
   type Theme,
 } from "./components/theme-toggle";
 import {
   CuiToastRegion,
-  defineCuiToastRegion,
   toast,
 } from "./components/toast";
-import { CuiTree, defineCuiTree } from "./components/tree";
-import { CuiMap, defineCuiMap } from "./components/map";
+import { CuiTree } from "./components/tree";
+import { CuiMap } from "./components/map";
 import "./index.css";
+import { defineElement } from "./internal/base-element";
 
 export type { CuiArticleFilterChangeDetail } from "./components/article-filter";
 export type {
@@ -107,26 +104,6 @@ export {
   CuiToastRegion,
   CuiTree,
   CuiMap,
-  defineCuiArticleFilter,
-  defineCuiButton,
-  defineCuiCalendar,
-  defineCuiCode,
-  defineCuiCta,
-  defineCuiDayPlanner,
-  defineCuiDisclosure,
-  defineCuiField,
-  defineCuiForm,
-  defineCuiHero,
-  defineCuiModal,
-  defineCuiNavbar,
-  defineCuiPageIntro,
-  defineCuiReveal,
-  defineCuiScrollStage,
-  defineCuiTabs,
-  defineCuiThemeToggle,
-  defineCuiToastRegion,
-  defineCuiTree,
-  defineCuiMap,
   getTheme,
   setTheme,
   toast,
@@ -136,26 +113,15 @@ export {
 export function defineCombatUi(
   registry: CustomElementRegistry = customElements,
 ): void {
-  defineCuiButton(registry);
-  defineCuiNavbar(registry);
-  defineCuiThemeToggle(registry);
-  defineCuiCode(registry);
-  defineCuiTabs(registry);
-  defineCuiHero(registry);
-  defineCuiPageIntro(registry);
-  defineCuiScrollStage(registry);
-  defineCuiReveal(registry);
-  defineCuiTree(registry);
-  defineCuiField(registry);
-  defineCuiForm(registry);
-  defineCuiModal(registry);
-  defineCuiToastRegion(registry);
-  defineCuiCta(registry);
-  defineCuiDisclosure(registry);
-  defineCuiMap(registry);
-  defineCuiArticleFilter(registry);
-  defineCuiCalendar(registry);
-  defineCuiDayPlanner(registry);
+  const allElements = [
+    CuiButton, CuiNavbar, CuiThemeToggle, CuiCode, CuiTabs, CuiHero,
+    CuiPageIntro, CuiScrollStage, CuiReveal, CuiTree, CuiField, CuiForm,
+    CuiModal, CuiToastRegion, CuiCta, CuiDisclosure, CuiMap,
+    CuiArticleFilter, CuiCalendar, CuiDayPlanner,
+  ] as const;
+  for (const Element of allElements) {
+    defineElement(Element, registry);
+  }
 }
 
 defineCombatUi();

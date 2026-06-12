@@ -1,31 +1,23 @@
 import { CombatElement, cssStyleSheet } from "../../internal/base-element";
+import { dateFromIso, startOfDay, toIso } from "../../internal/date-utils";
+import {
+  EVENT_CARD_SELECTOR,
+  type EventCardData,
+} from "../../internal/event-cards";
 import calendarCss from "./calendar.css?inline";
 
 export type CuiCalendarWeekdayStart = "monday" | "sunday";
 
-export interface CuiCalendarEvent {
-  /** Source `.cui-event-card` element. */
-  element: HTMLElement;
-  /** Event start date (local midnight). */
-  date: Date;
-  /** Event title — taken from `.cui-event-card-title`. */
-  title: string;
-  /** Status read from `data-status` on the card. */
-  status: string | null;
-  /** Optional anchor href found inside the title. */
-  href: string | null;
-}
-
 export interface CuiCalendarDaySelectDetail {
   date: Date;
   iso: string;
-  events: CuiCalendarEvent[];
+  events: EventCardData[];
 }
 
 export interface CuiCalendarEventSelectDetail {
   date: Date;
   iso: string;
-  event: CuiCalendarEvent;
+  event: EventCardData;
 }
 
 export interface CuiCalendarNavigateDetail {
@@ -34,33 +26,11 @@ export interface CuiCalendarNavigateDetail {
 }
 
 const MAX_DAY_EVENTS = 3;
-const EVENT_CARD_SELECTOR = ".cui-event-card";
-
-function toIso(date: Date): string {
-  const y = date.getFullYear();
-  const m = String(date.getMonth() + 1).padStart(2, "0");
-  const d = String(date.getDate()).padStart(2, "0");
-  return `${y}-${m}-${d}`;
-}
-
-function startOfDay(date: Date): Date {
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-}
 
 function clampMonth(month: number): { year: number; month: number } {
   const m = ((month % 12) + 12) % 12;
   const carry = Math.floor(month / 12);
   return { year: carry, month: m };
-}
-
-function parseIso(iso: string): { y: number; m: number; d: number } | null {
-  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
-  if (!match) return null;
-  const y = Number.parseInt(match[1]!, 10);
-  const m = Number.parseInt(match[2]!, 10);
-  const d = Number.parseInt(match[3]!, 10);
-  if (!Number.isFinite(y) || !Number.isFinite(m) || !Number.isFinite(d)) return null;
-  return { y, m, d };
 }
 
 /**
@@ -106,20 +76,15 @@ function parseIso(iso: string): { y: number; m: number; d: number } | null {
  * </cui-calendar>
  */
 export class CuiCalendar extends CombatElement {
-  static readonly tagName = "cui-calendar";
+  static override tagName = "cui-calendar";
   static override readonly styles = [cssStyleSheet(calendarCss)];
-  static observedAttributes = [
-    "year",
-    "month",
-    "weekday-start",
-    "locale",
-  ];
+  static observedAttributes = ["year", "month", "weekday-start", "locale"];
 
   private viewYear: number;
   private viewMonth: number;
   private selectedIso: string | null = null;
   private focusedIso: string | null = null;
-  private events: CuiCalendarEvent[] = [];
+  private events: EventCardData[] = [];
   private grid: HTMLElement | null = null;
   private titleEl: HTMLElement | null = null;
   private slotObserver: MutationObserver | null = null;
@@ -133,7 +98,6 @@ export class CuiCalendar extends CombatElement {
   }
 
   connectedCallback(): void {
-    this.adoptStyles();
     this.applyAttributes();
     this.renderFrame();
     this.collectEvents();
@@ -183,7 +147,9 @@ export class CuiCalendar extends CombatElement {
   }
 
   get weekdayStart(): CuiCalendarWeekdayStart {
-    return this.getAttribute("weekday-start") === "sunday" ? "sunday" : "monday";
+    return this.getAttribute("weekday-start") === "sunday"
+      ? "sunday"
+      : "monday";
   }
 
   get locale(): string {
@@ -209,9 +175,7 @@ export class CuiCalendar extends CombatElement {
   }
 
   private renderFrame(): void {
-    if (this.shadowRoot?.querySelector(".frame")) return;
-
-    this.appendShadowTemplate(`
+    this.renderTemplate(`
       <div class="frame" part="frame">
         <div class="header" part="header">
           <h2 class="title" part="title" aria-live="polite"></h2>
@@ -234,7 +198,7 @@ export class CuiCalendar extends CombatElement {
 
   private collectEvents(): void {
     const cards = this.querySelectorAll<HTMLElement>(EVENT_CARD_SELECTOR);
-    const events: CuiCalendarEvent[] = [];
+    const events: EventCardData[] = [];
     for (const card of cards) {
       const time = card.querySelector<HTMLTimeElement>("time[datetime]");
       const datetime = time?.getAttribute("datetime");
@@ -246,13 +210,13 @@ export class CuiCalendar extends CombatElement {
       const anchor = titleEl?.querySelector<HTMLAnchorElement>("a[href]");
       events.push({
         element: card,
-        date: startOfDay(parsed),
+        start: parsed,
         title,
         status: card.getAttribute("data-status"),
         href: anchor?.getAttribute("href") ?? null,
       });
     }
-    events.sort((a, b) => a.date.getTime() - b.date.getTime());
+    events.sort((a, b) => a.start.getTime() - b.start.getTime());
     this.events = events;
   }
 
@@ -260,7 +224,11 @@ export class CuiCalendar extends CombatElement {
     if (!this.grid || !this.titleEl) return;
 
     const locale = this.locale;
-    const monthLabel = new Date(this.viewYear, this.viewMonth, 1).toLocaleDateString(locale, {
+    const monthLabel = new Date(
+      this.viewYear,
+      this.viewMonth,
+      1,
+    ).toLocaleDateString(locale, {
       month: "long",
       year: "numeric",
     });
@@ -323,7 +291,9 @@ export class CuiCalendar extends CombatElement {
       const iso = toIso(day);
       const outside = day.getMonth() !== this.viewMonth;
       const isToday = iso === todayIso;
-      const dayEvents = this.events.filter((event) => toIso(event.date) === iso);
+      const dayEvents = this.events.filter(
+        (event) => toIso(event.start) === iso,
+      );
 
       const cell = document.createElement("button");
       cell.type = "button";
@@ -334,7 +304,11 @@ export class CuiCalendar extends CombatElement {
       if (isToday) cell.dataset.today = "true";
       cell.setAttribute("aria-label", dayLabelFmt.format(day));
       if (this.selectedIso === iso) cell.setAttribute("aria-selected", "true");
-      cell.tabIndex = (this.focusedIso ?? todayIso) === iso || (this.focusedIso === null && i === 0) ? 0 : -1;
+      cell.tabIndex =
+        (this.focusedIso ?? todayIso) === iso ||
+        (this.focusedIso === null && i === 0)
+          ? 0
+          : -1;
 
       const num = document.createElement("span");
       num.className = "day-number";
@@ -374,11 +348,9 @@ export class CuiCalendar extends CombatElement {
     this.abortController = new AbortController();
     const { signal } = this.abortController;
 
-    this.shadowRoot?.addEventListener(
-      "click",
-      (event) => this.onClick(event),
-      { signal },
-    );
+    this.shadowRoot?.addEventListener("click", (event) => this.onClick(event), {
+      signal,
+    });
 
     this.shadowRoot?.addEventListener(
       "keydown",
@@ -410,18 +382,21 @@ export class CuiCalendar extends CombatElement {
       const index = Number.parseInt(pill.dataset.index ?? "", 10);
       if (!iso || !Number.isFinite(index)) return;
       const matched = this.events[index];
-      if (!matched || toIso(matched.date) !== iso) return;
+      if (!matched || toIso(matched.start) !== iso) return;
       const detail: CuiCalendarEventSelectDetail = {
-        date: matched.date,
+        date: matched.start,
         iso,
         event: matched,
       };
       const allow = this.dispatchEvent(
-        new CustomEvent<CuiCalendarEventSelectDetail>("cui-calendar-event-select", {
-          detail,
-          bubbles: true,
-          cancelable: true,
-        }),
+        new CustomEvent<CuiCalendarEventSelectDetail>(
+          "cui-calendar-event-select",
+          {
+            detail,
+            bubbles: true,
+            cancelable: true,
+          },
+        ),
       );
       if (!allow) event.preventDefault();
       return;
@@ -436,46 +411,79 @@ export class CuiCalendar extends CombatElement {
   }
 
   private onKeydown(event: KeyboardEvent): void {
-    const cell = (event.target as HTMLElement | null)?.closest<HTMLElement>(".cell");
+    const cell = (event.target as HTMLElement | null)?.closest<HTMLElement>(
+      ".cell",
+    );
     if (!cell) return;
     const iso = cell.dataset.iso;
     if (!iso) return;
-    const parts = parseIso(iso);
-    if (!parts) return;
-    const { y, m, d } = parts;
-    const current = new Date(y, m - 1, d);
+    const current = dateFromIso(iso);
+    if (!current) return;
+
     let next: Date | null = null;
 
     switch (event.key) {
       case "ArrowLeft":
-        next = new Date(y, m - 1, d - 1);
+        next = new Date(
+          current.getFullYear(),
+          current.getMonth(),
+          current.getDate() - 1,
+        );
         break;
       case "ArrowRight":
-        next = new Date(y, m - 1, d + 1);
+        next = new Date(
+          current.getFullYear(),
+          current.getMonth(),
+          current.getDate() + 1,
+        );
         break;
       case "ArrowUp":
-        next = new Date(y, m - 1, d - 7);
+        next = new Date(
+          current.getFullYear(),
+          current.getMonth(),
+          current.getDate() - 7,
+        );
         break;
       case "ArrowDown":
-        next = new Date(y, m - 1, d + 7);
+        next = new Date(
+          current.getFullYear(),
+          current.getMonth(),
+          current.getDate() + 7,
+        );
         break;
       case "Home": {
         const day = current.getDay();
         const offset = this.weekdayStart === "monday" ? (day + 6) % 7 : day;
-        next = new Date(y, m - 1, d - offset);
+        next = new Date(
+          current.getFullYear(),
+          current.getMonth(),
+          current.getDate() - offset,
+        );
         break;
       }
       case "End": {
         const day = current.getDay();
         const offset = this.weekdayStart === "monday" ? (day + 6) % 7 : day;
-        next = new Date(y, m - 1, d - offset + 6);
+        next = new Date(
+          current.getFullYear(),
+          current.getMonth(),
+          current.getDate() - offset + 6,
+        );
         break;
       }
       case "PageUp":
-        next = new Date(event.shiftKey ? y - 1 : y, event.shiftKey ? m - 1 : m - 2, d);
+        next = new Date(
+          event.shiftKey ? current.getFullYear() - 1 : current.getFullYear(),
+          event.shiftKey ? current.getMonth() - 1 : current.getMonth() - 2,
+          current.getDate(),
+        );
         break;
       case "PageDown":
-        next = new Date(event.shiftKey ? y + 1 : y, event.shiftKey ? m - 1 : m, d);
+        next = new Date(
+          event.shiftKey ? current.getFullYear() + 1 : current.getFullYear(),
+          event.shiftKey ? current.getMonth() - 1 : current.getMonth(),
+          current.getDate(),
+        );
         break;
       case "Enter":
       case " ":
@@ -492,24 +500,27 @@ export class CuiCalendar extends CombatElement {
     const nextIso = toIso(next);
     this.focusedIso = nextIso;
 
-    if (next.getFullYear() !== this.viewYear || next.getMonth() !== this.viewMonth) {
+    if (
+      next.getFullYear() !== this.viewYear ||
+      next.getMonth() !== this.viewMonth
+    ) {
       this.goTo(next.getFullYear(), next.getMonth() + 1);
     }
     this.renderGrid();
 
     requestAnimationFrame(() => {
-      const focusCell = this.grid?.querySelector<HTMLElement>(`.cell[data-iso="${nextIso}"]`);
+      const focusCell = this.grid?.querySelector<HTMLElement>(
+        `.cell[data-iso="${nextIso}"]`,
+      );
       focusCell?.focus();
     });
   }
 
   private selectIso(iso: string): void {
-    const parts = parseIso(iso);
-    if (!parts) return;
+    const date = dateFromIso(iso);
+    if (!date) return;
     this.selectedIso = iso;
-    const { y, m, d } = parts;
-    const date = new Date(y, m - 1, d);
-    const dayEvents = this.events.filter((event) => toIso(event.date) === iso);
+    const dayEvents = this.events.filter((event) => toIso(event.start) === iso);
     this.renderGrid();
     this.dispatchEvent(
       new CustomEvent<CuiCalendarDaySelectDetail>("cui-calendar-day-select", {
@@ -532,13 +543,5 @@ export class CuiCalendar extends CombatElement {
     this.slotObserver?.disconnect();
     this.slotObserver = new MutationObserver(() => this.refresh());
     this.slotObserver.observe(this, { childList: true, subtree: true });
-  }
-}
-
-export function defineCuiCalendar(
-  registry: CustomElementRegistry = customElements,
-): void {
-  if (!registry.get(CuiCalendar.tagName)) {
-    registry.define(CuiCalendar.tagName, CuiCalendar);
   }
 }

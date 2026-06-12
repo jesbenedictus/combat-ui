@@ -1,6 +1,5 @@
 export {
   CuiCalendar,
-  defineCuiCalendar,
   type CuiCalendarDaySelectDetail,
   type CuiCalendarEvent,
   type CuiCalendarEventSelectDetail,

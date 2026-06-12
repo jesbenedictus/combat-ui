@@ -1,1 +1,1 @@
-export { CuiScrollStage, defineCuiScrollStage } from "./scroll-stage";
+export { CuiScrollStage } from "./scroll-stage";

@@ -11,7 +11,7 @@ export function supportsConstructableStyleSheets(): boolean {
 export function cssStyleSheet(cssText: string): CSSStyleSheet {
   let sheet = sheetCache.get(cssText);
 
-  if (sheet === undefined) {
+  if (!sheet) {
     sheet = new CSSStyleSheet();
     sheet.replaceSync(cssText);
     sheetCache.set(cssText, sheet);
@@ -26,6 +26,9 @@ function normalizeStyles(styles: CombatStyles): Array<CSSStyleSheet | string> {
 
 export class CombatElement extends HTMLElement {
   static readonly styles: CombatStyles = [];
+  public static readonly tagName: string;
+
+  private rendered: boolean = false;
 
   constructor() {
     super();
@@ -35,42 +38,43 @@ export class CombatElement extends HTMLElement {
     }
   }
 
-  protected adoptStyles(): void {
-    if (!this.shadowRoot || this.hasAdoptedStyles()) {
+  protected renderTemplate(html: string): void {
+    this.adoptStyles();
+    if (!this.shadowRoot || this.rendered) {
       return;
     }
-
-    const styles = normalizeStyles(
-      (this.constructor as typeof CombatElement).styles,
-    );
-
-    if (styles.length === 0) {
-      return;
-    }
-
-    if (supportsConstructableStyleSheets()) {
-      const sheets = styles.map((style) => {
-        return typeof style === "string" ? cssStyleSheet(style) : style;
-      });
-
-      this.shadowRoot.adoptedStyleSheets = [
-        ...this.shadowRoot.adoptedStyleSheets,
-        ...sheets,
-      ];
-
-      return;
-    }
-
-    const style = document.createElement("style");
-    style.dataset.combatUi = "styles";
-    style.textContent = styles
-      .map((s) => (typeof s === "string" ? s : Array.from(s.cssRules, (rule) => rule.cssText).join("\n")))
-      .join("\n");
-
-    this.shadowRoot.prepend(style);
+    this.rendered = true;
+    this.appendShadowTemplate(html);
   }
 
-  protected appendShadowTemplate(html: string): void {
+  protected setNullableAttribute(name: string, value: string | number | null): void {
+    if (value === null || value === "") {
+      this.removeAttribute(name);
+    } else {
+      this.setAttribute(name, String(value));
+    }
+  }
+
+  protected setCssVar(variable: string, value: string | null): void {
+    if (value === null) {
+      this.style.removeProperty(variable);
+    } else {
+      this.style.setProperty(variable, value);
+    }
+  }
+
+  private adoptStyles(): void {
+   const root = this.shadowRoot;
+   if (!root || root.adoptedStyleSheets.length > 0) return;
+
+   const styles = (this.constructor as typeof CombatElement).styles;
+   const list = Array.isArray(styles) ? styles : [styles];
+   root.adoptedStyleSheets = list.map((s) =>
+    typeof s === "string" ? cssStyleSheet(s) : s,
+   );
+  }
+
+  private appendShadowTemplate(html: string): void {
     if (!this.shadowRoot) {
       return;
     }
@@ -89,5 +93,19 @@ export class CombatElement extends HTMLElement {
       this.shadowRoot.querySelector("style[data-combat-ui='styles']") !== null ||
       this.shadowRoot.adoptedStyleSheets.length > 0
     );
+  }
+}
+
+export interface CombatElementConstructor {
+  new (): CombatElement;
+  readonly tagName: string;
+}
+
+export function defineElement(
+  ctor: CombatElementConstructor,
+  registry: CustomElementRegistry = customElements,
+): void {
+  if (!registry.get(ctor.tagName)) {
+    registry.define(ctor.tagName, ctor);
   }
 }

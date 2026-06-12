@@ -1,1 +1,1 @@
-export { CuiTabs, defineCuiTabs } from "./tabs";
+export { CuiTabs } from "./tabs";

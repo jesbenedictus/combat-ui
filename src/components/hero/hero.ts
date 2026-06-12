@@ -38,7 +38,7 @@ import heroCss from "./hero.css?inline";
  * </cui-hero>
  */
 export class CuiHero extends CombatElement {
-  static readonly tagName = "cui-hero";
+  static override tagName = "cui-hero";
   static override styles = [cssStyleSheet(heroCss)];
   static observedAttributes = [
     "background-position",
@@ -47,28 +47,24 @@ export class CuiHero extends CombatElement {
   ];
 
   connectedCallback(): void {
-    this.adoptStyles();
-
-    if (!this.shadowRoot?.querySelector(".hero")) {
-      this.appendShadowTemplate(`
-        <section class="hero" part="hero">
-          <div class="background" part="background" aria-hidden="true"></div>
-          <div class="inner" part="inner">
-            <div class="content" part="content">
-              <slot name="eyebrow"></slot>
-              <slot name="title"></slot>
-              <div class="copy" part="copy">
-                <slot></slot>
-              </div>
-              <slot name="actions"></slot>
+    this.renderTemplate(`
+      <section class="hero" part="hero">
+        <div class="background" part="background" aria-hidden="true"></div>
+        <div class="inner" part="inner">
+          <div class="content" part="content">
+            <slot name="eyebrow"></slot>
+            <slot name="title"></slot>
+            <div class="copy" part="copy">
+              <slot></slot>
             </div>
-            <div class="media" part="media">
-              <slot name="media"></slot>
-            </div>
+            <slot name="actions"></slot>
           </div>
-        </section>
-      `);
-    }
+          <div class="media" part="media">
+            <slot name="media"></slot>
+          </div>
+        </div>
+      </section>
+    `);
 
     this.syncBackground();
   }
@@ -133,13 +129,5 @@ export class CuiHero extends CombatElement {
     }
 
     this.setAttribute(name, value);
-  }
-}
-
-export function defineCuiHero(
-  registry: CustomElementRegistry = customElements,
-): void {
-  if (!registry.get(CuiHero.tagName)) {
-    registry.define(CuiHero.tagName, CuiHero);
   }
 }

@@ -1,35 +1,9 @@
 import { CombatElement, cssStyleSheet } from "../../internal/base-element";
+import { installRemoteTrigger } from "../../internal/remote-trigger";
 import disclosureCss from "./disclosure.css?inline";
 
 export interface CuiDisclosureToggleDetail {
   open: boolean;
-}
-
-let triggerListenerInstalled = false;
-
-function installTriggerListener(): void {
-  if (triggerListenerInstalled) return;
-  triggerListenerInstalled = true;
-  document.addEventListener("click", (event) => {
-    const trigger = event
-      .composedPath()
-      .find(
-        (node): node is HTMLElement =>
-          node instanceof HTMLElement &&
-          node.hasAttribute("data-cui-disclosure-target"),
-      );
-    if (!trigger) return;
-    const id = trigger.getAttribute("data-cui-disclosure-target");
-    if (!id) return;
-    const disclosure = document.getElementById(id);
-    if (disclosure instanceof CuiDisclosure) {
-      event.preventDefault();
-      const action = trigger.getAttribute("data-cui-disclosure-action");
-      if (action === "open") disclosure.open();
-      else if (action === "close") disclosure.close();
-      else disclosure.toggle();
-    }
-  });
 }
 
 /**
@@ -73,7 +47,7 @@ function installTriggerListener(): void {
  * </button>
  */
 export class CuiDisclosure extends CombatElement {
-  static readonly tagName = "cui-disclosure";
+  static override tagName = "cui-disclosure";
   static override styles = [cssStyleSheet(disclosureCss)];
   static observedAttributes = ["open"];
 
@@ -81,12 +55,16 @@ export class CuiDisclosure extends CombatElement {
   private boundDetails: HTMLDetailsElement | null = null;
 
   connectedCallback(): void {
-    this.adoptStyles();
-    if (!this.shadowRoot?.querySelector("slot")) {
-      this.appendShadowTemplate(`<slot></slot>`);
-    }
+    this.renderTemplate(`<slot></slot>`);
     this.bindDetails();
-    installTriggerListener();
+      installRemoteTrigger("data-cui-disclosure-target", (disclosure, trigger) => {
+        if (disclosure instanceof CuiDisclosure) {
+          const action = trigger.getAttribute("data-cui-disclosure-action");
+          if (action === "open") disclosure.open();
+          else if (action === "close") disclosure.close();
+          else disclosure.toggle();
+        }
+      });
   }
 
   disconnectedCallback(): void {
@@ -155,14 +133,6 @@ export class CuiDisclosure extends CombatElement {
         bubbles: true,
       }),
     );
-  }
-}
-
-export function defineCuiDisclosure(
-  registry: CustomElementRegistry = customElements,
-): void {
-  if (!registry.get(CuiDisclosure.tagName)) {
-    registry.define(CuiDisclosure.tagName, CuiDisclosure);
   }
 }
 

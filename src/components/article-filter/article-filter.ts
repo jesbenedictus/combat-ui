@@ -1,5 +1,5 @@
 import articleFilterCss from "./article-filter.css?inline";
-import { CombatElement, cssStyleSheet } from "../../internal/base-element";
+import { CombatElement, cssStyleSheet, type CombatElementConstructor } from "../../internal/base-element";
 
 export interface CuiArticleFilterChangeDetail {
   values: string[];
@@ -37,18 +37,14 @@ const TARGET_SELECTOR = ".cui-article-grid, .cui-article-list";
  * </div>
  */
 export class CuiArticleFilter extends CombatElement {
-  static readonly tagName = "cui-article-filter";
+  static override tagName = "cui-article-filter";
   static override readonly styles = [cssStyleSheet(articleFilterCss)];
   static observedAttributes = ["target"];
 
   private abortController: AbortController | null = null;
 
   connectedCallback(): void {
-    this.adoptStyles();
-
-    if (!this.shadowRoot?.querySelector("slot")) {
-      this.appendShadowTemplate(`<slot></slot>`);
-    }
+    this.renderTemplate(`<slot></slot>`);
 
     this.bindEvents();
     this.applyFilter();
@@ -147,13 +143,5 @@ export class CuiArticleFilter extends CombatElement {
 
   private isMulti(): boolean {
     return this.querySelector('input[type="checkbox"]') !== null;
-  }
-}
-
-export function defineCuiArticleFilter(
-  registry: CustomElementRegistry = customElements,
-): void {
-  if (!registry.get(CuiArticleFilter.tagName)) {
-    registry.define(CuiArticleFilter.tagName, CuiArticleFilter);
   }
 }

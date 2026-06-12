@@ -1,4 +1,5 @@
 import { CombatElement, cssStyleSheet } from "../../internal/base-element";
+import { installRemoteTrigger } from "../../internal/remote-trigger";
 import modalCss from "./modal.css?inline";
 
 export interface CuiModalCloseDetail {
@@ -6,28 +7,6 @@ export interface CuiModalCloseDetail {
 }
 
 let triggerListenerInstalled = false;
-
-function installTriggerListener(): void {
-  if (triggerListenerInstalled) return;
-  triggerListenerInstalled = true;
-  document.addEventListener("click", (event) => {
-    const trigger = event
-      .composedPath()
-      .find(
-        (node): node is HTMLElement =>
-          node instanceof HTMLElement &&
-          node.hasAttribute("data-cui-modal-target"),
-      );
-    if (!trigger) return;
-    const id = trigger.getAttribute("data-cui-modal-target");
-    if (!id) return;
-    const modal = document.getElementById(id);
-    if (modal instanceof CuiModal) {
-      event.preventDefault();
-      modal.open();
-    }
-  });
-}
 
 /**
  * Modal dialog built over the native `<dialog>` element. Backdrop dismiss,
@@ -62,19 +41,20 @@ function installTriggerListener(): void {
  * </cui-modal>
  */
 export class CuiModal extends CombatElement {
-  static readonly tagName = "cui-modal";
+  static override tagName = "cui-modal";
   static override styles = [cssStyleSheet(modalCss)];
   static observedAttributes = ["open"];
 
   private abortController: AbortController | null = null;
 
   connectedCallback(): void {
-    this.adoptStyles();
-    if (!this.shadowRoot?.querySelector("slot")) {
-      this.appendShadowTemplate(`<slot></slot>`);
-    }
+    this.renderTemplate(`<slot></slot>`);
     this.bindEvents();
-    installTriggerListener();
+    installRemoteTrigger("data-cui-modal-target", (modal, trigger) => {
+      if (modal instanceof CuiModal) {
+        modal.open();
+      }
+    });
     if (this.hasAttribute("open")) {
       this.open();
     }
@@ -205,13 +185,5 @@ export class CuiModal extends CombatElement {
       },
       { signal, capture: true },
     );
-  }
-}
-
-export function defineCuiModal(
-  registry: CustomElementRegistry = customElements,
-): void {
-  if (!registry.get(CuiModal.tagName)) {
-    registry.define(CuiModal.tagName, CuiModal);
   }
 }
