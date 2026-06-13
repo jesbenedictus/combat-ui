@@ -97,7 +97,7 @@ export class CuiButton extends CombatElement {
 
     currentControl?.remove();
 
-    this.renderTemplate(
+    this.stampTemplate(
       shouldRenderLink
         ? `
           <a class="control" part="button">

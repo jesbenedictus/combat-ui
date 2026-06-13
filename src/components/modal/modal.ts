@@ -6,8 +6,6 @@ export interface CuiModalCloseDetail {
   returnValue: string;
 }
 
-let triggerListenerInstalled = false;
-
 /**
  * Modal dialog built over the native `<dialog>` element. Backdrop dismiss,
  * ESC handling, and focus management come from the platform; this element

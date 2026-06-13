@@ -38,8 +38,17 @@ export class CuiReveal extends CombatElement {
   }
 
   private syncVars(): void {
-    this.setCssVar("--delay", valueWithUnit(this.getAttribute("delay"), "ms"));
-    this.setCssVar("--distance", valueWithUnit(this.getAttribute("distance"), "px"));
-    this.setCssVar("--threshold", valueWithUnit(this.getAttribute("threshold"), ""));
+    this.setCssVar(
+      "--cui-reveal-delay",
+      valueWithUnit(this.getAttribute("delay"), "ms"),
+    );
+    this.setCssVar(
+      "--cui-reveal-distance",
+      valueWithUnit(this.getAttribute("distance"), "px"),
+    );
+    this.setCssVar(
+      "--cui-reveal-threshold",
+      valueWithUnit(this.getAttribute("threshold"), ""),
+    );
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@combat-ui/core",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A responsive, customizable web component framework targeting modern baseline web standards.",
   "private": true,
   "engines": {

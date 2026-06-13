@@ -35,6 +35,9 @@ import { defineElement } from "./internal/base-element";
 
 export type { CuiArticleFilterChangeDetail } from "./components/article-filter";
 export type {
+  EventCardData,
+} from "./internal/event-cards";
+export type {
   CuiCalendarDaySelectDetail,
   CuiCalendarEventSelectDetail,
   CuiCalendarNavigateDetail,

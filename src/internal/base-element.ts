@@ -2,7 +2,9 @@ const sheetCache = new Map<string, CSSStyleSheet>();
 
 export type CombatStyles = CSSStyleSheet | CSSStyleSheet[] | string | string[];
 
-const constructableSupported = "adoptedStyleSheets" in Document.prototype && "replaceSync" in CSSStyleSheet.prototype;
+const constructableSupported =
+  "adoptedStyleSheets" in Document.prototype &&
+  "replaceSync" in CSSStyleSheet.prototype;
 
 export function supportsConstructableStyleSheets(): boolean {
   return constructableSupported;
@@ -47,7 +49,16 @@ export class CombatElement extends HTMLElement {
     this.appendShadowTemplate(html);
   }
 
-  protected setNullableAttribute(name: string, value: string | number | null): void {
+  protected stampTemplate(html: string): void {
+    this.adoptStyles();
+    this.rendered = true;
+    this.appendShadowTemplate(html);
+  }
+
+  protected setNullableAttribute(
+    name: string,
+    value: string | number | null,
+  ): void {
     if (value === null || value === "") {
       this.removeAttribute(name);
     } else {
@@ -64,14 +75,14 @@ export class CombatElement extends HTMLElement {
   }
 
   private adoptStyles(): void {
-   const root = this.shadowRoot;
-   if (!root || root.adoptedStyleSheets.length > 0) return;
+    const root = this.shadowRoot;
+    if (!root || root.adoptedStyleSheets.length > 0) return;
 
-   const styles = (this.constructor as typeof CombatElement).styles;
-   const list = Array.isArray(styles) ? styles : [styles];
-   root.adoptedStyleSheets = list.map((s) =>
-    typeof s === "string" ? cssStyleSheet(s) : s,
-   );
+    const styles = (this.constructor as typeof CombatElement).styles;
+    const list = Array.isArray(styles) ? styles : [styles];
+    root.adoptedStyleSheets = list.map((s) =>
+      typeof s === "string" ? cssStyleSheet(s) : s,
+    );
   }
 
   private appendShadowTemplate(html: string): void {
@@ -90,8 +101,8 @@ export class CombatElement extends HTMLElement {
     }
 
     return (
-      this.shadowRoot.querySelector("style[data-combat-ui='styles']") !== null ||
-      this.shadowRoot.adoptedStyleSheets.length > 0
+      this.shadowRoot.querySelector("style[data-combat-ui='styles']") !==
+        null || this.shadowRoot.adoptedStyleSheets.length > 0
     );
   }
 }

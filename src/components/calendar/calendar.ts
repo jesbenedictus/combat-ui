@@ -2,6 +2,7 @@ import { CombatElement, cssStyleSheet } from "../../internal/base-element";
 import { dateFromIso, startOfDay, toIso } from "../../internal/date-utils";
 import {
   EVENT_CARD_SELECTOR,
+  parseEventCards,
   type EventCardData,
 } from "../../internal/event-cards";
 import calendarCss from "./calendar.css?inline";
@@ -197,27 +198,9 @@ export class CuiCalendar extends CombatElement {
   }
 
   private collectEvents(): void {
-    const cards = this.querySelectorAll<HTMLElement>(EVENT_CARD_SELECTOR);
-    const events: EventCardData[] = [];
-    for (const card of cards) {
-      const time = card.querySelector<HTMLTimeElement>("time[datetime]");
-      const datetime = time?.getAttribute("datetime");
-      if (!datetime) continue;
-      const parsed = new Date(datetime);
-      if (Number.isNaN(parsed.getTime())) continue;
-      const titleEl = card.querySelector(".cui-event-card-title");
-      const title = (titleEl?.textContent ?? card.textContent ?? "").trim();
-      const anchor = titleEl?.querySelector<HTMLAnchorElement>("a[href]");
-      events.push({
-        element: card,
-        start: parsed,
-        title,
-        status: card.getAttribute("data-status"),
-        href: anchor?.getAttribute("href") ?? null,
-      });
-    }
-    events.sort((a, b) => a.start.getTime() - b.start.getTime());
-    this.events = events;
+    this.events = parseEventCards(this).sort(
+      (a, b) => a.start.getTime() - b.start.getTime(),
+    );
   }
 
   private renderGrid(): void {

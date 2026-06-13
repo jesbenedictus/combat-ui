@@ -1,6 +1,6 @@
 import { CombatElement, cssStyleSheet } from "../../internal/base-element";
 import { dateFromIso, startOfDay, toIso } from "../../internal/date-utils";
-import type { EventCardData } from "../../internal/event-cards";
+import { parseEventCards, type EventCardData } from "../../internal/event-cards";
 import dayPlannerCss from "./day-planner.css?inline";
 
 export interface CuiDayPlannerEventSelectDetail {
@@ -300,29 +300,7 @@ export class CuiDayPlanner extends CombatElement {
   }
 
   private collectEvents(): void {
-    const cards = this.querySelectorAll<HTMLElement>(EVENT_CARD_SELECTOR);
-    const events: EventCardData[] = [];
-    for (const card of cards) {
-      const time = card.querySelector<HTMLTimeElement>("time[datetime]");
-      const startValue = time?.getAttribute("datetime");
-      if (!startValue) continue;
-      const start = new Date(startValue);
-      if (Number.isNaN(start.getTime())) continue;
-      const end = readEndFromCard(card, start) ??
-        new Date(start.getTime() + DEFAULT_DURATION_MINUTES * 60_000);
-      const titleEl = card.querySelector(".cui-event-card-title");
-      const title = (titleEl?.textContent ?? card.textContent ?? "").trim();
-      const anchor = titleEl?.querySelector<HTMLAnchorElement>("a[href]");
-      events.push({
-        element: card,
-        start,
-        end,
-        title,
-        status: card.getAttribute("data-status"),
-        href: anchor?.getAttribute("href") ?? null,
-      });
-    }
-    this.events = events;
+    this.events = parseEventCards(this);
   }
 
   private render(): void {
@@ -393,9 +371,7 @@ export class CuiDayPlanner extends CombatElement {
       const startMin = Math.max(visibleStart, minutesFromMidnight(event.start));
       const endMin = Math.min(
         visibleEnd,
-        event.end?.getDate() !== event.start.getDate()
-          ? visibleEnd
-          : minutesFromMidnight(event.end),
+        minutesFromMidnight(event.end),
       );
       if (endMin <= visibleStart || startMin >= visibleEnd) continue;
       parsed.push({ source: event, startMin, endMin });
