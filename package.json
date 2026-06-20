@@ -28,14 +28,99 @@
   "sideEffects": [
     "**/*.css",
     "./src/index.ts",
-    "./dist/combat-ui.js"
+    "./src/elements/*.ts",
+    "./dist/*.js"
   ],
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
       "import": "./dist/combat-ui.js"
     },
-    "./styles": "./dist/styles/index.css"
+    "./styles": "./dist/styles/index.css",
+    "./article-filter": {
+      "types": "./dist/types/elements/article-filter.d.ts",
+      "import": "./dist/article-filter.js"
+    },
+    "./button": {
+      "types": "./dist/types/elements/button.d.ts",
+      "import": "./dist/button.js"
+    },
+    "./calendar": {
+      "types": "./dist/types/elements/calendar.d.ts",
+      "import": "./dist/calendar.js"
+    },
+    "./code": {
+      "types": "./dist/types/elements/code.d.ts",
+      "import": "./dist/code.js"
+    },
+    "./cookie-banner": {
+      "types": "./dist/types/elements/cookie-banner.d.ts",
+      "import": "./dist/cookie-banner.js"
+    },
+    "./cta": {
+      "types": "./dist/types/elements/cta.d.ts",
+      "import": "./dist/cta.js"
+    },
+    "./day-planner": {
+      "types": "./dist/types/elements/day-planner.d.ts",
+      "import": "./dist/day-planner.js"
+    },
+    "./disclosure": {
+      "types": "./dist/types/elements/disclosure.d.ts",
+      "import": "./dist/disclosure.js"
+    },
+    "./field": {
+      "types": "./dist/types/elements/field.d.ts",
+      "import": "./dist/field.js"
+    },
+    "./form": {
+      "types": "./dist/types/elements/form.d.ts",
+      "import": "./dist/form.js"
+    },
+    "./hero": {
+      "types": "./dist/types/elements/hero.d.ts",
+      "import": "./dist/hero.js"
+    },
+    "./map": {
+      "types": "./dist/types/elements/map.d.ts",
+      "import": "./dist/map.js"
+    },
+    "./modal": {
+      "types": "./dist/types/elements/modal.d.ts",
+      "import": "./dist/modal.js"
+    },
+    "./navbar": {
+      "types": "./dist/types/elements/navbar.d.ts",
+      "import": "./dist/navbar.js"
+    },
+    "./page-intro": {
+      "types": "./dist/types/elements/page-intro.d.ts",
+      "import": "./dist/page-intro.js"
+    },
+    "./reveal": {
+      "types": "./dist/types/elements/reveal.d.ts",
+      "import": "./dist/reveal.js"
+    },
+    "./scroll-stage": {
+      "types": "./dist/types/elements/scroll-stage.d.ts",
+      "import": "./dist/scroll-stage.js"
+    },
+    "./tabs": {
+      "types": "./dist/types/elements/tabs.d.ts",
+      "import": "./dist/tabs.js"
+    },
+    "./theme-toggle": {
+      "types": "./dist/types/elements/theme-toggle.d.ts",
+      "import": "./dist/theme-toggle.js"
+    },
+    "./toast": {
+      "types": "./dist/types/elements/toast.d.ts",
+      "import": "./dist/toast.js"
+    },
+    "./tree": {
+      "types": "./dist/types/elements/tree.d.ts",
+      "import": "./dist/tree.js"
+    }
   },
   "files": [
     "dist"
@@ -43,8 +128,9 @@
   "scripts": {
     "dev": "vite --config vite.config.ts",
     "dev:docs": "vite docs --config vite.config.ts",
-    "build": "npm run clean && npm run typecheck && npm run build:lib && npm run build:docs",
-    "build:lib": "vite build --config vite.config.ts && npm run manifest && npm run blocks && npm run agents-md",
+    "build": "npm run clean && npm run elements && npm run typecheck && npm run build:lib && npm run build:docs",
+    "build:lib": "vite build --config vite.config.ts && vite build --config vite.config.ts --mode elements && npm run manifest && npm run blocks && npm run agents-md",
+    "elements": "node scripts/build-elements.mjs",
     "build:docs": "vite build docs --config vite.config.ts --outDir ../dist-docs --emptyOutDir",
     "typecheck": "tsc -b",
     "typecheck:clean": "tsc -b --clean",
