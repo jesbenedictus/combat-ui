@@ -4,7 +4,7 @@
   "description": "A responsive, customizable web component framework targeting modern baseline web standards.",
   "private": true,
   "engines": {
-    "node": ">=22"
+    "node": ">=24"
   },
   "keywords": [
     "UI",
@@ -36,7 +36,7 @@
       "types": "./dist/types/index.d.ts",
       "import": "./dist/combat-ui.js"
     },
-    "./styles": "./dist/styles/index.css",
+    "./styles": "./dist/combat-ui.css",
     "./article-filter": {
       "types": "./dist/types/elements/article-filter.d.ts",
       "import": "./dist/article-filter.js"

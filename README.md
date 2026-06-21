@@ -1,14 +1,17 @@
 # Combat UI
 
-Combat UI is a small web component and CSS framework for building responsive interfaces on modern Baseline browser standards. It combines tokenized CSS, layout primitives, and framework-agnostic custom elements. We strive for a dependency free library, with the exception of the necessary development dependencies. It is based on our company's real world use cases.
+Combat UI is a small web component and CSS framework for building responsive interfaces on modern Baseline browser standards. It combines tokenized CSS, layout primitives, and framework-agnostic custom elements. We strive for a dependency-free library, with the exception of the necessary development dependencies. It is based on our company's real-world use cases.
 
-The package is currently in an early-stage.
+📚 **Full component reference, API, and live demos: [combat-marketing.github.io/combat-ui](https://combat-marketing.github.io/combat-ui)**
+
+The package is currently in an early stage.
 
 ## What Is Included
 
 - CSS reset, design tokens, layout primitives, and utility classes.
-- Custom elements for buttons, navigation, and theme switching.
+- Framework-agnostic custom elements (buttons, navigation, overlays, forms, calendar, map, and more).
 - TypeScript source with generated declarations for package builds.
+- A standalone bundle plus self-registering per-component entries.
 - Vite-based library and docs builds.
 - Stylelint and HTML lint checks for project conventions.
 
@@ -26,172 +29,88 @@ This package is private right now, so install it from the repository or workspac
 npm install
 ```
 
-## Development
+## Importing Components
 
-```sh
-npm run dev
-```
+Combat UI works with or without a bundler. Custom elements **auto-register on import** — you never call `customElements.define()` yourself.
 
-Starts the Vite development server for the library project.
-
-```sh
-npm run dev:docs
-```
-
-Starts the docs site from the `docs` directory.
-
-```sh
-npm run build
-```
-
-Runs clean, typecheck, library build, and docs build.
-
-```sh
-npm run check
-```
-
-Runs TypeScript, CSS, and HTML checks.
-
-## Package Exports
-
-The main package export provides the JavaScript custom elements and generated types:
+### Everything at once
 
 ```ts
-import {
-  CuiButton,
-  CuiNavbar,
-  CuiThemeToggle,
-  defineCombatUi,
-  defineCuiButton,
-  defineCuiNavbar,
-  defineCuiThemeToggle,
-  getTheme,
-  setTheme,
-  type Theme,
-} from "@combat-ui/core";
+import "@combat-ui/core";        // registers every element
+import "@combat-ui/core/styles"; // design tokens, layout, utilities (load once)
 ```
 
-The stylesheet export is intended to expose the built CSS bundle:
+Best for quick starts or apps that use many components. This is a single standalone file (`dist/combat-ui.js`).
+
+### One component at a time
+
+Every component is also published as its own self-registering entry, so you only ship what you use:
+
+```ts
+import "@combat-ui/core/button";        // registers <cui-button>
+import "@combat-ui/core/cookie-banner"; // registers <cui-cookie-banner>
+import "@combat-ui/core/styles";        // still load the stylesheet once
+```
+
+With a bundler this tree-shakes away every component you don't import. The same entry also re-exports the component's class and types:
+
+```ts
+import { CuiButton } from "@combat-ui/core/button";
+```
+
+The subpath is the component's folder name (e.g. `@combat-ui/core/theme-toggle`, `@combat-ui/core/day-planner`). See the [docs site](https://combat-marketing.github.io/combat-ui) for the full list.
+
+### Without a bundler
+
+The per-component files are plain ES modules — load them straight from wherever you host the package's `dist/`:
+
+```html
+<link rel="stylesheet" href="/vendor/combat-ui/dist/combat-ui.css">
+<script type="module" src="/vendor/combat-ui/dist/button.js"></script>
+
+<cui-button variant="primary">Primary action</cui-button>
+```
+
+To keep using bare specifiers without a bundler, add an import map (load the stylesheet with a plain `<link>` as above):
+
+```html
+<script type="importmap">
+{
+  "imports": {
+    "@combat-ui/core/": "/vendor/combat-ui/dist/"
+  }
+}
+</script>
+<script type="module">
+  import "@combat-ui/core/button.js";  // resolves to /vendor/combat-ui/dist/button.js
+</script>
+```
+
+Each per-component file imports a small shared chunk (the element base class) from the same `dist/` folder, so keep the directory intact when you host it.
+
+## Components
+
+The following custom elements are available. See the [docs site](https://combat-marketing.github.io/combat-ui) for each element's slots, attributes, events, and CSS custom properties.
+
+| | | |
+| --- | --- | --- |
+| `cui-article-filter` | `cui-calendar` | `cui-tree` |
+| `cui-button` | `cui-day-planner` | `cui-map` |
+| `cui-cta` | `cui-field` | `cui-code` |
+| `cui-hero` | `cui-form` | `cui-modal` |
+| `cui-navbar` | `cui-tabs` | `cui-disclosure` |
+| `cui-page-intro` | `cui-theme-toggle` | `cui-toast-region` |
+| `cui-reveal` | `cui-scroll-stage` | `cui-cookie-banner` |
+
+Exported helpers include `defineCombatUi()`, `getTheme()` / `setTheme()`, `toast()`, and `attachCuiParallax()`.
+
+## Styling & Theming
+
+Import the stylesheet once — it provides the design tokens every component reads, plus layout primitives (`cui-page`, `cui-stack`, `cui-cluster`, `cui-grid`, …) and utility classes:
 
 ```ts
 import "@combat-ui/core/styles";
 ```
-
-## Basic Usage
-
-Import the package once in your application entry:
-
-```ts
-import "@combat-ui/core";
-```
-
-The package auto-registers the current custom elements through `defineCombatUi()`.
-
-Use the elements in HTML:
-
-```html
-<cui-navbar sticky>
-  <a slot="brand" href="/">Combat UI</a>
-  <a slot="nav" href="/" aria-current="page">Overview</a>
-  <a slot="nav" href="/components">Components</a>
-  <div slot="actions">
-    <cui-theme-toggle></cui-theme-toggle>
-  </div>
-</cui-navbar>
-
-<main class="cui-page cui-stack">
-  <header class="cui-page-header">
-    <h1>Combat UI</h1>
-    <p class="cui-text-muted">Responsive web primitives and custom elements.</p>
-  </header>
-
-  <section class="cui-cluster">
-    <cui-button variant="primary">Primary action</cui-button>
-    <cui-button href="/docs">Read docs</cui-button>
-  </section>
-</main>
-```
-
-## Components
-
-### `cui-button`
-
-Renders as a native `<button>` by default and as an `<a>` when `href` is present.
-
-Supported attributes:
-
-- `variant="primary"` for the primary treatment.
-- `full` for full-width layout.
-- `disabled` to disable interaction.
-- `href`, `target`, `rel`, and `download` for link mode.
-- `type="button" | "submit" | "reset"` for button mode.
-
-The inner control exposes `part="button"` for styling.
-
-### `cui-navbar`
-
-Provides a responsive navbar shell with named slots:
-
-- `brand` for the product or site link.
-- `nav` for navigation links.
-- `actions` for controls such as theme toggles.
-
-Supported attributes:
-
-- `sticky` to pin the navbar.
-- `expanded` to control mobile disclosure state.
-- `sticky-offset` and `sticky-z-index` for sticky positioning.
-
-Navigation links slotted directly as `a[slot="nav"]` receive default styling and can be configured with CSS custom properties such as `--cui-navbar-link-color`, `--cui-navbar-link-hover-bg`, and `--cui-navbar-link-current-bg`.
-
-### `cui-theme-toggle`
-
-Cycles the document theme between `auto`, `light`, and `dark` by writing to `document.documentElement.dataset.theme`.
-
-Use the helpers when setting theme from code:
-
-```ts
-import { getTheme, setTheme } from "@combat-ui/core";
-
-setTheme("dark");
-console.log(getTheme());
-```
-
-Multiple toggles stay synchronized through a shared theme-change event.
-
-Labels can be customized per instance for i18n:
-
-```html
-<cui-theme-toggle
-  label-auto="Thema: automatisch"
-  label-light="Thema: licht"
-  label-dark="Thema: donker"
-  aria-label-auto="Huidig thema: automatisch. Wijzig thema."
-  aria-label-light="Huidig thema: licht. Wijzig thema."
-  aria-label-dark="Huidig thema: donker. Wijzig thema."
-></cui-theme-toggle>
-```
-
-## CSS
-
-The framework CSS is composed from:
-
-- `reset.css` for baseline element defaults.
-- `tokens.css` for design tokens and theme variables.
-- `utilities.css` for small utility classes.
-- `website.css` for page/content helpers.
-- `layout.css` for layout primitives.
-
-Common classes include:
-
-- `cui-page`, `cui-page-narrow`, `cui-page-wide`
-- `cui-stack`, `cui-cluster`, `cui-grid`, `cui-split`
-- `cui-shell`, `cui-app`
-- `cui-page-header`, `cui-content`, `cui-center`, `cui-cover`
-- `cui-text-muted`, `cui-text-balance`, `cui-visually-hidden`
-- `cui-size-sm`, `cui-size-lg`, `cui-density-compact`, `cui-density-comfortable`
-
-## Theming
 
 Combat UI uses CSS custom properties with the `--cui-` prefix. The active theme is controlled with `data-theme` on the root element:
 
@@ -199,27 +118,35 @@ Combat UI uses CSS custom properties with the `--cui-` prefix. The active theme 
 <html data-theme="dark">
 ```
 
-Remove `data-theme` or call `setTheme("auto")` to return to system preference.
+Remove `data-theme` or call `setTheme("auto")` to return to system preference. Component-local properties use the `--_-` prefix internally; public customization points use `--cui-` names. The [Foundations](https://combat-marketing.github.io/combat-ui/foundations.html) and [Theming](https://combat-marketing.github.io/combat-ui/theming.html) pages cover tokens and customization in full.
 
-Component-local custom properties use the `--_-` prefix internally. Public customization points should use `--cui-` names.
+## Development
+
+```sh
+npm run dev        # Vite dev server for the library
+npm run dev:docs   # docs site from the docs/ directory
+npm run build      # clean, generate entries, typecheck, library + docs build
+npm run check      # TypeScript, CSS, and HTML checks
+```
+
+When you add a component, run `npm run elements` to (re)generate the per-component entry files and subpath exports. It also runs as part of `npm run build`.
 
 ## Project Structure
 
 ```text
 src/
-  components/
-    button/
-    navbar/
-    theme-toggle/
-  styles/
-  internal/
-docs/
-examples/
+  components/   # one folder per element (logic + scoped CSS)
+  elements/     # generated self-registering entries (one per component)
+  styles/       # tokens, reset, layout, utilities, light-DOM blocks
+  internal/     # shared base element and helpers
+docs/           # documentation site
+examples/       # standalone usage examples
+scripts/        # build/codegen scripts
 ```
 
 ## Build Output
 
-The library build writes to `dist`. The docs build writes to `dist-docs`.
+The library build writes to `dist` (a standalone `combat-ui.js`, `combat-ui.css`, and per-component `dist/<name>.js` files). The docs build writes to `dist-docs`.
 
 ```sh
 npm run build:lib
