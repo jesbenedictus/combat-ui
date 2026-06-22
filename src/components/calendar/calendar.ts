@@ -448,14 +448,14 @@ export class CuiCalendar extends CombatElement {
       case "PageUp":
         next = new Date(
           event.shiftKey ? current.getFullYear() - 1 : current.getFullYear(),
-          event.shiftKey ? current.getMonth() - 1 : current.getMonth() - 2,
+          event.shiftKey ? current.getMonth() : current.getMonth() - 1,
           current.getDate(),
         );
         break;
       case "PageDown":
         next = new Date(
           event.shiftKey ? current.getFullYear() + 1 : current.getFullYear(),
-          event.shiftKey ? current.getMonth() - 1 : current.getMonth(),
+          event.shiftKey ? current.getMonth() : current.getMonth() + 1,
           current.getDate(),
         );
         break;

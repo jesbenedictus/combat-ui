@@ -45,7 +45,7 @@ export function parseEventCards(
       start,
       end:
         readDateFromCard(card, start) ??
-        new Date(start.getTime() + defaultDurationMinutes * 60_1000),
+        new Date(start.getTime() + defaultDurationMinutes * 60_000),
       title: titleEl?.textContent?.trim() ?? "",
       status: card.getAttribute("data-status"),
       href:
