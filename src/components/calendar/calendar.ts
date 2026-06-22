@@ -469,7 +469,6 @@ export class CuiCalendar extends CombatElement {
     }
 
     event.preventDefault();
-    if (!next) return;
 
     const nextIso = toIso(next);
     this.focusedIso = nextIso;
