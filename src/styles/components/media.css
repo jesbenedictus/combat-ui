@@ -291,7 +291,7 @@
  */
 .cui-media-card-eyebrow {
   color: var(--cui-media-card-eyebrow-color, var(--cui-color-accent, oklch(57% 0.18 246deg)));
-  font-size: var(--cui-text-eyebrow-size, 0.875rem);
+  font-size: var(--cui-font-size-eyebrow, 0.875rem);
   font-weight: var(--cui-font-weight-strong, 680);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -510,7 +510,7 @@
  */
 .cui-media-overlay-eyebrow {
   color: var(--cui-media-overlay-eyebrow-color, hsl(0deg 0% 100% / 86%));
-  font-size: var(--cui-text-eyebrow-size, 0.875rem);
+  font-size: var(--cui-font-size-eyebrow, 0.875rem);
   font-weight: var(--cui-font-weight-strong, 680);
   letter-spacing: 0.08em;
   text-transform: uppercase;

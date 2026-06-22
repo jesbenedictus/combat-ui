@@ -32,6 +32,7 @@
  * @cssvar --cui-font-size-caption — 0.875rem. Image captions, figure text.
  * @cssvar --cui-font-size-metadata — 0.875rem. Inline metadata (author, date).
  * @cssvar --cui-line-height — 1.55. Default body line-height.
+ * @cssvar --cui-line-height-normal — 1.5. Slightly tighter body copy (media captions).
  * @cssvar --cui-line-height-tight — 1.2. Headings, stat values.
  * @cssvar --cui-line-height-display — 0.98. Display headings (negative leading).
  * @cssvar --cui-font-weight-regular — 450. Body text.
@@ -54,6 +55,7 @@
   --cui-font-size-caption: 0.875rem;
   --cui-font-size-metadata: 0.875rem;
   --cui-line-height: 1.55;
+  --cui-line-height-normal: 1.5;
   --cui-line-height-tight: 1.2;
   --cui-line-height-display: 0.98;
   --cui-font-weight-regular: 450;
@@ -78,6 +80,7 @@
  * @cssvar --cui-color-danger — Destructive / error tone.
  * @cssvar --cui-color-success — Affirmative / success tone.
  * @cssvar --cui-color-warning — Caution / warning tone.
+ * @cssvar --cui-color-info — Informational tone (alerts).
  * @cssvar --cui-color-raised — Pure white. Use sparingly when `surface-raised` isn't enough.
  * @cssvar --cui-color-surface — Default page background.
  * @cssvar --cui-color-surface-muted — Subtle differentiation (chips, hover fills).
@@ -95,6 +98,7 @@
   --cui-color-danger: oklch(58% 0.19 28deg);
   --cui-color-success: oklch(58% 0.16 150deg);
   --cui-color-warning: oklch(72% 0.16 82deg);
+  --cui-color-info: oklch(58% 0.14 230deg);
   --cui-color-raised: oklch(100% 0 0deg);
   --cui-color-surface: oklch(98% 0.01 265deg);
   --cui-color-surface-muted: oklch(97.3% 0.009 240deg);
@@ -159,14 +163,18 @@
  * @summary Radii, border thickness, and shadow scale for component surfaces.
  * @cssvar --cui-radius-1 — 0.25rem. Default control and small-card radius.
  * @cssvar --cui-radius-2 — 0.5rem. Cards, modals, dropdowns.
+ * @cssvar --cui-radius-3 — 0.75rem. Larger surfaces (itinerary, feature panels).
  * @cssvar --cui-border-size — 1px. Default border thickness across components.
+ * @cssvar --cui-border-size-line — Divider/hairline thickness. Defaults to `--cui-border-size`.
  * @cssvar --cui-shadow-1 — Subtle two-layer shadow. Default elevation.
  * @cssvar --cui-shadow-2 — Pronounced shadow. Floating overlays (dropdowns, popovers).
  */
 :root {
   --cui-radius-1: 0.25rem;
   --cui-radius-2: 0.5rem;
+  --cui-radius-3: 0.75rem;
   --cui-border-size: 1px;
+  --cui-border-size-line: var(--cui-border-size, 1px);
   --cui-shadow-1:
     0 1px 2px hsl(220deg 25% 10% / 12%), 0 1px 1px hsl(220deg 25% 10% / 8%);
   --cui-shadow-2: 0 12px 28px hsl(220deg 25% 10% / 14%);
