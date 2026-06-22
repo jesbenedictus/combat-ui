@@ -204,6 +204,7 @@ function createToast(options: CuiToastOptions): CuiToastHandle {
   const region = ensureRegion(placement);
   const element = renderAlert(options);
   region.appendChild(element);
+  installDismissHandler();
 
   let currentOptions: CuiToastOptions = { ...options };
   let timer: number | null = null;
