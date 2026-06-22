@@ -170,14 +170,17 @@
               <p>
                 Slides aren't limited to media. Slot any markup — cards, quotes, stats — for a testimonial
                 rotator or a "what's new" strip. Set <code>loop="false"</code> to clamp at the ends; the
-                arrows disable instead of wrapping.
+                arrows disable instead of wrapping. Because the arrows overlay the slide, give content slides
+                a <code>--cui-carousel-content-inset</code> so they sit in a side gutter beside the copy
+                rather than on top of it.
               </p>
             </div>
 
             <div class="docs-preview">
               <div class="docs-preview-frame">
                 <cui-carousel loop="false" pagination="false" aria-label="Testimonials"
-                  style="--cui-carousel-min-block-size: 16rem;">
+                  style="--cui-carousel-min-block-size: 16rem;
+                         --cui-carousel-content-inset: calc(var(--cui-carousel-control-size, 2.5rem) + var(--cui-space-5, 1.5rem));">
                   <blockquote slot="slide" class="cui-quote"
                     style="display:grid;place-content:center;padding:var(--cui-space-6,2rem);text-align:center;">
                     <p class="cui-quote-text">"Combat UI let us ship a marketing site in days, not weeks."</p>
@@ -199,7 +202,8 @@
 
             <cui-code language="html">
               <script type="text/html">
-                <cui-carousel loop="false" pagination="false" aria-label="Testimonials">
+                <cui-carousel loop="false" pagination="false" aria-label="Testimonials"
+                  style="--cui-carousel-content-inset: 4rem;">
                   <blockquote slot="slide" class="cui-quote">…</blockquote>
                   <blockquote slot="slide" class="cui-quote">…</blockquote>
                 </cui-carousel>

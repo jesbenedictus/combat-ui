@@ -7,6 +7,13 @@
   --cui-carousel-control-bg: var(--cui-color-surface-raised, #fff);
   --cui-carousel-control-color: var(--cui-color, #1b1f27);
   --cui-carousel-control-inset: var(--cui-space-3, 0.75rem);
+
+  /* Side gutters that shrink the viewport so the overlay arrows sit in
+     the margin beside the slides rather than on top of them. Defaults to
+     0 so full-bleed media slides fill the carousel; set it (e.g. to the
+     control size) for content slides that would otherwise run under the
+     arrows. */
+  --cui-carousel-content-inset: 0;
   --cui-carousel-dot-size: 0.625rem;
   --cui-carousel-dot-color: var(--cui-color-surface-raised, #fff);
   --cui-carousel-dot-active: var(--cui-color-accent, oklch(57% 0.18 246deg));
@@ -20,12 +27,20 @@
   display: none;
 }
 
+/* The parts below carry explicit `display` values, which would otherwise
+   beat the UA `[hidden] { display: none }` rule. Honor `hidden` (set in JS
+   to toggle the controls, pagination, and play/pause button) explicitly. */
+[hidden] {
+  display: none !important;
+}
+
 /* Viewport — clips the off-screen slides. */
 [part="viewport"] {
   position: relative;
   overflow: hidden;
   border-radius: var(--cui-carousel-radius);
   min-block-size: var(--cui-carousel-min-block-size);
+  margin-inline: var(--cui-carousel-content-inset);
   background: var(--cui-color-surface-muted, #edf0f4);
 }
 
@@ -41,6 +56,11 @@
 
 ::slotted([slot="slide"]) {
   flex: 0 0 100%;
+
+  /* Any slide margin (e.g. a <blockquote>'s UA `margin-inline: 40px`)
+     would offset the slide from its flex-basis and desync the per-slide
+     translate, so neutralize it. */
+  margin: 0;
   inline-size: 100%;
   min-inline-size: 0;
 }
