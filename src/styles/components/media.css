@@ -47,6 +47,8 @@
   display: block;
   inline-size: 100%;
   background: var(--cui-media-bg);
+  border-radius: var(--cui-media-radius, var(--cui-radius-2, 0.5rem));
+  overflow: hidden;
 }
 
 .cui-media-full > :where(img, video, picture, iframe, svg) {
@@ -76,11 +78,6 @@
 
 .cui-media-full[data-radius="none"] {
   --cui-media-radius: 0;
-}
-
-.cui-media-full {
-  border-radius: var(--cui-media-radius, var(--cui-radius-2, 0.5rem));
-  overflow: hidden;
 }
 
 .cui-media-full[data-bleed="full"] {
