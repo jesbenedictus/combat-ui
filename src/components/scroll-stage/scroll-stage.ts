@@ -7,6 +7,7 @@ import {
   type ScrollStageHandle,
   type ScrollStageState,
 } from "../../internal/scroll-coordinator";
+import { numberAttr } from "../../internal/dom";
 
 const DEFAULTS = {
   focusBias: 0,
@@ -137,17 +138,10 @@ export class CuiScrollStage extends CombatElement {
 
   private readOptions(): ScrollStageHandle["options"] {
     return {
-      focusBias: this.numberAttr("focus-bias", DEFAULTS.focusBias),
-      hold: this.numberAttr("hold", DEFAULTS.hold),
-      threshold: this.numberAttr("threshold", DEFAULTS.threshold),
+      focusBias: numberAttr(this, "focus-bias", DEFAULTS.focusBias),
+      hold: numberAttr(this, "hold", DEFAULTS.hold),
+      threshold: numberAttr(this, "threshold", DEFAULTS.threshold),
     };
-  }
-   
-  private numberAttr(name: string, defaultValue: number): number {
-    const raw = this.getAttribute(name);
-    if (raw === null || raw.trim() === "") return defaultValue;
-    const value = Number(raw);
-    return isNaN(value) ? defaultValue : value;
   }
 
   private syncCssVars(): void {

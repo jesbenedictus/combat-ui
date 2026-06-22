@@ -1,5 +1,5 @@
 import { CombatElement, cssStyleSheet } from "../../internal/base-element";
-import { dateFromIso, startOfDay, toIso } from "../../internal/date-utils";
+import { dateFromIso, resolveLocale, startOfDay, toIso } from "../../internal/date-utils";
 import { parseEventCards, type EventCardData } from "../../internal/event-cards";
 import dayPlannerCss from "./day-planner.css?inline";
 
@@ -20,11 +20,9 @@ export interface CuiDayPlannerNavigateDetail {
   iso: string;
 }
 
-const EVENT_CARD_SELECTOR = ".cui-event-card";
 const DEFAULT_START_HOUR = 7;
 const DEFAULT_END_HOUR = 22;
 const DEFAULT_SLOT_MINUTES = 60;
-const DEFAULT_DURATION_MINUTES = 60;
 const NOW_LINE_INTERVAL_MS = 60_000;
 
 function minutesFromMidnight(date: Date): number {
@@ -81,32 +79,6 @@ function packColumns(events: ParsedEvent[]): PositionedEvent[] {
   flush();
 
   return out;
-}
-
-function readEndFromCard(card: HTMLElement, start: Date): Date | null {
-  const explicit = card.getAttribute("data-end");
-  if (explicit) {
-    const fromIso = new Date(explicit);
-    if (!Number.isNaN(fromIso.getTime())) return fromIso;
-    const hhmm = /^(\d{1,2}):(\d{2})$/.exec(explicit);
-    if (hhmm) {
-      const next = new Date(start);
-      next.setHours(Number.parseInt(hhmm[1]!, 10), Number.parseInt(hhmm[2]!, 10), 0, 0);
-      return next;
-    }
-  }
-  const times = card.querySelectorAll<HTMLTimeElement>("time[datetime]");
-  if (times.length >= 2) {
-    const second = times[1]!;
-    const value = second.getAttribute("datetime");
-    if (value) {
-      const parsed = new Date(value);
-      if (!Number.isNaN(parsed.getTime()) && parsed.getTime() > start.getTime()) {
-        return parsed;
-      }
-    }
-  }
-  return null;
 }
 
 /**
@@ -256,12 +228,7 @@ export class CuiDayPlanner extends CombatElement {
   }
 
   get locale(): string {
-    return (
-      this.getAttribute("locale") ||
-      document.documentElement.lang ||
-      (typeof navigator !== "undefined" ? navigator.language : "en") ||
-      "en"
-    );
+    return resolveLocale(this, "locale");
   }
 
   private applyAttributes(): void {

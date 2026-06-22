@@ -1,10 +1,6 @@
 import { CombatElement, cssStyleSheet } from "../../internal/base-element";
-import { dateFromIso, startOfDay, toIso } from "../../internal/date-utils";
-import {
-  EVENT_CARD_SELECTOR,
-  parseEventCards,
-  type EventCardData,
-} from "../../internal/event-cards";
+import { dateFromIso, resolveLocale, startOfDay, toIso } from "../../internal/date-utils";
+import { parseEventCards, type EventCardData } from "../../internal/event-cards";
 import calendarCss from "./calendar.css?inline";
 
 export type CuiCalendarWeekdayStart = "monday" | "sunday";
@@ -154,12 +150,7 @@ export class CuiCalendar extends CombatElement {
   }
 
   get locale(): string {
-    return (
-      this.getAttribute("locale") ||
-      document.documentElement.lang ||
-      (typeof navigator !== "undefined" ? navigator.language : "en") ||
-      "en"
-    );
+    return resolveLocale(this, "locale");
   }
 
   private applyAttributes(): void {

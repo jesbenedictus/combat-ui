@@ -73,20 +73,21 @@ export function startOfDay(date: Date): Date {
 
 /**
  * Resolves the locale to use for date formatting based on the following precedence:
- * 1. The `lang` attribute of the given element
+ * 1. The given attribute (default `lang`) of the given element
  * 2. The `lang` attribute of the document's root element
  * 3. The user's browser language settings
  * 4. Defaults to "en" if none of the above are available
  * @param element the HTML element to use for locale resolution
+ * @param attr the attribute name to read the locale from (defaults to `lang`)
  * @returns the resolved locale string
- * 
+ *
  * @memo Might want to move to a file dealing with internationalization if we add more i18n utilities in the future
- * @memo Might want to cache resolved locales on elements to avoid repeated lookups, though this function is only called 
+ * @memo Might want to cache resolved locales on elements to avoid repeated lookups, though this function is only called
  * when formatting dates for display so it may not be a performance concern
  */
-export function resolveLocale(element: HTMLElement): string {
+export function resolveLocale(element: HTMLElement, attr: string = "lang"): string {
   return (
-    element.getAttribute("lang") ||
+    element.getAttribute(attr) ||
     document.documentElement.lang ||
     (typeof navigator !== "undefined" ? navigator.language : "en") ||
     "en"

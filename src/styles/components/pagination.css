@@ -220,8 +220,6 @@
   color: var(--cui-color-muted, #5d6675);
   font-weight: var(--cui-font-weight-strong, 680);
   -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
 

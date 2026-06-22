@@ -566,8 +566,6 @@ a.cui-article-card-media {
   font-weight: var(--cui-font-weight-strong, 680);
   cursor: pointer;
   -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
 

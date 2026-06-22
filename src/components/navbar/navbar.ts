@@ -1,4 +1,5 @@
 import { CombatElement, cssStyleSheet } from "../../internal/base-element";
+import { findInComposedPath } from "../../internal/dom";
 import style from "./navbar.css?inline";
 
 /**
@@ -229,11 +230,7 @@ export class CuiNavbar extends CombatElement {
   }
 
   private handleClick(event: MouseEvent): void {
-    const toggle = event.composedPath().find((node): node is HTMLElement => {
-      return (
-        node instanceof HTMLElement && node.matches(".cui-dropdown-toggle")
-      );
-    });
+    const toggle = findInComposedPath(event, ".cui-dropdown-toggle");
 
     if (!toggle) {
       return;

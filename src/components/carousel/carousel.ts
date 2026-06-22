@@ -1,6 +1,6 @@
 import carouselCss from "./carousel.css?inline";
 import { CombatElement, cssStyleSheet } from "../../internal/base-element";
-import { findInComposedPath } from "../../internal/dom";
+import { findInComposedPath, numberAttr } from "../../internal/dom";
 import { installRemoteTrigger } from "../../internal/remote-trigger";
 
 export interface CuiCarouselChangeDetail {
@@ -125,7 +125,7 @@ export class CuiCarousel extends CombatElement {
       this.setAttribute("aria-label", "Carousel");
     }
 
-    this.currentIndex = this.clampIndex(this.numberAttr("index", 0));
+    this.currentIndex = this.clampIndex(numberAttr(this, "index", 0));
 
     if (!this.eventsBound) {
       this.eventsBound = true;
@@ -149,7 +149,7 @@ export class CuiCarousel extends CombatElement {
     if (name === "index") {
       // Ignore the reflection write `go()` makes itself; only react to
       // external attribute changes.
-      const value = this.numberAttr("index", 0);
+      const value = numberAttr(this, "index", 0);
       if (value !== this.currentIndex) this.go(value);
     } else if (name === "autoplay") {
       this.syncAutoplay();
@@ -455,7 +455,7 @@ export class CuiCarousel extends CombatElement {
 
   private restartTimer(): void {
     this.stop();
-    const interval = this.numberAttr("interval", DEFAULT_INTERVAL);
+    const interval = numberAttr(this, "interval", DEFAULT_INTERVAL);
     this.timer = window.setInterval(() => this.next(), Math.max(interval, 1000));
     // Keep the live region quiet while the timer is running.
     this.shadowRoot
@@ -476,10 +476,4 @@ export class CuiCarousel extends CombatElement {
     return Math.min(Math.max(value, 0), count - 1);
   }
 
-  private numberAttr(name: string, fallback: number): number {
-    const raw = this.getAttribute(name);
-    if (raw === null || raw.trim() === "") return fallback;
-    const value = Number(raw);
-    return Number.isNaN(value) ? fallback : value;
-  }
 }

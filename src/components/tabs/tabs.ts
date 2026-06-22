@@ -1,4 +1,5 @@
 import { CombatElement, cssStyleSheet } from "../../internal/base-element";
+import { findInComposedPath } from "../../internal/dom";
 import tabsCss from "./tabs.css?inline";
 
 /**
@@ -49,9 +50,7 @@ export class CuiTabs extends CombatElement {
   }
 
   private handleClick(event: MouseEvent): void {
-    const tab = event.composedPath().find((node): node is HTMLElement => {
-      return node instanceof HTMLElement && node.matches("[slot='tab']");
-    });
+    const tab = findInComposedPath(event, "[slot='tab']");
 
     if (tab) {
       this.selectTab(tab);

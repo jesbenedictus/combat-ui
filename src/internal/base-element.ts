@@ -2,14 +2,6 @@ const sheetCache = new Map<string, CSSStyleSheet>();
 
 export type CombatStyles = CSSStyleSheet | CSSStyleSheet[] | string | string[];
 
-const constructableSupported =
-  "adoptedStyleSheets" in Document.prototype &&
-  "replaceSync" in CSSStyleSheet.prototype;
-
-export function supportsConstructableStyleSheets(): boolean {
-  return constructableSupported;
-}
-
 export function cssStyleSheet(cssText: string): CSSStyleSheet {
   let sheet = sheetCache.get(cssText);
 
@@ -20,10 +12,6 @@ export function cssStyleSheet(cssText: string): CSSStyleSheet {
   }
 
   return sheet;
-}
-
-function normalizeStyles(styles: CombatStyles): Array<CSSStyleSheet | string> {
-  return Array.isArray(styles) ? styles : [styles];
 }
 
 export class CombatElement extends HTMLElement {
@@ -93,17 +81,6 @@ export class CombatElement extends HTMLElement {
     const template = document.createElement("template");
     template.innerHTML = html;
     this.shadowRoot.appendChild(template.content.cloneNode(true));
-  }
-
-  private hasAdoptedStyles(): boolean {
-    if (!this.shadowRoot) {
-      return false;
-    }
-
-    return (
-      this.shadowRoot.querySelector("style[data-combat-ui='styles']") !==
-        null || this.shadowRoot.adoptedStyleSheets.length > 0
-    );
   }
 }
 
