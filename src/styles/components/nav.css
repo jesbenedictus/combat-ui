@@ -247,3 +247,240 @@
     transition: none;
   }
 }
+
+/**
+ * Full-width navbar band wrapping a centered `.cui-navbar-inner`. Below 48rem
+ * the nav + actions collapse behind a burger toggle; at ≥48rem the bar and
+ * collapse sit side by side on one row and the burger is hidden.
+ *
+ * The `cui-navbar` custom element enhances this markup — it injects the
+ * `.cui-navbar-toggle` burger button and wires up collapse/dropdown/sticky
+ * behavior + ARIA — but every visual is driven by these classes, so the navbar
+ * lays out identically before and after the element upgrades (no FOUC). The
+ * layout also works standalone as a plain `.cui-navbar` (without the burger or
+ * JS) for static, always-expanded use.
+ *
+ * Structure:
+ *   .cui-navbar > .cui-navbar-inner
+ *     > .cui-navbar-bar         (brand + injected burger)
+ *     > .cui-navbar-collapse
+ *       > .cui-navbar-collapse-panel  (.cui-navbar-nav + .cui-navbar-actions)
+ *
+ * @block cui-navbar
+ * @summary Responsive site-nav band: centered bar that collapses behind a burger below 48rem.
+ * @cssvar --cui-navbar-bg — Band background. Defaults to `--cui-color-surface-raised`.
+ * @cssvar --cui-navbar-border — Bottom border color. Defaults to `--cui-color-border`.
+ * @cssvar --cui-navbar-width — Max centered content width. Defaults to `--cui-container` (72rem).
+ * @cssvar --cui-navbar-gutter — Min inline gutter beside the content. Defaults to 2rem.
+ * @cssvar --cui-navbar-size — Min bar height. Defaults to 3.25rem.
+ * @cssvar --cui-navbar-padding-block — Inner block padding. Defaults to 0.75rem.
+ * @cssvar --cui-navbar-animation-duration — Collapse open/close duration. Defaults to 220ms.
+ * @cssvar --cui-navbar-sticky-offset — `top` while `[sticky]`. Defaults to 0.
+ * @cssvar --cui-navbar-sticky-z-index — `z-index` while `[sticky]`. Defaults to 10.
+ *
+ * @example
+ *   <cui-navbar class="cui-navbar" sticky sticky-offset="0">
+ *     <div class="cui-navbar-inner">
+ *       <div class="cui-navbar-bar">
+ *         <a class="cui-navbar-brand" href="/">Combat UI</a>
+ *       </div>
+ *       <div class="cui-navbar-collapse">
+ *         <div class="cui-navbar-collapse-panel">
+ *           <nav class="cui-nav cui-navbar-nav" aria-label="Primary">…</nav>
+ *           <div class="cui-navbar-actions"><cui-theme-toggle></cui-theme-toggle></div>
+ *         </div>
+ *       </div>
+ *     </div>
+ *   </cui-navbar>
+ */
+.cui-navbar {
+  --cui-navbar-animation-duration: 220ms;
+  --cui-navbar-animation-easing: cubic-bezier(0.2, 0, 0, 1);
+  --cui-navbar-animation-distance: 0.25rem;
+
+  display: block;
+  background: var(--cui-navbar-bg, var(--cui-color-surface-raised, #fff));
+  border-block-end: var(--cui-border-size, 1px) solid var(--cui-navbar-border, var(--cui-color-border, #cfd6df));
+  color: var(--cui-navbar-color, var(--cui-color, #1b1f27));
+}
+
+.cui-navbar[hidden] {
+  display: none;
+}
+
+.cui-navbar[sticky] {
+  position: sticky;
+  z-index: var(--cui-navbar-sticky-z-index, 10);
+  inset-block-start: var(--cui-navbar-sticky-offset, 0);
+}
+
+.cui-navbar-inner {
+  display: grid;
+  inline-size: min(100% - var(--cui-navbar-gutter, 2rem), var(--cui-navbar-width, var(--cui-container, 72rem)));
+  margin-inline: auto;
+  padding-block: var(--cui-navbar-padding-block, 0.75rem);
+}
+
+.cui-navbar-bar {
+  display: flex;
+  min-block-size: var(--cui-navbar-size, 3.25rem);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--cui-space-3, 0.75rem);
+}
+
+.cui-navbar-brand {
+  display: inline-flex;
+  min-inline-size: 0;
+  align-items: center;
+  color: inherit;
+  font-weight: var(--cui-font-weight-strong, 680);
+  text-decoration: none;
+}
+
+/**
+ * Burger toggle injected into `.cui-navbar-bar` by the `cui-navbar` element.
+ * Hidden at ≥48rem where the collapse panel is always open.
+ *
+ * @block cui-navbar-toggle
+ * @summary Burger button revealing the collapsed nav below 48rem.
+ */
+.cui-navbar-toggle {
+  display: inline-flex;
+  inline-size: var(--cui-control-size, 2.5rem);
+  block-size: var(--cui-control-size, 2.5rem);
+  align-items: center;
+  justify-content: center;
+  border: var(--cui-border-size, 1px) solid var(--cui-color-border, #cfd6df);
+  border-radius: var(--cui-control-radius, 0.25rem);
+  background: var(--cui-color-surface-muted, #edf0f4);
+  color: inherit;
+  font: inherit;
+}
+
+.cui-navbar-toggle-lines,
+.cui-navbar-toggle-lines::before,
+.cui-navbar-toggle-lines::after {
+  display: block;
+  inline-size: 1.125rem;
+  block-size: 2px;
+  border-radius: 999px;
+  background: currentcolor;
+  content: "";
+}
+
+.cui-navbar-toggle-lines {
+  position: relative;
+}
+
+.cui-navbar-toggle-lines::before,
+.cui-navbar-toggle-lines::after {
+  position: absolute;
+  inset-inline-start: 0;
+}
+
+.cui-navbar-toggle-lines::before {
+  inset-block-start: -0.375rem;
+}
+
+.cui-navbar-toggle-lines::after {
+  inset-block-start: 0.375rem;
+}
+
+.cui-navbar-collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(calc(var(--cui-navbar-animation-distance, 0.25rem) * -1));
+  transition:
+    grid-template-rows var(--cui-navbar-animation-duration, 220ms) var(--cui-navbar-animation-easing, cubic-bezier(0.2, 0, 0, 1)),
+    opacity var(--cui-navbar-animation-duration, 220ms) var(--cui-navbar-animation-easing, cubic-bezier(0.2, 0, 0, 1)),
+    transform var(--cui-navbar-animation-duration, 220ms) var(--cui-navbar-animation-easing, cubic-bezier(0.2, 0, 0, 1)),
+    visibility var(--cui-navbar-animation-duration, 220ms) var(--cui-navbar-animation-easing, cubic-bezier(0.2, 0, 0, 1));
+  visibility: hidden;
+}
+
+.cui-navbar[expanded] .cui-navbar-collapse {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+.cui-navbar[animation="fade"] .cui-navbar-collapse {
+  transform: none;
+}
+
+.cui-navbar[animation="none"] .cui-navbar-collapse {
+  transform: none;
+  transition: none;
+}
+
+.cui-navbar-collapse-panel {
+  display: grid;
+  min-block-size: 0;
+  gap: var(--cui-space-3, 0.75rem);
+  overflow: hidden;
+  padding-block: var(--cui-space-3, 0.75rem) var(--cui-space-2, 0.5rem);
+}
+
+.cui-navbar-nav,
+.cui-navbar-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--cui-space-2, 0.5rem);
+}
+
+@media (width >= 48rem) {
+  .cui-navbar-inner {
+    display: flex;
+    min-block-size: var(--cui-navbar-size, 3.25rem);
+    align-items: center;
+    gap: var(--cui-space-5, 1.5rem);
+  }
+
+  .cui-navbar-toggle {
+    display: none;
+  }
+
+  .cui-navbar-collapse {
+    display: flex;
+    flex: 1;
+    min-inline-size: 0;
+    opacity: 1;
+    overflow: visible;
+    transform: none;
+    transition: none;
+    visibility: visible;
+  }
+
+  .cui-navbar-collapse-panel {
+    display: flex;
+    flex: 1;
+    min-inline-size: 0;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--cui-space-4, 1rem);
+    overflow: visible;
+    padding-block: 0;
+  }
+
+  .cui-navbar-nav,
+  .cui-navbar-actions {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cui-navbar {
+    --cui-navbar-animation-duration: 1ms;
+    --cui-navbar-animation-distance: 0;
+  }
+
+  .cui-navbar-collapse {
+    transition: none;
+  }
+}

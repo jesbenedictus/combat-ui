@@ -1,46 +1,55 @@
-import { CombatElement, cssStyleSheet } from "../../internal/base-element";
+import { CombatElement } from "../../internal/base-element";
 import { valueWithUnit } from "../../internal/css-helpers";
 import { findInComposedPath } from "../../internal/dom";
-import style from "./navbar.css?inline";
 
 /**
- * Responsive site navigation with collapsible mobile panel, nested
- * dropdowns, and optional sticky positioning. Brand, links, and action
- * buttons are all slotted so the markup stays semantic and SEO-friendly.
+ * Responsive site navigation with collapsible mobile panel, nested dropdowns,
+ * and optional sticky positioning. The element renders no styling of its own —
+ * it enhances light-DOM markup built from the `.cui-navbar` class family,
+ * injecting the burger toggle button and wiring up collapse, dropdown, sticky,
+ * and ARIA behavior. All brand/nav/action content stays in the light DOM so it
+ * remains semantic, searchable, and SEO-friendly.
+ *
+ * The burger button is the one piece of chrome the component owns: it is
+ * created and ARIA-wired by the element rather than authored, so the
+ * `aria-expanded` / `aria-controls` contract can't be mis-authored per page.
+ * Everything else is plain `.cui-navbar-*` markup.
  *
  * @element cui-navbar
  *
- * @slot brand - Site logo or wordmark (typically an `<a>` to the home page).
- * @slot nav - Primary navigation. Use a `<ul>` with `<li>` items; nest a
- *   `.cui-dropdown` for menus.
- * @slot actions - Trailing actions (sign-in button, theme toggle, etc.).
- *
  * @attr {boolean} expanded - Mobile collapse panel state. Toggled by the
- *   built-in burger button; can also be set programmatically.
+ *   injected burger button; can also be set programmatically.
  * @attr {boolean} sticky - Enables `position: sticky` on the navbar.
  * @attr {string} sticky-offset - CSS length used as `top` while sticky
  *   (e.g. `0`, `var(--cui-space-2)`).
  * @attr {string} sticky-z-index - CSS `z-index` while sticky.
  *
  * @example
- * <cui-navbar sticky sticky-offset="0">
- *   <a slot="brand" href="/" class="cui-navbar-brand">Combat UI</a>
- *   <ul slot="nav" class="cui-navbar-nav">
- *     <li><a href="/components" aria-current="page">Components</a></li>
- *     <li class="cui-dropdown">
- *       <button class="cui-dropdown-toggle">Resources</button>
- *       <ul class="cui-dropdown-menu">
- *         <li><a href="/docs">Docs</a></li>
- *         <li><a href="/blog">Blog</a></li>
- *       </ul>
- *     </li>
- *   </ul>
- *   <div slot="actions"><cui-theme-toggle></cui-theme-toggle></div>
+ * <cui-navbar class="cui-navbar" sticky sticky-offset="0">
+ *   <div class="cui-navbar-inner">
+ *     <div class="cui-navbar-bar">
+ *       <a class="cui-navbar-brand" href="/">Combat UI</a>
+ *     </div>
+ *     <div class="cui-navbar-collapse">
+ *       <div class="cui-navbar-collapse-panel">
+ *         <nav class="cui-nav cui-navbar-nav" aria-label="Primary">
+ *           <a class="cui-nav-link" href="/components" aria-current="page">Components</a>
+ *           <div class="cui-dropdown">
+ *             <button class="cui-nav-link cui-dropdown-toggle" type="button">Resources</button>
+ *             <div class="cui-dropdown-menu" hidden>
+ *               <a class="cui-dropdown-item" href="/docs">Docs</a>
+ *               <a class="cui-dropdown-item" href="/blog">Blog</a>
+ *             </div>
+ *           </div>
+ *         </nav>
+ *         <div class="cui-navbar-actions"><cui-theme-toggle></cui-theme-toggle></div>
+ *       </div>
+ *     </div>
+ *   </div>
  * </cui-navbar>
  */
 export class CuiNavbar extends CombatElement {
   static override tagName = "cui-navbar";
-  static override styles = [cssStyleSheet(style)];
   static observedAttributes = [
     "expanded",
     "sticky",
@@ -52,8 +61,8 @@ export class CuiNavbar extends CombatElement {
   private collapseId = `cui-navbar-collapse-${++CuiNavbar.instanceCounter}`;
 
   connectedCallback(): void {
-    this.renderTemplate(this.template());
-
+    this.renderTemplate(`<slot></slot>`);
+    this.ensureToggle();
     this.bindEvents();
     this.sync();
     this.syncStickyOptions();
@@ -120,37 +129,36 @@ export class CuiNavbar extends CombatElement {
     this.syncDropdowns();
   }
 
-  private template(): string {
-    return `
-      <nav part="nav" aria-label="Primary">
-        <div class="bar" part="bar">
-          <div class="brand" part="brand">
-            <slot name="brand"></slot>
-          </div>
-          <button class="toggle" part="toggle" type="button"
-                  aria-expanded="false" aria-controls="${this.collapseId}">
-            <span class="toggle-lines" aria-hidden="true"></span>
-            <span class="sr-only">Toggle navigation</span>
-          </button>
-        </div>
-        <div id="${this.collapseId}" class="collapse" part="collapse">
-          <div class="collapse-panel" part="collapse-panel">
-            <div class="links" part="links"><slot name="nav"></slot></div>
-            <div class="actions" part="actions"><slot name="actions"></slot></div>
-          </div>
-        </div>
-      </nav>
-    `;
+  /** The burger button this element owns, if it has been injected yet. */
+  private get toggleButton(): HTMLButtonElement | null {
+    return this.querySelector<HTMLButtonElement>(".cui-navbar-toggle");
+  }
+
+  /**
+   * Injects the burger toggle into `.cui-navbar-bar` (once) and wires its
+   * `aria-controls` to the `.cui-navbar-collapse` panel. The button is chrome
+   * the author never writes, so its ARIA contract stays component-managed.
+   */
+  private ensureToggle(): void {
+    const bar = this.querySelector<HTMLElement>(".cui-navbar-bar");
+    if (!bar || bar.querySelector(":scope > .cui-navbar-toggle")) return;
+
+    const collapse = this.querySelector<HTMLElement>(".cui-navbar-collapse");
+    if (collapse && !collapse.id) collapse.id = this.collapseId;
+
+    const toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.className = "cui-navbar-toggle";
+    toggle.setAttribute("aria-expanded", String(this.expanded));
+    if (collapse?.id) toggle.setAttribute("aria-controls", collapse.id);
+    toggle.innerHTML =
+      '<span class="cui-navbar-toggle-lines" aria-hidden="true"></span>' +
+      '<span class="cui-visually-hidden">Toggle navigation</span>';
+    bar.appendChild(toggle);
   }
 
   private sync(): void {
-    const toggle = this.shadowRoot?.querySelector(".toggle");
-
-    if (!toggle) {
-      return;
-    }
-
-    toggle.setAttribute("aria-expanded", String(this.expanded));
+    this.toggleButton?.setAttribute("aria-expanded", String(this.expanded));
   }
 
   private syncStickyOptions(): void {
@@ -186,9 +194,6 @@ export class CuiNavbar extends CombatElement {
   private bindEvents(): void {
     const signal = this.freshSignal();
 
-    this.shadowRoot
-      ?.querySelector(".toggle")
-      ?.addEventListener("click", () => this.toggle(), { signal });
     this.addEventListener("click", (event) => this.handleClick(event), {
       signal,
     });
@@ -216,6 +221,12 @@ export class CuiNavbar extends CombatElement {
   }
 
   private handleClick(event: MouseEvent): void {
+    const burger = findInComposedPath(event, ".cui-navbar-toggle");
+    if (burger && this.contains(burger)) {
+      this.toggle();
+      return;
+    }
+
     const toggle = findInComposedPath(event, ".cui-dropdown-toggle");
 
     if (!toggle) {

@@ -12,10 +12,11 @@
   </div>
 
   <cui-tabs>
-    <button slot="tab" type="button">Numbered</button>
-    <button slot="tab" type="button">Compact</button>
-
-    <section slot="panel" class="docs-panel">
+    <div class="cui-tablist">
+      <button class="cui-tab" type="button" data-selected="true">Numbered</button>
+      <button class="cui-tab" type="button">Compact</button>
+    </div>
+    <section class="docs-panel">
       <div class="cui-stack">
         <nav class="cui-pagination" aria-label="Paginering">
           <ul class="cui-pagination-list">
@@ -80,7 +81,7 @@
       </div>
     </section>
 
-    <section slot="panel" class="docs-panel">
+    <section class="docs-panel">
       <div class="cui-stack">
         <nav class="cui-pagination" data-variant="compact" aria-label="Paginering">
           <ul class="cui-pagination-list">

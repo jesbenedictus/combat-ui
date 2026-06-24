@@ -1,8 +1,8 @@
 /**
  * Light-DOM styling for the custom elements that still render a shadow root
- * and project author content through slots (field, map, cookie-banner) plus
- * the navbar's pre-upgrade reserve-layout. Putting the slotted typography here,
- * in the global stylesheet, rather than in `::slotted()` rules inside each
+ * and project author content through slots (field, map, cookie-banner).
+ * Putting the slotted typography here, in the global stylesheet, rather than
+ * in `::slotted()` rules inside each
  * shadow root means it is present from the page's first paint — identical
  * before and after the element upgrades — so there is no font flash and no need
  * to hide undefined elements.
@@ -33,98 +33,10 @@ cui-field {
   gap: var(--cui-space-1, 0.25rem);
 }
 
-/* Navbar ----------------------------------------------------------------- */
-cui-navbar {
-  --cui-navbar-link-bg: transparent;
-  --cui-navbar-link-color: var(--cui-color-muted, #5d6675);
-  --cui-navbar-link-hover-bg: var(--cui-color-surface-muted, #edf0f4);
-  --cui-navbar-link-hover-color: var(--cui-color, #1b1f27);
-  --cui-navbar-link-current-bg: var(--cui-color-surface-muted, #edf0f4);
-  --cui-navbar-link-current-color: var(--cui-color, #1b1f27);
-  --cui-navbar-link-padding-block: var(--cui-space-1, 0.25rem);
-  --cui-navbar-link-padding-inline: var(--cui-space-2, 0.5rem);
-  --cui-navbar-link-radius: var(--cui-control-radius, 0.25rem);
-}
-
-/* The bar/container structure (centered width, fixed height, the brand + nav
-   + actions row) lives in the shadow DOM, so before the element upgrades there
-   is no bar — the slotted brand, nav, and actions stack at full height and
-   then snap into place when the shadow root attaches, reflowing the page. This
-   reserves the upgraded bar's box so nothing moves: same centered width, same
-   total height (`--cui-navbar-size` plus the block padding the shadow `nav`
-   adds), brand and nav/actions on one row. It is scoped to `:not(:defined)`,
-   so it stops applying the instant the shadow DOM takes over — no manual
-   tag list, no hidden content. */
-cui-navbar:not(:defined) {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--cui-space-5, 1.5rem);
-  inline-size: min(
-    100% - var(--cui-navbar-gutter, 2rem),
-    var(--cui-navbar-width, var(--cui-container, 72rem))
-  );
-  margin-inline: auto;
-  min-block-size: calc(
-    var(--cui-navbar-size, 3.25rem) + (var(--cui-navbar-padding-block, 0.75rem) * 2)
-  );
-}
-
-/* Below the desktop breakpoint the upgraded navbar tucks nav + actions behind
-   the burger button, leaving only the brand in the bar. Match that before
-   upgrade so the bar height holds; the collapsible content reappears, laid out
-   correctly, once the element upgrades. */
-@media (width < 48rem) {
-  cui-navbar:not(:defined) > [slot="nav"],
-  cui-navbar:not(:defined) > [slot="actions"] {
-    display: none;
-  }
-}
-
-cui-navbar > a[slot="brand"] {
-  color: inherit;
-  font-weight: var(--cui-font-weight-strong, 680);
-  text-decoration: none;
-}
-
-cui-navbar > [slot="nav"],
-cui-navbar > [slot="actions"] {
-  display: flex;
-  flex-direction: column;
-  gap: var(--cui-space-2, 0.5rem);
-}
-
-cui-navbar > a[slot="nav"] {
-  display: inline-flex;
-  min-block-size: 2rem;
-  align-items: center;
-  justify-content: flex-start;
-  border-radius: var(--cui-navbar-link-radius, 0.25rem);
-  background: var(--cui-navbar-link-bg, transparent);
-  color: var(--cui-navbar-link-color, currentcolor);
-  font-weight: var(--cui-font-weight-strong, 680);
-  padding-block: var(--cui-navbar-link-padding-block, 0.25rem);
-  padding-inline: var(--cui-navbar-link-padding-inline, 0.5rem);
-  text-decoration: none;
-}
-
-cui-navbar > a[slot="nav"]:hover {
-  background: var(--cui-navbar-link-hover-bg, var(--cui-color-surface-muted, #edf0f4));
-  color: var(--cui-navbar-link-hover-color, var(--cui-color, #1b1f27));
-}
-
-cui-navbar > a[slot="nav"][aria-current="page"] {
-  background: var(--cui-navbar-link-current-bg, var(--cui-color-surface-muted, #edf0f4));
-  color: var(--cui-navbar-link-current-color, var(--cui-color, #1b1f27));
-}
-
-@media (width >= 48rem) {
-  cui-navbar > [slot="nav"],
-  cui-navbar > [slot="actions"] {
-    flex-direction: row;
-    align-items: center;
-  }
-}
+/* Navbar (cui-navbar) renders no shadow structure — it enhances the
+   `.cui-navbar` light-DOM class family (src/styles/components/nav.css) and
+   injects only the burger toggle, so the bar lays out identically before and
+   after the element upgrades. No `:not(:defined)` reserve-layout is needed. */
 
 /* Tabs (cui-tabs) renders no shadow structure — it enhances `.cui-tabs` /
    `.cui-tablist` / `.cui-tab` light-DOM markup, styled by

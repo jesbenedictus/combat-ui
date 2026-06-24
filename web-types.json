@@ -48,6 +48,49 @@
           }
         },
         {
+          "name": "cui-button",
+          "description": "Renders a `<button>` or `<a>` with shared visual styling and disabled state\nhandling. Choose anchor mode by setting the `href` attribute, and button mode by omitting it.\n---\n",
+          "doc-url": "",
+          "attributes": [
+            {
+              "name": "disabled",
+              "description": "= Disables the underlying control. For anchor mode this also prevents navigation.",
+              "value": { "type": "boolean" }
+            },
+            {
+              "name": "href",
+              "description": "When set, the button renders as an anchor (`<a>`) instead of a `<button>`. The value is applied to the anchor's `href` attribute.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "target",
+              "description": "Anchor target (e.g. `_blank`). Only applies when `href` is set.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "rel",
+              "description": "Anchor relationship. Only applies when `href` is set.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "type",
+              "description": "Button type. Only applies when `href` is not set. Defaults to `\"button\"`.",
+              "value": { "type": "\"button\" | \"submit\" | \"reset\"" }
+            }
+          ],
+          "events": [],
+          "js": {
+            "properties": [
+              { "name": "disabled", "type": "boolean" },
+              { "name": "href", "type": "string | null" },
+              { "name": "target", "type": "string | null" },
+              { "name": "rel", "type": "string | null" },
+              { "name": "type", "type": "ButtonType" }
+            ],
+            "events": []
+          }
+        },
+        {
           "name": "cui-calendar",
           "description": "Month-view calendar that decorates a slotted list of\n`.cui-event-card` children. Reads each card's first `<time\ndatetime>` to plot an event pill onto the matching day cell;\nthe source cards remain in light DOM beneath the grid (or\nvisually hidden via `events-hidden`) so search engines and feed\nreaders index the full event copy without depending on the\ncomponent's JS.\n\nClick a day to fire `cui-calendar-day-select`; click an event\npill to fire `cui-calendar-event-select`; the prev / next\nbuttons fire `cui-calendar-navigate`. Keyboard nav inside the\ngrid uses arrow keys, Home / End, and PgUp / PgDn (with Shift\njumping a year).\n---\n\n\n### **Events:**\n - **cui-calendar-event-select** - Fires when an event pill is activated.\n- **cui-calendar-day-select** - Fires when a day cell is activated.\n- **cui-calendar-navigate** - Fires when the visible month changes.\n\n### **Methods:**\n - **goTo(year: _number_, month: _number_): _void_** - Programmatically navigate to a specific month (1-12).\n- **next(): _void_** - Move forward one month.\n- **previous(): _void_** - Move back one month.\n- **refresh(): _void_** - Re-read slotted event cards. Call after dynamic updates.\n\n### **Slots:**\n - _default_ - One or more `.cui-event-card` elements. Cards without a `<time datetime>` are skipped; multi-day events use the start date for plotting (single-cell rendering for v1).",
           "doc-url": "",
@@ -126,47 +169,24 @@
           }
         },
         {
-          "name": "cui-button",
-          "description": "Renders a `<button>` or `<a>` with shared visual styling and disabled state\nhandling. Choose anchor mode by setting the `href` attribute, and button mode by omitting it.\n---\n",
+          "name": "cui-code",
+          "description": "Displays a code sample with a copy-to-clipboard button. Reads source from\nits text content, from an HTML comment child, or from a `<script type=\"…\">`\nchild — whichever is present — so example markup can stay valid HTML.\n---\n\n\n### **Slots:**\n - _default_ - The code to display. Can be raw text, an HTML comment containing markup, or a `<script type=\"text/plain\">` block (useful when the example itself is HTML you don't want the browser to render).",
           "doc-url": "",
           "attributes": [
             {
-              "name": "disabled",
-              "description": "= Disables the underlying control. For anchor mode this also prevents navigation.",
-              "value": { "type": "boolean" }
-            },
-            {
-              "name": "href",
-              "description": "When set, the button renders as an anchor (`<a>`) instead of a `<button>`. The value is applied to the anchor's `href` attribute.",
+              "name": "language",
+              "description": "Source language hint (`text`, `html`, `css`, `js`, …). Used as a CSS hook and in the copy-button label.",
               "value": { "type": "string" }
-            },
+            }
+          ],
+          "slots": [
             {
-              "name": "target",
-              "description": "Anchor target (e.g. `_blank`). Only applies when `href` is set.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "rel",
-              "description": "Anchor relationship. Only applies when `href` is set.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "type",
-              "description": "Button type. Only applies when `href` is not set. Defaults to `\"button\"`.",
-              "value": { "type": "\"button\" | \"submit\" | \"reset\"" }
+              "name": "",
+              "description": "The code to display. Can be raw text, an HTML comment containing markup, or a `<script type=\"text/plain\">` block (useful when the example itself is HTML you don't want the browser to render)."
             }
           ],
           "events": [],
-          "js": {
-            "properties": [
-              { "name": "disabled", "type": "boolean" },
-              { "name": "href", "type": "string | null" },
-              { "name": "target", "type": "string | null" },
-              { "name": "rel", "type": "string | null" },
-              { "name": "type", "type": "ButtonType" }
-            ],
-            "events": []
-          }
+          "js": { "properties": [], "events": [] }
         },
         {
           "name": "cui-carousel",
@@ -265,24 +285,42 @@
           }
         },
         {
-          "name": "cui-code",
-          "description": "Displays a code sample with a copy-to-clipboard button. Reads source from\nits text content, from an HTML comment child, or from a `<script type=\"…\">`\nchild — whichever is present — so example markup can stay valid HTML.\n---\n\n\n### **Slots:**\n - _default_ - The code to display. Can be raw text, an HTML comment containing markup, or a `<script type=\"text/plain\">` block (useful when the example itself is HTML you don't want the browser to render).",
+          "name": "cui-disclosure",
+          "description": "Lightweight custom element that wraps a native `<details>` element so it can\nbe opened, closed, or toggled by ID from anywhere on the page, and so its\nopen state is observable as an attribute and a custom event.\n\nThe `<details>` element stays in the light DOM, so it's contents remain\nsearchable, indexable, and stylable from the host page.\n---\n\n\n### **Events:**\n - **cui-disclosure-toggle** - Bubbles after the disclosure opens/closes. `detail.open` is the new state.\n\n### **Slots:**\n - _default_ - A single `<details>` element with its `<summary>` and body. The element does not render its own UI - it only observes and controls the nested `<details>`.",
           "doc-url": "",
           "attributes": [
             {
-              "name": "language",
-              "description": "Source language hint (`text`, `html`, `css`, `js`, …). Used as a CSS hook and in the copy-button label.",
-              "value": { "type": "string" }
+              "name": "open",
+              "description": "Reflects the inner `<details>.open`. Set or remove this attribute to open/close the disclosure; the attribute also updates when the user toggles the disclosure by clicking the `<summary>` directly.",
+              "value": { "type": "boolean" }
             }
           ],
           "slots": [
             {
               "name": "",
-              "description": "The code to display. Can be raw text, an HTML comment containing markup, or a `<script type=\"text/plain\">` block (useful when the example itself is HTML you don't want the browser to render)."
+              "description": "A single `<details>` element with its `<summary>` and body. The element does not render its own UI - it only observes and controls the nested `<details>`."
             }
           ],
-          "events": [],
-          "js": { "properties": [], "events": [] }
+          "events": [
+            {
+              "name": "cui-disclosure-toggle",
+              "type": "CustomEvent<CuiDisclosureToggleDetail>",
+              "description": "Bubbles after the disclosure opens/closes. `detail.open` is the new state."
+            }
+          ],
+          "js": {
+            "properties": [
+              { "name": "details", "type": "HTMLDetailsElement | null" },
+              { "name": "isOpen", "type": "boolean" }
+            ],
+            "events": [
+              {
+                "name": "cui-disclosure-toggle",
+                "type": "CustomEvent<CuiDisclosureToggleDetail>",
+                "description": "Bubbles after the disclosure opens/closes. `detail.open` is the new state."
+              }
+            ]
+          }
         },
         {
           "name": "cui-cookie-banner",
@@ -495,44 +533,6 @@
                 "name": "cui-day-planner-navigate",
                 "type": "CustomEvent<CuiDayPlannerNavigateDetail>",
                 "description": "Fires after the visible day changes."
-              }
-            ]
-          }
-        },
-        {
-          "name": "cui-disclosure",
-          "description": "Lightweight custom element that wraps a native `<details>` element so it can\nbe opened, closed, or toggled by ID from anywhere on the page, and so its\nopen state is observable as an attribute and a custom event.\n\nThe `<details>` element stays in the light DOM, so it's contents remain\nsearchable, indexable, and stylable from the host page.\n---\n\n\n### **Events:**\n - **cui-disclosure-toggle** - Bubbles after the disclosure opens/closes. `detail.open` is the new state.\n\n### **Slots:**\n - _default_ - A single `<details>` element with its `<summary>` and body. The element does not render its own UI - it only observes and controls the nested `<details>`.",
-          "doc-url": "",
-          "attributes": [
-            {
-              "name": "open",
-              "description": "Reflects the inner `<details>.open`. Set or remove this attribute to open/close the disclosure; the attribute also updates when the user toggles the disclosure by clicking the `<summary>` directly.",
-              "value": { "type": "boolean" }
-            }
-          ],
-          "slots": [
-            {
-              "name": "",
-              "description": "A single `<details>` element with its `<summary>` and body. The element does not render its own UI - it only observes and controls the nested `<details>`."
-            }
-          ],
-          "events": [
-            {
-              "name": "cui-disclosure-toggle",
-              "type": "CustomEvent<CuiDisclosureToggleDetail>",
-              "description": "Bubbles after the disclosure opens/closes. `detail.open` is the new state."
-            }
-          ],
-          "js": {
-            "properties": [
-              { "name": "details", "type": "HTMLDetailsElement | null" },
-              { "name": "isOpen", "type": "boolean" }
-            ],
-            "events": [
-              {
-                "name": "cui-disclosure-toggle",
-                "type": "CustomEvent<CuiDisclosureToggleDetail>",
-                "description": "Bubbles after the disclosure opens/closes. `detail.open` is the new state."
               }
             ]
           }
@@ -795,6 +795,101 @@
           }
         },
         {
+          "name": "cui-navbar",
+          "description": "Responsive site navigation with collapsible mobile panel, nested dropdowns,\nand optional sticky positioning. The element renders no styling of its own —\nit enhances light-DOM markup built from the `.cui-navbar` class family,\ninjecting the burger toggle button and wiring up collapse, dropdown, sticky,\nand ARIA behavior. All brand/nav/action content stays in the light DOM so it\nremains semantic, searchable, and SEO-friendly.\n\nThe burger button is the one piece of chrome the component owns: it is\ncreated and ARIA-wired by the element rather than authored, so the\n`aria-expanded` / `aria-controls` contract can't be mis-authored per page.\nEverything else is plain `.cui-navbar-*` markup.\n---\n",
+          "doc-url": "",
+          "attributes": [
+            {
+              "name": "expanded",
+              "description": "Mobile collapse panel state. Toggled by the injected burger button; can also be set programmatically.",
+              "value": { "type": "boolean" }
+            },
+            {
+              "name": "sticky",
+              "description": "Enables `position: sticky` on the navbar.",
+              "value": { "type": "boolean" }
+            },
+            {
+              "name": "sticky-offset",
+              "description": "CSS length used as `top` while sticky (e.g. `0`, `var(--cui-space-2)`).",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "sticky-z-index",
+              "description": "CSS `z-index` while sticky.",
+              "value": { "type": "string" }
+            }
+          ],
+          "events": [],
+          "js": {
+            "properties": [
+              { "name": "expanded", "type": "boolean" },
+              { "name": "sticky", "type": "boolean" },
+              { "name": "stickyOffset", "type": "string | null" },
+              { "name": "stickyZIndex", "type": "number" }
+            ],
+            "events": []
+          }
+        },
+        {
+          "name": "cui-scroll-stage",
+          "description": "Scroll-driven \"stage\" element that publishes its focus/offset/active state\nas CSS custom properties on itself (and optionally on a tone target like\n`:root`), so child layouts and parallax effects can react via CSS alone.\nPair with `cui-reveal` for entry animations or with the exported\n`attachCuiParallax()` helper for parallax bindings.\n---\n\n\n### **Slots:**\n - _default_ - Stage content. Typically a sticky inner region plus the layers that move with scroll progress.",
+          "doc-url": "",
+          "attributes": [
+            {
+              "name": "focus-bias",
+              "description": "Where in the viewport the stage is considered \"in focus\". CSS length or unit-less ratio.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "hold",
+              "description": "How long to keep the stage at full focus before easing out, as a CSS length or ratio.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "threshold",
+              "description": "Minimum viewport overlap before the stage starts publishing focus (0–1).",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "tone",
+              "description": "Tone value to publish on the tone target while the stage is active (e.g. `dark`, `inverse`).",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "tone-target",
+              "description": "CSS selector that should receive the tone attribute. Accepts `document` or `:root` to target the root element.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "sticky-top",
+              "description": "CSS `top` value applied to the inner sticky region.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "min-block-size",
+              "description": "Minimum block-size of the stage; controls how much scroll the stage consumes.",
+              "value": { "type": "string" }
+            }
+          ],
+          "slots": [
+            {
+              "name": "",
+              "description": "Stage content. Typically a sticky inner region plus the layers that move with scroll progress."
+            }
+          ],
+          "events": [],
+          "js": { "properties": [], "events": [] }
+        },
+        {
+          "name": "cui-tabs",
+          "description": "Tabbed interface with ARIA `tablist`/`tab`/`tabpanel` roles and full\r\nkeyboard support (Left/Right, Home/End). The element renders no styling of\r\nits own — it enhances light-DOM markup built from the `.cui-tabs`,\r\n`.cui-tablist`, and `.cui-tab` classes, wiring up `id`, `aria-controls`,\r\n`aria-selected`, roles, and panel visibility. All panels stay in the light\r\nDOM so crawlers see every panel regardless of which tab is active.\r\n\r\nTabs are the `.cui-tab` controls inside the `.cui-tablist`; panels are the\r\nremaining direct children of the element, paired with the tabs by source\r\norder. Mark the initially-open tab with `aria-selected=\"true\"` (defaults to\r\nthe first tab).\n---\n",
+          "doc-url": "",
+          "attributes": [],
+          "events": [],
+          "js": { "properties": [], "events": [] }
+        },
+        {
           "name": "cui-modal",
           "description": "Modal dialog built over the native `<dialog>` element. Backdrop dismiss,\nESC handling, and focus management come from the platform; this element\nadds attribute control, an open/close JS API, typed close events, and\nremote triggering via `data-cui-modal-target` from anywhere on the page.\n---\n\n\n### **Events:**\n - **cui-modal-open** - Fires after the dialog opens.\n- **cui-modal-close** - Fires after the dialog closes. `detail.returnValue` carries the dialog's `returnValue` (set via `close(value)` or `<form method=\"dialog\">`).\n- **cui-modal-cancel** - Fires when the user cancels via ESC or backdrop click (before `cui-modal-close`).\n\n### **Slots:**\n - _default_ - The dialog body. Wrap with a `<div>` or semantic landmark; include a close affordance (any element with `data-cui-modal-close`) for users who can't dismiss via ESC.",
           "doc-url": "",
@@ -855,107 +950,6 @@
           }
         },
         {
-          "name": "cui-scroll-stage",
-          "description": "Scroll-driven \"stage\" element that publishes its focus/offset/active state\nas CSS custom properties on itself (and optionally on a tone target like\n`:root`), so child layouts and parallax effects can react via CSS alone.\nPair with `cui-reveal` for entry animations or with the exported\n`attachCuiParallax()` helper for parallax bindings.\n---\n\n\n### **Slots:**\n - _default_ - Stage content. Typically a sticky inner region plus the layers that move with scroll progress.",
-          "doc-url": "",
-          "attributes": [
-            {
-              "name": "focus-bias",
-              "description": "Where in the viewport the stage is considered \"in focus\". CSS length or unit-less ratio.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "hold",
-              "description": "How long to keep the stage at full focus before easing out, as a CSS length or ratio.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "threshold",
-              "description": "Minimum viewport overlap before the stage starts publishing focus (0–1).",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "tone",
-              "description": "Tone value to publish on the tone target while the stage is active (e.g. `dark`, `inverse`).",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "tone-target",
-              "description": "CSS selector that should receive the tone attribute. Accepts `document` or `:root` to target the root element.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "sticky-top",
-              "description": "CSS `top` value applied to the inner sticky region.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "min-block-size",
-              "description": "Minimum block-size of the stage; controls how much scroll the stage consumes.",
-              "value": { "type": "string" }
-            }
-          ],
-          "slots": [
-            {
-              "name": "",
-              "description": "Stage content. Typically a sticky inner region plus the layers that move with scroll progress."
-            }
-          ],
-          "events": [],
-          "js": { "properties": [], "events": [] }
-        },
-        {
-          "name": "cui-navbar",
-          "description": "Responsive site navigation with collapsible mobile panel, nested\ndropdowns, and optional sticky positioning. Brand, links, and action\nbuttons are all slotted so the markup stays semantic and SEO-friendly.\n---\n\n\n### **Slots:**\n - **brand** - Site logo or wordmark (typically an `<a>` to the home page).\n- **nav** - Primary navigation. Use a `<ul>` with `<li>` items; nest a `.cui-dropdown` for menus.\n- **actions** - Trailing actions (sign-in button, theme toggle, etc.).",
-          "doc-url": "",
-          "attributes": [
-            {
-              "name": "expanded",
-              "description": "Mobile collapse panel state. Toggled by the built-in burger button; can also be set programmatically.",
-              "value": { "type": "boolean" }
-            },
-            {
-              "name": "sticky",
-              "description": "Enables `position: sticky` on the navbar.",
-              "value": { "type": "boolean" }
-            },
-            {
-              "name": "sticky-offset",
-              "description": "CSS length used as `top` while sticky (e.g. `0`, `var(--cui-space-2)`).",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "sticky-z-index",
-              "description": "CSS `z-index` while sticky.",
-              "value": { "type": "string" }
-            }
-          ],
-          "slots": [
-            {
-              "name": "brand",
-              "description": "Site logo or wordmark (typically an `<a>` to the home page)."
-            },
-            {
-              "name": "nav",
-              "description": "Primary navigation. Use a `<ul>` with `<li>` items; nest a `.cui-dropdown` for menus."
-            },
-            {
-              "name": "actions",
-              "description": "Trailing actions (sign-in button, theme toggle, etc.)."
-            }
-          ],
-          "events": [],
-          "js": {
-            "properties": [
-              { "name": "expanded", "type": "boolean" },
-              { "name": "sticky", "type": "boolean" },
-              { "name": "stickyOffset", "type": "string | null" },
-              { "name": "stickyZIndex", "type": "number" }
-            ],
-            "events": []
-          }
-        },
-        {
           "name": "cui-theme-toggle",
           "description": "Button that cycles the page theme through `auto`, `light`, and `dark`. The\nchoice is persisted in `localStorage` under `cui-theme` and read at boot\n(see the inline script in the docs `<head>`). Pairs with the exported\n`getTheme()` / `setTheme()` helpers for programmatic control.\n---\n",
           "doc-url": "",
@@ -995,6 +989,33 @@
           "js": { "properties": [], "events": [] }
         },
         {
+          "name": "cui-toast-region",
+          "description": "Container for transient toast notifications. Usually created on demand by\nthe exported `toast()` function — you only place this element yourself if\nyou want to control placement or pre-render a region for SSR. Each region\nis identified by its `placement`; calls to `toast()` are routed to the\nregion matching their requested placement, or a new region is created.\n---\n\n\n### **Slots:**\n - _default_ - Toast elements. Normally populated by `toast()`; manual children are allowed and remain in DOM until dismissed.",
+          "doc-url": "",
+          "attributes": [
+            {
+              "name": "placement",
+              "description": "Region anchor point. Default `block-end-inline-end` (bottom-right).",
+              "value": {
+                "type": "\"block-start-inline-start\" | \"block-start-inline-end\" | \"block-end-inline-start\" | \"block-end-inline-end\" | \"block-start-center\" | \"block-end-center\""
+              }
+            }
+          ],
+          "slots": [
+            {
+              "name": "",
+              "description": "Toast elements. Normally populated by `toast()`; manual children are allowed and remain in DOM until dismissed."
+            }
+          ],
+          "events": [],
+          "js": {
+            "properties": [
+              { "name": "placement", "type": "CuiToastPlacement" }
+            ],
+            "events": []
+          }
+        },
+        {
           "name": "cui-reveal",
           "description": "Reveals its content with an entry animation as it scrolls into view, using\n`IntersectionObserver` under the hood. Honors `prefers-reduced-motion` —\nusers with reduced motion see the content immediately, no transform.\n---\n\n\n### **Slots:**\n - _default_ - Content to reveal. Any block-level content works.",
           "doc-url": "",
@@ -1023,41 +1044,6 @@
           ],
           "events": [],
           "js": { "properties": [], "events": [] }
-        },
-        {
-          "name": "cui-tabs",
-          "description": "Tabbed interface with ARIA `tablist`/`tab`/`tabpanel` roles and full\r\nkeyboard support (Left/Right, Home/End). The element renders no styling of\r\nits own — it enhances light-DOM markup built from the `.cui-tabs`,\r\n`.cui-tablist`, and `.cui-tab` classes, wiring up `id`, `aria-controls`,\r\n`aria-selected`, roles, and panel visibility. All panels stay in the light\r\nDOM so crawlers see every panel regardless of which tab is active.\r\n\r\nTabs are the `.cui-tab` controls inside the `.cui-tablist`; panels are the\r\nremaining direct children of the element, paired with the tabs by source\r\norder. Mark the initially-open tab with `aria-selected=\"true\"` (defaults to\r\nthe first tab).\n---\n",
-          "doc-url": "",
-          "attributes": [],
-          "events": [],
-          "js": { "properties": [], "events": [] }
-        },
-        {
-          "name": "cui-toast-region",
-          "description": "Container for transient toast notifications. Usually created on demand by\nthe exported `toast()` function — you only place this element yourself if\nyou want to control placement or pre-render a region for SSR. Each region\nis identified by its `placement`; calls to `toast()` are routed to the\nregion matching their requested placement, or a new region is created.\n---\n\n\n### **Slots:**\n - _default_ - Toast elements. Normally populated by `toast()`; manual children are allowed and remain in DOM until dismissed.",
-          "doc-url": "",
-          "attributes": [
-            {
-              "name": "placement",
-              "description": "Region anchor point. Default `block-end-inline-end` (bottom-right).",
-              "value": {
-                "type": "\"block-start-inline-start\" | \"block-start-inline-end\" | \"block-end-inline-start\" | \"block-end-inline-end\" | \"block-start-center\" | \"block-end-center\""
-              }
-            }
-          ],
-          "slots": [
-            {
-              "name": "",
-              "description": "Toast elements. Normally populated by `toast()`; manual children are allowed and remain in DOM until dismissed."
-            }
-          ],
-          "events": [],
-          "js": {
-            "properties": [
-              { "name": "placement", "type": "CuiToastPlacement" }
-            ],
-            "events": []
-          }
         },
         {
           "name": "cui-tree",

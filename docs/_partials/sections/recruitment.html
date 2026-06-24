@@ -12,12 +12,13 @@
   </div>
 
   <cui-tabs>
-    <button slot="tab" type="button">Vacancy card</button>
-    <button slot="tab" type="button">Grid</button>
-    <button slot="tab" type="button">List</button>
-    <button slot="tab" type="button">Detail page</button>
-
-    <section slot="panel" class="docs-panel">
+    <div class="cui-tablist">
+      <button class="cui-tab" type="button" data-selected="true">Vacancy card</button>
+      <button class="cui-tab" type="button">Grid</button>
+      <button class="cui-tab" type="button">List</button>
+      <button class="cui-tab" type="button">Detail page</button>
+    </div>
+    <section class="docs-panel">
       <div class="cui-stack">
         <article class="cui-vacancy-card" data-team="veiligheid">
           <div class="cui-vacancy-card-body">
@@ -129,7 +130,7 @@
       </div>
     </section>
 
-    <section slot="panel" class="docs-panel">
+    <section class="docs-panel">
       <div class="cui-stack">
         <div class="cui-vacancy-grid" data-columns="3">
           <article class="cui-vacancy-card">
@@ -189,7 +190,7 @@
       </div>
     </section>
 
-    <section slot="panel" class="docs-panel">
+    <section class="docs-panel">
       <div class="cui-stack">
         <div class="cui-vacancy-list">
           <article class="cui-vacancy-card" data-orient="row">
@@ -252,7 +253,7 @@
       </div>
     </section>
 
-    <section slot="panel" class="docs-panel">
+    <section class="docs-panel">
       <div class="cui-stack">
         <div class="cui-vacancy-detail">
           <header class="cui-vacancy-header">
