@@ -14,14 +14,15 @@
   </div>
 
   <cui-tabs>
-    <button slot="tab" type="button">Event card</button>
-    <button slot="tab" type="button">List</button>
-    <button slot="tab" type="button">Agenda</button>
-    <button slot="tab" type="button">Calendar</button>
-    <button slot="tab" type="button">Day planner</button>
-    <button slot="tab" type="button">Itinerary</button>
-
-    <section slot="panel" class="docs-panel">
+    <div class="cui-tablist">
+    <button class="cui-tab" type="button" data-selected="true">Event card</button>
+    <button class="cui-tab" type="button">List</button>
+    <button class="cui-tab" type="button">Agenda</button>
+    <button class="cui-tab" type="button">Calendar</button>
+    <button class="cui-tab" type="button">Day planner</button>
+    <button class="cui-tab" type="button">Itinerary</button>
+</div>
+    <section class="docs-panel">
       <div class="cui-stack">
         <article class="cui-event-card" data-status="upcoming" data-category="workshop">
           <time class="cui-event-card-date" datetime="2026-06-15T10:00">
@@ -135,7 +136,7 @@
       </div>
     </section>
 
-    <section slot="panel" class="docs-panel">
+    <section class="docs-panel">
       <div class="cui-event-list" data-variant="stacked">
         <article class="cui-event-card" data-variant="compact" data-status="upcoming">
           <time class="cui-event-card-date" datetime="2026-06-15T10:00">
@@ -197,7 +198,7 @@
       </cui-code>
     </section>
 
-    <section slot="panel" class="docs-panel">
+    <section class="docs-panel">
       <div class="cui-event-list" data-variant="agenda">
         <h3 class="cui-event-list-day">
           <time datetime="2026-06-15">Monday, June 15</time>
@@ -266,7 +267,7 @@
       </cui-code>
     </section>
 
-    <section slot="panel" class="docs-panel">
+    <section class="docs-panel">
       <cui-calendar year="2026" month="6">
         <article class="cui-event-card" data-status="upcoming">
           <time class="cui-event-card-date" datetime="2026-06-03T19:00">
@@ -341,7 +342,7 @@
       </cui-code>
     </section>
 
-    <section slot="panel" class="docs-panel">
+    <section class="docs-panel">
       <cui-day-planner date="2026-06-15" start-hour="8" end-hour="19">
         <article class="cui-event-card" data-status="upcoming">
           <time class="cui-event-card-date" datetime="2026-06-15T09:00">
@@ -449,7 +450,7 @@
       </cui-code>
     </section>
 
-    <section slot="panel" class="docs-panel">
+    <section class="docs-panel">
       <ol class="cui-itinerary">
         <li class="cui-itinerary-item">
           <time class="cui-itinerary-marker" datetime="08:30">08:30</time>
