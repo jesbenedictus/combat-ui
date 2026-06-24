@@ -16,12 +16,13 @@
   </div>
 
   <cui-tabs>
-    <button slot="tab" type="button">Person card</button>
-    <button slot="tab" type="button">Team grid</button>
-    <button slot="tab" type="button">Leadership</button>
-    <button slot="tab" type="button">Org chart</button>
-
-    <section slot="panel" class="docs-panel">
+    <div class="cui-tablist">
+    <button class="cui-tab" type="button" data-selected="true">Person card</button>
+    <button class="cui-tab" type="button">Team grid</button>
+    <button class="cui-tab" type="button">Leadership</button>
+    <button class="cui-tab" type="button">Org chart</button>
+</div>
+    <section class="docs-panel">
       <div class="cui-stack">
         <div class="cui-team-grid" data-columns="3" data-gap="spacious">
           <article class="cui-person" data-align="center">
@@ -94,7 +95,7 @@
       </div>
     </section>
 
-    <section slot="panel" class="docs-panel">
+    <section class="docs-panel">
       <div class="cui-stack">
         <div class="cui-team-grid" data-columns="4" data-gap="compact">
           <article class="cui-person" data-align="center" data-variant="flat">
@@ -143,7 +144,7 @@
       </div>
     </section>
 
-    <section slot="panel" class="docs-panel">
+    <section class="docs-panel">
       <div class="cui-stack">
         <div class="cui-team-grid" data-variant="leadership" data-columns="2">
           <article class="cui-person" data-variant="leadership" data-orient="row">
@@ -203,7 +204,7 @@
       </div>
     </section>
 
-    <section slot="panel" class="docs-panel">
+    <section class="docs-panel">
       <div class="cui-stack">
         <ol class="cui-org-chart" aria-label="Example organisation chart">
           <li class="cui-org-node">
