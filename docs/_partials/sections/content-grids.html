@@ -9,13 +9,14 @@
   </div>
 
   <cui-tabs>
-    <button slot="tab" type="button">Features</button>
-    <button slot="tab" type="button">Cases</button>
-    <button slot="tab" type="button">Cards</button>
-    <button slot="tab" type="button">Logos</button>
-    <button slot="tab" type="button">Stats</button>
-
-    <section slot="panel" class="docs-panel">
+    <div class="cui-tablist">
+    <button class="cui-tab" type="button" data-selected="true">Features</button>
+    <button class="cui-tab" type="button">Cases</button>
+    <button class="cui-tab" type="button">Cards</button>
+    <button class="cui-tab" type="button">Logos</button>
+    <button class="cui-tab" type="button">Stats</button>
+    </div>
+    <section class="docs-panel">
       <div class="cui-stack">
         <div class="cui-feature-grid" data-columns="3" data-gap="spacious" style="--cui-feature-icon-size: 3rem;">
           <article class="cui-feature-card">
@@ -59,7 +60,7 @@
       </div>
     </section>
 
-    <section slot="panel" class="docs-panel">
+    <section class="docs-panel">
       <div class="cui-stack">
         <div class="cui-case-grid" data-columns="2" style="--cui-case-card-media-ratio: 4 / 3;">
           <article class="cui-case-card" data-variant="flat">
@@ -104,7 +105,7 @@
       </div>
     </section>
 
-    <section slot="panel" class="docs-panel">
+    <section class="docs-panel">
       <div class="cui-card-grid" data-columns="3" data-gap="compact">
         <article class="cui-content-card" data-variant="borderless">
           <h3>Editorial card</h3>
@@ -121,7 +122,7 @@
       </div>
     </section>
 
-    <section slot="panel" class="docs-panel">
+    <section class="docs-panel">
       <div class="cui-logo-strip" data-columns="4" aria-label="Example partners"
         style="--cui-logo-item-min-block-size: 4rem;">
         <div class="cui-logo-item"><strong>Northstar</strong></div>
@@ -131,7 +132,7 @@
       </div>
     </section>
 
-    <section slot="panel" class="docs-panel">
+    <section class="docs-panel">
       <div class="cui-stack">
         <div class="cui-stats-grid" data-columns="3" style="--cui-stat-value-size: var(--cui-font-size-5, 4rem);">
           <div class="cui-stat" data-align="center">
