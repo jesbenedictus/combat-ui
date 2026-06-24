@@ -43,56 +43,72 @@
               <div class="cui-stack">
                 <div class="docs-preview">
                   <div class="docs-preview-frame">
-                    <cui-navbar style="--cui-dropdown-animation-distance: 0.375rem;">
-                      <a slot="brand" href="#" class="cui-nav-link">Project</a>
-                      <nav slot="nav" class="cui-nav" aria-label="Project demo">
-                        <a class="cui-nav-link" href="#" aria-current="page">Home</a>
-                        <div class="cui-dropdown">
-                          <button class="cui-nav-link cui-dropdown-toggle" type="button">Services</button>
-                          <div class="cui-dropdown-menu" hidden>
-                            <a class="cui-dropdown-item" href="#">Strategy</a>
-                            <a class="cui-dropdown-item" href="#">Design</a>
-                            <div class="cui-dropdown">
-                              <button class="cui-dropdown-item cui-dropdown-toggle" type="button">Development</button>
-                              <div class="cui-dropdown-menu" hidden>
-                                <a class="cui-dropdown-item" href="#">Frontend</a>
-                                <a class="cui-dropdown-item" href="#">CMS</a>
+                    <cui-navbar class="cui-navbar" style="--cui-dropdown-animation-distance: 0.375rem;">
+                      <div class="cui-navbar-inner">
+                        <div class="cui-navbar-bar">
+                          <a class="cui-navbar-brand" href="#">Project</a>
+                        </div>
+                        <div class="cui-navbar-collapse">
+                          <div class="cui-navbar-collapse-panel">
+                            <nav class="cui-navbar-nav" aria-label="Project demo">
+                              <a class="cui-nav-link" href="#" aria-current="page">Home</a>
+                              <div class="cui-dropdown">
+                                <button class="cui-nav-link cui-dropdown-toggle" type="button">Services</button>
+                                <div class="cui-dropdown-menu" hidden>
+                                  <a class="cui-dropdown-item" href="#">Strategy</a>
+                                  <a class="cui-dropdown-item" href="#">Design</a>
+                                  <div class="cui-dropdown">
+                                    <button class="cui-dropdown-item cui-dropdown-toggle" type="button">Development</button>
+                                    <div class="cui-dropdown-menu" hidden>
+                                      <a class="cui-dropdown-item" href="#">Frontend</a>
+                                      <a class="cui-dropdown-item" href="#">CMS</a>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
+                              <a class="cui-nav-link" href="#">Cases</a>
+                            </nav>
+                            <div class="cui-navbar-actions">
+                              <cui-button>Contact</cui-button>
                             </div>
                           </div>
                         </div>
-                        <a class="cui-nav-link" href="#">Cases</a>
-                      </nav>
-                      <div slot="actions" class="cui-cluster">
-                        <cui-button>Contact</cui-button>
                       </div>
                     </cui-navbar>
                   </div>
                 </div>
                 <cui-code language="html">
                   <script type="text/html">
-                  <cui-navbar>
-                    <a slot="brand" href="#" class="cui-nav-link">Project</a>
-                    <nav slot="nav" class="cui-nav" aria-label="Project demo">
-                      <a class="cui-nav-link" href="#" aria-current="page">Home</a>
-                      <div class="cui-dropdown">
-                        <button class="cui-nav-link cui-dropdown-toggle" type="button">Services</button>
-                        <div class="cui-dropdown-menu" hidden>
-                          <a class="cui-dropdown-item" href="#">Strategy</a>
-                          <a class="cui-dropdown-item" href="#">Design</a>
-                          <div class="cui-dropdown">
-                            <button class="cui-dropdown-item cui-dropdown-toggle" type="button">Development</button>
-                            <div class="cui-dropdown-menu" hidden>
-                              <a class="cui-dropdown-item" href="#">Frontend</a>
-                              <a class="cui-dropdown-item" href="#">CMS</a>
+                  <cui-navbar class="cui-navbar">
+                    <div class="cui-navbar-inner">
+                      <div class="cui-navbar-bar">
+                        <a class="cui-navbar-brand" href="#">Project</a>
+                      </div>
+                      <div class="cui-navbar-collapse">
+                        <div class="cui-navbar-collapse-panel">
+                          <nav class="cui-navbar-nav" aria-label="Project demo">
+                            <a class="cui-nav-link" href="#" aria-current="page">Home</a>
+                            <div class="cui-dropdown">
+                              <button class="cui-nav-link cui-dropdown-toggle" type="button">Services</button>
+                              <div class="cui-dropdown-menu" hidden>
+                                <a class="cui-dropdown-item" href="#">Strategy</a>
+                                <a class="cui-dropdown-item" href="#">Design</a>
+                                <div class="cui-dropdown">
+                                  <button class="cui-dropdown-item cui-dropdown-toggle" type="button">Development</button>
+                                  <div class="cui-dropdown-menu" hidden>
+                                    <a class="cui-dropdown-item" href="#">Frontend</a>
+                                    <a class="cui-dropdown-item" href="#">CMS</a>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
+                            <a class="cui-nav-link" href="#">Cases</a>
+                          </nav>
+                          <div class="cui-navbar-actions">
+                            <cui-button>Contact</cui-button>
                           </div>
                         </div>
                       </div>
-                      <a class="cui-nav-link" href="#">Cases</a>
-                    </nav>
-                    <div slot="actions" class="cui-cluster">
-                      <cui-button>Contact</cui-button>
                     </div>
                   </cui-navbar>
                 </script>
@@ -241,13 +257,6 @@
                   <tr>
                     <td><code>--cui-navbar-sticky-offset</code></td>
                     <td><code>0</code></td>
-                  </tr>
-                  <tr>
-                    <td><code>--cui-navbar-link-bg</code> · <code>--cui-navbar-link-color</code> ·
-                      <code>--cui-navbar-link-hover-bg</code> · <code>--cui-navbar-link-hover-color</code> ·
-                      <code>--cui-navbar-link-current-bg</code> · <code>--cui-navbar-link-current-color</code>
-                    </td>
-                    <td>Link state colors.</td>
                   </tr>
                   <tr>
                     <td><code>--cui-navbar-animation-duration</code> ·

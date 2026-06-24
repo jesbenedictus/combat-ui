@@ -1,0 +1,277 @@
+<section id="content-grids" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+  <div class="cui-prose">
+    <h2>Content grids</h2>
+    <p>
+      Use grid classes for feature lists, case cards, general card groups, logo strips, and stats. They are
+      CSS-only, configurable with `data-*` modifiers and `--cui-*` variables, and work from CMS or static
+      HTML.
+    </p>
+  </div>
+
+  <cui-tabs>
+    <div class="cui-tablist">
+    <button class="cui-tab" type="button" data-selected="true">Features</button>
+    <button class="cui-tab" type="button">Cases</button>
+    <button class="cui-tab" type="button">Cards</button>
+    <button class="cui-tab" type="button">Logos</button>
+    <button class="cui-tab" type="button">Stats</button>
+    </div>
+    <section class="docs-panel">
+      <div class="cui-stack">
+        <div class="cui-feature-grid" data-columns="3" data-gap="spacious" style="--cui-feature-icon-size: 3rem;">
+          <article class="cui-feature-card">
+            <span class="cui-feature-icon" aria-hidden="true">01</span>
+            <h3>Reusable structure</h3>
+            <p>Feature cards keep icon, heading, and copy spacing consistent across marketing pages.</p>
+          </article>
+          <article class="cui-feature-card" data-align="center">
+            <span class="cui-feature-icon" aria-hidden="true">02</span>
+            <h3>Responsive by default</h3>
+            <p>The grid adapts from single-column mobile layouts to dense desktop sections.</p>
+          </article>
+          <article class="cui-feature-card">
+            <span class="cui-feature-icon" aria-hidden="true">03</span>
+            <h3>Token-driven</h3>
+            <p>Grid width, gap, and card padding can be tuned with `--cui-*` variables.</p>
+          </article>
+        </div>
+        <cui-code language="html">
+          <script type="text/html">
+                      <div class="cui-feature-grid" data-columns="3" data-gap="spacious"
+                        style="--cui-feature-icon-size: 3rem;">
+                        <article class="cui-feature-card">
+                          <span class="cui-feature-icon" aria-hidden="true">01</span>
+                          <h3>Reusable structure</h3>
+                          <p>Feature cards keep icon, heading, and copy spacing consistent across marketing pages.</p>
+                        </article>
+                        <article class="cui-feature-card" data-align="center">
+                          <span class="cui-feature-icon" aria-hidden="true">02</span>
+                          <h3>Responsive by default</h3>
+                          <p>The grid adapts from single-column mobile layouts to dense desktop sections.</p>
+                        </article>
+                        <article class="cui-feature-card">
+                          <span class="cui-feature-icon" aria-hidden="true">03</span>
+                          <h3>Token-driven</h3>
+                          <p>Grid width, gap, and card padding can be tuned with `--cui-*` variables.</p>
+                        </article>
+                      </div>
+                    </script>
+        </cui-code>
+      </div>
+    </section>
+
+    <section class="docs-panel">
+      <div class="cui-stack">
+        <div class="cui-case-grid" data-columns="2" style="--cui-case-card-media-ratio: 4 / 3;">
+          <article class="cui-case-card" data-variant="flat">
+            <img class="cui-case-card-media" src="./hero-image.svg" alt="Abstract interface preview">
+            <div class="cui-case-card-body">
+              <p class="cui-case-card-meta">Case study</p>
+              <h3>Campaign launch system</h3>
+              <p>A reusable content model for event, product, and recruitment campaigns.</p>
+            </div>
+          </article>
+          <article class="cui-case-card">
+            <img class="cui-case-card-media" src="./hero-image.svg" alt="Abstract interface preview">
+            <div class="cui-case-card-body">
+              <p class="cui-case-card-meta">Website</p>
+              <h3>Agency page toolkit</h3>
+              <p>Composable sections for service pages, proof blocks, and conversion flows.</p>
+            </div>
+          </article>
+        </div>
+        <cui-code language="html">
+          <script type="text/html">
+                      <div class="cui-case-grid" data-columns="2" style="--cui-case-card-media-ratio: 4 / 3;">
+                        <article class="cui-case-card" data-variant="flat">
+                          <img class="cui-case-card-media" src="./hero-image.svg" alt="Abstract interface preview">
+                          <div class="cui-case-card-body">
+                            <p class="cui-case-card-meta">Case study</p>
+                            <h3>Campaign launch system</h3>
+                            <p>A reusable content model for event, product, and recruitment campaigns.</p>
+                          </div>
+                        </article>
+                        <article class="cui-case-card">
+                          <img class="cui-case-card-media" src="./hero-image.svg" alt="Abstract interface preview">
+                          <div class="cui-case-card-body">
+                            <p class="cui-case-card-meta">Website</p>
+                            <h3>Agency page toolkit</h3>
+                            <p>Composable sections for service pages, proof blocks, and conversion flows.</p>
+                          </div>
+                        </article>
+                      </div>
+                    </script>
+        </cui-code>
+      </div>
+    </section>
+
+    <section class="docs-panel">
+      <div class="cui-card-grid" data-columns="3" data-gap="compact">
+        <article class="cui-content-card" data-variant="borderless">
+          <h3>Editorial card</h3>
+          <p>Use general cards for resource lists, article collections, and compact page modules.</p>
+        </article>
+        <article class="cui-content-card">
+          <h3>CMS friendly</h3>
+          <p>The classes do not depend on shadow DOM, so generated markup stays readable.</p>
+        </article>
+        <article class="cui-content-card">
+          <h3>Theme aware</h3>
+          <p>Surface, border, text, and shadow values follow the active theme tokens.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="docs-panel">
+      <div class="cui-logo-strip" data-columns="4" aria-label="Example partners"
+        style="--cui-logo-item-min-block-size: 4rem;">
+        <div class="cui-logo-item"><strong>Northstar</strong></div>
+        <div class="cui-logo-item"><strong>Signal Labs</strong></div>
+        <div class="cui-logo-item"><strong>Atlas Works</strong></div>
+        <div class="cui-logo-item"><strong>Field Co.</strong></div>
+      </div>
+    </section>
+
+    <section class="docs-panel">
+      <div class="cui-stack">
+        <div class="cui-stats-grid" data-columns="3" style="--cui-stat-value-size: var(--cui-font-size-5, 4rem);">
+          <div class="cui-stat" data-align="center">
+            <span class="cui-stat-value">42%</span>
+            <span class="cui-stat-label">Higher page reuse</span>
+          </div>
+          <div class="cui-stat" data-align="center">
+            <span class="cui-stat-value">18</span>
+            <span class="cui-stat-label">Reusable sections</span>
+          </div>
+          <div class="cui-stat" data-align="center">
+            <span class="cui-stat-value">3x</span>
+            <span class="cui-stat-label">Faster campaign assembly</span>
+          </div>
+        </div>
+        <cui-code language="html">
+          <script type="text/html">
+                      <div class="cui-stats-grid" data-columns="3"
+                        style="--cui-stat-value-size: var(--cui-font-size-5, 4rem);">
+                        <div class="cui-stat" data-align="center">
+                          <span class="cui-stat-value">42%</span>
+                          <span class="cui-stat-label">Higher page reuse</span>
+                        </div>
+                        <div class="cui-stat" data-align="center">
+                          <span class="cui-stat-value">18</span>
+                          <span class="cui-stat-label">Reusable sections</span>
+                        </div>
+                        <div class="cui-stat" data-align="center">
+                          <span class="cui-stat-value">3x</span>
+                          <span class="cui-stat-label">Faster campaign assembly</span>
+                        </div>
+                      </div>
+                    </script>
+        </cui-code>
+      </div>
+    </section>
+  </cui-tabs>
+
+  <cui-disclosure>
+    <details class="cui-disclosure" data-variant="ghost">
+      <summary>API reference</summary>
+      <div class="cui-disclosure-body">
+        <table class="docs-token-table">
+          <thead>
+            <tr>
+              <th>Class</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>.cui-feature-grid</code> / <code>.cui-feature-card</code></td>
+              <td>Feature lists with consistent icon, heading, and copy spacing.</td>
+            </tr>
+            <tr>
+              <td><code>.cui-case-grid</code> / <code>.cui-case-card</code> / <code>.cui-case-card-media</code> /
+                <code>.cui-case-card-body</code> / <code>.cui-case-card-meta</code>
+              </td>
+              <td>Case-study cards with optional media, body, and meta line.</td>
+            </tr>
+            <tr>
+              <td><code>.cui-card-grid</code> / <code>.cui-content-card</code></td>
+              <td>General-purpose card grid for resource lists and article tiles.</td>
+            </tr>
+            <tr>
+              <td><code>.cui-logo-strip</code> / <code>.cui-logo-item</code></td>
+              <td>Logo / partner strip with consistent block-size cells.</td>
+            </tr>
+            <tr>
+              <td><code>.cui-stats-grid</code> / <code>.cui-stat</code> / <code>.cui-stat-value</code> /
+                <code>.cui-stat-label</code>
+              </td>
+              <td>Number-focused grids for metrics, proof points, and KPIs.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="docs-token-table">
+          <thead>
+            <tr>
+              <th>Modifier</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>data-columns="2 | 3 | 4"</code></td>
+              <td>Sets the column count for any of the grid wrappers.</td>
+            </tr>
+            <tr>
+              <td><code>data-gap="compact | spacious"</code></td>
+              <td>Tightens or relaxes the grid gap.</td>
+            </tr>
+            <tr>
+              <td><code>data-align="start | center"</code></td>
+              <td>On a feature card or stat block — aligns its inner content.</td>
+            </tr>
+            <tr>
+              <td><code>data-variant="flat"</code></td>
+              <td>On a case card — drops the elevation shadow.</td>
+            </tr>
+            <tr>
+              <td><code>data-variant="borderless"</code></td>
+              <td>On a content card — drops the surrounding border for editorial layouts.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="docs-token-table">
+          <thead>
+            <tr>
+              <th>Variable</th>
+              <th>Default</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>--cui-feature-icon-size</code></td>
+              <td><code>--cui-size-control</code></td>
+            </tr>
+            <tr>
+              <td><code>--cui-case-card-media-ratio</code></td>
+              <td>Per-instance aspect ratio override (e.g. <code>4 / 3</code>).</td>
+            </tr>
+            <tr>
+              <td><code>--cui-content-grid-gap</code></td>
+              <td><code>--cui-space-4</code></td>
+            </tr>
+            <tr>
+              <td><code>--cui-logo-item-min-block-size</code></td>
+              <td><code>4rem</code></td>
+            </tr>
+            <tr>
+              <td><code>--cui-stat-value-size</code></td>
+              <td><code>--cui-font-size-5</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+  </cui-disclosure>
+</section>

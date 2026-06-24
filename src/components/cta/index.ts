@@ -1,1 +1,0 @@
-export { CuiCta } from './cta';

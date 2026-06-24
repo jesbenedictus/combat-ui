@@ -240,7 +240,8 @@
   text-align: center;
 }
 
-.policy a,
-::slotted(a) {
+/* Slotted anchor color lives in the light-DOM sheet at
+   src/styles/elements.css so it is identical before and after upgrade. */
+.policy a {
   color: var(--cui-color-accent, oklch(57% 0.18 246deg));
 }

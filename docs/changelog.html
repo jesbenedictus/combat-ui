@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+    content="Combat UI changelog: public API changes per version — added, changed, and removed elements, CSS classes, and exports, with upgrade guidance for breaking releases.">
+  <title>Changelog · Combat UI</title>
+  <script>
+    try {
+      var t = localStorage.getItem("cui-theme");
+      if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+    } catch (_) { }
+  </script>
+  <script type="module" src="./index.ts"></script>
+  <link rel="stylesheet" href="./site.css">
+</head>
+
+<body class="cui-site">
+  <a class="cui-skip-link" href="#main">Skip to content</a>
+  <!--#include _partials/nav.html?current=changelog-->
+
+  <main id="main" class="cui-page cui-stack">
+    <header class="cui-page-header">
+      <h1>Changelog</h1>
+      <p>
+        Every notable change to the Combat UI <strong>public API</strong> — custom elements and their
+        attributes, slots, events, and methods; light-DOM CSS classes and <code>data-*</code> hooks; exported
+        helpers; and package subpath exports. Internal refactors, build tooling, and dev-dependency bumps are
+        intentionally left out. Releases follow <a href="https://semver.org/" rel="noreferrer">semantic
+          versioning</a>; while the project is pre-1.0, minor versions may include breaking changes, which are
+        always flagged below with an upgrade guide.
+      </p>
+    </header>
+
+    <section class="cui-section">
+      <div class="cui-container docs-doc-layout">
+        <aside class="docs-on-page" aria-label="Releases">
+          <a class="cui-nav-link" href="#v0-4-0">v0.4.0</a>
+          <a class="cui-nav-link" href="#v0-3-1">v0.3.1</a>
+          <a class="cui-nav-link" href="#v0-3-0">v0.3.0</a>
+          <a class="cui-nav-link" href="#v0-2-2">v0.2.2</a>
+          <a class="cui-nav-link" href="#v0-2-1">v0.2.1</a>
+          <a class="cui-nav-link" href="#v0-2-0">v0.2.0</a>
+          <a class="cui-nav-link" href="#v0-1-1">v0.1.1</a>
+          <a class="cui-nav-link" href="#v0-1-0">v0.1.0</a>
+        </aside>
+
+        <div class="cui-stack docs-changelog">
+
+          <!-- ============================ v0.4.0 ============================ -->
+          <section id="v0-4-0" class="docs-release">
+            <header class="docs-release-header">
+              <div>
+                <p class="docs-release-eyebrow">2026-06-24</p>
+                <h2 class="docs-release-title">v0.4.0</h2>
+              </div>
+              <span class="docs-release-tag" data-impact="breaking">Breaking</span>
+            </header>
+
+            <p class="docs-release-summary">
+              Section primitives move out of the shadow DOM. <code>cui-hero</code>, <code>cui-cta</code>, and
+              <code>cui-page-intro</code> are no longer custom elements — they are now light-DOM CSS blocks you
+              compose from plain markup. <code>cui-navbar</code> and <code>cui-tabs</code> become progressive
+              enhancements over light-DOM structure rather than slotted shadow roots. The payoff is
+              server-renderable, CMS-friendly, fully styleable markup with no flash-of-undefined-element.
+            </p>
+
+            <div class="docs-change-group" data-change="removed">
+              <h3 class="docs-change-heading">Removed</h3>
+              <ul class="docs-change-list">
+                <li>The <code>cui-hero</code>, <code>cui-cta</code>, and <code>cui-page-intro</code>
+                  <strong>custom elements</strong>, along with their exported classes (<code>CuiHero</code>,
+                  <code>CuiCta</code>, <code>CuiPageIntro</code>). They are replaced by the <code>.cui-hero</code>,
+                  <code>.cui-cta</code>, and <code>.cui-page-intro</code> light-DOM class blocks.
+                </li>
+                <li>The <code>@combat-ui/core/hero</code>, <code>@combat-ui/core/cta</code>, and
+                  <code>@combat-ui/core/page-intro</code> subpath exports. Remove these imports — the styles ship
+                  with <code>@combat-ui/core/styles</code>.
+                </li>
+              </ul>
+            </div>
+
+            <div class="docs-change-group" data-change="changed">
+              <h3 class="docs-change-heading">Changed</h3>
+              <ul class="docs-change-list">
+                <li><code>cui-navbar</code> now enhances light-DOM <code>.cui-navbar-*</code> markup instead of
+                  slotting <code>brand</code>/<code>nav</code>/<code>actions</code> into a shadow root. The
+                  <code>expanded</code>, <code>sticky</code>, <code>sticky-offset</code>, and
+                  <code>sticky-z-index</code> attributes are unchanged; the burger toggle is injected for you.</li>
+                <li><code>cui-tabs</code> now reads its tabs and panels from light DOM: tabs live in a
+                  <code>.cui-tablist</code> as <code>.cui-tab</code> buttons, and panels are the remaining element
+                  children in order. The initial-selection signal changed from <code>aria-selected="true"</code>
+                  to <code>data-selected="true"</code>. Keyboard support (Arrow / Home / End) and ARIA wiring are
+                  preserved.</li>
+                <li>The <code>inverse</code> boolean attribute on the former CTA / page-intro elements is now the
+                  <code>data-tone="inverse"</code> attribute on the corresponding block.</li>
+                <li>Variant and alignment are expressed with <code>data-variant</code> and <code>data-align</code>
+                  attributes instead of <code>variant</code> / <code>align</code> element attributes.</li>
+              </ul>
+            </div>
+
+            <div class="docs-change-group" data-change="added">
+              <h3 class="docs-change-heading">Added</h3>
+              <ul class="docs-change-list">
+                <li>Light-DOM block classes: <code>.cui-hero</code> (with <code>.cui-hero-inner</code>,
+                  <code>.cui-hero-content</code>, <code>.cui-hero-media</code>, <code>.cui-hero-bg</code>,
+                  <code>.cui-hero-actions</code>, <code>.cui-hero-title</code>), <code>.cui-cta</code> (with
+                  <code>.cui-cta-content</code>, <code>.cui-cta-title</code>, <code>.cui-cta-actions</code>), and
+                  <code>.cui-page-intro</code> (with <code>.cui-page-intro-layout</code>,
+                  <code>-content</code>, <code>-title</code>, <code>-meta</code>, <code>-actions</code>,
+                  <code>-aside</code>).</li>
+                <li>New public CSS custom properties on the hero block:
+                  <code>--cui-hero-background-image</code> and <code>--cui-hero-background-position</code> (set
+                  them on <code>.cui-hero-bg</code> for the background variant). The remaining
+                  <code>--cui-hero-*</code>, <code>--cui-cta-*</code>, and <code>--cui-page-intro-*</code>
+                  customization points carry over.</li>
+              </ul>
+            </div>
+
+            <div class="docs-upgrade">
+              <h3 class="docs-upgrade-heading">Upgrade guide</h3>
+
+              <p class="docs-upgrade-lead"><strong>cui-hero → <code>.cui-hero</code> block.</strong> Replace the
+                element with a <code>&lt;section class="cui-hero"&gt;</code>, move slots to classed children, and
+                wrap content in <code>.cui-hero-inner</code> / <code>.cui-hero-content</code>.</p>
+              <div class="docs-upgrade-pair">
+                <div class="docs-upgrade-col">
+                  <p class="docs-upgrade-label" data-kind="before">Before — v0.3.x</p>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <cui-hero variant="split">
+                        <p slot="eyebrow">Campaign</p>
+                        <h1 slot="title">Launch pages with rich media.</h1>
+                        <p>Pair concise copy with product visuals.</p>
+                        <div slot="actions" class="cui-hero-actions">
+                          <cui-button variant="primary">Start</cui-button>
+                        </div>
+                        <img slot="media" class="cui-hero-media" src="./hero.svg" alt="">
+                      </cui-hero>
+                    </script>
+                  </cui-code>
+                </div>
+                <div class="docs-upgrade-col">
+                  <p class="docs-upgrade-label" data-kind="after">After — v0.4.0</p>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <section class="cui-hero" data-variant="split">
+                        <div class="cui-hero-inner">
+                          <div class="cui-hero-content">
+                            <p class="cui-eyebrow">Campaign</p>
+                            <h1 class="cui-hero-title">Launch pages with rich media.</h1>
+                            <p>Pair concise copy with product visuals.</p>
+                            <div class="cui-hero-actions">
+                              <cui-button variant="primary">Start</cui-button>
+                            </div>
+                          </div>
+                          <div class="cui-hero-media"><img src="./hero.svg" alt=""></div>
+                        </div>
+                      </section>
+                    </script>
+                  </cui-code>
+                </div>
+              </div>
+              <p class="docs-upgrade-note">
+                For the background variant, the <code>background-src</code> / <code>background-position</code>
+                attributes are gone. Add a <code>.cui-hero-bg</code> element and set
+                <code>--cui-hero-background-image</code> / <code>--cui-hero-background-position</code> inline:
+                <code>&lt;div class="cui-hero-bg" style="--cui-hero-background-image: url('hero.jpg');
+                  --cui-hero-background-position: center;"&gt;&lt;/div&gt;</code>.
+              </p>
+
+              <p class="docs-upgrade-lead"><strong>cui-cta → <code>.cui-cta</code> block.</strong> The
+                <code>variant</code> attribute becomes <code>data-variant</code> (values unchanged: <code>simple</code>,
+                <code>split</code>, <code>full-bleed</code>, <code>sticky</code>) and the <code>inverse</code>
+                attribute becomes <code>data-tone="inverse"</code>.</p>
+              <div class="docs-upgrade-pair">
+                <div class="docs-upgrade-col">
+                  <p class="docs-upgrade-label" data-kind="before">Before — v0.3.x</p>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <cui-cta inverse variant="full-bleed">
+                        <p slot="eyebrow">Build faster</p>
+                        <h1 slot="title">Pair supporting copy with actions.</h1>
+                        <p>Keep action groups aligned beside the message.</p>
+                        <div slot="actions">
+                          <cui-button variant="primary">Open demo</cui-button>
+                        </div>
+                      </cui-cta>
+                    </script>
+                  </cui-code>
+                </div>
+                <div class="docs-upgrade-col">
+                  <p class="docs-upgrade-label" data-kind="after">After — v0.4.0</p>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <section class="cui-cta" data-variant="full-bleed" data-tone="inverse">
+                        <div class="cui-cta-content">
+                          <p class="cui-eyebrow">Build faster</p>
+                          <h1 class="cui-cta-title">Pair supporting copy with actions.</h1>
+                          <p>Keep action groups aligned beside the message.</p>
+                        </div>
+                        <div class="cui-cta-actions">
+                          <cui-button variant="primary">Open demo</cui-button>
+                        </div>
+                      </section>
+                    </script>
+                  </cui-code>
+                </div>
+              </div>
+
+              <p class="docs-upgrade-lead"><strong>cui-page-intro → <code>.cui-page-intro</code> block.</strong>
+                Wrap the content (and optional aside) in a <code>.cui-page-intro-layout</code> grid; map slots to
+                classes (<code>slot="meta"</code> → <code>.cui-page-intro-meta</code>, <code>slot="aside"</code> →
+                <code>.cui-page-intro-aside</code>).</p>
+              <div class="docs-upgrade-pair">
+                <div class="docs-upgrade-col">
+                  <p class="docs-upgrade-label" data-kind="before">Before — v0.3.x</p>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <cui-page-intro variant="case">
+                        <p slot="eyebrow">Case study</p>
+                        <h1 slot="title">Project title.</h1>
+                        <p>Lead summary.</p>
+                        <p slot="meta"><span>Sector — Logistics</span></p>
+                        <aside slot="aside"><strong>Stack</strong></aside>
+                      </cui-page-intro>
+                    </script>
+                  </cui-code>
+                </div>
+                <div class="docs-upgrade-col">
+                  <p class="docs-upgrade-label" data-kind="after">After — v0.4.0</p>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <section class="cui-page-intro" data-variant="case">
+                        <div class="cui-page-intro-layout">
+                          <div class="cui-page-intro-content">
+                            <p class="cui-eyebrow">Case study</p>
+                            <h1 class="cui-page-intro-title">Project title.</h1>
+                            <p class="cui-page-intro-meta"><span>Sector — Logistics</span></p>
+                            <p>Lead summary.</p>
+                          </div>
+                          <aside class="cui-page-intro-aside"><strong>Stack</strong></aside>
+                        </div>
+                      </section>
+                    </script>
+                  </cui-code>
+                </div>
+              </div>
+
+              <p class="docs-upgrade-lead"><strong>cui-tabs markup.</strong> Group tabs in a
+                <code>.cui-tablist</code> and mark the initial tab with <code>data-selected="true"</code>; panels
+                are the remaining children, matched to tabs in document order.</p>
+              <div class="docs-upgrade-pair">
+                <div class="docs-upgrade-col">
+                  <p class="docs-upgrade-label" data-kind="before">Before — v0.3.x</p>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <cui-tabs>
+                        <button slot="tab" type="button" aria-selected="true">Buttons</button>
+                        <button slot="tab" type="button">Forms</button>
+                        <section slot="panel">…</section>
+                        <section slot="panel">…</section>
+                      </cui-tabs>
+                    </script>
+                  </cui-code>
+                </div>
+                <div class="docs-upgrade-col">
+                  <p class="docs-upgrade-label" data-kind="after">After — v0.4.0</p>
+                  <cui-code language="html">
+                    <script type="text/html">
+                      <cui-tabs>
+                        <div class="cui-tablist">
+                          <button class="cui-tab" type="button" data-selected="true">Buttons</button>
+                          <button class="cui-tab" type="button">Forms</button>
+                        </div>
+                        <section>…</section>
+                        <section>…</section>
+                      </cui-tabs>
+                    </script>
+                  </cui-code>
+                </div>
+              </div>
+
+              <p class="docs-upgrade-note">
+                <code>cui-navbar</code> moves the same way — slots become a light-DOM
+                <code>.cui-navbar-inner</code> / <code>.cui-navbar-bar</code> /
+                <code>.cui-navbar-collapse</code> structure with <code>.cui-nav</code>,
+                <code>.cui-nav-link</code>, and <code>.cui-dropdown</code> children. See the
+                <a href="./navigation.html">Navigation</a> page for the full markup.
+              </p>
+            </div>
+          </section>
+
+          <!-- ============================ v0.3.1 ============================ -->
+          <section id="v0-3-1" class="docs-release">
+            <header class="docs-release-header">
+              <div>
+                <p class="docs-release-eyebrow">2026-06-22</p>
+                <h2 class="docs-release-title">v0.3.1</h2>
+              </div>
+              <span class="docs-release-tag" data-impact="patch">Patch</span>
+            </header>
+            <p class="docs-release-summary">Carousel polish.</p>
+            <div class="docs-change-group" data-change="added">
+              <h3 class="docs-change-heading">Added</h3>
+              <ul class="docs-change-list">
+                <li>New public custom property <code>--cui-carousel-content-inset</code> (default <code>0</code>)
+                  on <code>cui-carousel</code>, adding side gutters so overlay controls sit beside the content
+                  rather than over it.</li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- ============================ v0.3.0 ============================ -->
+          <section id="v0-3-0" class="docs-release">
+            <header class="docs-release-header">
+              <div>
+                <p class="docs-release-eyebrow">2026-06-22</p>
+                <h2 class="docs-release-title">v0.3.0</h2>
+              </div>
+              <span class="docs-release-tag" data-impact="breaking">Breaking</span>
+            </header>
+            <p class="docs-release-summary">Token rename and a lighter dependency footprint for the map.</p>
+            <div class="docs-change-group" data-change="changed">
+              <h3 class="docs-change-heading">Changed</h3>
+              <ul class="docs-change-list">
+                <li>Public custom property renamed: <code>--cui-radius-control</code> →
+                  <code>--cui-control-radius</code>. Update any override of the old name.</li>
+                <li><code>leaflet</code> and <code>leaflet.markercluster</code> moved from <code>dependencies</code>
+                  to <code>peerDependencies</code>. If you use <code>cui-map</code>, install Leaflet alongside
+                  Combat UI.</li>
+              </ul>
+            </div>
+            <div class="docs-upgrade">
+              <h3 class="docs-upgrade-heading">Upgrade guide</h3>
+              <ul class="docs-change-list">
+                <li>Find-and-replace <code>--cui-radius-control</code> with <code>--cui-control-radius</code> in
+                  your stylesheets and inline overrides.</li>
+                <li>If your project renders <code>cui-map</code>, add Leaflet to your own dependencies:
+                  <code>npm install leaflet leaflet.markercluster</code>.</li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- ============================ v0.2.2 ============================ -->
+          <section id="v0-2-2" class="docs-release">
+            <header class="docs-release-header">
+              <div>
+                <p class="docs-release-eyebrow">2026-06-22</p>
+                <h2 class="docs-release-title">v0.2.2</h2>
+              </div>
+              <span class="docs-release-tag" data-impact="minor">Minor</span>
+            </header>
+            <p class="docs-release-summary">Carousel component.</p>
+            <div class="docs-change-group" data-change="added">
+              <h3 class="docs-change-heading">Added</h3>
+              <ul class="docs-change-list">
+                <li>New <code>cui-carousel</code> element (and <code>@combat-ui/core/carousel</code> subpath) with
+                  <code>autoplay</code>, <code>interval</code>, <code>loop</code>, <code>transition</code>,
+                  <code>controls</code>, <code>pagination</code>, and <code>pause-on-hover</code> attributes;
+                  <code>next()</code> / <code>previous()</code> / <code>go()</code> / <code>play()</code> /
+                  <code>pause()</code> methods; and a <code>cui-carousel-change</code> event.</li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- ============================ v0.2.1 ============================ -->
+          <section id="v0-2-1" class="docs-release">
+            <header class="docs-release-header">
+              <div>
+                <p class="docs-release-eyebrow">2026-06-21</p>
+                <h2 class="docs-release-title">v0.2.1</h2>
+              </div>
+              <span class="docs-release-tag" data-impact="minor">Minor</span>
+            </header>
+            <p class="docs-release-summary">Per-component imports for tree-shaking.</p>
+            <div class="docs-change-group" data-change="added">
+              <h3 class="docs-change-heading">Added</h3>
+              <ul class="docs-change-list">
+                <li>A self-registering subpath export for every component (e.g.
+                  <code>@combat-ui/core/button</code>, <code>@combat-ui/core/cookie-banner</code>) so bundlers
+                  ship only the elements you import.</li>
+              </ul>
+            </div>
+            <div class="docs-change-group" data-change="changed">
+              <h3 class="docs-change-heading">Changed</h3>
+              <ul class="docs-change-list">
+                <li>The <code>@combat-ui/core/styles</code> specifier now resolves to
+                  <code>dist/combat-ui.css</code>. If you referenced the underlying file path
+                  (<code>dist/styles/index.css</code>) directly, switch to the <code>/styles</code> specifier or
+                  the new path.</li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- ============================ v0.2.0 ============================ -->
+          <section id="v0-2-0" class="docs-release">
+            <header class="docs-release-header">
+              <div>
+                <p class="docs-release-eyebrow">2026-06-20</p>
+                <h2 class="docs-release-title">v0.2.0</h2>
+              </div>
+              <span class="docs-release-tag" data-impact="minor">Minor</span>
+            </header>
+            <p class="docs-release-summary">Cookie consent.</p>
+            <div class="docs-change-group" data-change="added">
+              <h3 class="docs-change-heading">Added</h3>
+              <ul class="docs-change-list">
+                <li>New <code>cui-cookie-banner</code> element for consent management, with category configuration
+                  (<code>categories</code>, <code>cookie-name</code>, <code>cookie-expiry</code>), slotted labels,
+                  and <code>cui-cookie-consent-change</code> / <code>cui-cookie-banner-open</code> /
+                  <code>cui-cookie-banner-close</code> events.</li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- ============================ v0.1.1 ============================ -->
+          <section id="v0-1-1" class="docs-release">
+            <header class="docs-release-header">
+              <div>
+                <p class="docs-release-eyebrow">2026-06-15</p>
+                <h2 class="docs-release-title">v0.1.1</h2>
+              </div>
+              <span class="docs-release-tag" data-impact="patch">Patch</span>
+            </header>
+            <p class="docs-release-summary">Layout fix; no breaking changes.</p>
+            <div class="docs-change-group" data-change="added">
+              <h3 class="docs-change-heading">Added</h3>
+              <ul class="docs-change-list">
+                <li>Public custom property <code>--cui-feature-card-rows</code> (default <code>3</code>) so
+                  feature cards in <code>.cui-feature-grid</code> can align across a shared row count.</li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- ============================ v0.1.0 ============================ -->
+          <section id="v0-1-0" class="docs-release">
+            <header class="docs-release-header">
+              <div>
+                <p class="docs-release-eyebrow">2026-06-13</p>
+                <h2 class="docs-release-title">v0.1.0</h2>
+              </div>
+              <span class="docs-release-tag" data-impact="minor">Initial</span>
+            </header>
+            <p class="docs-release-summary">First public release of the framework.</p>
+            <div class="docs-change-group" data-change="added">
+              <h3 class="docs-change-heading">Added</h3>
+              <ul class="docs-change-list">
+                <li>Custom elements: <code>cui-button</code>, <code>cui-navbar</code>,
+                  <code>cui-theme-toggle</code>, <code>cui-code</code>, <code>cui-tabs</code>,
+                  <code>cui-hero</code>, <code>cui-page-intro</code>, <code>cui-cta</code>,
+                  <code>cui-scroll-stage</code>, <code>cui-reveal</code>, <code>cui-tree</code>,
+                  <code>cui-field</code>, <code>cui-form</code>, <code>cui-modal</code>,
+                  <code>cui-toast-region</code>, <code>cui-disclosure</code>, <code>cui-map</code>,
+                  <code>cui-article-filter</code>, <code>cui-calendar</code>, and
+                  <code>cui-day-planner</code>.</li>
+                <li>Exported helpers: <code>defineCombatUi()</code>, <code>getTheme()</code> /
+                  <code>setTheme()</code>, <code>toast()</code>, <code>attachCuiParallax()</code>, and
+                  <code>getScrollCoordinator()</code>.</li>
+                <li>The <code>.</code> entry (registers every element) and the
+                  <code>@combat-ui/core/styles</code> stylesheet, plus the CSS reset, design tokens, layout
+                  primitives, utility classes, and light-DOM block classes.</li>
+              </ul>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </section>
+
+    <footer class="cui-section" data-spacing="compact">
+      <div class="cui-container cui-cluster docs-prevnext">
+        <cui-button href="./roadmap.html">Previous: Roadmap</cui-button>
+      </div>
+    </footer>
+  </main>
+</body>
+
+</html>

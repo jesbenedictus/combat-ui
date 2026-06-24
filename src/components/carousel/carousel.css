@@ -34,9 +34,15 @@
   display: none !important;
 }
 
-/* Viewport — clips the off-screen slides. */
+/* Viewport — clips the off-screen slides and stacks the track and the fixed
+   layer in a single grid cell. Stacking (rather than absolutely positioning
+   the fixed layer) lets the row grow to whichever layer is taller, so tall
+   fixed content (e.g. a slotted cui-page-intro) is contained instead of
+   clipped on narrow screens where the slides are shorter than the overlay. */
 [part="viewport"] {
   position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
   overflow: hidden;
   border-radius: var(--cui-carousel-radius);
   min-block-size: var(--cui-carousel-min-block-size);
@@ -47,6 +53,7 @@
 /* The slot box is the track. With display:flex the slotted slides become
    flex items laid out in a row; the transform shifts to the active slide. */
 [part="track"] {
+  grid-area: 1 / 1;
   display: flex;
   block-size: 100%;
   min-block-size: inherit;
@@ -63,6 +70,13 @@
   margin: 0;
   inline-size: 100%;
   min-inline-size: 0;
+
+  /* Fill the viewport's full height so background media still covers the
+     carousel when a tall `fixed` layer (e.g. a slotted cui-page-intro) makes
+     the viewport taller than a slide's intrinsic aspect-ratio height. An
+     explicit size also overrides a media block's own `aspect-ratio` for the
+     stretched axis, so the slide grows instead of leaving a gap. */
+  block-size: 100%;
 }
 
 /* Fade / none — stack every slide in one grid cell and cross-fade. */
@@ -97,11 +111,12 @@
   opacity: 1;
 }
 
-/* Fixed layer — persistent content that stays put across slides. The layer
-   itself is click-through; its children opt back in to pointer events. */
+/* Fixed layer — persistent content that stays put across slides. Shares the
+   viewport's single grid cell with the track so it overlays the slides while
+   still contributing to the carousel's height. The layer itself is
+   click-through; its children opt back in to pointer events. */
 [part="fixed"] {
-  position: absolute;
-  inset: 0;
+  grid-area: 1 / 1;
   z-index: 2;
   display: grid;
   pointer-events: none;

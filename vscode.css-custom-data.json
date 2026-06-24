@@ -1,0 +1,27 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vscode-css-languageservice/main/docs/customData.schema.json",
+  "version": 1.1,
+  "properties": [],
+  "pseudoElements": [
+    {
+      "name": "::part(viewport)",
+      "description": "The clipping region around the slides."
+    },
+    {
+      "name": "::part(track)",
+      "description": "The slot wrapping the slides (the moving track)."
+    },
+    { "name": "::part(fixed)", "description": "The persistent overlay layer." },
+    {
+      "name": "::part(controls)",
+      "description": "The previous / next arrow container."
+    },
+    { "name": "::part(previous)", "description": "The previous-slide button." },
+    { "name": "::part(next)", "description": "The next-slide button." },
+    {
+      "name": "::part(pagination)",
+      "description": "The dot pagination container."
+    },
+    { "name": "::part(dot)", "description": "A single pagination dot." }
+  ]
+}

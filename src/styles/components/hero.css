@@ -1,23 +1,157 @@
 /**
- * Media element inside a `cui-hero` — an `<img>` or `<video>` that
- * fills its grid cell with `object-fit: cover`. Apply the class
- * directly to the media element placed in the hero's `media` slot.
+ * Hero band — the top-of-page opener with a content column and optional media,
+ * background image, or overlay. Pure CSS; apply `.cui-hero` to a `<section>`.
+ * Inside it, a `.cui-hero-inner` holds a `.cui-hero-content` stack and an
+ * optional `.cui-hero-media` block. For the background variant, add a
+ * `.cui-hero-bg` element and set its image with an inline custom property:
+ * `style="--cui-hero-background-image: url('/hero.jpg')"`.
  *
- * @block cui-hero-media
- * @summary Hero media element (image/video) with cover fit.
+ * Modifiers compose on the container via data-attributes: the `data-variant`
+ * layout (`split` — content + media side by side; `text` — no media; `overlay`
+ * — media behind the copy; `background` — background image), `data-media="start"`
+ * (media leads), `data-align="center"`, and the content width
+ * `data-width="narrow | default | wide"`.
+ *
+ * @block cui-hero
+ * @summary Hero surface with content + optional media/background; variant modifiers.
+ * @variant split — `[data-variant="split"]`. Content and media side by side.
+ * @variant text — `[data-variant="text"]`. Text-only hero; tighter rhythm and container.
+ * @variant overlay — `[data-variant="overlay"]`. Light copy over a darkened media layer.
+ * @variant background — `[data-variant="background"]`. Light copy over a background image on `.cui-hero-bg`.
+ * @variant media-start — `[data-media="start"]`. Media column leads, content follows.
+ * @variant center — `[data-align="center"]`. Centers the content column (pair with `text`).
+ * @variant narrow — `[data-width="narrow"]`. Caps the inner column to `--cui-container-narrow`.
+ * @variant default — `[data-width="default"]`. Caps the inner column to `--cui-container`.
+ * @variant wide — `[data-width="wide"]`. Caps the inner column to `--cui-container-wide`.
+ * @cssvar --cui-hero-min-block-size — Minimum hero height. Defaults to min(86vb, 48rem).
+ * @cssvar --cui-hero-content-size — Max inline-size of the content column. Defaults to 42rem.
+ * @cssvar --cui-hero-title-size — Title font-size. Defaults to `--cui-font-size-display`.
+ * @cssvar --cui-hero-background-image — Background image for `.cui-hero-bg`. Set inline.
+ *
+ * @example
+ *   <section class="cui-hero" data-variant="split">
+ *     <div class="cui-hero-inner">
+ *       <div class="cui-hero-content">
+ *         <p class="cui-eyebrow">New release</p>
+ *         <h1 class="cui-hero-title">Modern websites without the framework tax</h1>
+ *         <p>Web components and light-DOM blocks that ship in any stack.</p>
+ *         <div class="cui-hero-actions">
+ *           <a class="cui-button cui-button-primary" href="/start">Get started</a>
+ *         </div>
+ *       </div>
+ *       <div class="cui-hero-media"><img src="/hero.jpg" alt=""></div>
+ *     </div>
+ *   </section>
  */
-.cui-hero-media {
-  display: block;
-  inline-size: 100%;
-  block-size: 100%;
-  object-fit: cover;
+.cui-hero {
+  --cui-hero-min-block-size: min(86vb, 48rem);
+  --cui-hero-padding-block: var(--cui-section-space-hero, clamp(6rem, 18vi, 14rem));
+  --cui-hero-gap: var(--cui-space-7, 3rem);
+  --cui-hero-content-size: 42rem;
+  --cui-hero-media-size: 38rem;
+  --cui-hero-media-min-block-size: clamp(18rem, 44vi, 34rem);
+  --cui-hero-overlay: linear-gradient(90deg, hsl(220deg 24% 8% / 82%), hsl(220deg 24% 8% / 28%));
+  --cui-hero-media-radius: var(--cui-radius-2, 0.5rem);
+  --cui-hero-title-size: var(--cui-font-size-display, clamp(3rem, 1.9rem + 4.4vi, 5.5rem));
+  --cui-hero-container-size: var(--cui-container-wide, 96rem);
+  --cui-hero-background-image: none;
+  --cui-hero-background-position: center;
+  --cui-hero-background-size: cover;
+
+  position: relative;
+  display: grid;
+  min-block-size: var(--cui-hero-min-block-size, min(86vb, 48rem));
+  align-items: center;
+  overflow: hidden;
+  background: var(--cui-hero-bg, var(--cui-color-surface, #f7f8fa));
+  color: var(--cui-hero-color, var(--cui-color, #1b1f27));
+  padding-block: var(--cui-hero-padding-block, clamp(6rem, 18vi, 14rem));
 }
 
 /**
- * Actions row inside a `cui-hero`. A flex row of primary +
- * secondary CTAs that wraps onto multiple lines when the hero is
- * narrow. Place inside the hero's `actions` slot, with one or two
- * `.cui-button` children.
+ * Background layer for the `background` variant. An absolutely-positioned
+ * element behind the content whose image is set inline via
+ * `--cui-hero-background-image`; its `::after` paints the overlay tint.
+ *
+ * @block cui-hero-bg
+ * @summary Absolutely-positioned background-image layer for the hero.
+ */
+.cui-hero-bg {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background-image: var(--cui-hero-background-image, none);
+  background-position: var(--cui-hero-background-position, center);
+  background-size: var(--cui-hero-background-size, cover);
+}
+
+.cui-hero-bg::after {
+  position: absolute;
+  inset: 0;
+  background: var(--cui-hero-overlay, linear-gradient(90deg, hsl(220deg 24% 8% / 82%), hsl(220deg 24% 8% / 28%)));
+  content: "";
+}
+
+/**
+ * Width-capped inner wrapper inside `.cui-hero`. Centers the content and
+ * media columns to the active container width (set per `data-width`) and
+ * supplies the column gap.
+ *
+ * @block cui-hero-inner
+ * @summary Width-capped, centered wrapper for the hero content + media.
+ */
+.cui-hero-inner {
+  z-index: 1;
+  display: grid;
+  inline-size: min(100% - (var(--cui-container-gutter, 2rem) * 2), var(--cui-hero-container-size, var(--cui-container-wide, 96rem)));
+  margin-inline: auto;
+  gap: var(--cui-hero-gap, 3rem);
+}
+
+/**
+ * Content column inside `.cui-hero-inner` — eyebrow, `.cui-hero-title`, copy,
+ * and `.cui-hero-actions`. A capped-width grid that sits above any media or
+ * background layer; unclassed paragraphs render larger and muted.
+ *
+ * @block cui-hero-content
+ * @summary Capped content column (eyebrow + title + copy + actions).
+ */
+.cui-hero-content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  max-inline-size: var(--cui-hero-content-size, 42rem);
+  gap: var(--cui-space-5, 1.5rem);
+}
+
+.cui-hero-content > :where(p):not([class]) {
+  max-inline-size: var(--cui-content-measure, 68ch);
+  margin: 0;
+  color: var(--cui-hero-muted-color, var(--cui-color-muted, #5d6675));
+  font-size: var(--cui-font-size-2, 1.5rem);
+  line-height: 1.4;
+}
+
+/**
+ * Hero headline inside `.cui-hero-content`. The largest type in the system —
+ * display weight, tight display line-height, balanced wrapping.
+ *
+ * @block cui-hero-title
+ * @summary Display-scale hero headline.
+ */
+.cui-hero-title {
+  max-inline-size: 13ch;
+  margin: 0;
+  font-size: var(--cui-hero-title-size, 5.5rem);
+  font-weight: var(--cui-font-weight-display, 760);
+  letter-spacing: 0;
+  line-height: var(--cui-line-height-display, 0.98);
+  text-wrap: balance;
+}
+
+/**
+ * Actions row inside `.cui-hero-content`. A flex row of CTAs that wraps onto
+ * multiple lines when the hero is narrow.
  *
  * @block cui-hero-actions
  * @summary Flex row of CTAs inside the hero; wraps on narrow viewports.
@@ -26,4 +160,134 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--cui-space-3, 0.75rem);
+}
+
+/**
+ * Media block inside `.cui-hero-inner` — wraps an `<img>` / `<video>` that
+ * fills the cell with `object-fit: cover`.
+ *
+ * @block cui-hero-media
+ * @summary Hero media wrapper; the inner image/video covers the cell.
+ */
+.cui-hero-media {
+  display: none;
+  min-inline-size: 0;
+}
+
+.cui-hero-media > :where(img, video, picture) {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  min-block-size: var(--cui-hero-media-min-block-size, clamp(18rem, 44vi, 34rem));
+  border-radius: var(--cui-hero-media-radius, 0.5rem);
+  object-fit: cover;
+}
+
+/* Split — content + media side by side. */
+.cui-hero[data-variant="split"] .cui-hero-inner {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.cui-hero[data-variant="split"] .cui-hero-media {
+  display: block;
+  max-inline-size: min(100%, var(--cui-hero-media-size, 38rem));
+}
+
+/* Media-position start — media leads, content follows. */
+.cui-hero[data-media="start"] .cui-hero-content {
+  order: 2;
+}
+
+.cui-hero[data-media="start"] .cui-hero-media {
+  order: 1;
+}
+
+/* Text — no media; tighter rhythm and container. */
+.cui-hero[data-variant="text"] {
+  --cui-hero-min-block-size: auto;
+  --cui-hero-padding-block: var(--cui-section-space, clamp(4rem, 10vi, 8rem));
+  --cui-hero-container-size: var(--cui-container, 72rem);
+}
+
+.cui-hero[data-variant="text"] .cui-hero-content {
+  justify-items: var(--cui-hero-text-justify, start);
+  max-inline-size: var(--cui-hero-text-size, 54rem);
+}
+
+.cui-hero[data-variant="text"][data-align="center"] {
+  --cui-hero-text-justify: center;
+}
+
+.cui-hero[data-variant="text"][data-align="center"] .cui-hero-content {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.cui-hero[data-variant="text"][data-align="center"] .cui-hero-title,
+.cui-hero[data-variant="text"][data-align="center"] .cui-hero-content > :where(p):not([class]) {
+  margin-inline: auto;
+}
+
+/* Overlay / background — light copy over a darkened image. */
+.cui-hero[data-variant="overlay"],
+.cui-hero[data-variant="background"] {
+  --cui-hero-color: var(--cui-color-on-accent, #fff);
+  --cui-hero-muted-color: hsl(0deg 0% 100% / 82%);
+}
+
+.cui-hero[data-variant="overlay"] .cui-eyebrow,
+.cui-hero[data-variant="background"] .cui-eyebrow {
+  color: hsl(0deg 0% 100% / 78%);
+}
+
+.cui-hero[data-variant="background"] .cui-hero-bg {
+  display: block;
+}
+
+.cui-hero[data-variant="overlay"] .cui-hero-media {
+  position: absolute;
+  z-index: 0;
+  display: block;
+  inset: 0;
+}
+
+.cui-hero[data-variant="overlay"] .cui-hero-media::after {
+  position: absolute;
+  inset: 0;
+  background: var(--cui-hero-overlay, linear-gradient(90deg, hsl(220deg 24% 8% / 82%), hsl(220deg 24% 8% / 28%)));
+  content: "";
+}
+
+.cui-hero[data-variant="overlay"] .cui-hero-media > :where(img, video, picture) {
+  block-size: 100%;
+  min-block-size: 100%;
+  border-radius: 0;
+}
+
+/* Content widths — cap the inner column independently of the surface. */
+.cui-hero[data-width="narrow"] {
+  --cui-hero-container-size: var(--cui-container-narrow, 48rem);
+}
+
+.cui-hero[data-width="default"] {
+  --cui-hero-container-size: var(--cui-container, 72rem);
+}
+
+.cui-hero[data-width="wide"] {
+  --cui-hero-container-size: var(--cui-container-wide, 96rem);
+}
+
+@media (width >= 56rem) {
+  .cui-hero[data-variant="split"] .cui-hero-inner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  }
+
+  .cui-hero[data-media="start"] .cui-hero-inner {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  }
+
+  .cui-hero[data-media="start"] .cui-hero-content,
+  .cui-hero[data-media="start"] .cui-hero-media {
+    order: initial;
+  }
 }

@@ -1,0 +1,192 @@
+<section id="pagination" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+  <div class="cui-prose">
+    <h2>Pagination</h2>
+    <p>
+      A navigation block for paging through long lists. Built for server-rendered, crawlable paging:
+      each page is a real <code>&lt;a href&gt;</code>, so the control works without JS and search
+      engines follow it. Mark the current page with <code>aria-current="page"</code> and an
+      unavailable prev / next direction with <code>aria-disabled="true"</code> on a
+      <code>&lt;span&gt;</code>. The <code>compact</code> variant trades numbered pages for a bare
+      prev / next pager with a "Pagina X van Y" status, for narrow viewports.
+    </p>
+  </div>
+
+  <cui-tabs>
+    <div class="cui-tablist">
+      <button class="cui-tab" type="button" data-selected="true">Numbered</button>
+      <button class="cui-tab" type="button">Compact</button>
+    </div>
+    <section class="docs-panel">
+      <div class="cui-stack">
+        <nav class="cui-pagination" aria-label="Paginering">
+          <ul class="cui-pagination-list">
+            <li class="cui-pagination-item">
+              <span class="cui-pagination-link" data-control="prev" aria-disabled="true">
+                <span aria-hidden="true">←</span> Vorige
+              </span>
+            </li>
+            <li class="cui-pagination-item">
+              <a class="cui-pagination-link" href="#pagination" aria-current="page">1</a>
+            </li>
+            <li class="cui-pagination-item">
+              <a class="cui-pagination-link" href="#pagination">2</a>
+            </li>
+            <li class="cui-pagination-item">
+              <a class="cui-pagination-link" href="#pagination">3</a>
+            </li>
+            <li class="cui-pagination-item" aria-hidden="true">
+              <span class="cui-pagination-ellipsis">…</span>
+            </li>
+            <li class="cui-pagination-item">
+              <a class="cui-pagination-link" href="#pagination">8</a>
+            </li>
+            <li class="cui-pagination-item">
+              <a class="cui-pagination-link" data-control="next" href="#pagination">
+                Volgende <span aria-hidden="true">→</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <cui-code language="html">
+          <script type="text/html">
+                        <nav class="cui-pagination" aria-label="Paginering">
+                          <ul class="cui-pagination-list">
+                            <li class="cui-pagination-item">
+                              <span class="cui-pagination-link" data-control="prev" aria-disabled="true">
+                                <span aria-hidden="true">←</span> Vorige
+                              </span>
+                            </li>
+                            <li class="cui-pagination-item">
+                              <a class="cui-pagination-link" href="/vacatures" aria-current="page">1</a>
+                            </li>
+                            <li class="cui-pagination-item">
+                              <a class="cui-pagination-link" href="/vacatures?page=2">2</a>
+                            </li>
+                            <li class="cui-pagination-item" aria-hidden="true">
+                              <span class="cui-pagination-ellipsis">…</span>
+                            </li>
+                            <li class="cui-pagination-item">
+                              <a class="cui-pagination-link" href="/vacatures?page=8">8</a>
+                            </li>
+                            <li class="cui-pagination-item">
+                              <a class="cui-pagination-link" data-control="next" href="/vacatures?page=2">
+                                Volgende <span aria-hidden="true">→</span>
+                              </a>
+                            </li>
+                          </ul>
+                        </nav>
+                      </script>
+        </cui-code>
+      </div>
+    </section>
+
+    <section class="docs-panel">
+      <div class="cui-stack">
+        <nav class="cui-pagination" data-variant="compact" aria-label="Paginering">
+          <ul class="cui-pagination-list">
+            <li class="cui-pagination-item">
+              <a class="cui-pagination-link" data-control="prev" href="#pagination">
+                <span aria-hidden="true">←</span> Vorige
+              </a>
+            </li>
+            <li class="cui-pagination-item">
+              <span class="cui-pagination-status">Pagina 2 van 8</span>
+            </li>
+            <li class="cui-pagination-item">
+              <a class="cui-pagination-link" data-control="next" href="#pagination">
+                Volgende <span aria-hidden="true">→</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <cui-code language="html">
+          <script type="text/html">
+                        <nav class="cui-pagination" data-variant="compact" aria-label="Paginering">
+                          <ul class="cui-pagination-list">
+                            <li class="cui-pagination-item">
+                              <a class="cui-pagination-link" data-control="prev" href="/vacatures">
+                                <span aria-hidden="true">←</span> Vorige
+                              </a>
+                            </li>
+                            <li class="cui-pagination-item">
+                              <span class="cui-pagination-status">Pagina 2 van 8</span>
+                            </li>
+                            <li class="cui-pagination-item">
+                              <a class="cui-pagination-link" data-control="next" href="/vacatures?page=3">
+                                Volgende <span aria-hidden="true">→</span>
+                              </a>
+                            </li>
+                          </ul>
+                        </nav>
+                      </script>
+        </cui-code>
+      </div>
+    </section>
+  </cui-tabs>
+
+  <cui-disclosure>
+    <details class="cui-disclosure" data-variant="ghost">
+      <summary>API reference</summary>
+      <div class="cui-disclosure-body">
+        <table class="docs-token-table">
+          <thead>
+            <tr>
+              <th>Class</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>.cui-pagination</code></td>
+              <td>
+                <code>&lt;nav aria-label&gt;</code> wrapper. <code>data-align="start | end"</code>
+                aligns the row; <code>data-variant="compact"</code> hides numbered pages.
+              </td>
+            </tr>
+            <tr>
+              <td><code>.cui-pagination-list</code> / <code>.cui-pagination-item</code></td>
+              <td>Flex-wrap <code>&lt;ul&gt;</code> and its <code>&lt;li&gt;</code> wrappers.</td>
+            </tr>
+            <tr>
+              <td><code>.cui-pagination-link</code></td>
+              <td>
+                Page number or prev / next control. <code>aria-current="page"</code> paints the
+                active page in the accent fill; <code>aria-disabled="true"</code> / <code>:disabled</code>
+                mutes it; <code>data-control="prev | next"</code> widens the target for a label.
+              </td>
+            </tr>
+            <tr>
+              <td><code>.cui-pagination-ellipsis</code></td>
+              <td>Decorative "…" for skipped ranges — hide its item from assistive tech.</td>
+            </tr>
+            <tr>
+              <td><code>.cui-pagination-status</code></td>
+              <td>Muted "Pagina X van Y" text; the readable alternative in the compact variant.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="docs-token-table">
+          <thead>
+            <tr>
+              <th>Variable</th>
+              <th>Default</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>--cui-pagination-gap</code></td>
+              <td><code>--cui-space-1</code></td>
+            </tr>
+            <tr>
+              <td><code>--cui-pagination-size</code></td>
+              <td><code>2.5rem</code> (min link target)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+  </cui-disclosure>
+</section>

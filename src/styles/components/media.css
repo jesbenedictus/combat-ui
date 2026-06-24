@@ -42,6 +42,14 @@
  *   <div class="cui-media-full" data-bleed="full">
  *     <img src="/wide.jpg" alt="">
  *   </div>
+ *
+ * @example
+ *   <!-- Responsive YouTube embed — the iframe fills the ratio box -->
+ *   <div class="cui-media-full" data-ratio="wide">
+ *     <iframe src="https://www.youtube.com/embed/VIDEO_ID"
+ *       title="Demo video" allowfullscreen
+ *       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+ *   </div>
  */
 .cui-media-full {
   display: block;
@@ -51,11 +59,20 @@
   overflow: hidden;
 }
 
-.cui-media-full > :where(img, video, picture, iframe, svg) {
+/* Allow one wrapping element (e.g. a CMS editable container) between the
+   block and its media: it collapses to `display: contents` so the media
+   still lays out as if it were a direct child. */
+.cui-media-full > :where(div, span):only-child {
+  display: contents;
+}
+
+.cui-media-full > :where(img, video, picture, iframe, svg),
+.cui-media-full > :where(div, span) > :where(img, video, picture, iframe, svg) {
   display: block;
   inline-size: 100%;
   block-size: 100%;
   aspect-ratio: var(--cui-media-full-ratio, var(--cui-media-ratio, 16 / 9));
+  border: 0;
   object-fit: var(--cui-media-fit, cover);
   object-position: var(--cui-media-position, center);
 }
@@ -127,6 +144,7 @@
   inline-size: 100%;
   aspect-ratio: var(--cui-figure-ratio, var(--cui-media-ratio, 16 / 9));
   background: var(--cui-media-bg, var(--cui-color-surface-muted, #edf0f4));
+  border: 0;
   border-radius: var(--cui-media-radius, var(--cui-radius-2, 0.5rem));
   object-fit: var(--cui-media-fit, cover);
   object-position: var(--cui-media-position, center);
@@ -252,6 +270,7 @@
   inline-size: 100%;
   aspect-ratio: var(--cui-media-card-media-ratio, 16 / 10);
   background: var(--cui-media-bg, var(--cui-color-surface-muted, #edf0f4));
+  border: 0;
   object-fit: var(--cui-media-fit, cover);
   object-position: var(--cui-media-position, center);
 }
@@ -435,6 +454,7 @@
   z-index: -2;
   inline-size: 100%;
   block-size: 100%;
+  border: 0;
   object-fit: var(--cui-media-fit, cover);
   object-position: var(--cui-media-position, center);
 }

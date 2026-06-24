@@ -1,0 +1,70 @@
+/**
+ * Light-DOM styling for the custom elements that still render a shadow root
+ * and project author content through slots (field, map, cookie-banner).
+ * Putting the slotted typography here, in the global stylesheet, rather than
+ * in `::slotted()` rules inside each
+ * shadow root means it is present from the page's first paint — identical
+ * before and after the element upgrades — so there is no font flash and no need
+ * to hide undefined elements.
+ *
+ * Light-DOM author rules win over `::slotted()` for the same element
+ * regardless of specificity, and the component-scoped `--cui-<name>-*` custom
+ * properties keep working because these rules read the same tokens.
+ *
+ * Components with no behavior (hero, page-intro, cta) and the tabs interface
+ * are pure CSS classes now — see `src/styles/components/`.
+ */
+
+/* Box-model baselines — unupgraded custom elements are `display: inline` by
+   default, which collapses their layout until the scripts run. Mirror each
+   element's `:host` display so the box is correct on first paint. */
+cui-map,
+cui-carousel {
+  display: block;
+}
+
+cui-tabs {
+  display: grid;
+  gap: var(--cui-space-4, 1rem);
+}
+
+cui-field {
+  display: grid;
+  gap: var(--cui-space-1, 0.25rem);
+}
+
+/* Navbar (cui-navbar) renders no shadow structure — it enhances the
+   `.cui-navbar` light-DOM class family (src/styles/components/nav.css) and
+   injects only the burger toggle, so the bar lays out identically before and
+   after the element upgrades. No `:not(:defined)` reserve-layout is needed. */
+
+/* Tabs (cui-tabs) renders no shadow structure — it enhances `.cui-tabs` /
+   `.cui-tablist` / `.cui-tab` light-DOM markup, styled by
+   src/styles/components/tabs.css. The element-level grid layout is set in the
+   box-model baselines above. */
+
+/* Field ------------------------------------------------------------------ */
+cui-field > [slot="help"] {
+  font-size: var(--cui-font-size-1, 0.9375rem);
+  color: var(--cui-color-muted, #5d6675);
+}
+
+cui-field > [slot^="error"] {
+  margin: 0;
+}
+
+/* Map -------------------------------------------------------------------- */
+cui-map > [slot="title"] {
+  margin: 0;
+}
+
+cui-map > [slot="legend"] {
+  margin: 0;
+  color: var(--cui-color-muted, #5d6675);
+  font-size: var(--cui-font-size-caption, 0.875rem);
+}
+
+/* Cookie banner ---------------------------------------------------------- */
+cui-cookie-banner a {
+  color: var(--cui-color-accent, oklch(57% 0.18 246deg));
+}

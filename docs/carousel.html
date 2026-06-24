@@ -27,7 +27,8 @@
         plain content panels. A separate <code>fixed</code> slot pins chrome in place across every slide.
         Slides live in light DOM so all of them stay crawlable, and the component layers on slide / fade
         transitions, autoplay with a pause control, looping, keyboard navigation, and a
-        <code>prefers-reduced-motion</code> guard.</p>
+        <code>prefers-reduced-motion</code> guard.
+      </p>
     </header>
 
     <section class="cui-section">
@@ -54,10 +55,11 @@
             </div>
 
             <cui-tabs>
-              <button slot="tab" type="button">Slide (autoplay)</button>
-              <button slot="tab" type="button">Fade</button>
-
-              <section slot="panel" class="docs-panel">
+              <div class="cui-tablist">
+                <button class="cui-tab" type="button" data-selected="true">Slide (autoplay)</button>
+                <button class="cui-tab" type="button">Fade</button>
+              </div>
+              <section class="docs-panel">
                 <div class="cui-stack">
                   <div class="docs-preview">
                     <div class="docs-preview-frame">
@@ -122,7 +124,7 @@
                 </div>
               </section>
 
-              <section slot="panel" class="docs-panel">
+              <section class="docs-panel">
                 <div class="cui-stack">
                   <div class="docs-preview">
                     <div class="docs-preview-frame">
@@ -248,10 +250,13 @@
                     style="place-self: end; margin: var(--cui-space-4, 1rem);">View all work</a>
                 </cui-carousel>
 
-                <div class="cui-cluster" style="--cui-cluster-gap: var(--cui-space-3, 0.75rem); margin-block-start: var(--cui-space-4, 1rem);">
-                  <cui-button data-cui-carousel-prev data-cui-carousel-target="docs-carousel-fixed">Previous</cui-button>
+                <div class="cui-cluster"
+                  style="--cui-cluster-gap: var(--cui-space-3, 0.75rem); margin-block-start: var(--cui-space-4, 1rem);">
+                  <cui-button data-cui-carousel-prev
+                    data-cui-carousel-target="docs-carousel-fixed">Previous</cui-button>
                   <cui-button data-cui-carousel-next data-cui-carousel-target="docs-carousel-fixed">Next</cui-button>
-                  <cui-button data-cui-carousel-goto="0" data-cui-carousel-target="docs-carousel-fixed">First</cui-button>
+                  <cui-button data-cui-carousel-goto="0"
+                    data-cui-carousel-target="docs-carousel-fixed">First</cui-button>
                 </div>
                 <p class="cui-caption docs-modal-log" id="docs-carousel-log" aria-live="polite"></p>
               </div>

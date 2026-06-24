@@ -120,6 +120,13 @@
   line-height: 1;
 }
 
+/**
+ * Month line of `.cui-event-card-date`. Small, bold, uppercase and tracked —
+ * the abbreviated month above the day number.
+ *
+ * @block cui-event-card-date-month
+ * @summary Uppercase month label in the event-card date block.
+ */
 .cui-event-card-date-month {
   font-size: var(--cui-font-size-eyebrow, 0.875rem);
   font-weight: var(--cui-font-weight-strong, 680);
@@ -127,12 +134,26 @@
   text-transform: uppercase;
 }
 
+/**
+ * Day line of `.cui-event-card-date`. The large display-weight day number
+ * that anchors the date block.
+ *
+ * @block cui-event-card-date-day
+ * @summary Large day number in the event-card date block.
+ */
 .cui-event-card-date-day {
   font-size: var(--cui-font-size-4, 2.75rem);
   font-weight: var(--cui-font-weight-display, 760);
   line-height: 1;
 }
 
+/**
+ * Optional year line of `.cui-event-card-date`. Small muted text below the
+ * day for events that span or fall outside the current year.
+ *
+ * @block cui-event-card-date-year
+ * @summary Muted year label in the event-card date block.
+ */
 .cui-event-card-date-year {
   color: var(--cui-color-muted, #5d6675);
   font-size: var(--cui-font-size-neg-1, 0.875rem);

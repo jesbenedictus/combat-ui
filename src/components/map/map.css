@@ -72,15 +72,8 @@
   display: none;
 }
 
-::slotted([slot="title"]) {
-  margin: 0;
-}
-
-::slotted([slot="legend"]) {
-  margin: 0;
-  color: var(--cui-color-muted, #5d6675);
-  font-size: var(--cui-font-size-caption, 0.875rem);
-}
+/* Slotted title/legend typography lives in the light-DOM sheet at
+   src/styles/elements.css so it is identical before and after upgrade. */
 
 /* --- Markers ---------------------------------------------------------- */
 

@@ -23,28 +23,31 @@
   <!--#include _partials/nav.html?current=index-->
 
   <main id="main">
-    <cui-hero variant="text" align="center">
-      <p slot="eyebrow">Combat UI</p>
-      <h1 slot="title">Progressive components that compose with native HTML.</h1>
-      <p>
-        A small set of token-driven CSS primitives and accessible custom elements. Light DOM stays yours; behavior and
-        ARIA stay ours.
-      </p>
-      <div slot="actions" class="cui-cluster">
-        <cui-button variant="primary" href="./foundations.html">Get started</cui-button>
-        <cui-button href="./components.html">Browse components</cui-button>
+    <div class="cui-hero" data-variant="text" data-align="center">
+      <div class="cui-hero-inner">
+        <div class="cui-hero-content">
+          <p class="cui-eyebrow">Combat UI</p>
+          <h1 class="cui-hero-title">Progressive components that compose with native HTML.</h1>
+          <p>
+            A small set of token-driven CSS primitives and accessible custom elements. 
+            Light DOM stays yours; behavior and ARIA stay ours.
+          </p>
+          <div class="cui-hero-actions">
+            <cui-button variant="primary" href="./foundations.html">Get started</cui-button>
+            <cui-button href="./components.html">Browse components</cui-button>
+          </div>
+        </div>
       </div>
-    </cui-hero>
+    </div>
 
     <section class="cui-section" data-spacing="compact">
       <div class="cui-container cui-stack" style="--cui-stack-gap: var(--cui-space-6, 2rem);">
         <div class="cui-prose">
           <h2>Why Combat UI</h2>
           <p>
-            Most "UI kits" replace the platform. Combat UI extends it. Layout primitives are class-based so they work
-            in any stack; interactive components are custom elements with open shadow DOM, slots, and CSS parts.
-            Everything routes through a small set of CSS custom properties — override one variable and the rest of the
-            system follows.
+            The majority of the system is just HTML and CSS. Layout primitives are class-based, making them portable across frameworks and tech stacks. Web Components are only used when additional behavior, accessibility features, or ARIA interactions are required.
+
+Everything is driven by a small set of CSS custom properties, so changing a single variable propagates consistently throughout the entire system.
           </p>
         </div>
 
@@ -58,8 +61,7 @@
           <article class="docs-card">
             <h3>Token-driven theming</h3>
             <p class="cui-text-muted">
-              Colors, type, spacing, density, and component tokens cascade through plain CSS variables — no theme
-              provider, no runtime.
+              Colors, type, spacing, density, and component tokens cascade through plain CSS variables
             </p>
           </article>
           <article class="docs-card">
@@ -94,7 +96,7 @@
           <h3>Use everything (drop-in)</h3>
           <p>
             Import the <code>auto</code> entry. Every <code>cui-*</code> element registers itself and the
-            global utility stylesheet is included &mdash; no setup, no build step.
+            global utility stylesheet is included.
           </p>
         </div>
         <cui-code language="javascript">

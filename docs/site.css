@@ -94,6 +94,31 @@
     padding-block-start: var(--cui-space-4, 1rem);
   }
 
+  /* Roomier gap for the prose → demos → API-reference rhythm in section docs. */
+  .docs-section-stack {
+    --cui-stack-gap: var(--cui-space-5, 1.5rem);
+  }
+
+  /* Hero section demos — tuned-down sizing so the previews fit the docs panel
+     rather than filling the viewport. */
+  .docs-hero-demo {
+    --cui-hero-padding-block: var(--cui-space-7, 3rem);
+    --cui-hero-title-size: var(--cui-font-size-5, 4rem);
+  }
+
+  .docs-hero-demo-split {
+    --cui-hero-min-block-size: auto;
+    --cui-hero-media-min-block-size: 22rem;
+  }
+
+  .docs-hero-demo-background {
+    --cui-hero-min-block-size: 32rem;
+  }
+
+  .docs-hero-demo-overlay {
+    --cui-hero-min-block-size: 34rem;
+  }
+
   .docs-preview {
     overflow: hidden;
     border: var(--cui-border-size, 1px) solid var(--cui-color-border, #cfd6df);
@@ -935,5 +960,206 @@
     font-size: var(--cui-font-size-1, 0.9375rem);
     font-style: italic;
     color: var(--cui-color-muted, #5d6675);
+  }
+
+  /* ---- Changelog ------------------------------------------------------- */
+
+  .docs-changelog {
+    --cui-stack-gap: var(--cui-space-7, 3rem);
+  }
+
+  .docs-release {
+    display: grid;
+    gap: var(--cui-space-4, 1rem);
+    padding-block-end: var(--cui-space-7, 3rem);
+    border-block-end: var(--cui-border-size, 1px) solid
+      var(--cui-color-border, #cfd6df);
+  }
+
+  .docs-release:last-child {
+    padding-block-end: 0;
+    border-block-end: 0;
+  }
+
+  .docs-release-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--cui-space-3, 0.75rem);
+  }
+
+  .docs-release-eyebrow {
+    margin: 0;
+    font-size: var(--cui-font-size-1, 0.9375rem);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--cui-color-muted, #5d6675);
+  }
+
+  .docs-release-title {
+    margin: 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .docs-release-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--cui-space-1, 0.25rem) var(--cui-space-3, 0.75rem);
+    border-radius: 999px;
+    font-size: var(--cui-font-size-1, 0.9375rem);
+    font-weight: var(--cui-font-weight-strong, 680);
+    background: color-mix(in oklch, currentColor 10%, transparent);
+    color: var(--cui-color-muted, #5d6675);
+  }
+
+  .docs-release-tag[data-impact="breaking"] {
+    background: color-mix(
+      in oklch,
+      var(--cui-color-danger, oklch(58% 0.2 25deg)) 18%,
+      transparent
+    );
+    color: var(--cui-color-danger, oklch(58% 0.2 25deg));
+  }
+
+  .docs-release-tag[data-impact="minor"] {
+    background: color-mix(
+      in oklch,
+      var(--cui-color-info, oklch(58% 0.14 230deg)) 18%,
+      transparent
+    );
+    color: var(--cui-color-info, oklch(58% 0.14 230deg));
+  }
+
+  .docs-release-summary {
+    margin: 0;
+    max-inline-size: var(--cui-measure, 64ch);
+    line-height: var(--cui-line-height, 1.55);
+  }
+
+  .docs-change-group {
+    display: grid;
+    gap: var(--cui-space-2, 0.5rem);
+  }
+
+  .docs-change-heading {
+    margin: 0;
+    font-size: var(--cui-font-size-1, 0.9375rem);
+    font-weight: var(--cui-font-weight-strong, 680);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--cui-color-muted, #5d6675);
+  }
+
+  .docs-change-group[data-change="added"] .docs-change-heading {
+    color: var(--cui-color-success, oklch(60% 0.16 145deg));
+  }
+
+  .docs-change-group[data-change="changed"] .docs-change-heading {
+    color: var(--cui-color-info, oklch(58% 0.14 230deg));
+  }
+
+  .docs-change-group[data-change="removed"] .docs-change-heading {
+    color: var(--cui-color-danger, oklch(58% 0.2 25deg));
+  }
+
+  .docs-change-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--cui-space-2, 0.5rem);
+  }
+
+  .docs-change-list > li {
+    position: relative;
+    padding-inline-start: 1.25rem;
+    line-height: var(--cui-line-height, 1.55);
+    max-inline-size: var(--cui-measure, 72ch);
+  }
+
+  .docs-change-list > li::before {
+    content: "—";
+    position: absolute;
+    inset-inline-start: 0;
+    color: var(--cui-color-muted, #5d6675);
+  }
+
+  .docs-changelog code {
+    font-family: var(--cui-code-font, SFMono-Regular, consolas, monospace);
+    font-size: 0.9em;
+    padding: 0.05em 0.3em;
+    background: color-mix(in oklch, currentColor 8%, transparent);
+    border-radius: var(--cui-radius-1, 0.25rem);
+  }
+
+  .docs-upgrade {
+    display: grid;
+    gap: var(--cui-space-4, 1rem);
+    padding: var(--cui-space-5, 1.5rem);
+    border: var(--cui-border-size, 1px) solid
+      color-mix(
+        in oklch,
+        var(--cui-color-danger, oklch(58% 0.2 25deg)) 30%,
+        var(--cui-color-border, #cfd6df)
+      );
+    border-radius: var(--cui-radius-2, 0.5rem);
+    background: color-mix(
+      in oklch,
+      var(--cui-color-danger, oklch(58% 0.2 25deg)) 4%,
+      var(--cui-color-surface-raised, #fff)
+    );
+  }
+
+  .docs-upgrade-heading {
+    margin: 0;
+    font-size: var(--cui-font-size-2, 1.0625rem);
+  }
+
+  .docs-upgrade-lead {
+    margin: 0;
+    max-inline-size: var(--cui-measure, 72ch);
+    line-height: var(--cui-line-height, 1.55);
+  }
+
+  .docs-upgrade-pair {
+    display: grid;
+    gap: var(--cui-space-3, 0.75rem);
+  }
+
+  .docs-upgrade-col {
+    display: grid;
+    gap: var(--cui-space-2, 0.5rem);
+    min-inline-size: 0;
+  }
+
+  .docs-upgrade-label {
+    margin: 0;
+    font-size: var(--cui-font-size-1, 0.9375rem);
+    font-weight: var(--cui-font-weight-strong, 680);
+  }
+
+  .docs-upgrade-label[data-kind="before"] {
+    color: var(--cui-color-danger, oklch(58% 0.2 25deg));
+  }
+
+  .docs-upgrade-label[data-kind="after"] {
+    color: var(--cui-color-success, oklch(60% 0.16 145deg));
+  }
+
+  .docs-upgrade-note {
+    margin: 0;
+    max-inline-size: var(--cui-measure, 72ch);
+    font-size: var(--cui-font-size-1, 0.9375rem);
+    line-height: var(--cui-line-height, 1.55);
+    color: var(--cui-color-muted, #5d6675);
+  }
+
+  @media (width >= 56rem) {
+    .docs-upgrade-pair {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
   }
 }

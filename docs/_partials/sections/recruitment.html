@@ -1,0 +1,502 @@
+<section id="vacancy-blocks" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+  <div class="cui-prose">
+    <h2>Recruitment</h2>
+    <p>
+      Vacancy cards, grids, lists, and a two-column detail layout for job boards. Each card is
+      a semantic <code>&lt;article&gt;</code> whose title and apply action are real
+      <code>&lt;a href&gt;</code> links, so listings stay crawlable and work without JS. The same
+      card flexes from a minimal "title + read more" listing to an image-led row, and the detail
+      layout pairs a narrative body with a sticky "Snel overzicht" summary, apply CTA, and contact
+      block — enough to cover the range of formats real municipal recruitment sites publish.
+    </p>
+  </div>
+
+  <cui-tabs>
+    <div class="cui-tablist">
+      <button class="cui-tab" type="button" data-selected="true">Vacancy card</button>
+      <button class="cui-tab" type="button">Grid</button>
+      <button class="cui-tab" type="button">List</button>
+      <button class="cui-tab" type="button">Detail page</button>
+    </div>
+    <section class="docs-panel">
+      <div class="cui-stack">
+        <article class="cui-vacancy-card" data-team="veiligheid">
+          <div class="cui-vacancy-card-body">
+            <p class="cui-vacancy-card-eyebrow">
+              <a href="#vacancy-blocks">Openbare Orde en Veiligheid</a>
+            </p>
+            <h3 class="cui-vacancy-card-title">
+              <a href="#vacancy-blocks">Toezichthouder Westwijk</a>
+            </h3>
+            <ul class="cui-vacancy-meta">
+              <li class="cui-vacancy-meta-item">32–36 uur</li>
+              <li class="cui-vacancy-meta-item">Vlaardingen</li>
+              <li class="cui-vacancy-meta-item">Schaal 5</li>
+            </ul>
+            <p class="cui-vacancy-card-excerpt">
+              Houd toezicht in de wijk, ga in gesprek met bewoners en draag bij aan een veilige,
+              leefbare Westwijk.
+            </p>
+            <div class="cui-vacancy-card-actions">
+              <a class="cui-button" data-variant="primary" href="#vacancy-blocks">Bekijk vacature</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="cui-vacancy-card" data-orient="row" data-status="new" data-team="boa">
+          <a class="cui-vacancy-card-media" href="#vacancy-blocks">
+            <img src="https://picsum.photos/seed/wijkboa/480/360" alt="">
+          </a>
+          <div class="cui-vacancy-card-body">
+            <h3 class="cui-vacancy-card-title">
+              <a href="#vacancy-blocks">WijkBOA</a>
+            </h3>
+            <p class="cui-vacancy-card-tagline">Je kent de wijk en maakt het verschil.</p>
+            <ul class="cui-vacancy-meta">
+              <li class="cui-vacancy-meta-item">36 uur</li>
+              <li class="cui-vacancy-meta-item">Gemeente Vlaardingen</li>
+              <li class="cui-vacancy-meta-item">Schaal 8</li>
+            </ul>
+            <p class="cui-vacancy-card-excerpt">
+              Als wijkBOA werk je contextgericht: je ziet wat er speelt, spreekt mensen aan en pakt
+              door waar het nodig is.
+            </p>
+            <div class="cui-vacancy-card-actions">
+              <a class="cui-button" href="#vacancy-blocks">Lees meer</a>
+            </div>
+          </div>
+          <span class="cui-vacancy-card-status">Nieuw</span>
+        </article>
+
+        <article class="cui-vacancy-card" data-variant="compact" data-status="closing">
+          <div class="cui-vacancy-card-body">
+            <p class="cui-vacancy-card-eyebrow">Beheer Openbare Ruimte</p>
+            <h3 class="cui-vacancy-card-title">
+              <a href="#vacancy-blocks">Medewerker Openbare Orde en Veiligheid</a>
+            </h3>
+            <ul class="cui-vacancy-meta">
+              <li class="cui-vacancy-meta-item">32–36 uur</li>
+              <li class="cui-vacancy-meta-item">Molenlanden</li>
+            </ul>
+            <div class="cui-vacancy-card-actions">
+              <a class="cui-button" href="#vacancy-blocks">Bekijk vacature</a>
+            </div>
+          </div>
+          <span class="cui-vacancy-card-status">Sluit binnenkort</span>
+        </article>
+
+        <cui-code language="html">
+          <script type="text/html">
+                        <!-- Minimal listing card — title + meta + apply -->
+          <article class="cui-vacancy-card" data-team="veiligheid">
+            <div class="cui-vacancy-card-body">
+              <p class="cui-vacancy-card-eyebrow">Openbare Orde en Veiligheid</p>
+              <h3 class="cui-vacancy-card-title">
+                <a href="/vacatures/toezichthouder-westwijk">Toezichthouder Westwijk</a>
+              </h3>
+              <ul class="cui-vacancy-meta">
+                <li class="cui-vacancy-meta-item">32–36 uur</li>
+                <li class="cui-vacancy-meta-item">Vlaardingen</li>
+                <li class="cui-vacancy-meta-item">Schaal 5</li>
+              </ul>
+              <p class="cui-vacancy-card-excerpt">Houd toezicht in de wijk…</p>
+              <div class="cui-vacancy-card-actions">
+                <a class="cui-button" data-variant="primary" href="/vacatures/toezichthouder-westwijk">Bekijk
+                  vacature</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Image-led row card with a status pill -->
+          <article class="cui-vacancy-card" data-orient="row" data-status="new">
+            <a class="cui-vacancy-card-media" href="/vacatures/wijkboa">
+              <img src="/vacatures/wijkboa.jpg" alt="">
+            </a>
+            <div class="cui-vacancy-card-body">
+              <h3 class="cui-vacancy-card-title"><a href="/vacatures/wijkboa">WijkBOA</a></h3>
+              <p class="cui-vacancy-card-tagline">Je kent de wijk en maakt het verschil.</p>
+              <ul class="cui-vacancy-meta">
+                <li class="cui-vacancy-meta-item">36 uur</li>
+                <li class="cui-vacancy-meta-item">Gemeente Vlaardingen</li>
+              </ul>
+              <div class="cui-vacancy-card-actions">
+                <a class="cui-button" href="/vacatures/wijkboa">Lees meer</a>
+              </div>
+            </div>
+            <span class="cui-vacancy-card-status">Nieuw</span>
+          </article>
+          </script>
+        </cui-code>
+      </div>
+    </section>
+
+    <section class="docs-panel">
+      <div class="cui-stack">
+        <div class="cui-vacancy-grid" data-columns="3">
+          <article class="cui-vacancy-card">
+            <div class="cui-vacancy-card-body">
+              <p class="cui-vacancy-card-eyebrow">Veiligheid</p>
+              <h3 class="cui-vacancy-card-title"><a href="#vacancy-blocks">Toezichthouder Westwijk</a></h3>
+              <ul class="cui-vacancy-meta">
+                <li class="cui-vacancy-meta-item">32–36 uur</li>
+                <li class="cui-vacancy-meta-item">Schaal 5</li>
+              </ul>
+              <p class="cui-vacancy-card-excerpt">Houd toezicht en draag bij aan een leefbare wijk.</p>
+              <div class="cui-vacancy-card-actions">
+                <a class="cui-button" href="#vacancy-blocks">Bekijk vacature</a>
+              </div>
+            </div>
+          </article>
+          <article class="cui-vacancy-card" data-status="new">
+            <div class="cui-vacancy-card-body">
+              <p class="cui-vacancy-card-eyebrow">Veiligheid</p>
+              <h3 class="cui-vacancy-card-title"><a href="#vacancy-blocks">WijkBOA</a></h3>
+              <ul class="cui-vacancy-meta">
+                <li class="cui-vacancy-meta-item">36 uur</li>
+                <li class="cui-vacancy-meta-item">Schaal 8</li>
+              </ul>
+              <p class="cui-vacancy-card-excerpt">Contextgericht handhaven in de buurt waar jij thuis bent.</p>
+              <div class="cui-vacancy-card-actions">
+                <a class="cui-button" href="#vacancy-blocks">Bekijk vacature</a>
+              </div>
+            </div>
+            <span class="cui-vacancy-card-status">Nieuw</span>
+          </article>
+          <article class="cui-vacancy-card">
+            <div class="cui-vacancy-card-body">
+              <p class="cui-vacancy-card-eyebrow">Beleid</p>
+              <h3 class="cui-vacancy-card-title"><a href="#vacancy-blocks">Adviseur Openbare Ruimte</a></h3>
+              <ul class="cui-vacancy-meta">
+                <li class="cui-vacancy-meta-item">28–36 uur</li>
+                <li class="cui-vacancy-meta-item">Schaal 10</li>
+              </ul>
+              <p class="cui-vacancy-card-excerpt">Werk aan een toekomstbestendige, veilige leefomgeving.</p>
+              <div class="cui-vacancy-card-actions">
+                <a class="cui-button" href="#vacancy-blocks">Bekijk vacature</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <cui-code language="html">
+          <script type="text/html">
+                        <div class="cui-vacancy-grid" data-columns="3">
+                          <article class="cui-vacancy-card">…</article>
+                          <article class="cui-vacancy-card">…</article>
+                          <article class="cui-vacancy-card">…</article>
+                        </div>
+                      </script>
+        </cui-code>
+      </div>
+    </section>
+
+    <section class="docs-panel">
+      <div class="cui-stack">
+        <div class="cui-vacancy-list">
+          <article class="cui-vacancy-card" data-orient="row">
+            <a class="cui-vacancy-card-media" href="#vacancy-blocks">
+              <img src="https://picsum.photos/seed/molen1/480/360" alt="">
+            </a>
+            <div class="cui-vacancy-card-body">
+              <h3 class="cui-vacancy-card-title"><a href="#vacancy-blocks">Medewerker Openbare Orde en Veiligheid</a>
+              </h3>
+              <p class="cui-vacancy-card-tagline">Die bijdraagt aan een veilig Molenlanden.</p>
+              <ul class="cui-vacancy-meta">
+                <li class="cui-vacancy-meta-item">32–36 uur</li>
+                <li class="cui-vacancy-meta-item">Molenlanden</li>
+              </ul>
+              <p class="cui-vacancy-card-excerpt">
+                Je bent zichtbaar in de kernen, werkt samen met politie en partners en houdt de
+                buurt veilig en leefbaar.
+              </p>
+              <div class="cui-vacancy-card-actions">
+                <a class="cui-button" href="#vacancy-blocks">Lees meer</a>
+              </div>
+            </div>
+          </article>
+          <article class="cui-vacancy-card" data-orient="row" data-status="new">
+            <a class="cui-vacancy-card-media" href="#vacancy-blocks">
+              <img src="https://picsum.photos/seed/molen2/480/360" alt="">
+            </a>
+            <div class="cui-vacancy-card-body">
+              <h3 class="cui-vacancy-card-title"><a href="#vacancy-blocks">Wijkboa</a></h3>
+              <p class="cui-vacancy-card-tagline">Aanspreekpunt voor de wijk, dichtbij de mensen.</p>
+              <ul class="cui-vacancy-meta">
+                <li class="cui-vacancy-meta-item">36 uur</li>
+                <li class="cui-vacancy-meta-item">Molenlanden</li>
+              </ul>
+              <p class="cui-vacancy-card-excerpt">
+                Een afwisselende functie waarin je veel buiten bent en echt het verschil maakt voor
+                bewoners en ondernemers.
+              </p>
+              <div class="cui-vacancy-card-actions">
+                <a class="cui-button" href="#vacancy-blocks">Lees meer</a>
+              </div>
+            </div>
+            <span class="cui-vacancy-card-status">Nieuw</span>
+          </article>
+        </div>
+
+        <cui-code language="html">
+          <script type="text/html">
+                        <!-- Image-led board; add data-variant="stacked" for a hairline index -->
+          <div class="cui-vacancy-list">
+            <article class="cui-vacancy-card" data-orient="row">
+              <a class="cui-vacancy-card-media" href="/vacatures/medewerker-oov">
+                <img src="/vacatures/medewerker-oov.jpg" alt="">
+              </a>
+              <div class="cui-vacancy-card-body">…</div>
+            </article>
+          </div>
+          </script>
+        </cui-code>
+      </div>
+    </section>
+
+    <section class="docs-panel">
+      <div class="cui-stack">
+        <div class="cui-vacancy-detail">
+          <header class="cui-vacancy-header">
+            <p class="cui-vacancy-eyebrow">Openbare Orde en Veiligheid</p>
+            <h2 class="cui-vacancy-title">Toezichthouder Westwijk</h2>
+            <p class="cui-vacancy-tagline">
+              Houd toezicht in de wijk, ga in gesprek met bewoners en maak het verschil voor een
+              veilige, leefbare Westwijk.
+            </p>
+            <ul class="cui-vacancy-meta">
+              <li class="cui-vacancy-meta-item">32–36 uur</li>
+              <li class="cui-vacancy-meta-item">Vlaardingen</li>
+              <li class="cui-vacancy-meta-item">Schaal 5</li>
+              <li class="cui-vacancy-meta-item">Contract</li>
+            </ul>
+          </header>
+
+          <div class="cui-vacancy-main cui-flow">
+            <section class="cui-vacancy-section">
+              <h3>Wat ga je doen?</h3>
+              <p>
+                Je loopt dagelijks je ronde door de Westwijk. Je bent zichtbaar, aanspreekbaar en
+                signaleert wat er speelt — van leefbaarheid tot verkeersveiligheid.
+              </p>
+              <ul>
+                <li>Toezicht op leefbaarheid, verkeersveiligheid en overlast</li>
+                <li>Aanspreekpunt voor bewoners en ondernemers</li>
+                <li>Samenwerken met handhavers en politie in het kernteam</li>
+              </ul>
+            </section>
+            <section class="cui-vacancy-section">
+              <h3>Wanneer hebben wij een match?</h3>
+              <p>
+                Je bent benaderbaar, luistert actief en blijft kalm onder druk. Een ronde lopen
+                schrikt je niet af — je bent graag buiten en in beweging.
+              </p>
+            </section>
+            <section class="cui-vacancy-section">
+              <h3>Wat wij jou bieden</h3>
+              <p>
+                Een salaris van minimaal € 2.495 en maximaal € 4.746 bruto per maand (schaal 5),
+                ABP-pensioen, een Individueel Keuzebudget van 17,05% en een reiskostenvergoeding.
+              </p>
+            </section>
+          </div>
+
+          <aside class="cui-vacancy-aside">
+            <h3 class="cui-vacancy-aside-title">Snel overzicht</h3>
+            <dl class="cui-vacancy-summary">
+              <dt>Salaris</dt>
+              <dd>Schaal 5</dd>
+              <dt>Vakgebieden</dt>
+              <dd>Openbare Orde en Veiligheid</dd>
+              <dt>Opleidingsniveau</dt>
+              <dd>MBO</dd>
+              <dt>Uren per week</dt>
+              <dd>32–36</dd>
+              <dt>Duur</dt>
+              <dd>Contract</dd>
+              <dt>Werkuren</dt>
+              <dd>Fulltime · Parttime</dd>
+            </dl>
+            <div class="cui-vacancy-apply">
+              <a class="cui-button" data-variant="primary" href="#vacancy-blocks">Solliciteer</a>
+              <p class="cui-vacancy-apply-note">Reageren kan tot en met 30 juni.</p>
+            </div>
+            <div class="cui-vacancy-contact">
+              <p class="cui-vacancy-aside-title">Vragen over deze vacature?</p>
+              <p class="cui-vacancy-contact-person">Danny van Haaften</p>
+              <p><a href="tel:+31102484000">010 248 4000</a></p>
+            </div>
+          </aside>
+        </div>
+
+        <cui-code language="html">
+          <script type="text/html">
+                        <main class="cui-page">
+                          <div class="cui-vacancy-detail">
+                            <header class="cui-vacancy-header">
+                              <p class="cui-vacancy-eyebrow">Openbare Orde en Veiligheid</p>
+                              <h1 class="cui-vacancy-title">Toezichthouder Westwijk</h1>
+                              <p class="cui-vacancy-tagline">Houd toezicht en maak het verschil in de wijk.</p>
+                              <ul class="cui-vacancy-meta">
+                                <li class="cui-vacancy-meta-item">32–36 uur</li>
+                                <li class="cui-vacancy-meta-item">Vlaardingen</li>
+                                <li class="cui-vacancy-meta-item">Schaal 5</li>
+                              </ul>
+                            </header>
+
+                            <div class="cui-vacancy-main cui-flow">
+                              <section class="cui-vacancy-section">
+                                <h2>Wat ga je doen?</h2>
+                                <p>…</p>
+                                <ul><li>…</li></ul>
+                              </section>
+                            </div>
+
+                            <aside class="cui-vacancy-aside">
+                              <h2 class="cui-vacancy-aside-title">Snel overzicht</h2>
+                              <dl class="cui-vacancy-summary">
+                                <dt>Salaris</dt><dd>Schaal 5</dd>
+                                <dt>Uren per week</dt><dd>32–36</dd>
+                              </dl>
+                              <div class="cui-vacancy-apply">
+                                <a class="cui-button" data-variant="primary" href="/solliciteer">Solliciteer</a>
+                              </div>
+                              <div class="cui-vacancy-contact">
+                                <p class="cui-vacancy-contact-person">Danny van Haaften</p>
+                                <p><a href="tel:+31102484000">010 248 4000</a></p>
+                              </div>
+                            </aside>
+                          </div>
+                        </main>
+                      </script>
+        </cui-code>
+      </div>
+    </section>
+  </cui-tabs>
+
+  <cui-disclosure>
+    <details class="cui-disclosure" data-variant="ghost">
+      <summary>API reference</summary>
+      <div class="cui-disclosure-body">
+        <table class="docs-token-table">
+          <thead>
+            <tr>
+              <th>Class</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>.cui-vacancy-card</code></td>
+              <td>
+                One job opening. Default is a lean single column; add a first-child media element
+                and <code>data-orient="row"</code> for an image-led card.
+                <code>data-variant="featured | compact | flat | borderless"</code> swaps chrome;
+                <code>data-status="new | closing | closed"</code> tones the corner pill. Carry
+                <code>data-team</code> / <code>data-location</code> / <code>data-contract</code> for
+                filtering.
+              </td>
+            </tr>
+            <tr>
+              <td><code>.cui-vacancy-card-media</code></td>
+              <td>
+                Optional thumbnail (covers a bare first-child <code>&lt;img&gt;</code> /
+                <code>&lt;a&gt;</code> too). Only shown in <code>data-orient="row"</code>.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code>.cui-vacancy-card-eyebrow</code>, <code>-title</code>, <code>-tagline</code>,
+                <code>-excerpt</code>, <code>-actions</code>, <code>-status</code>
+              </td>
+              <td>
+                Body parts inside <code>.cui-vacancy-card-body</code>: team eyebrow, linked title,
+                subtitle, excerpt, bottom-aligned action row, and corner status pill.
+              </td>
+            </tr>
+            <tr>
+              <td><code>.cui-vacancy-meta</code> / <code>.cui-vacancy-meta-item</code></td>
+              <td>
+                Shared fact-pill row used in the card and the detail header. Each item is a chip:
+                hours, location, salary scale, contract. <code>data-variant="plain"</code> drops the
+                chips for an inline <code>·</code>-separated row.
+              </td>
+            </tr>
+            <tr>
+              <td><code>.cui-vacancy-grid</code></td>
+              <td>
+                Auto-fit grid of cards (20rem min). <code>data-columns="2 | 3 | 4"</code> pins fixed
+                columns ≥48rem; <code>data-gap="compact | spacious"</code> adjusts spacing.
+              </td>
+            </tr>
+            <tr>
+              <td><code>.cui-vacancy-list</code></td>
+              <td>
+                Single-column overview. <code>data-variant="stacked"</code> collapses card chrome to
+                hairline separators for a dense index.
+              </td>
+            </tr>
+            <tr>
+              <td><code>.cui-vacancy-detail</code></td>
+              <td>
+                Main + aside grid for a detail page; container-query driven (flips at 52rem inside a
+                <code>.cui-page</code> ancestor), collapses to one column below it.
+                <code>data-aside="start"</code> moves the aside before the body.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code>.cui-vacancy-header</code>, <code>.cui-vacancy-main</code>,
+                <code>.cui-vacancy-section</code>
+              </td>
+              <td>
+                Full-width title band, narrative body column (capped measure), and a titled body
+                section that renders cleanly whatever heading a posting uses.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code>.cui-vacancy-aside</code>, <code>.cui-vacancy-summary</code>,
+                <code>.cui-vacancy-apply</code>, <code>.cui-vacancy-contact</code>
+              </td>
+              <td>
+                Sticky aside card holding a quick-facts <code>&lt;dl&gt;</code> ("Snel overzicht"),
+                a full-width apply CTA with helper note, and a contact-person block.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="docs-token-table">
+          <thead>
+            <tr>
+              <th>Variable</th>
+              <th>Default</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>--cui-vacancy-card-title-size</code></td>
+              <td><code>--cui-font-size-2</code> (featured: <code>--cui-font-size-3</code>)</td>
+            </tr>
+            <tr>
+              <td><code>--cui-vacancy-card-media-size</code></td>
+              <td><code>14rem</code> (row orient flex-basis)</td>
+            </tr>
+            <tr>
+              <td><code>--cui-vacancy-grid-min</code></td>
+              <td><code>20rem</code></td>
+            </tr>
+            <tr>
+              <td><code>--cui-vacancy-list-gap</code></td>
+              <td><code>--cui-space-4</code></td>
+            </tr>
+            <tr>
+              <td><code>--cui-vacancy-detail-aside-size</code></td>
+              <td><code>19rem</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+  </cui-disclosure>
+</section>

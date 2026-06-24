@@ -1,0 +1,655 @@
+<section id="blog-blocks" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+  <div class="cui-prose">
+    <h2>Blog &amp; news</h2>
+    <p>
+      Article cards, grids, lists, and a filter chip group. All blocks are semantic
+      <code>&lt;article&gt;</code> elements with real headings, links, and
+      <code>&lt;time&gt;</code> elements, so search engines and feed readers pick them up before
+      any JavaScript loads. The optional <code>cui-article-filter</code> enhances a stock form into
+      an instant client-side filter.
+    </p>
+  </div>
+
+  <cui-tabs>
+    <div class="cui-tablist">
+      <button class="cui-tab" type="button" data-selected="true">Article card</button>
+      <button class="cui-tab" type="button">Grid</button>
+      <button class="cui-tab" type="button">List</button>
+      <button class="cui-tab" type="button">Category filter</button>
+    </div>
+    <section class="docs-panel">
+      <div class="cui-stack">
+        <article class="cui-article-card" data-variant="featured">
+          <a class="cui-article-card-media" href="#blog-blocks" aria-label="Read article">
+            <img src="./hero-image.svg" alt="">
+          </a>
+          <div class="cui-article-card-body">
+            <p class="cui-article-card-category">
+              <a href="#blog-blocks">Category placeholder</a>
+            </p>
+            <h3 class="cui-article-card-title">
+              <a href="#blog-blocks">Article title placeholder — featured story</a>
+            </h3>
+            <p class="cui-article-card-excerpt">
+              Two-sentence excerpt placeholder. The featured variant uses a wider media frame and a
+              larger title so it can lead a section.
+            </p>
+            <ul class="cui-article-card-meta">
+              <li class="cui-article-card-author">First Last</li>
+              <li>
+                <time datetime="2026-05-15" class="cui-article-card-date">May 15, 2026</time>
+              </li>
+              <li class="cui-article-card-read-time">6 min read</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="cui-article-card">
+          <a class="cui-article-card-media" href="#blog-blocks" aria-label="Read article">
+            <img src="./hero-image.svg" alt="">
+          </a>
+          <div class="cui-article-card-body">
+            <p class="cui-article-card-category">Category placeholder</p>
+            <h3 class="cui-article-card-title">
+              <a href="#blog-blocks">Default article title placeholder</a>
+            </h3>
+            <p class="cui-article-card-excerpt">Short excerpt placeholder.</p>
+            <ul class="cui-article-card-meta">
+              <li class="cui-article-card-author">First Last</li>
+              <li>
+                <time datetime="2026-05-10" class="cui-article-card-date">May 10, 2026</time>
+              </li>
+            </ul>
+          </div>
+        </article>
+
+        <cui-code language="html">
+          <script type="text/html">
+                        <article class="cui-article-card">
+                          <a class="cui-article-card-media" href="/article" aria-label="Read article">
+                            <img src="/cover.jpg" alt="">
+                          </a>
+                          <div class="cui-article-card-body">
+                            <p class="cui-article-card-category">
+                              <a href="/category">Category placeholder</a>
+                            </p>
+                            <h3 class="cui-article-card-title">
+                              <a href="/article">Article title placeholder</a>
+                            </h3>
+                            <p class="cui-article-card-excerpt">Two-sentence excerpt placeholder.</p>
+                            <ul class="cui-article-card-meta">
+                              <li class="cui-article-card-author">First Last</li>
+                              <li>
+                                <time datetime="2026-05-15" class="cui-article-card-date">May 15, 2026</time>
+                              </li>
+                              <li class="cui-article-card-read-time">6 min read</li>
+                            </ul>
+                          </div>
+                        </article>
+                      </script>
+        </cui-code>
+      </div>
+    </section>
+
+    <section class="docs-panel">
+      <div class="cui-stack">
+        <div class="cui-article-grid" data-columns="3">
+          <article class="cui-article-card">
+            <a class="cui-article-card-media" href="#blog-blocks" aria-label="Read article">
+              <img src="./hero-image.svg" alt="">
+            </a>
+            <div class="cui-article-card-body">
+              <p class="cui-article-card-category">Category placeholder</p>
+              <h3 class="cui-article-card-title">
+                <a href="#blog-blocks">Article title placeholder one</a>
+              </h3>
+              <p class="cui-article-card-excerpt">Short excerpt placeholder.</p>
+              <ul class="cui-article-card-meta">
+                <li>
+                  <time datetime="2026-05-15">May 15, 2026</time>
+                </li>
+              </ul>
+            </div>
+          </article>
+          <article class="cui-article-card">
+            <a class="cui-article-card-media" href="#blog-blocks" aria-label="Read article">
+              <img src="./hero-image.svg" alt="">
+            </a>
+            <div class="cui-article-card-body">
+              <p class="cui-article-card-category">Category placeholder</p>
+              <h3 class="cui-article-card-title">
+                <a href="#blog-blocks">Article title placeholder two</a>
+              </h3>
+              <p class="cui-article-card-excerpt">Short excerpt placeholder.</p>
+              <ul class="cui-article-card-meta">
+                <li>
+                  <time datetime="2026-05-10">May 10, 2026</time>
+                </li>
+              </ul>
+            </div>
+          </article>
+          <article class="cui-article-card">
+            <a class="cui-article-card-media" href="#blog-blocks" aria-label="Read article">
+              <img src="./hero-image.svg" alt="">
+            </a>
+            <div class="cui-article-card-body">
+              <p class="cui-article-card-category">Category placeholder</p>
+              <h3 class="cui-article-card-title">
+                <a href="#blog-blocks">Article title placeholder three</a>
+              </h3>
+              <p class="cui-article-card-excerpt">Short excerpt placeholder.</p>
+              <ul class="cui-article-card-meta">
+                <li>
+                  <time datetime="2026-05-05">May 5, 2026</time>
+                </li>
+              </ul>
+            </div>
+          </article>
+        </div>
+
+        <cui-code language="html">
+          <script type="text/html">
+                        <div class="cui-article-grid" data-columns="3">
+                          <article class="cui-article-card">…</article>
+                          <article class="cui-article-card">…</article>
+                          <article class="cui-article-card">…</article>
+                        </div>
+                      </script>
+        </cui-code>
+      </div>
+    </section>
+
+    <section class="docs-panel">
+      <div class="cui-stack">
+        <div class="cui-article-list">
+          <article class="cui-article-card" data-orient="row">
+            <a class="cui-article-card-media" href="#blog-blocks" aria-label="Read article">
+              <img src="./hero-image.svg" alt="">
+            </a>
+            <div class="cui-article-card-body">
+              <p class="cui-article-card-category">Category placeholder</p>
+              <h3 class="cui-article-card-title">
+                <a href="#blog-blocks">Row-oriented article placeholder</a>
+              </h3>
+              <p class="cui-article-card-excerpt">
+                The row orientation pairs media beside body. The flex-wrap basis collapses to a stack
+                on narrow containers.
+              </p>
+              <ul class="cui-article-card-meta">
+                <li class="cui-article-card-author">First Last</li>
+                <li>
+                  <time datetime="2026-05-15">May 15, 2026</time>
+                </li>
+              </ul>
+            </div>
+          </article>
+          <article class="cui-article-card" data-orient="row">
+            <a class="cui-article-card-media" href="#blog-blocks" aria-label="Read article">
+              <img src="./hero-image.svg" alt="">
+            </a>
+            <div class="cui-article-card-body">
+              <p class="cui-article-card-category">Category placeholder</p>
+              <h3 class="cui-article-card-title">
+                <a href="#blog-blocks">Second row article placeholder</a>
+              </h3>
+              <p class="cui-article-card-excerpt">Short excerpt placeholder.</p>
+              <ul class="cui-article-card-meta">
+                <li class="cui-article-card-author">First Last</li>
+                <li>
+                  <time datetime="2026-05-10">May 10, 2026</time>
+                </li>
+              </ul>
+            </div>
+          </article>
+        </div>
+
+        <div class="cui-prose">
+          <h3>Stacked variant</h3>
+          <p>
+            <code>data-variant="stacked"</code> on the list strips the card chrome and renders
+            hairline separators between entries — useful for changelogs, release notes, or compact
+            sidebar lists.
+          </p>
+        </div>
+
+        <div class="cui-article-list" data-variant="stacked">
+          <article class="cui-article-card" data-variant="compact">
+            <div class="cui-article-card-body">
+              <p class="cui-article-card-category">Category placeholder</p>
+              <h4 class="cui-article-card-title">
+                <a href="#blog-blocks">Stacked entry one — compact card</a>
+              </h4>
+              <ul class="cui-article-card-meta">
+                <li>
+                  <time datetime="2026-05-15">May 15, 2026</time>
+                </li>
+              </ul>
+            </div>
+          </article>
+          <article class="cui-article-card" data-variant="compact">
+            <div class="cui-article-card-body">
+              <p class="cui-article-card-category">Category placeholder</p>
+              <h4 class="cui-article-card-title">
+                <a href="#blog-blocks">Stacked entry two</a>
+              </h4>
+              <ul class="cui-article-card-meta">
+                <li>
+                  <time datetime="2026-05-10">May 10, 2026</time>
+                </li>
+              </ul>
+            </div>
+          </article>
+          <article class="cui-article-card" data-variant="compact">
+            <div class="cui-article-card-body">
+              <p class="cui-article-card-category">Category placeholder</p>
+              <h4 class="cui-article-card-title">
+                <a href="#blog-blocks">Stacked entry three</a>
+              </h4>
+              <ul class="cui-article-card-meta">
+                <li>
+                  <time datetime="2026-05-05">May 5, 2026</time>
+                </li>
+              </ul>
+            </div>
+          </article>
+        </div>
+
+        <cui-code language="html">
+          <script type="text/html">
+                        <!-- Row-oriented list -->
+          <div class="cui-article-list">
+            <article class="cui-article-card" data-orient="row">…</article>
+            <article class="cui-article-card" data-orient="row">…</article>
+          </div>
+
+          <!-- Stacked list with compact cards (no media) -->
+          <div class="cui-article-list" data-variant="stacked">
+            <article class="cui-article-card" data-variant="compact">…</article>
+            <article class="cui-article-card" data-variant="compact">…</article>
+          </div>
+          </script>
+        </cui-code>
+      </div>
+    </section>
+
+    <section class="docs-panel">
+      <div class="cui-stack">
+        <div class="cui-prose">
+          <p>
+            <code>cui-article-filter</code> wraps a stock <code>&lt;form&gt;</code> of radio chips
+            or checkboxes. On change, it toggles <code>hidden</code> on
+            <code>.cui-article-card</code> elements in its target grid / list based on
+            <code>data-category</code>. With no JavaScript the form still posts (server-side
+            filtering); with JavaScript you get instant client-side updates.
+          </p>
+        </div>
+
+        <cui-article-filter target="#docs-blog-filtered">
+          <form class="cui-article-filter" aria-label="Filter articles by category">
+            <p class="cui-article-filter-label">Filter</p>
+            <label class="cui-article-filter-chip">
+              <input type="radio" name="docs-blog-category" value="" checked>
+              <span>All</span>
+            </label>
+            <label class="cui-article-filter-chip">
+              <input type="radio" name="docs-blog-category" value="design">
+              <span>Design</span>
+            </label>
+            <label class="cui-article-filter-chip">
+              <input type="radio" name="docs-blog-category" value="engineering">
+              <span>Engineering</span>
+            </label>
+            <label class="cui-article-filter-chip">
+              <input type="radio" name="docs-blog-category" value="product">
+              <span>Product</span>
+            </label>
+          </form>
+        </cui-article-filter>
+
+        <div id="docs-blog-filtered" class="cui-article-grid" data-columns="3">
+          <article class="cui-article-card" data-category="design">
+            <a class="cui-article-card-media" href="#blog-blocks" aria-label="Read article">
+              <img src="./hero-image.svg" alt="">
+            </a>
+            <div class="cui-article-card-body">
+              <p class="cui-article-card-category">Design</p>
+              <h3 class="cui-article-card-title">
+                <a href="#blog-blocks">Design placeholder one</a>
+              </h3>
+              <ul class="cui-article-card-meta">
+                <li>
+                  <time datetime="2026-05-15">May 15, 2026</time>
+                </li>
+              </ul>
+            </div>
+          </article>
+          <article class="cui-article-card" data-category="engineering">
+            <a class="cui-article-card-media" href="#blog-blocks" aria-label="Read article">
+              <img src="./hero-image.svg" alt="">
+            </a>
+            <div class="cui-article-card-body">
+              <p class="cui-article-card-category">Engineering</p>
+              <h3 class="cui-article-card-title">
+                <a href="#blog-blocks">Engineering placeholder one</a>
+              </h3>
+              <ul class="cui-article-card-meta">
+                <li>
+                  <time datetime="2026-05-12">May 12, 2026</time>
+                </li>
+              </ul>
+            </div>
+          </article>
+          <article class="cui-article-card" data-category="product">
+            <a class="cui-article-card-media" href="#blog-blocks" aria-label="Read article">
+              <img src="./hero-image.svg" alt="">
+            </a>
+            <div class="cui-article-card-body">
+              <p class="cui-article-card-category">Product</p>
+              <h3 class="cui-article-card-title">
+                <a href="#blog-blocks">Product placeholder one</a>
+              </h3>
+              <ul class="cui-article-card-meta">
+                <li>
+                  <time datetime="2026-05-10">May 10, 2026</time>
+                </li>
+              </ul>
+            </div>
+          </article>
+          <article class="cui-article-card" data-category="design">
+            <a class="cui-article-card-media" href="#blog-blocks" aria-label="Read article">
+              <img src="./hero-image.svg" alt="">
+            </a>
+            <div class="cui-article-card-body">
+              <p class="cui-article-card-category">Design</p>
+              <h3 class="cui-article-card-title">
+                <a href="#blog-blocks">Design placeholder two</a>
+              </h3>
+              <ul class="cui-article-card-meta">
+                <li>
+                  <time datetime="2026-05-08">May 8, 2026</time>
+                </li>
+              </ul>
+            </div>
+          </article>
+          <article class="cui-article-card" data-category="engineering">
+            <a class="cui-article-card-media" href="#blog-blocks" aria-label="Read article">
+              <img src="./hero-image.svg" alt="">
+            </a>
+            <div class="cui-article-card-body">
+              <p class="cui-article-card-category">Engineering</p>
+              <h3 class="cui-article-card-title">
+                <a href="#blog-blocks">Engineering placeholder two</a>
+              </h3>
+              <ul class="cui-article-card-meta">
+                <li>
+                  <time datetime="2026-05-06">May 6, 2026</time>
+                </li>
+              </ul>
+            </div>
+          </article>
+          <article class="cui-article-card" data-category="product">
+            <a class="cui-article-card-media" href="#blog-blocks" aria-label="Read article">
+              <img src="./hero-image.svg" alt="">
+            </a>
+            <div class="cui-article-card-body">
+              <p class="cui-article-card-category">Product</p>
+              <h3 class="cui-article-card-title">
+                <a href="#blog-blocks">Product placeholder two</a>
+              </h3>
+              <ul class="cui-article-card-meta">
+                <li>
+                  <time datetime="2026-05-03">May 3, 2026</time>
+                </li>
+              </ul>
+            </div>
+          </article>
+        </div>
+
+        <cui-code language="html">
+          <script type="text/html">
+                        <cui-article-filter target="#blog-grid">
+                          <form class="cui-article-filter" aria-label="Filter articles by category">
+                            <p class="cui-article-filter-label">Filter</p>
+                            <label class="cui-article-filter-chip">
+                              <input type="radio" name="category" value="" checked>
+                              <span>All</span>
+                            </label>
+                            <label class="cui-article-filter-chip">
+                              <input type="radio" name="category" value="design">
+                              <span>Design</span>
+                            </label>
+                            <label class="cui-article-filter-chip">
+                              <input type="radio" name="category" value="engineering">
+                              <span>Engineering</span>
+                            </label>
+                          </form>
+                        </cui-article-filter>
+
+                        <div id="blog-grid" class="cui-article-grid" data-columns="3">
+                          <article class="cui-article-card" data-category="design">…</article>
+                          <article class="cui-article-card" data-category="engineering">…</article>
+                        </div>
+                      </script>
+        </cui-code>
+
+        <p class="cui-caption">
+          Swap the <code>type="radio"</code> inputs for <code>type="checkbox"</code> to allow
+          multi-select. Listen for <code>cui-article-filter-change</code> on the element to react —
+          its <code>detail</code> is <code>&#123; values, multi, visibleCount &#125;</code>.
+        </p>
+      </div>
+    </section>
+  </cui-tabs>
+
+  <cui-disclosure>
+    <details class="cui-disclosure" data-variant="ghost">
+      <summary>API reference</summary>
+      <div class="cui-disclosure-body">
+        <table class="docs-token-table">
+          <thead>
+            <tr>
+              <th>Class</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>.cui-article-card</code></td>
+              <td>
+                Article container. Use an <code>&lt;article&gt;</code> for standalone entries.
+                Optional <code>data-category</code> drives filter visibility.
+              </td>
+            </tr>
+            <tr>
+              <td><code>.cui-article-card-media</code></td>
+              <td>
+                Media container. Apply to an <code>&lt;a&gt;</code> wrapping
+                <code>&lt;img&gt;</code> / <code>&lt;picture&gt;</code> / <code>&lt;video&gt;</code>
+                for a clickable thumbnail with hover zoom.
+              </td>
+            </tr>
+            <tr>
+              <td><code>.cui-article-card-body</code></td>
+              <td>Wrapping grid for category, title, excerpt, meta, and actions.</td>
+            </tr>
+            <tr>
+              <td>
+                <code>.cui-article-card-category</code> /
+                <code>.cui-article-card-title</code> /
+                <code>.cui-article-card-excerpt</code> /
+                <code>.cui-article-card-meta</code> /
+                <code>.cui-article-card-author</code> /
+                <code>.cui-article-card-date</code> /
+                <code>.cui-article-card-read-time</code>
+              </td>
+              <td>Structural classes for typography, eyebrow, footer meta cluster.</td>
+            </tr>
+            <tr>
+              <td><code>.cui-article-card-actions</code></td>
+              <td>Optional action cluster (read more, save, share buttons).</td>
+            </tr>
+            <tr>
+              <td><code>.cui-article-grid</code></td>
+              <td>
+                Responsive grid wrapper. Supports <code>data-columns="2 | 3 | 4"</code> and
+                <code>data-gap="compact | spacious"</code>.
+              </td>
+            </tr>
+            <tr>
+              <td><code>.cui-article-list</code></td>
+              <td>
+                Single-column list. Pair with <code>.cui-article-card[data-orient="row"]</code> for
+                media-beside-body. <code>data-variant="stacked"</code> strips cards and renders
+                hairline separators.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code>.cui-article-filter</code> / <code>.cui-article-filter-chip</code> /
+                <code>.cui-article-filter-label</code> / <code>.cui-article-filter-count</code>
+              </td>
+              <td>
+                Pill-shaped filter chip group. Each chip wraps a hidden radio /
+                checkbox so the form posts as native HTML when JavaScript is disabled.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="docs-token-table">
+          <thead>
+            <tr>
+              <th>Modifier</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>data-orient="row"</code></td>
+              <td>On <code>.cui-article-card</code> — media beside body with flex-wrap collapse.</td>
+            </tr>
+            <tr>
+              <td><code>data-variant="featured"</code></td>
+              <td>On a card — wider media (21:9), larger title, more padding.</td>
+            </tr>
+            <tr>
+              <td><code>data-variant="compact"</code></td>
+              <td>On a card — hides media, smaller title, tighter padding.</td>
+            </tr>
+            <tr>
+              <td><code>data-variant="flat | borderless"</code></td>
+              <td>On a card — drops the shadow / drops border and shadow.</td>
+            </tr>
+            <tr>
+              <td><code>data-variant="stacked"</code></td>
+              <td>On the list — hairline separators instead of card chrome.</td>
+            </tr>
+            <tr>
+              <td><code>data-columns="2 | 3 | 4"</code></td>
+              <td>On the grid — fixed column count from <code>48rem</code> and up.</td>
+            </tr>
+            <tr>
+              <td><code>data-gap="compact | spacious"</code></td>
+              <td>On the grid or list — tightens or relaxes spacing.</td>
+            </tr>
+            <tr>
+              <td><code>data-category="&lt;value&gt;"</code></td>
+              <td>On a card — categorisation hook for <code>cui-article-filter</code>.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="docs-token-table">
+          <thead>
+            <tr>
+              <th>Variable</th>
+              <th>Default</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>--cui-article-card-radius</code></td>
+              <td><code>--cui-radius-2</code></td>
+            </tr>
+            <tr>
+              <td><code>--cui-article-card-padding</code></td>
+              <td><code>--cui-space-5</code> · <code>--cui-space-6</code> when featured</td>
+            </tr>
+            <tr>
+              <td><code>--cui-article-card-gap</code></td>
+              <td><code>--cui-space-2</code> — gap between body children.</td>
+            </tr>
+            <tr>
+              <td><code>--cui-article-card-media-ratio</code></td>
+              <td><code>16 / 10</code> · <code>21 / 9</code> when featured.</td>
+            </tr>
+            <tr>
+              <td><code>--cui-article-card-media-size</code></td>
+              <td><code>18rem</code> — flex basis for the media column in row orientation.</td>
+            </tr>
+            <tr>
+              <td><code>--cui-article-card-body-min</code></td>
+              <td><code>20rem</code> — flex basis for the body column in row orientation.</td>
+            </tr>
+            <tr>
+              <td><code>--cui-article-card-title-size</code></td>
+              <td>
+                <code>--cui-font-size-2</code> default · <code>--cui-font-size-3</code> when
+                featured · <code>--cui-font-size-1</code> when compact.
+              </td>
+            </tr>
+            <tr>
+              <td><code>--cui-article-grid-min</code></td>
+              <td><code>18rem</code> — minimum auto-fit column width.</td>
+            </tr>
+            <tr>
+              <td><code>--cui-article-list-gap</code></td>
+              <td><code>--cui-space-5</code></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="docs-token-table">
+          <thead>
+            <tr>
+              <th><code>cui-article-filter</code> API</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>target="&lt;selector&gt;"</code></td>
+              <td>
+                Attribute pointing at the article grid or list to filter. Defaults to the next
+                sibling matching <code>.cui-article-grid</code> / <code>.cui-article-list</code>.
+              </td>
+            </tr>
+            <tr>
+              <td><code>filter.selectedValues</code></td>
+              <td>Read-only array of checked input values inside the filter.</td>
+            </tr>
+            <tr>
+              <td><code>filter.refresh()</code></td>
+              <td>Recompute visibility — call after dynamically adding or removing cards.</td>
+            </tr>
+            <tr>
+              <td><code>cui-article-filter-change</code> event</td>
+              <td>
+                Bubbles from the element with
+                <code>{ values, multi, visibleCount }</code> after each change.
+              </td>
+            </tr>
+            <tr>
+              <td>Markup contract</td>
+              <td>
+                Inputs of <code>type="radio"</code> or <code>type="checkbox"</code> inside the
+                element. An empty <code>value=""</code> means "all categories". Mix
+                checkboxes for multi-select.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+  </cui-disclosure>
+</section>

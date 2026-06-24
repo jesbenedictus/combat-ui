@@ -1,56 +1,53 @@
-import { CombatElement, cssStyleSheet } from "../../internal/base-element";
+import { CombatElement } from "../../internal/base-element";
 import { findInComposedPath } from "../../internal/dom";
-import tabsCss from "./tabs.css?inline";
 
 /**
  * Tabbed interface with ARIA `tablist`/`tab`/`tabpanel` roles and full
- * keyboard support (Left/Right, Home/End). Tabs and panels are slotted so
- * crawlers see all panel content regardless of which tab is active.
+ * keyboard support (Left/Right, Home/End). The element renders no styling of
+ * its own — it enhances light-DOM markup built from the `.cui-tabs`,
+ * `.cui-tablist`, and `.cui-tab` classes, wiring up `id`, `aria-controls`,
+ * `aria-selected`, roles, and panel visibility. All panels stay in the light
+ * DOM so crawlers see every panel regardless of which tab is active.
+ *
+ * Tabs are the `.cui-tab` controls inside the `.cui-tablist`; panels are the
+ * remaining direct children of the element, paired with the tabs by source
+ * order. Mark the initially-open tab with `aria-selected="true"` (defaults to
+ * the first tab).
  *
  * @element cui-tabs
  *
- * @slot tab - One tab control per tab. Use `<button>` elements; the element
- *   wires up `id`, `aria-controls`, and `aria-selected` automatically.
- * @slot panel - One panel per tab, in the same order as the tab slots.
- *
  * @example
  * <cui-tabs>
- *   <button slot="tab">Overview</button>
- *   <button slot="tab">Pricing</button>
- *   <section slot="panel"><p>Overview content.</p></section>
- *   <section slot="panel"><p>Pricing content.</p></section>
+ *   <div class="cui-tablist">
+ *     <button class="cui-tab" aria-selected="true">Overview</button>
+ *     <button class="cui-tab">Pricing</button>
+ *   </div>
+ *   <section>Overview content.</section>
+ *   <section>Pricing content.</section>
  * </cui-tabs>
  */
 export class CuiTabs extends CombatElement {
   static override tagName = "cui-tabs";
-  static override styles = [cssStyleSheet(tabsCss)];
 
   private eventsBound = false;
 
   connectedCallback(): void {
-    this.renderTemplate(`
-      <div part="tablist" role="tablist">
-      <slot name="tab"></slot>
-      </div>
-      <div part="panels">
-      <slot name="panel"></slot>
-      </div>
-      `);
-      
+    this.renderTemplate(`<slot></slot>`);
+
     if (!this.eventsBound) {
       this.eventsBound = true;
       this.addEventListener("click", (event) => this.handleClick(event));
       this.addEventListener("keydown", (event) => this.handleKeydown(event));
-      this.shadowRoot?.querySelectorAll("slot").forEach((slot) => {
-        slot.addEventListener("slotchange", () => this.sync());
-      });
+      this.shadowRoot
+        ?.querySelector("slot")
+        ?.addEventListener("slotchange", () => this.sync());
     }
 
     this.sync();
   }
 
   private handleClick(event: MouseEvent): void {
-    const tab = findInComposedPath(event, "[slot='tab']");
+    const tab = findInComposedPath(event, ".cui-tab");
 
     if (tab) {
       this.selectTab(tab);
@@ -85,7 +82,7 @@ export class CuiTabs extends CombatElement {
     const tabs = this.tabs();
     const panels = this.panels();
     const selectedTab =
-      tabs.find((tab) => tab.getAttribute("aria-selected") === "true") ??
+      tabs.find((tab) => tab.getAttribute("data-selected") === "true") ??
       tabs[0];
 
     tabs.forEach((tab, index) => {
@@ -97,7 +94,7 @@ export class CuiTabs extends CombatElement {
       tab.setAttribute("role", "tab");
       tab.setAttribute("aria-controls", panelId);
       tab.setAttribute("tabindex", tab === selectedTab ? "0" : "-1");
-      tab.setAttribute("aria-selected", tab === selectedTab ? "true" : "false");
+      tab.setAttribute("data-selected", tab === selectedTab ? "true" : "false");
 
       if (panel) {
         panel.id = panelId;
@@ -113,7 +110,7 @@ export class CuiTabs extends CombatElement {
 
     this.tabs().forEach((tab, index) => {
       const isSelected = tab === selectedTab;
-      tab.setAttribute("aria-selected", isSelected ? "true" : "false");
+      tab.setAttribute("data-selected", isSelected ? "true" : "false");
       tab.setAttribute("tabindex", isSelected ? "0" : "-1");
       const panel = panels[index];
 
@@ -124,11 +121,13 @@ export class CuiTabs extends CombatElement {
   }
 
   private tabs(): HTMLElement[] {
-    return Array.from(this.querySelectorAll<HTMLElement>("[slot='tab']"));
+    return Array.from(this.querySelectorAll<HTMLElement>(".cui-tab"));
   }
 
   private panels(): HTMLElement[] {
-    return Array.from(this.querySelectorAll<HTMLElement>("[slot='panel']"));
+    return Array.from(this.children).filter(
+      (child): child is HTMLElement =>
+        child instanceof HTMLElement && !child.classList.contains("cui-tablist"),
+    );
   }
 }
-

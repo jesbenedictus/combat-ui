@@ -41,14 +41,14 @@
 
 /**
  * Single tab control inside `.cui-tablist`. Active state is driven
- * by `[aria-selected="true"]`, not a class — set the attribute on
+ * by `[data-selected="true"]`, not a class — set the attribute on
  * the active tab to surface the accent underline, full-strength
  * text color, and bolder weight. The `cui-tabs` web component
  * manages the attribute for you; if you're not using it, mirror
  * the same attribute toggle in your own JS.
  *
  * @block cui-tab
- * @summary Tab control; active state via `[aria-selected="true"]`.
+ * @summary Tab control; active state via `[data-selected="true"]`.
  */
 .cui-tab {
   border: 0;
@@ -59,7 +59,7 @@
   padding-inline: var(--cui-space-4, 1rem);
 }
 
-.cui-tab[aria-selected="true"] {
+.cui-tab[data-selected="true"] {
   border-block-end-color: var(--cui-color-accent, oklch(57% 0.18 246deg));
   color: var(--cui-color, #1b1f27);
   font-weight: var(--cui-font-weight-strong, 680);

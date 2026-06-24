@@ -14,10 +14,8 @@
   display: contents;
 }
 
-::slotted([slot="help"]) {
-  font-size: var(--cui-font-size-1, 0.9375rem);
-  color: var(--cui-color-muted, #5d6675);
-}
+/* Slotted help/error typography lives in the light-DOM sheet at
+   src/styles/elements.css so it is identical before and after upgrade. */
 
 [part="errors"] {
   font-size: var(--cui-font-size-1, 0.9375rem);
@@ -25,9 +23,5 @@
 }
 
 [part="error"] {
-  margin: 0;
-}
-
-::slotted([slot^="error"]) {
   margin: 0;
 }

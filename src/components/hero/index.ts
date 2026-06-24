@@ -1,1 +1,0 @@
-export { CuiHero } from "./hero";

@@ -1,0 +1,321 @@
+<section id="page-intro" class="cui-stack docs-section-stack">
+  <div class="cui-prose">
+    <h2>Page intro</h2>
+    <p>
+      Use the <code>.cui-page-intro</code> block as a page header strip: eyebrow, display title, lead copy,
+      optional meta line, action row, and an optional aside column. Modifier classes tune scale and tone for
+      landing, case, vacancy, and campaign pages.
+    </p>
+  </div>
+
+  <cui-tabs>
+    <div class="cui-tablist">
+      <button type="button" data-selected="true" class="cui-tab">Default</button>
+      <button type="button" class="cui-tab">Landing</button>
+      <button type="button" class="cui-tab">Case + aside</button>
+      <button type="button" class="cui-tab">Inverse</button>
+      <button type="button" class="cui-tab">Centered</button>
+    </div>
+
+    <section class="docs-panel">
+      <div class="cui-stack">
+        <section class="cui-page-intro">
+          <div class="cui-page-intro-layout">
+            <div class="cui-page-intro-content">
+              <p class="cui-eyebrow">Theming</p>
+              <h3 class="cui-page-intro-title">Composable design tokens for product surfaces.</h3>
+              <p>
+                Drop tokens at any scope: globally, per section, or inline.
+              </p>
+              <div class="cui-page-intro-actions">
+                <cui-button variant="primary" href="./theming.html">Read tokens</cui-button>
+                <cui-button href="./components.html">Components</cui-button>
+              </div>
+            </div>
+          </div>
+        </section>
+        <cui-code language="html">
+          <script type="text/plain">
+            <section class="cui-page-intro">
+              <div class="cui-page-intro-layout">
+                <div class="cui-page-intro-content">
+                  <p class="cui-eyebrow">Theming</p>
+                  <h1 class="cui-page-intro-title">Composable design tokens.</h1>
+                  <p>Lead copy with measure-capped width.</p>
+                  <div class="cui-page-intro-actions">
+                    <cui-button variant="primary">Read</cui-button>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </script>
+        </cui-code>
+      </div>
+    </section>
+
+    <section class="docs-panel">
+      <div class="cui-stack">
+        <section class="cui-page-intro" data-variant="landing">
+          <div class="cui-page-intro-layout">
+            <div class="cui-page-intro-content">
+              <p class="cui-eyebrow">Combat UI</p>
+              <h3 class="cui-page-intro-title">Progressive components for the modern web.</h3>
+              <p>Display-scale heading and a roomier content column. Use this on the marketing or product
+                home page.</p>
+              <div class="cui-page-intro-actions">
+                <cui-button variant="primary">Get started</cui-button>
+              </div>
+            </div>
+          </div>
+        </section>
+        <cui-code language="html">
+          <script type="text/plain">
+            <section class="cui-page-intro" data-variant="landing">
+              <div class="cui-page-intro-layout">
+                <div class="cui-page-intro-content">
+                  <h1 class="cui-page-intro-title">Bigger display heading.</h1>
+                  <p>Roomier content column.</p>
+                </div>
+              </div>
+            </section>
+          </script>
+        </cui-code>
+      </div>
+    </section>
+
+    <section class="docs-panel">
+      <div class="cui-stack">
+        <section class="cui-page-intro" data-variant="case">
+          <div class="cui-page-intro-layout">
+            <div class="cui-page-intro-content">
+              <p class="cui-eyebrow">Case study</p>
+              <h3 class="cui-page-intro-title">Reshaping operational reporting at Atlas.</h3>
+              <p class="cui-page-intro-meta">
+                <span>Sector — Logistics</span>
+                <span>Year — 2026</span>
+                <span>Stack — Combat UI</span>
+              </p>
+              <p>Two-column layout: content on the left, aside on the right at <code>≥ 56rem</code>, stacked
+                below.</p>
+            </div>
+            <aside class="cui-page-intro-aside">
+              <strong>Stack</strong>
+              <p class="cui-caption">Combat UI · Vite · TypeScript</p>
+            </aside>
+          </div>
+        </section>
+        <cui-code language="html">
+          <script type="text/plain">
+            <section class="cui-page-intro" data-variant="case">
+              <div class="cui-page-intro-layout">
+                <div class="cui-page-intro-content">
+                  <p class="cui-eyebrow">Case study</p>
+                  <h1 class="cui-page-intro-title">Project title.</h1>
+                  <p class="cui-page-intro-meta">
+                    <span>Sector — Logistics</span>
+                    <span>Year — 2026</span>
+                  </p>
+                  <p>Lead summary.</p>
+                </div>
+                <aside class="cui-page-intro-aside">
+                  <strong>Stack</strong>
+                  <p class="cui-caption">Combat UI · Vite · TypeScript</p>
+                </aside>
+              </div>
+            </section>
+          </script>
+        </cui-code>
+      </div>
+    </section>
+
+    <section class="docs-panel">
+      <div class="cui-stack">
+        <section class="cui-page-intro" data-tone="inverse">
+          <div class="cui-page-intro-layout">
+            <div class="cui-page-intro-content">
+              <p class="cui-eyebrow">Promo</p>
+              <h3 class="cui-page-intro-title">Inverse surface for the headline moment.</h3>
+              <p>Flips surface and text tokens for emphasis. Pair with
+                <code>data-variant="full-bleed"</code> for a hero band.</p>
+              <div class="cui-page-intro-actions">
+                <cui-button variant="primary">Try it</cui-button>
+              </div>
+            </div>
+          </div>
+        </section>
+        <cui-code language="html">
+          <script type="text/plain">
+            <section class="cui-page-intro" data-tone="inverse">
+              <div class="cui-page-intro-layout">
+                <div class="cui-page-intro-content">
+                  <h1 class="cui-page-intro-title">Inverse surface.</h1>
+                  <p>Headline moment.</p>
+                </div>
+              </div>
+            </section>
+          </script>
+        </cui-code>
+      </div>
+    </section>
+
+    <section class="docs-panel">
+      <div class="cui-stack">
+        <section class="cui-page-intro" data-align="center">
+          <div class="cui-page-intro-layout">
+            <div class="cui-page-intro-content">
+              <p class="cui-eyebrow">Status</p>
+              <h3 class="cui-page-intro-title">Centered intro for short-form pages.</h3>
+              <p>Title and copy align to the center axis.</p>
+            </div>
+          </div>
+        </section>
+        <cui-code language="html">
+          <script type="text/plain">
+            <section class="cui-page-intro" data-align="center">
+              <div class="cui-page-intro-layout">
+                <div class="cui-page-intro-content">
+                  <h1 class="cui-page-intro-title">Centered title.</h1>
+                  <p>Centered copy.</p>
+                </div>
+              </div>
+            </section>
+          </script>
+        </cui-code>
+      </div>
+    </section>
+  </cui-tabs>
+
+  <cui-disclosure>
+    <details class="cui-disclosure" data-variant="ghost">
+      <summary>API reference</summary>
+      <div class="cui-disclosure-body">
+        <table class="docs-token-table">
+          <thead>
+            <tr>
+              <th>Modifier class</th>
+              <th>Effect</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>data-variant="landing"</code></td>
+              <td>Display-scale title, wider content column</td>
+            </tr>
+            <tr>
+              <td><code>data-variant="case"</code></td>
+              <td>Muted background, two-column with aside at <code>≥ 56rem</code></td>
+            </tr>
+            <tr>
+              <td><code>data-variant="vacancy"</code></td>
+              <td>Two-column with aside; tighter content measure</td>
+            </tr>
+            <tr>
+              <td><code>data-variant="campaign"</code></td>
+              <td>Muted background, two-column with aside</td>
+            </tr>
+            <tr>
+              <td><code>data-tone="inverse"</code></td>
+              <td>Inverse surface and foreground tokens</td>
+            </tr>
+            <tr>
+              <td><code>data-variant="full-bleed"</code></td>
+              <td>Span the full inline-size of the parent</td>
+            </tr>
+            <tr>
+              <td><code>data-align="center"</code></td>
+              <td>Center-align title, copy, and actions</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="docs-token-table">
+          <thead>
+            <tr>
+              <th>Class</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>.cui-page-intro-layout</code></td>
+              <td>Grid wrapper for the content column and optional aside.</td>
+            </tr>
+            <tr>
+              <td><code>.cui-page-intro-content</code></td>
+              <td>Content column — eyebrow, title, meta, lead copy, and actions.</td>
+            </tr>
+            <tr>
+              <td><code>.cui-eyebrow</code></td>
+              <td>Kicker text rendered above the title.</td>
+            </tr>
+            <tr>
+              <td><code>.cui-page-intro-title</code></td>
+              <td>Display heading for the page.</td>
+            </tr>
+            <tr>
+              <td><code>.cui-page-intro-meta</code></td>
+              <td>Meta strip — typically a row of <code>&lt;span&gt;</code> labels (sector, year, stack).</td>
+            </tr>
+            <tr>
+              <td><code>.cui-page-intro-actions</code></td>
+              <td>Primary and secondary CTA buttons.</td>
+            </tr>
+            <tr>
+              <td><code>.cui-page-intro-aside</code></td>
+              <td>Optional sidebar card, shown to the right of the content at <code>≥ 56rem</code>.
+                Used by the <code>case</code>, <code>vacancy</code>, and <code>campaign</code> variants.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="docs-token-table">
+          <thead>
+            <tr>
+              <th>Variable</th>
+              <th>Default</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>--cui-page-intro-padding-block</code></td>
+              <td><code>--cui-section-space-compact</code></td>
+            </tr>
+            <tr>
+              <td><code>--cui-page-intro-gap</code></td>
+              <td><code>--cui-space-5</code></td>
+            </tr>
+            <tr>
+              <td><code>--cui-page-intro-content-size</code></td>
+              <td><code>52rem</code></td>
+            </tr>
+            <tr>
+              <td><code>--cui-page-intro-aside-size</code></td>
+              <td><code>20rem</code></td>
+            </tr>
+            <tr>
+              <td><code>--cui-page-intro-title-size</code></td>
+              <td><code>--cui-font-size-5</code></td>
+            </tr>
+            <tr>
+              <td><code>--cui-page-intro-bg</code> · <code>--cui-page-intro-color</code></td>
+              <td>Surface and text overrides.</td>
+            </tr>
+            <tr>
+              <td><code>--cui-page-intro-inverse-bg</code> · <code>--cui-page-intro-inverse-color</code> ·
+                <code>--cui-page-intro-inverse-muted-color</code> ·
+                <code>--cui-page-intro-inverse-eyebrow-color</code> ·
+                <code>--cui-page-intro-inverse-aside-bg</code>
+              </td>
+              <td>Inverse-mode overrides (applied by <code>data-tone="inverse"</code>).</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="cui-caption">
+          See <a href="./theming.html#component-tokens">Theming → Component tokens</a> for the full
+          <code>--cui-page-intro-*</code> token reference.
+        </p>
+      </div>
+    </details>
+  </cui-disclosure>
+</section>

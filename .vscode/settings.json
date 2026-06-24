@@ -3,5 +3,11 @@
         "Christiaan",
         "cssvar"
     ],
-    "java.debug.settings.hotCodeReplace": "auto"
+    "java.debug.settings.hotCodeReplace": "auto",
+    "html.customData": [
+        "./vscode.html-custom-data.json"
+    ],
+    "css.customData": [
+        "./vscode.css-custom-data.json"
+    ]
 }

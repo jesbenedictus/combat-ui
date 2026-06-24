@@ -22,7 +22,8 @@
   <main id="main" class="cui-page cui-stack">
     <header class="cui-page-header">
       <h1>Atoms</h1>
-      <p>Small, reusable primitives that compose into larger surfaces: buttons and tab panels for actions, the code block for documentation surfaces, and the tree element for hierarchical content.</p>
+      <p>Small, reusable primitives that compose into larger surfaces: buttons and tab panels for actions, the code
+        block for documentation surfaces, and the tree element for hierarchical content.</p>
     </header>
 
     <section class="cui-section">
@@ -34,205 +35,210 @@
         </aside>
 
         <div class="cui-stack" style="--cui-stack-gap: var(--cui-space-7, 3rem);">
-            <section id="buttons-tabs" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
-              <div class="cui-prose">
-                <h2>Buttons and tabs</h2>
-                <p>Use button components for consistent actions and tabs for compact, keyboard-friendly panels.</p>
-              </div>
-              <div class="cui-stack">
-                <div class="docs-card">
-                  <div class="cui-cluster">
-                    <cui-button variant="primary">Save</cui-button>
-                    <cui-button>Preview</cui-button>
-                    <cui-button disabled>Disabled</cui-button>
-                  </div>
+          <section id="buttons-tabs" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Buttons and tabs</h2>
+              <p>Use button components for consistent actions and tabs for compact, keyboard-friendly panels.</p>
+            </div>
+            <div class="cui-stack">
+              <div class="docs-card">
+                <div class="cui-cluster">
+                  <cui-button variant="primary">Save</cui-button>
+                  <cui-button>Preview</cui-button>
+                  <cui-button disabled>Disabled</cui-button>
                 </div>
-                <cui-code language="html">
-                  <script type="text/html">
+              </div>
+              <cui-code language="html">
+                <script type="text/html">
                     <div class="cui-cluster">
                       <cui-button variant="primary">Save</cui-button>
                       <cui-button>Preview</cui-button>
                       <cui-button disabled>Disabled</cui-button>
                     </div>
                   </script>
-                </cui-code>
+              </cui-code>
 
-                <cui-tabs>
-                  <button slot="tab" type="button">Buttons</button>
-                  <button slot="tab" type="button">Forms</button>
-                  <button slot="tab" type="button">Themes</button>
-
-                  <section slot="panel" class="docs-panel">
-                    <p class="cui-text-muted">Actions use component variants and shared size tokens.</p>
-                  </section>
-                  <section slot="panel" class="docs-panel">
-                    <label class="cui-stack" style="--cui-stack-gap: var(--cui-space-2, 0.5rem);">
-                      <span>Email</span>
-                      <input class="cui-input" type="email" placeholder="name@example.com">
-                    </label>
-                  </section>
-                  <section slot="panel" class="docs-panel" data-theme="dark">
-                    <div class="cui-card">
-                      <h3>Scoped dark theme</h3>
-                      <p class="cui-text-muted">Token overrides can be scoped to a subtree.</p>
-                    </div>
-                  </section>
-                </cui-tabs>
-                <cui-code language="html">
-                  <script type="text/html">
+              <cui-tabs>
+                <div class="cui-tablist">
+                  <button type="button" data-selected="true" class="cui-tab">Buttons</button>
+                  <button type="button" class="cui-tab">Forms</button>
+                  <button type="button" class="cui-tab">Themes</button>
+                </div>
+                <section class="docs-panel">
+                  <p class="cui-text-muted">Actions use component variants and shared size tokens.</p>
+                </section>
+                <section class="docs-panel">
+                  <label class="cui-stack" style="--cui-stack-gap: var(--cui-space-2, 0.5rem);">
+                    <span>Email</span>
+                    <input class="cui-input" type="email" placeholder="name@example.com">
+                  </label>
+                </section>
+                <section class="docs-panel" data-theme="dark">
+                  <div class="cui-card">
+                    <h3>Scoped dark theme</h3>
+                    <p class="cui-text-muted">Token overrides can be scoped to a subtree.</p>
+                  </div>
+                </section>
+              </cui-tabs>
+              <cui-code language="html">
+                <script type="text/html">
                     <cui-tabs>
-                      <button slot="tab" type="button">Buttons</button>
-                      <button slot="tab" type="button">Forms</button>
-                      <button slot="tab" type="button">Themes</button>
-
-                      <section slot="panel">
-                        <p class="cui-text-muted">Actions use component variants and shared size tokens.</p>
-                      </section>
-                      <section slot="panel">
-                        <label class="cui-stack" style="--cui-stack-gap: var(--cui-space-2, 0.5rem);">
-                          <span>Email</span>
-                          <input class="cui-input" type="email" placeholder="name@example.com">
-                        </label>
-                      </section>
-                      <section slot="panel" class="docs-panel" data-theme="dark">
-                        <div class="cui-card">
-                          <h3>Scoped dark theme</h3>
-                          <p class="cui-text-muted">Token overrides can be scoped to a subtree.</p>
-                        </div>
-                      </section>
+                      <div class="cui-tablist">
+                        <button type="button" data-selected="true" class="cui-tab">Buttons</button>
+                        <button type="button" class="cui-tab">Forms</button>
+                        <button type="button" class="cui-tab">Themes</button>
+                      </div>
+                        <section class="docs-panel">
+                          <p class="cui-text-muted">Actions use component variants and shared size tokens.</p>
+                        </section>
+                        <section class="docs-panel">
+                          <label class="cui-stack" style="--cui-stack-gap: var(--cui-space-2, 0.5rem);">
+                            <span>Email</span>
+                            <input class="cui-input" type="email" placeholder="name@example.com">
+                          </label>
+                        </section>
+                        <section class="docs-panel" data-theme="dark">
+                          <div class="cui-card">
+                            <h3>Scoped dark theme</h3>
+                            <p class="cui-text-muted">Token overrides can be scoped to a subtree.</p>
+                          </div>
+                        </section>
                     </cui-tabs>
                   </script>
-                </cui-code>
-              </div>
+              </cui-code>
+            </div>
 
-              <cui-disclosure>
-                <details class="cui-disclosure" data-variant="ghost">
-                  <summary>API reference</summary>
-                  <div class="cui-disclosure-body">
-              <table class="docs-token-table">
-                <thead>
-                  <tr>
-                    <th>cui-button — attribute / property</th>
-                    <th>Purpose</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code>variant="primary"</code></td>
-                    <td>Accent-colored button. Pair with <code>data-variant="primary"</code> on the
-                      CSS-only <code>.cui-button</code> form.</td>
-                  </tr>
-                  <tr>
-                    <td><code>disabled</code></td>
-                    <td>Boolean. Blocks pointer + keyboard activation and dims the button.</td>
-                  </tr>
-                  <tr>
-                    <td><code>href</code></td>
-                    <td>When set, renders an <code>&lt;a&gt;</code> instead of <code>&lt;button&gt;</code>.</td>
-                  </tr>
-                  <tr>
-                    <td><code>target</code> · <code>rel</code> · <code>download</code></td>
-                    <td>Forwarded to the rendered anchor when <code>href</code> is set.</td>
-                  </tr>
-                  <tr>
-                    <td><code>type="button | submit | reset"</code></td>
-                    <td>Forwarded to the rendered <code>&lt;button&gt;</code>. Defaults to
-                      <code>button</code> — set <code>submit</code> when used inside a form.</td>
-                  </tr>
-                  <tr>
-                    <td><code>full</code></td>
-                    <td>Boolean host attribute. Makes the button stretch to its container's inline-size.</td>
-                  </tr>
-                </tbody>
-              </table>
+            <cui-disclosure>
+              <details class="cui-disclosure" data-variant="ghost">
+                <summary>API reference</summary>
+                <div class="cui-disclosure-body">
+                  <table class="docs-token-table">
+                    <thead>
+                      <tr>
+                        <th>cui-button — attribute / property</th>
+                        <th>Purpose</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>variant="primary"</code></td>
+                        <td>Accent-colored button. Pair with <code>data-variant="primary"</code> on the
+                          CSS-only <code>.cui-button</code> form.</td>
+                      </tr>
+                      <tr>
+                        <td><code>disabled</code></td>
+                        <td>Boolean. Blocks pointer + keyboard activation and dims the button.</td>
+                      </tr>
+                      <tr>
+                        <td><code>href</code></td>
+                        <td>When set, renders an <code>&lt;a&gt;</code> instead of <code>&lt;button&gt;</code>.</td>
+                      </tr>
+                      <tr>
+                        <td><code>target</code> · <code>rel</code> · <code>download</code></td>
+                        <td>Forwarded to the rendered anchor when <code>href</code> is set.</td>
+                      </tr>
+                      <tr>
+                        <td><code>type="button | submit | reset"</code></td>
+                        <td>Forwarded to the rendered <code>&lt;button&gt;</code>. Defaults to
+                          <code>button</code> — set <code>submit</code> when used inside a form.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>full</code></td>
+                        <td>Boolean host attribute. Makes the button stretch to its container's inline-size.</td>
+                      </tr>
+                    </tbody>
+                  </table>
 
-              <table class="docs-token-table">
-                <thead>
-                  <tr>
-                    <th>cui-button — variable</th>
-                    <th>Default</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code>--cui-button-bg</code></td>
-                    <td><code>--cui-color-surface-muted</code></td>
-                  </tr>
-                  <tr>
-                    <td><code>--cui-button-border</code></td>
-                    <td><code>--cui-color-border</code></td>
-                  </tr>
-                  <tr>
-                    <td><code>--cui-button-color</code></td>
-                    <td><code>--cui-color</code></td>
-                  </tr>
-                  <tr>
-                    <td><code>--cui-control-size</code></td>
-                    <td><code>2.5rem</code></td>
-                  </tr>
-                  <tr>
-                    <td><code>--cui-control-radius</code></td>
-                    <td><code>0.25rem</code></td>
-                  </tr>
-                </tbody>
-              </table>
+                  <table class="docs-token-table">
+                    <thead>
+                      <tr>
+                        <th>cui-button — variable</th>
+                        <th>Default</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>--cui-button-bg</code></td>
+                        <td><code>--cui-color-surface-muted</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-button-border</code></td>
+                        <td><code>--cui-color-border</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-button-color</code></td>
+                        <td><code>--cui-color</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-control-size</code></td>
+                        <td><code>2.5rem</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-control-radius</code></td>
+                        <td><code>0.25rem</code></td>
+                      </tr>
+                    </tbody>
+                  </table>
 
-              <table class="docs-token-table">
-                <thead>
-                  <tr>
-                    <th>cui-tabs — slot</th>
-                    <th>Purpose</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code>tab</code></td>
-                    <td>A clickable tab — typically a <code>&lt;button type="button"&gt;</code>. Order matches
-                      panels.</td>
-                  </tr>
-                  <tr>
-                    <td><code>panel</code></td>
-                    <td>The matching panel for each tab. Hidden state is managed automatically.</td>
-                  </tr>
-                </tbody>
-              </table>
+                  <table class="docs-token-table">
+                    <thead>
+                      <tr>
+                        <th>cui-tabs — slot</th>
+                        <th>Purpose</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>tab</code></td>
+                        <td>A clickable tab — typically a <code>&lt;button type="button"&gt;</code>. Order matches
+                          panels.</td>
+                      </tr>
+                      <tr>
+                        <td><code>panel</code></td>
+                        <td>The matching panel for each tab. Hidden state is managed automatically.</td>
+                      </tr>
+                    </tbody>
+                  </table>
 
-              <table class="docs-token-table">
-                <thead>
-                  <tr>
-                    <th>cui-tabs — behavior</th>
-                    <th>Detail</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Keyboard</td>
-                    <td><code>ArrowLeft</code> / <code>ArrowRight</code> cycles tabs;
-                      <code>Home</code> and <code>End</code> jump to the first or last tab.</td>
-                  </tr>
-                  <tr>
-                    <td>ARIA</td>
-                    <td>Tabs get <code>role="tab"</code> + <code>aria-selected</code>; panels get
-                      <code>role="tabpanel"</code> + <code>aria-labelledby</code>. The initial selected tab
-                      is the first one or the one with <code>aria-selected="true"</code>.</td>
-                  </tr>
-                </tbody>
-              </table>
-                  </div>
-                </details>
-              </cui-disclosure>
-            </section>
+                  <table class="docs-token-table">
+                    <thead>
+                      <tr>
+                        <th>cui-tabs — behavior</th>
+                        <th>Detail</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Keyboard</td>
+                        <td><code>ArrowLeft</code> / <code>ArrowRight</code> cycles tabs;
+                          <code>Home</code> and <code>End</code> jump to the first or last tab.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>ARIA</td>
+                        <td>Tabs get <code>role="tab"</code> + <code>aria-selected</code>; panels get
+                          <code>role="tabpanel"</code> + <code>aria-labelledby</code>. The initial selected tab
+                          is the first one or the one with <code>aria-selected="true"</code>.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </details>
+            </cui-disclosure>
+          </section>
 
-            <section id="code" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
-              <div class="cui-prose">
-                <h2>Code</h2>
-                <p>
-                  The <code>cui-code</code> component provides syntax highlighting and a monospaced font for code
-                  examples. Use the <code>language</code> attribute for automatic language detection or set it to
-                  <code>"none"</code> for plain code blocks without highlighting.
-                </p>
-              </div>
-              <cui-code language="html"><!--
+          <section id="code" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Code</h2>
+              <p>
+                The <code>cui-code</code> component provides syntax highlighting and a monospaced font for code
+                examples. Use the <code>language</code> attribute for automatic language detection or set it to
+                <code>"none"</code> for plain code blocks without highlighting.
+              </p>
+            </div>
+            <cui-code language="html"><!--
 <cui-code language="javascript">
   <script type="text/plain">
   <script type="text/plain">
@@ -244,188 +250,190 @@
 </cui-code>
 --></cui-code>
 
-              <cui-disclosure>
-                <details class="cui-disclosure" data-variant="ghost">
-                  <summary>API reference</summary>
-                  <div class="cui-disclosure-body">
-              <table class="docs-token-table">
-                <thead>
-                  <tr>
-                    <th>Attribute</th>
-                    <th>Purpose</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code>language</code></td>
-                    <td>One of <code>html</code> · <code>css</code> · <code>javascript</code> /
-                      <code>js</code> · <code>none</code>. Selects the syntax-highlighting pass. Defaults to
-                      <code>text</code> (no highlight).</td>
-                  </tr>
-                </tbody>
-              </table>
+            <cui-disclosure>
+              <details class="cui-disclosure" data-variant="ghost">
+                <summary>API reference</summary>
+                <div class="cui-disclosure-body">
+                  <table class="docs-token-table">
+                    <thead>
+                      <tr>
+                        <th>Attribute</th>
+                        <th>Purpose</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>language</code></td>
+                        <td>One of <code>html</code> · <code>css</code> · <code>javascript</code> /
+                          <code>js</code> · <code>none</code>. Selects the syntax-highlighting pass. Defaults to
+                          <code>text</code> (no highlight).
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
 
-              <table class="docs-token-table">
-                <thead>
-                  <tr>
-                    <th>Authoring</th>
-                    <th>Purpose</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code>&lt;script type="text/plain"&gt;</code> child</td>
-                    <td>Recommended for embedding code. <code>cui-code</code> reads <code>textContent</code>
-                      and the script is not executed by the browser.</td>
-                  </tr>
-                  <tr>
-                    <td><code>&lt;!-- … --&gt;</code> child</td>
-                    <td>Wrap the code in an HTML comment to display raw markup that would otherwise be parsed
-                      (handy when the example itself contains <code>cui-code</code>).</td>
-                  </tr>
-                  <tr>
-                    <td>Copy button</td>
-                    <td>Rendered automatically in the header. Uses the Clipboard API.</td>
-                  </tr>
-                </tbody>
-              </table>
+                  <table class="docs-token-table">
+                    <thead>
+                      <tr>
+                        <th>Authoring</th>
+                        <th>Purpose</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>&lt;script type="text/plain"&gt;</code> child</td>
+                        <td>Recommended for embedding code. <code>cui-code</code> reads <code>textContent</code>
+                          and the script is not executed by the browser.</td>
+                      </tr>
+                      <tr>
+                        <td><code>&lt;!-- … --&gt;</code> child</td>
+                        <td>Wrap the code in an HTML comment to display raw markup that would otherwise be parsed
+                          (handy when the example itself contains <code>cui-code</code>).</td>
+                      </tr>
+                      <tr>
+                        <td>Copy button</td>
+                        <td>Rendered automatically in the header. Uses the Clipboard API.</td>
+                      </tr>
+                    </tbody>
+                  </table>
 
-              <table class="docs-token-table">
-                <thead>
-                  <tr>
-                    <th>Variable</th>
-                    <th>Default</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code>--cui-code-bg</code></td>
-                    <td><code>#111827</code></td>
-                  </tr>
-                  <tr>
-                    <td><code>--cui-code-header-bg</code></td>
-                    <td><code>hsl(220deg 22% 12%)</code></td>
-                  </tr>
-                  <tr>
-                    <td><code>--cui-code-border</code></td>
-                    <td><code>hsl(220deg 18% 28%)</code></td>
-                  </tr>
-                  <tr>
-                    <td><code>--cui-code-text</code></td>
-                    <td><code>#dbeafe</code></td>
-                  </tr>
-                  <tr>
-                    <td><code>--cui-code-muted</code></td>
-                    <td><code>#93a4bc</code></td>
-                  </tr>
-                  <tr>
-                    <td><code>--cui-code-padding</code></td>
-                    <td><code>--cui-space-4</code></td>
-                  </tr>
-                  <tr>
-                    <td><code>--cui-code-font</code></td>
-                    <td>SF Mono / Consolas stack</td>
-                  </tr>
-                  <tr>
-                    <td><code>--cui-code-font-size</code></td>
-                    <td><code>--cui-font-size-neg-1</code></td>
-                  </tr>
-                  <tr>
-                    <td><code>--cui-code-line-height</code></td>
-                    <td><code>1.6</code></td>
-                  </tr>
-                  <tr>
-                    <td><code>--cui-code-tab-size</code></td>
-                    <td><code>2</code></td>
-                  </tr>
-                  <tr>
-                    <td><code>--cui-code-comment</code> · <code>--cui-code-keyword</code> ·
-                      <code>--cui-code-property</code> · <code>--cui-code-string</code> ·
-                      <code>--cui-code-value</code> · <code>--cui-code-punctuation</code> ·
-                      <code>--cui-code-function</code></td>
-                    <td>Per-token highlight colors.</td>
-                  </tr>
-                </tbody>
-              </table>
+                  <table class="docs-token-table">
+                    <thead>
+                      <tr>
+                        <th>Variable</th>
+                        <th>Default</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>--cui-code-bg</code></td>
+                        <td><code>#111827</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-code-header-bg</code></td>
+                        <td><code>hsl(220deg 22% 12%)</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-code-border</code></td>
+                        <td><code>hsl(220deg 18% 28%)</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-code-text</code></td>
+                        <td><code>#dbeafe</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-code-muted</code></td>
+                        <td><code>#93a4bc</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-code-padding</code></td>
+                        <td><code>--cui-space-4</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-code-font</code></td>
+                        <td>SF Mono / Consolas stack</td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-code-font-size</code></td>
+                        <td><code>--cui-font-size-neg-1</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-code-line-height</code></td>
+                        <td><code>1.6</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-code-tab-size</code></td>
+                        <td><code>2</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-code-comment</code> · <code>--cui-code-keyword</code> ·
+                          <code>--cui-code-property</code> · <code>--cui-code-string</code> ·
+                          <code>--cui-code-value</code> · <code>--cui-code-punctuation</code> ·
+                          <code>--cui-code-function</code>
+                        </td>
+                        <td>Per-token highlight colors.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </details>
+            </cui-disclosure>
+          </section>
+
+          <section id="tree" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Tree</h2>
+              <p>
+                <code>cui-tree</code> renders hierarchical content with keyboard navigation, drag &amp; drop
+                reordering, and a cancelable <code>cui-tree-contextmenu</code> hook. The component handles ARIA
+                (<code>role="tree"</code>, <code>aria-level</code>, <code>aria-expanded</code>,
+                <code>aria-selected</code>), drop-zone detection (top third = before, bottom third = after,
+                middle = into), and DOM moves. Selection, expand/collapse, and the context menu UI stay
+                in the consumer's hands via events.
+              </p>
+            </div>
+
+            <div class="cui-stack">
+              <div class="docs-preview">
+                <div class="docs-preview-frame docs-tree-frame">
+                  <cui-tree id="docs-tree" draggable-items>
+                    <ul>
+                      <li class="cui-tree-item" data-id="docs">
+                        <div class="cui-tree-row">
+                          <button class="cui-tree-toggle" type="button" aria-hidden="true"></button>
+                          <span>Docs</span>
+                        </div>
+                        <ul class="cui-tree-children">
+                          <li class="cui-tree-item" data-id="getting-started">
+                            <div class="cui-tree-row"><span>Getting started</span></div>
+                          </li>
+                          <li class="cui-tree-item" data-id="components">
+                            <div class="cui-tree-row">
+                              <button class="cui-tree-toggle" type="button" aria-hidden="true"></button>
+                              <span>Components</span>
+                            </div>
+                            <ul class="cui-tree-children">
+                              <li class="cui-tree-item" data-id="navbar">
+                                <div class="cui-tree-row"><span>Navbar</span></div>
+                              </li>
+                              <li class="cui-tree-item" data-id="tabs">
+                                <div class="cui-tree-row"><span>Tabs</span></div>
+                              </li>
+                              <li class="cui-tree-item" data-id="tree">
+                                <div class="cui-tree-row"><span>Tree</span></div>
+                              </li>
+                            </ul>
+                          </li>
+                          <li class="cui-tree-item" data-id="theming">
+                            <div class="cui-tree-row"><span>Theming</span></div>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="cui-tree-item" data-id="archive">
+                        <div class="cui-tree-row">
+                          <button class="cui-tree-toggle" type="button" aria-hidden="true"></button>
+                          <span>Archive</span>
+                        </div>
+                        <ul class="cui-tree-children">
+                          <li class="cui-tree-item" data-id="legacy">
+                            <div class="cui-tree-row"><span>Legacy notes</span></div>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </cui-tree>
+
+                  <div id="docs-tree-menu" class="docs-tree-menu" role="menu" hidden>
+                    <button type="button" role="menuitem" data-action="duplicate">Duplicate</button>
+                    <button type="button" role="menuitem" data-action="rename">Rename</button>
+                    <button type="button" role="menuitem" data-action="delete">Delete</button>
                   </div>
-                </details>
-              </cui-disclosure>
-            </section>
-
-            <section id="tree" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
-              <div class="cui-prose">
-                <h2>Tree</h2>
-                <p>
-                  <code>cui-tree</code> renders hierarchical content with keyboard navigation, drag &amp; drop
-                  reordering, and a cancelable <code>cui-tree-contextmenu</code> hook. The component handles ARIA
-                  (<code>role="tree"</code>, <code>aria-level</code>, <code>aria-expanded</code>,
-                  <code>aria-selected</code>), drop-zone detection (top third = before, bottom third = after,
-                  middle = into), and DOM moves. Selection, expand/collapse, and the context menu UI stay
-                  in the consumer's hands via events.
-                </p>
+                  <p class="cui-caption docs-tree-log" id="docs-tree-log" aria-live="polite"></p>
+                </div>
               </div>
 
-              <div class="cui-stack">
-                <div class="docs-preview">
-                  <div class="docs-preview-frame docs-tree-frame">
-                    <cui-tree id="docs-tree" draggable-items>
-                      <ul>
-                        <li class="cui-tree-item" data-id="docs">
-                          <div class="cui-tree-row">
-                            <button class="cui-tree-toggle" type="button" aria-hidden="true"></button>
-                            <span>Docs</span>
-                          </div>
-                          <ul class="cui-tree-children">
-                            <li class="cui-tree-item" data-id="getting-started">
-                              <div class="cui-tree-row"><span>Getting started</span></div>
-                            </li>
-                            <li class="cui-tree-item" data-id="components">
-                              <div class="cui-tree-row">
-                                <button class="cui-tree-toggle" type="button" aria-hidden="true"></button>
-                                <span>Components</span>
-                              </div>
-                              <ul class="cui-tree-children">
-                                <li class="cui-tree-item" data-id="navbar">
-                                  <div class="cui-tree-row"><span>Navbar</span></div>
-                                </li>
-                                <li class="cui-tree-item" data-id="tabs">
-                                  <div class="cui-tree-row"><span>Tabs</span></div>
-                                </li>
-                                <li class="cui-tree-item" data-id="tree">
-                                  <div class="cui-tree-row"><span>Tree</span></div>
-                                </li>
-                              </ul>
-                            </li>
-                            <li class="cui-tree-item" data-id="theming">
-                              <div class="cui-tree-row"><span>Theming</span></div>
-                            </li>
-                          </ul>
-                        </li>
-                        <li class="cui-tree-item" data-id="archive">
-                          <div class="cui-tree-row">
-                            <button class="cui-tree-toggle" type="button" aria-hidden="true"></button>
-                            <span>Archive</span>
-                          </div>
-                          <ul class="cui-tree-children">
-                            <li class="cui-tree-item" data-id="legacy">
-                              <div class="cui-tree-row"><span>Legacy notes</span></div>
-                            </li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </cui-tree>
-
-                    <div id="docs-tree-menu" class="docs-tree-menu" role="menu" hidden>
-                      <button type="button" role="menuitem" data-action="duplicate">Duplicate</button>
-                      <button type="button" role="menuitem" data-action="rename">Rename</button>
-                      <button type="button" role="menuitem" data-action="delete">Delete</button>
-                    </div>
-                    <p class="cui-caption docs-tree-log" id="docs-tree-log" aria-live="polite"></p>
-                  </div>
-                </div>
-
-                <cui-code language="html">
-                  <script type="text/html">
+              <cui-code language="html">
+                <script type="text/html">
                     <cui-tree draggable-items>
                       <ul>
                         <li class="cui-tree-item" data-id="docs">
@@ -442,109 +450,109 @@
                       </ul>
                     </cui-tree>
                   </script>
-                </cui-code>
+              </cui-code>
 
-                <cui-code language="javascript">
-                  <script type="text/javascript">
-                    const tree = document.getElementById("docs-tree");
-                    const menu = document.getElementById("docs-tree-menu");
-                    let menuTarget = null;
+              <cui-code language="javascript">
+                <script type="text/javascript">
+                  const tree = document.getElementById("docs-tree");
+                  const menu = document.getElementById("docs-tree-menu");
+                  let menuTarget = null;
 
-                    tree.addEventListener("cui-tree-contextmenu", (event) => {
-                      event.preventDefault();
-                      menuTarget = event.detail.item;
-                      menu.style.top = event.detail.y + "px";
-                      menu.style.left = event.detail.x + "px";
-                      menu.hidden = false;
-                    });
+                  tree.addEventListener("cui-tree-contextmenu", (event) => {
+                    event.preventDefault();
+                    menuTarget = event.detail.item;
+                    menu.style.top = event.detail.y + "px";
+                    menu.style.left = event.detail.x + "px";
+                    menu.hidden = false;
+                  });
 
-                    document.addEventListener("click", (event) => {
-                      if (!menu.contains(event.target)) menu.hidden = true;
-                    });
+                  document.addEventListener("click", (event) => {
+                    if (!menu.contains(event.target)) menu.hidden = true;
+                  });
 
-                    menu.addEventListener("click", (event) => {
-                      const action = event.target.closest("[data-action]")?.dataset.action;
-                      if (action === "delete") menuTarget?.remove();
-                      if (action === "duplicate" && menuTarget) {
-                        menuTarget.after(menuTarget.cloneNode(true));
-                      }
-                      menu.hidden = true;
-                    });
+                  menu.addEventListener("click", (event) => {
+                    const action = event.target.closest("[data-action]")?.dataset.action;
+                    if (action === "delete") menuTarget?.remove();
+                    if (action === "duplicate" && menuTarget) {
+                      menuTarget.after(menuTarget.cloneNode(true));
+                    }
+                    menu.hidden = true;
+                  });
 
-                    tree.addEventListener("cui-tree-drop", (event) => {
-                      const { source, target, position } = event.detail;
-                      console.log("moved", source.dataset.id, position, target.dataset.id);
-                    });
-                  </script>
-                </cui-code>
+                  tree.addEventListener("cui-tree-drop", (event) => {
+                    const { source, target, position } = event.detail;
+                    console.log("moved", source.dataset.id, position, target.dataset.id);
+                  });
+                </script>
+              </cui-code>
 
-                <cui-disclosure>
-                  <details class="cui-disclosure" data-variant="ghost">
-                    <summary>API reference</summary>
-                    <div class="cui-disclosure-body">
-                <table class="docs-token-table">
-                  <thead>
-                    <tr>
-                      <th>Attribute / event</th>
-                      <th>Purpose</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td><code>draggable-items</code></td>
-                      <td>Enables HTML5 drag &amp; drop on every item row.</td>
-                    </tr>
-                    <tr>
-                      <td><code>selectable="false"</code></td>
-                      <td>Disables click selection. Keyboard focus still works.</td>
-                    </tr>
-                    <tr>
-                      <td><code>cui-tree-select</code></td>
-                      <td>Fires when an item is activated. <code>detail.item</code>.</td>
-                    </tr>
-                    <tr>
-                      <td><code>cui-tree-expand</code> / <code>cui-tree-collapse</code></td>
-                      <td>Fires after the expanded state flips. <code>detail.item</code>.</td>
-                    </tr>
-                    <tr>
-                      <td><code>cui-tree-contextmenu</code></td>
-                      <td>
-                        Cancelable. Call <code>preventDefault()</code> to suppress the browser menu and show your
-                        own. <code>detail: { item, originalEvent, x, y }</code>.
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><code>cui-tree-dragstart</code></td>
-                      <td>Fires at the start of a drag. <code>detail.item</code>.</td>
-                    </tr>
-                    <tr>
-                      <td><code>cui-tree-drop</code></td>
-                      <td>
-                        Cancelable. <code>detail: { source, target, position }</code> where position is
-                        <code>"before"</code>, <code>"after"</code>, or <code>"into"</code>. Call
-                        <code>preventDefault()</code> to handle the move yourself; otherwise the component moves
-                        the source node into place.
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><code>--cui-tree-indent</code></td>
-                      <td>Indent per depth level. Defaults to <code>1.25rem</code>.</td>
-                    </tr>
-                    <tr>
-                      <td><code>--cui-tree-row-hover</code> / <code>--cui-tree-row-selected</code></td>
-                      <td>Row background tokens for hover and selected states.</td>
-                    </tr>
-                    <tr>
-                      <td><code>--cui-tree-drop-line</code></td>
-                      <td>Color of the insertion line and the "into" outline.</td>
-                    </tr>
-                  </tbody>
-                </table>
-                    </div>
-                  </details>
-                </cui-disclosure>
-              </div>
-            </section>
+              <cui-disclosure>
+                <details class="cui-disclosure" data-variant="ghost">
+                  <summary>API reference</summary>
+                  <div class="cui-disclosure-body">
+                    <table class="docs-token-table">
+                      <thead>
+                        <tr>
+                          <th>Attribute / event</th>
+                          <th>Purpose</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><code>draggable-items</code></td>
+                          <td>Enables HTML5 drag &amp; drop on every item row.</td>
+                        </tr>
+                        <tr>
+                          <td><code>selectable="false"</code></td>
+                          <td>Disables click selection. Keyboard focus still works.</td>
+                        </tr>
+                        <tr>
+                          <td><code>cui-tree-select</code></td>
+                          <td>Fires when an item is activated. <code>detail.item</code>.</td>
+                        </tr>
+                        <tr>
+                          <td><code>cui-tree-expand</code> / <code>cui-tree-collapse</code></td>
+                          <td>Fires after the expanded state flips. <code>detail.item</code>.</td>
+                        </tr>
+                        <tr>
+                          <td><code>cui-tree-contextmenu</code></td>
+                          <td>
+                            Cancelable. Call <code>preventDefault()</code> to suppress the browser menu and show your
+                            own. <code>detail: { item, originalEvent, x, y }</code>.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>cui-tree-dragstart</code></td>
+                          <td>Fires at the start of a drag. <code>detail.item</code>.</td>
+                        </tr>
+                        <tr>
+                          <td><code>cui-tree-drop</code></td>
+                          <td>
+                            Cancelable. <code>detail: { source, target, position }</code> where position is
+                            <code>"before"</code>, <code>"after"</code>, or <code>"into"</code>. Call
+                            <code>preventDefault()</code> to handle the move yourself; otherwise the component moves
+                            the source node into place.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-tree-indent</code></td>
+                          <td>Indent per depth level. Defaults to <code>1.25rem</code>.</td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-tree-row-hover</code> / <code>--cui-tree-row-selected</code></td>
+                          <td>Row background tokens for hover and selected states.</td>
+                        </tr>
+                        <tr>
+                          <td><code>--cui-tree-drop-line</code></td>
+                          <td>Color of the insertion line and the "into" outline.</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </details>
+              </cui-disclosure>
+            </div>
+          </section>
         </div>
       </div>
     </section>

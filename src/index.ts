@@ -6,15 +6,12 @@ import { CuiCalendar } from "./components/calendar";
 import { CuiCarousel } from "./components/carousel";
 import { CuiCode } from "./components/code";
 import { CuiCookieBanner } from "./components/cookie-banner";
-import { CuiCta } from "./components/cta";
 import { CuiDayPlanner } from "./components/day-planner";
 import { CuiDisclosure } from "./components/disclosure";
 import { CuiField } from "./components/field";
 import { CuiForm } from "./components/form";
-import { CuiHero } from "./components/hero";
 import { CuiModal } from "./components/modal";
 import { CuiNavbar } from "./components/navbar";
-import { CuiPageIntro } from "./components/page-intro";
 import { CuiReveal } from "./components/reveal";
 import {
   CuiScrollStage,
@@ -99,15 +96,12 @@ export {
   CuiCarousel,
   CuiCode,
   CuiCookieBanner,
-  CuiCta,
   CuiDayPlanner,
   CuiDisclosure,
   CuiField,
   CuiForm,
-  CuiHero,
   CuiModal,
   CuiNavbar,
-  CuiPageIntro,
   CuiReveal,
   CuiScrollStage,
   CuiTabs,
@@ -125,9 +119,9 @@ export function defineCombatUi(
   registry: CustomElementRegistry = customElements,
 ): void {
   const allElements = [
-    CuiButton, CuiNavbar, CuiThemeToggle, CuiCode, CuiTabs, CuiHero,
-    CuiPageIntro, CuiScrollStage, CuiReveal, CuiTree, CuiField, CuiForm,
-    CuiModal, CuiToastRegion, CuiCta, CuiDisclosure, CuiMap,
+    CuiButton, CuiNavbar, CuiThemeToggle, CuiCode, CuiTabs,
+    CuiScrollStage, CuiReveal, CuiTree, CuiField, CuiForm,
+    CuiModal, CuiToastRegion, CuiDisclosure, CuiMap,
     CuiArticleFilter, CuiCalendar, CuiDayPlanner, CuiCookieBanner,
     CuiCarousel,
   ] as const;

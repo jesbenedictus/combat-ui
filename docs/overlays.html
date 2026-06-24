@@ -22,7 +22,8 @@
   <main id="main" class="cui-page cui-stack">
     <header class="cui-page-header">
       <h1>Overlays</h1>
-      <p>Surfaces that float above the page or expand inline: modal dialogs over native &lt;dialog&gt;, disclosure wrappers over &lt;details&gt;, and the toast notifications API for transient feedback.</p>
+      <p>Surfaces that float above the page or expand inline: modal dialogs over native &lt;dialog&gt;, disclosure
+        wrappers over &lt;details&gt;, and the toast notifications API for transient feedback.</p>
     </header>
 
     <section class="cui-section">
@@ -35,58 +36,59 @@
         </aside>
 
         <div class="cui-stack" style="--cui-stack-gap: var(--cui-space-7, 3rem);">
-            <section id="modal" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
-              <div class="cui-prose">
-                <h2>Modal</h2>
-                <p>
-                  <code>cui-modal</code> is a thin behavioral wrapper around the native
-                  <code>&lt;dialog&gt;</code> element. The dialog stays in light DOM, so you get the top
-                  layer, focus trap, ESC handling, and <code>form method="dialog"</code> support for free.
-                  The component adds declarative triggers, programmatic <code>open()</code> /
-                  <code>close(value?)</code>, and cancelable events.
-                </p>
+          <section id="modal" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Modal</h2>
+              <p>
+                <code>cui-modal</code> is a thin behavioral wrapper around the native
+                <code>&lt;dialog&gt;</code> element. The dialog stays in light DOM, so you get the top
+                layer, focus trap, ESC handling, and <code>form method="dialog"</code> support for free.
+                The component adds declarative triggers, programmatic <code>open()</code> /
+                <code>close(value?)</code>, and cancelable events.
+              </p>
+            </div>
+
+            <cui-tabs>
+              <div class="cui-tablist">
+                <button class="cui-tab" type="button" data-selected="true">Confirmation</button>
+                <button class="cui-tab" type="button">Form modal</button>
+                <button class="cui-tab" type="button">Side sheet</button>
               </div>
+              <section class="docs-panel">
+                <div class="cui-stack">
+                  <div class="docs-preview">
+                    <div class="docs-preview-frame">
+                      <button type="button" class="cui-button" data-variant="primary"
+                        data-cui-modal-target="docs-confirm-modal">
+                        Delete project
+                      </button>
 
-              <cui-tabs>
-                <button slot="tab" type="button">Confirmation</button>
-                <button slot="tab" type="button">Form modal</button>
-                <button slot="tab" type="button">Side sheet</button>
+                      <cui-modal id="docs-confirm-modal">
+                        <dialog class="cui-dialog">
+                          <header class="cui-dialog-header">
+                            <h3 class="cui-dialog-title">Delete project?</h3>
+                            <button type="button" class="cui-dialog-close" data-cui-modal-close
+                              aria-label="Close">&times;</button>
+                          </header>
+                          <div class="cui-dialog-body">
+                            <p>This action cannot be undone. The project and all its data will be
+                              permanently removed.</p>
+                          </div>
+                          <footer class="cui-dialog-actions">
+                            <button type="button" class="cui-button" data-cui-modal-close="cancel">Cancel</button>
+                            <button type="button" class="cui-button" data-variant="primary"
+                              data-cui-modal-close="confirm">Delete</button>
+                          </footer>
+                        </dialog>
+                      </cui-modal>
 
-                <section slot="panel" class="docs-panel">
-                  <div class="cui-stack">
-                    <div class="docs-preview">
-                      <div class="docs-preview-frame">
-                        <button type="button" class="cui-button" data-variant="primary"
-                          data-cui-modal-target="docs-confirm-modal">
-                          Delete project
-                        </button>
-
-                        <cui-modal id="docs-confirm-modal">
-                          <dialog class="cui-dialog">
-                            <header class="cui-dialog-header">
-                              <h3 class="cui-dialog-title">Delete project?</h3>
-                              <button type="button" class="cui-dialog-close" data-cui-modal-close
-                                aria-label="Close">&times;</button>
-                            </header>
-                            <div class="cui-dialog-body">
-                              <p>This action cannot be undone. The project and all its data will be
-                                permanently removed.</p>
-                            </div>
-                            <footer class="cui-dialog-actions">
-                              <button type="button" class="cui-button" data-cui-modal-close="cancel">Cancel</button>
-                              <button type="button" class="cui-button" data-variant="primary"
-                                data-cui-modal-close="confirm">Delete</button>
-                            </footer>
-                          </dialog>
-                        </cui-modal>
-
-                        <p class="cui-caption docs-modal-log" id="docs-confirm-modal-log" aria-live="polite">
-                        </p>
-                      </div>
+                      <p class="cui-caption docs-modal-log" id="docs-confirm-modal-log" aria-live="polite">
+                      </p>
                     </div>
+                  </div>
 
-                    <cui-code language="html">
-                      <script type="text/html">
+                  <cui-code language="html">
+                    <script type="text/html">
                         <button class="cui-button" data-cui-modal-target="confirm">Delete</button>
 
                         <cui-modal id="confirm">
@@ -105,60 +107,59 @@
                           </dialog>
                         </cui-modal>
                       </script>
-                    </cui-code>
+                  </cui-code>
 
-                    <cui-code language="javascript">
-                      <script type="text/plain">
+                  <cui-code language="javascript">
+                    <script type="text/plain">
                         document.getElementById("confirm").addEventListener("cui-modal-close", (event) => {
                           if (event.detail.returnValue === "confirm") {
                             doDelete();
                           }
                         });
                       </script>
-                    </cui-code>
-                  </div>
-                </section>
+                  </cui-code>
+                </div>
+              </section>
 
-                <section slot="panel" class="docs-panel">
-                  <div class="cui-stack">
-                    <div class="docs-preview">
-                      <div class="docs-preview-frame">
-                        <button type="button" class="cui-button" data-cui-modal-target="docs-form-modal">Edit
-                          profile</button>
+              <section class="docs-panel">
+                <div class="cui-stack">
+                  <div class="docs-preview">
+                    <div class="docs-preview-frame">
+                      <button type="button" class="cui-button" data-cui-modal-target="docs-form-modal">Edit
+                        profile</button>
 
-                        <cui-modal id="docs-form-modal">
-                          <dialog class="cui-dialog" data-size="md">
-                            <form method="dialog" class="cui-stack">
-                              <header class="cui-dialog-header">
-                                <h3 class="cui-dialog-title">Edit profile</h3>
-                                <button type="button" class="cui-dialog-close" data-cui-modal-close
-                                  aria-label="Close">&times;</button>
-                              </header>
-                              <div class="cui-dialog-body cui-stack">
-                                <label class="cui-field-label">
-                                  Display name
-                                  <input class="cui-input" name="name" type="text" value="Jordan">
-                                </label>
-                                <label class="cui-field-label">
-                                  Bio
-                                  <textarea class="cui-textarea" name="bio" rows="3"></textarea>
-                                </label>
-                              </div>
-                              <footer class="cui-dialog-actions">
-                                <button type="submit" value="cancel" class="cui-button">Cancel</button>
-                                <button type="submit" value="save" class="cui-button"
-                                  data-variant="primary">Save</button>
-                              </footer>
-                            </form>
-                          </dialog>
-                        </cui-modal>
+                      <cui-modal id="docs-form-modal">
+                        <dialog class="cui-dialog" data-size="md">
+                          <form method="dialog" class="cui-stack">
+                            <header class="cui-dialog-header">
+                              <h3 class="cui-dialog-title">Edit profile</h3>
+                              <button type="button" class="cui-dialog-close" data-cui-modal-close
+                                aria-label="Close">&times;</button>
+                            </header>
+                            <div class="cui-dialog-body cui-stack">
+                              <label class="cui-field-label">
+                                Display name
+                                <input class="cui-input" name="name" type="text" value="Jordan">
+                              </label>
+                              <label class="cui-field-label">
+                                Bio
+                                <textarea class="cui-textarea" name="bio" rows="3"></textarea>
+                              </label>
+                            </div>
+                            <footer class="cui-dialog-actions">
+                              <button type="submit" value="cancel" class="cui-button">Cancel</button>
+                              <button type="submit" value="save" class="cui-button" data-variant="primary">Save</button>
+                            </footer>
+                          </form>
+                        </dialog>
+                      </cui-modal>
 
-                        <p class="cui-caption docs-modal-log" id="docs-form-modal-log" aria-live="polite"></p>
-                      </div>
+                      <p class="cui-caption docs-modal-log" id="docs-form-modal-log" aria-live="polite"></p>
                     </div>
+                  </div>
 
-                    <cui-code language="html">
-                      <script type="text/html">
+                  <cui-code language="html">
+                    <script type="text/html">
                         <cui-modal id="edit-profile">
                           <dialog class="cui-dialog" data-size="md">
                             <form method="dialog" class="cui-stack">
@@ -181,45 +182,45 @@
                           </dialog>
                         </cui-modal>
                       </script>
-                    </cui-code>
+                  </cui-code>
 
-                    <p class="cui-caption">
-                      A native <code>&lt;form method="dialog"&gt;</code> auto-closes the dialog when a
-                      button inside is clicked. Each button's <code>value</code> attribute becomes the
-                      <code>returnValue</code> on the close event. No JavaScript wiring required to capture
-                      the choice.
-                    </p>
-                  </div>
-                </section>
+                  <p class="cui-caption">
+                    A native <code>&lt;form method="dialog"&gt;</code> auto-closes the dialog when a
+                    button inside is clicked. Each button's <code>value</code> attribute becomes the
+                    <code>returnValue</code> on the close event. No JavaScript wiring required to capture
+                    the choice.
+                  </p>
+                </div>
+              </section>
 
-                <section slot="panel" class="docs-panel">
-                  <div class="cui-stack">
-                    <div class="docs-preview">
-                      <div class="docs-preview-frame">
-                        <button type="button" class="cui-button" data-cui-modal-target="docs-sheet-modal">Open
-                          settings</button>
+              <section class="docs-panel">
+                <div class="cui-stack">
+                  <div class="docs-preview">
+                    <div class="docs-preview-frame">
+                      <button type="button" class="cui-button" data-cui-modal-target="docs-sheet-modal">Open
+                        settings</button>
 
-                        <cui-modal id="docs-sheet-modal">
-                          <dialog class="cui-dialog" data-variant="sheet-end">
-                            <header class="cui-dialog-header">
-                              <h3 class="cui-dialog-title">Settings</h3>
-                              <button type="button" class="cui-dialog-close" data-cui-modal-close
-                                aria-label="Close">&times;</button>
-                            </header>
-                            <div class="cui-dialog-body">
-                              <p>A side sheet slides in from the inline-end edge with full block-size.
-                                Useful for navigation, filters, or detail panels that benefit from
-                                vertical real estate.</p>
-                              <p>Same API as the centered variant — only the <code>data-variant</code>
-                                attribute changes.</p>
-                            </div>
-                          </dialog>
-                        </cui-modal>
-                      </div>
+                      <cui-modal id="docs-sheet-modal">
+                        <dialog class="cui-dialog" data-variant="sheet-end">
+                          <header class="cui-dialog-header">
+                            <h3 class="cui-dialog-title">Settings</h3>
+                            <button type="button" class="cui-dialog-close" data-cui-modal-close
+                              aria-label="Close">&times;</button>
+                          </header>
+                          <div class="cui-dialog-body">
+                            <p>A side sheet slides in from the inline-end edge with full block-size.
+                              Useful for navigation, filters, or detail panels that benefit from
+                              vertical real estate.</p>
+                            <p>Same API as the centered variant — only the <code>data-variant</code>
+                              attribute changes.</p>
+                          </div>
+                        </dialog>
+                      </cui-modal>
                     </div>
+                  </div>
 
-                    <cui-code language="html">
-                      <script type="text/html">
+                  <cui-code language="html">
+                    <script type="text/html">
                         <cui-modal id="settings">
                           <dialog class="cui-dialog" data-variant="sheet-end">
                             <header class="cui-dialog-header">
@@ -230,203 +231,205 @@
                           </dialog>
                         </cui-modal>
                       </script>
-                    </cui-code>
-                  </div>
-                </section>
-              </cui-tabs>
+                  </cui-code>
+                </div>
+              </section>
+            </cui-tabs>
 
-              <cui-disclosure>
-                <details class="cui-disclosure" data-variant="ghost">
-                  <summary>API reference</summary>
-                  <div class="cui-disclosure-body">
-              <table class="docs-token-table">
-                <thead>
-                  <tr>
-                    <th>Attribute / property</th>
-                    <th>Purpose</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code>open</code></td>
-                    <td>Reflects the modal's open state. Setting or removing toggles via the API.</td>
-                  </tr>
-                  <tr>
-                    <td><code>dismissible="false"</code></td>
-                    <td>Blocks ESC and backdrop-click dismissal. Programmatic close still works.</td>
-                  </tr>
-                  <tr>
-                    <td><code>modal.open()</code></td>
-                    <td>Opens the modal (delegates to <code>dialog.showModal()</code>).</td>
-                  </tr>
-                  <tr>
-                    <td><code>modal.close(value?)</code></td>
-                    <td>Closes, optionally setting <code>returnValue</code>.</td>
-                  </tr>
-                  <tr>
-                    <td><code>modal.toggle()</code></td>
-                    <td>Opens if closed, closes if open.</td>
-                  </tr>
-                  <tr>
-                    <td><code>modal.isOpen</code></td>
-                    <td>Boolean — current state.</td>
-                  </tr>
-                  <tr>
-                    <td><code>modal.returnValue</code></td>
-                    <td>The value set by the most recent close.</td>
-                  </tr>
-                  <tr>
-                    <td><code>modal.dialog</code></td>
-                    <td>Reference to the inner <code>&lt;dialog&gt;</code> element.</td>
-                  </tr>
-                </tbody>
-              </table>
+            <cui-disclosure>
+              <details class="cui-disclosure" data-variant="ghost">
+                <summary>API reference</summary>
+                <div class="cui-disclosure-body">
+                  <table class="docs-token-table">
+                    <thead>
+                      <tr>
+                        <th>Attribute / property</th>
+                        <th>Purpose</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>open</code></td>
+                        <td>Reflects the modal's open state. Setting or removing toggles via the API.</td>
+                      </tr>
+                      <tr>
+                        <td><code>dismissible="false"</code></td>
+                        <td>Blocks ESC and backdrop-click dismissal. Programmatic close still works.</td>
+                      </tr>
+                      <tr>
+                        <td><code>modal.open()</code></td>
+                        <td>Opens the modal (delegates to <code>dialog.showModal()</code>).</td>
+                      </tr>
+                      <tr>
+                        <td><code>modal.close(value?)</code></td>
+                        <td>Closes, optionally setting <code>returnValue</code>.</td>
+                      </tr>
+                      <tr>
+                        <td><code>modal.toggle()</code></td>
+                        <td>Opens if closed, closes if open.</td>
+                      </tr>
+                      <tr>
+                        <td><code>modal.isOpen</code></td>
+                        <td>Boolean — current state.</td>
+                      </tr>
+                      <tr>
+                        <td><code>modal.returnValue</code></td>
+                        <td>The value set by the most recent close.</td>
+                      </tr>
+                      <tr>
+                        <td><code>modal.dialog</code></td>
+                        <td>Reference to the inner <code>&lt;dialog&gt;</code> element.</td>
+                      </tr>
+                    </tbody>
+                  </table>
 
-              <table class="docs-token-table">
-                <thead>
-                  <tr>
-                    <th>Markup attribute / class</th>
-                    <th>Purpose</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code>data-cui-modal-target="&lt;id&gt;"</code></td>
-                    <td>On any clickable element. Opens the modal with that <code>id</code>.</td>
-                  </tr>
-                  <tr>
-                    <td><code>data-cui-modal-close[="&lt;value&gt;"]</code></td>
-                    <td>On any element inside a modal. Closes with optional <code>returnValue</code>.</td>
-                  </tr>
-                  <tr>
-                    <td><code>.cui-dialog</code></td>
-                    <td>Required class on the <code>&lt;dialog&gt;</code> for styling.</td>
-                  </tr>
-                  <tr>
-                    <td><code>.cui-dialog-header</code> · <code>.cui-dialog-title</code> ·
-                      <code>.cui-dialog-close</code> · <code>.cui-dialog-body</code> ·
-                      <code>.cui-dialog-actions</code>
-                    </td>
-                    <td>Optional structural classes.</td>
-                  </tr>
-                  <tr>
-                    <td><code>data-size="sm | md | lg | full"</code></td>
-                    <td>On the <code>&lt;dialog&gt;</code>. Width preset.</td>
-                  </tr>
-                  <tr>
-                    <td><code>data-variant="sheet-end"</code></td>
-                    <td>On the <code>&lt;dialog&gt;</code>. Side-sheet drawer variant.</td>
-                  </tr>
-                </tbody>
-              </table>
+                  <table class="docs-token-table">
+                    <thead>
+                      <tr>
+                        <th>Markup attribute / class</th>
+                        <th>Purpose</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>data-cui-modal-target="&lt;id&gt;"</code></td>
+                        <td>On any clickable element. Opens the modal with that <code>id</code>.</td>
+                      </tr>
+                      <tr>
+                        <td><code>data-cui-modal-close[="&lt;value&gt;"]</code></td>
+                        <td>On any element inside a modal. Closes with optional <code>returnValue</code>.</td>
+                      </tr>
+                      <tr>
+                        <td><code>.cui-dialog</code></td>
+                        <td>Required class on the <code>&lt;dialog&gt;</code> for styling.</td>
+                      </tr>
+                      <tr>
+                        <td><code>.cui-dialog-header</code> · <code>.cui-dialog-title</code> ·
+                          <code>.cui-dialog-close</code> · <code>.cui-dialog-body</code> ·
+                          <code>.cui-dialog-actions</code>
+                        </td>
+                        <td>Optional structural classes.</td>
+                      </tr>
+                      <tr>
+                        <td><code>data-size="sm | md | lg | full"</code></td>
+                        <td>On the <code>&lt;dialog&gt;</code>. Width preset.</td>
+                      </tr>
+                      <tr>
+                        <td><code>data-variant="sheet-end"</code></td>
+                        <td>On the <code>&lt;dialog&gt;</code>. Side-sheet drawer variant.</td>
+                      </tr>
+                    </tbody>
+                  </table>
 
-              <table class="docs-token-table">
-                <thead>
-                  <tr>
-                    <th>Event</th>
-                    <th>Detail / behavior</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code>cui-modal-open</code></td>
-                    <td>Fired after the dialog opens.</td>
-                  </tr>
-                  <tr>
-                    <td><code>cui-modal-close</code></td>
-                    <td><code>{ returnValue }</code>. Fired after the dialog closes.</td>
-                  </tr>
-                  <tr>
-                    <td><code>cui-modal-cancel</code></td>
-                    <td>Cancelable. Fired when ESC is pressed. Call <code>preventDefault()</code> to
-                      block the close.</td>
-                  </tr>
-                </tbody>
-              </table>
+                  <table class="docs-token-table">
+                    <thead>
+                      <tr>
+                        <th>Event</th>
+                        <th>Detail / behavior</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>cui-modal-open</code></td>
+                        <td>Fired after the dialog opens.</td>
+                      </tr>
+                      <tr>
+                        <td><code>cui-modal-close</code></td>
+                        <td><code>{ returnValue }</code>. Fired after the dialog closes.</td>
+                      </tr>
+                      <tr>
+                        <td><code>cui-modal-cancel</code></td>
+                        <td>Cancelable. Fired when ESC is pressed. Call <code>preventDefault()</code> to
+                          block the close.</td>
+                      </tr>
+                    </tbody>
+                  </table>
 
-              <table class="docs-token-table">
-                <thead>
-                  <tr>
-                    <th>Variable</th>
-                    <th>Default</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code>--cui-dialog-bg</code></td>
-                    <td><code>--cui-color-surface-raised</code></td>
-                  </tr>
-                  <tr>
-                    <td><code>--cui-dialog-border</code></td>
-                    <td><code>--cui-color-border</code></td>
-                  </tr>
-                  <tr>
-                    <td><code>--cui-dialog-radius</code></td>
-                    <td><code>--cui-radius-2</code></td>
-                  </tr>
-                  <tr>
-                    <td><code>--cui-dialog-padding</code></td>
-                    <td><code>--cui-space-5</code></td>
-                  </tr>
-                  <tr>
-                    <td><code>--cui-dialog-max-inline-size</code></td>
-                    <td><code>28rem</code></td>
-                  </tr>
-                  <tr>
-                    <td><code>--cui-dialog-shadow</code></td>
-                    <td><code>0 16px 48px rgba(0, 0, 0, 0.18)</code></td>
-                  </tr>
-                  <tr>
-                    <td><code>--cui-dialog-backdrop</code></td>
-                    <td><code>rgba(0, 0, 0, 0.4)</code></td>
-                  </tr>
-                </tbody>
-              </table>
-                  </div>
-                </details>
-              </cui-disclosure>
-            </section>
+                  <table class="docs-token-table">
+                    <thead>
+                      <tr>
+                        <th>Variable</th>
+                        <th>Default</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>--cui-dialog-bg</code></td>
+                        <td><code>--cui-color-surface-raised</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-dialog-border</code></td>
+                        <td><code>--cui-color-border</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-dialog-radius</code></td>
+                        <td><code>--cui-radius-2</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-dialog-padding</code></td>
+                        <td><code>--cui-space-5</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-dialog-max-inline-size</code></td>
+                        <td><code>28rem</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-dialog-shadow</code></td>
+                        <td><code>0 16px 48px rgba(0, 0, 0, 0.18)</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-dialog-backdrop</code></td>
+                        <td><code>rgba(0, 0, 0, 0.4)</code></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </details>
+            </cui-disclosure>
+          </section>
 
-            <section id="disclosure" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
-              <div class="cui-prose">
-                <h2>Disclosure</h2>
-                <p>
-                  <code>cui-disclosure</code> wraps a native <code>&lt;details&gt;</code> element and adds
-                  consistent styling, animation, an attribute-reflected <code>open</code> state, and a
-                  <code>cui-disclosure-toggle</code> event. Markup stays in light DOM, so headings remain
-                  crawlable and the component still works without JavaScript.
-                </p>
-                <p>
-                  Use the native <code>name</code> attribute on the inner <code>&lt;details&gt;</code> to
-                  create an accordion — opening one sibling collapses the others.
-                </p>
+          <section id="disclosure" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Disclosure</h2>
+              <p>
+                <code>cui-disclosure</code> wraps a native <code>&lt;details&gt;</code> element and adds
+                consistent styling, animation, an attribute-reflected <code>open</code> state, and a
+                <code>cui-disclosure-toggle</code> event. Markup stays in light DOM, so headings remain
+                crawlable and the component still works without JavaScript.
+              </p>
+              <p>
+                Use the native <code>name</code> attribute on the inner <code>&lt;details&gt;</code> to
+                create an accordion — opening one sibling collapses the others.
+              </p>
+            </div>
+
+            <cui-tabs>
+              <div class="cui-tablist">
+                <button class="cui-tab" type="button">Default</button>
+                <button class="cui-tab" type="button">Accordion</button>
+                <button class="cui-tab" type="button">Ghost</button>
+                <button class="cui-tab" type="button">Trigger</button>
               </div>
-
-              <cui-tabs>
-                <button slot="tab" type="button">Default</button>
-                <button slot="tab" type="button">Accordion</button>
-                <button slot="tab" type="button">Ghost</button>
-                <button slot="tab" type="button">Trigger</button>
-
-                <section slot="panel" class="docs-panel">
-                  <div class="cui-stack">
-                    <div class="docs-preview">
-                      <div class="docs-preview-frame">
-                        <cui-disclosure>
-                          <details class="cui-disclosure">
-                            <summary>How does Combat UI ship CSS?</summary>
-                            <div class="cui-disclosure-body">
-                              <p>Components inject their shadow styles through constructable stylesheets and
-                                expose light-DOM hooks via the <code>cui-*</code> class system. Import
-                                <code>cui/index.css</code> once at the app root, then drop components anywhere.</p>
-                            </div>
-                          </details>
-                        </cui-disclosure>
-                      </div>
+              <section class="docs-panel">
+                <div class="cui-stack">
+                  <div class="docs-preview">
+                    <div class="docs-preview-frame">
+                      <cui-disclosure>
+                        <details class="cui-disclosure">
+                          <summary>How does Combat UI ship CSS?</summary>
+                          <div class="cui-disclosure-body">
+                            <p>Components inject their shadow styles through constructable stylesheets and
+                              expose light-DOM hooks via the <code>cui-*</code> class system. Import
+                              <code>cui/index.css</code> once at the app root, then drop components anywhere.
+                            </p>
+                          </div>
+                        </details>
+                      </cui-disclosure>
                     </div>
+                  </div>
 
-                    <cui-code language="html">
-                      <script type="text/html">
+                  <cui-code language="html">
+                    <script type="text/html">
                         <cui-disclosure>
                           <details class="cui-disclosure">
                             <summary>How does Combat UI ship CSS?</summary>
@@ -436,50 +439,52 @@
                           </details>
                         </cui-disclosure>
                       </script>
-                    </cui-code>
-                  </div>
-                </section>
+                  </cui-code>
+                </div>
+              </section>
 
-                <section slot="panel" class="docs-panel">
-                  <div class="cui-stack">
-                    <div class="docs-preview">
-                      <div class="docs-preview-frame">
-                        <div class="cui-disclosure-group" data-variant="stacked">
-                          <cui-disclosure>
-                            <details class="cui-disclosure" name="docs-disclosure-faq">
-                              <summary>Does it work without JavaScript?</summary>
-                              <div class="cui-disclosure-body">
-                                <p>Yes. The component progressively enhances the native
-                                  <code>&lt;details&gt;</code>. Without JS the summary still toggles open and
-                                  closed; with JS you also get the open attribute on the host, custom events,
-                                  and an imperative API.</p>
-                              </div>
-                            </details>
-                          </cui-disclosure>
-                          <cui-disclosure>
-                            <details class="cui-disclosure" name="docs-disclosure-faq">
-                              <summary>How do I make an accordion?</summary>
-                              <div class="cui-disclosure-body">
-                                <p>Give each inner <code>&lt;details&gt;</code> the same <code>name</code>
-                                  attribute. The browser will close siblings automatically when one opens.</p>
-                              </div>
-                            </details>
-                          </cui-disclosure>
-                          <cui-disclosure>
-                            <details class="cui-disclosure" name="docs-disclosure-faq">
-                              <summary>Can I style the chevron?</summary>
-                              <div class="cui-disclosure-body">
-                                <p>Override <code>--cui-disclosure-marker-color</code> or replace the
-                                  <code>::after</code> rule in your own stylesheet.</p>
-                              </div>
-                            </details>
-                          </cui-disclosure>
-                        </div>
+              <section class="docs-panel">
+                <div class="cui-stack">
+                  <div class="docs-preview">
+                    <div class="docs-preview-frame">
+                      <div class="cui-disclosure-group" data-variant="stacked">
+                        <cui-disclosure>
+                          <details class="cui-disclosure" name="docs-disclosure-faq">
+                            <summary>Does it work without JavaScript?</summary>
+                            <div class="cui-disclosure-body">
+                              <p>Yes. The component progressively enhances the native
+                                <code>&lt;details&gt;</code>. Without JS the summary still toggles open and
+                                closed; with JS you also get the open attribute on the host, custom events,
+                                and an imperative API.
+                              </p>
+                            </div>
+                          </details>
+                        </cui-disclosure>
+                        <cui-disclosure>
+                          <details class="cui-disclosure" name="docs-disclosure-faq">
+                            <summary>How do I make an accordion?</summary>
+                            <div class="cui-disclosure-body">
+                              <p>Give each inner <code>&lt;details&gt;</code> the same <code>name</code>
+                                attribute. The browser will close siblings automatically when one opens.</p>
+                            </div>
+                          </details>
+                        </cui-disclosure>
+                        <cui-disclosure>
+                          <details class="cui-disclosure" name="docs-disclosure-faq">
+                            <summary>Can I style the chevron?</summary>
+                            <div class="cui-disclosure-body">
+                              <p>Override <code>--cui-disclosure-marker-color</code> or replace the
+                                <code>::after</code> rule in your own stylesheet.
+                              </p>
+                            </div>
+                          </details>
+                        </cui-disclosure>
                       </div>
                     </div>
+                  </div>
 
-                    <cui-code language="html">
-                      <script type="text/html">
+                  <cui-code language="html">
+                    <script type="text/html">
                         <div class="cui-disclosure-group" data-variant="stacked">
                           <cui-disclosure>
                             <details class="cui-disclosure" name="faq">
@@ -495,38 +500,38 @@
                           </cui-disclosure>
                         </div>
                       </script>
-                    </cui-code>
-                  </div>
-                </section>
+                  </cui-code>
+                </div>
+              </section>
 
-                <section slot="panel" class="docs-panel">
-                  <div class="cui-stack">
-                    <div class="docs-preview">
-                      <div class="docs-preview-frame">
-                        <div class="cui-disclosure-group">
-                          <cui-disclosure>
-                            <details class="cui-disclosure" data-variant="ghost">
-                              <summary>Inline ghost disclosure</summary>
-                              <div class="cui-disclosure-body">
-                                <p>Use <code>data-variant="ghost"</code> for a borderless treatment that nests
-                                  inside other surfaces — table of contents, API references, etc.</p>
-                              </div>
-                            </details>
-                          </cui-disclosure>
-                          <cui-disclosure>
-                            <details class="cui-disclosure" data-variant="ghost">
-                              <summary>Pairs with prose</summary>
-                              <div class="cui-disclosure-body">
-                                <p>The summary inherits text styles so it sits naturally beside paragraphs.</p>
-                              </div>
-                            </details>
-                          </cui-disclosure>
-                        </div>
+              <section class="docs-panel">
+                <div class="cui-stack">
+                  <div class="docs-preview">
+                    <div class="docs-preview-frame">
+                      <div class="cui-disclosure-group">
+                        <cui-disclosure>
+                          <details class="cui-disclosure" data-variant="ghost">
+                            <summary>Inline ghost disclosure</summary>
+                            <div class="cui-disclosure-body">
+                              <p>Use <code>data-variant="ghost"</code> for a borderless treatment that nests
+                                inside other surfaces — table of contents, API references, etc.</p>
+                            </div>
+                          </details>
+                        </cui-disclosure>
+                        <cui-disclosure>
+                          <details class="cui-disclosure" data-variant="ghost">
+                            <summary>Pairs with prose</summary>
+                            <div class="cui-disclosure-body">
+                              <p>The summary inherits text styles so it sits naturally beside paragraphs.</p>
+                            </div>
+                          </details>
+                        </cui-disclosure>
                       </div>
                     </div>
+                  </div>
 
-                    <cui-code language="html">
-                      <script type="text/html">
+                  <cui-code language="html">
+                    <script type="text/html">
                         <cui-disclosure>
                           <details class="cui-disclosure" data-variant="ghost">
                             <summary>Inline ghost disclosure</summary>
@@ -534,38 +539,39 @@
                           </details>
                         </cui-disclosure>
                       </script>
-                    </cui-code>
-                  </div>
-                </section>
+                  </cui-code>
+                </div>
+              </section>
 
-                <section slot="panel" class="docs-panel">
-                  <div class="cui-stack">
-                    <div class="docs-preview">
-                      <div class="docs-preview-frame">
-                        <div class="cui-cluster" style="--cui-cluster-gap: var(--cui-space-3, 0.75rem);">
-                          <cui-button data-cui-disclosure-target="docs-disclosure-remote">Toggle below</cui-button>
-                          <cui-button data-cui-disclosure-target="docs-disclosure-remote"
-                            data-cui-disclosure-action="open">Open</cui-button>
-                          <cui-button data-cui-disclosure-target="docs-disclosure-remote"
-                            data-cui-disclosure-action="close">Close</cui-button>
-                        </div>
-                        <cui-disclosure id="docs-disclosure-remote"
-                          style="margin-block-start: var(--cui-space-3, 0.75rem);">
-                          <details class="cui-disclosure">
-                            <summary>Remote-controlled disclosure</summary>
-                            <div class="cui-disclosure-body">
-                              <p>Any element with <code>data-cui-disclosure-target="&lt;id&gt;"</code>
-                                toggles the matching disclosure. Add
-                                <code>data-cui-disclosure-action="open"</code> or
-                                <code>"close"</code> to force a specific state.</p>
-                            </div>
-                          </details>
-                        </cui-disclosure>
+              <section class="docs-panel">
+                <div class="cui-stack">
+                  <div class="docs-preview">
+                    <div class="docs-preview-frame">
+                      <div class="cui-cluster" style="--cui-cluster-gap: var(--cui-space-3, 0.75rem);">
+                        <cui-button data-cui-disclosure-target="docs-disclosure-remote">Toggle below</cui-button>
+                        <cui-button data-cui-disclosure-target="docs-disclosure-remote"
+                          data-cui-disclosure-action="open">Open</cui-button>
+                        <cui-button data-cui-disclosure-target="docs-disclosure-remote"
+                          data-cui-disclosure-action="close">Close</cui-button>
                       </div>
+                      <cui-disclosure id="docs-disclosure-remote"
+                        style="margin-block-start: var(--cui-space-3, 0.75rem);">
+                        <details class="cui-disclosure">
+                          <summary>Remote-controlled disclosure</summary>
+                          <div class="cui-disclosure-body">
+                            <p>Any element with <code>data-cui-disclosure-target="&lt;id&gt;"</code>
+                              toggles the matching disclosure. Add
+                              <code>data-cui-disclosure-action="open"</code> or
+                              <code>"close"</code> to force a specific state.
+                            </p>
+                          </div>
+                        </details>
+                      </cui-disclosure>
                     </div>
+                  </div>
 
-                    <cui-code language="html">
-                      <script type="text/html">
+                  <cui-code language="html">
+                    <script type="text/html">
                         <cui-button data-cui-disclosure-target="settings">Toggle</cui-button>
                         <cui-disclosure id="settings">
                           <details class="cui-disclosure">
@@ -574,219 +580,221 @@
                           </details>
                         </cui-disclosure>
                       </script>
-                    </cui-code>
-                  </div>
-                </section>
-              </cui-tabs>
+                  </cui-code>
+                </div>
+              </section>
+            </cui-tabs>
 
-              <cui-disclosure>
-                <details class="cui-disclosure" data-variant="ghost">
-                  <summary>API reference</summary>
-                  <div class="cui-disclosure-body">
-                    <table class="docs-token-table">
-                      <thead>
-                        <tr>
-                          <th>Attribute / property</th>
-                          <th>Purpose</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td><code>open</code></td>
-                          <td>Reflects the open state. Setting or removing toggles via the API.</td>
-                        </tr>
-                        <tr>
-                          <td><code>disclosure.open()</code></td>
-                          <td>Opens the inner <code>&lt;details&gt;</code>.</td>
-                        </tr>
-                        <tr>
-                          <td><code>disclosure.close()</code></td>
-                          <td>Closes the inner <code>&lt;details&gt;</code>.</td>
-                        </tr>
-                        <tr>
-                          <td><code>disclosure.toggle()</code></td>
-                          <td>Toggles the open state.</td>
-                        </tr>
-                        <tr>
-                          <td><code>disclosure.isOpen</code></td>
-                          <td>Boolean — current state.</td>
-                        </tr>
-                        <tr>
-                          <td><code>disclosure.details</code></td>
-                          <td>Reference to the inner <code>&lt;details&gt;</code> element.</td>
-                        </tr>
-                      </tbody>
-                    </table>
+            <cui-disclosure>
+              <details class="cui-disclosure" data-variant="ghost">
+                <summary>API reference</summary>
+                <div class="cui-disclosure-body">
+                  <table class="docs-token-table">
+                    <thead>
+                      <tr>
+                        <th>Attribute / property</th>
+                        <th>Purpose</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>open</code></td>
+                        <td>Reflects the open state. Setting or removing toggles via the API.</td>
+                      </tr>
+                      <tr>
+                        <td><code>disclosure.open()</code></td>
+                        <td>Opens the inner <code>&lt;details&gt;</code>.</td>
+                      </tr>
+                      <tr>
+                        <td><code>disclosure.close()</code></td>
+                        <td>Closes the inner <code>&lt;details&gt;</code>.</td>
+                      </tr>
+                      <tr>
+                        <td><code>disclosure.toggle()</code></td>
+                        <td>Toggles the open state.</td>
+                      </tr>
+                      <tr>
+                        <td><code>disclosure.isOpen</code></td>
+                        <td>Boolean — current state.</td>
+                      </tr>
+                      <tr>
+                        <td><code>disclosure.details</code></td>
+                        <td>Reference to the inner <code>&lt;details&gt;</code> element.</td>
+                      </tr>
+                    </tbody>
+                  </table>
 
-                    <table class="docs-token-table">
-                      <thead>
-                        <tr>
-                          <th>Markup attribute / class</th>
-                          <th>Purpose</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td><code>.cui-disclosure</code></td>
-                          <td>Required class on the <code>&lt;details&gt;</code> for styling.</td>
-                        </tr>
-                        <tr>
-                          <td><code>.cui-disclosure-body</code></td>
-                          <td>Optional wrapper around the disclosure content for consistent padding.</td>
-                        </tr>
-                        <tr>
-                          <td><code>.cui-disclosure-group</code></td>
-                          <td>Container that lays out adjacent disclosures with consistent spacing.</td>
-                        </tr>
-                        <tr>
-                          <td><code>data-variant="ghost"</code></td>
-                          <td>On the <code>&lt;details&gt;</code>. Borderless treatment for in-flow disclosures.</td>
-                        </tr>
-                        <tr>
-                          <td><code>data-variant="stacked"</code></td>
-                          <td>On the group. Joins adjacent disclosures with shared borders.</td>
-                        </tr>
-                        <tr>
-                          <td><code>data-tone="subtle"</code></td>
-                          <td>Muted surface treatment.</td>
-                        </tr>
-                        <tr>
-                          <td><code>name="&lt;group&gt;"</code></td>
-                          <td>Native attribute on <code>&lt;details&gt;</code>. Siblings sharing a name behave as an accordion.</td>
-                        </tr>
-                        <tr>
-                          <td><code>data-cui-disclosure-target="&lt;id&gt;"</code></td>
-                          <td>On any clickable element. Toggles the matching disclosure.</td>
-                        </tr>
-                        <tr>
-                          <td><code>data-cui-disclosure-action="open | close"</code></td>
-                          <td>On a trigger. Forces the state instead of toggling.</td>
-                        </tr>
-                      </tbody>
-                    </table>
+                  <table class="docs-token-table">
+                    <thead>
+                      <tr>
+                        <th>Markup attribute / class</th>
+                        <th>Purpose</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>.cui-disclosure</code></td>
+                        <td>Required class on the <code>&lt;details&gt;</code> for styling.</td>
+                      </tr>
+                      <tr>
+                        <td><code>.cui-disclosure-body</code></td>
+                        <td>Optional wrapper around the disclosure content for consistent padding.</td>
+                      </tr>
+                      <tr>
+                        <td><code>.cui-disclosure-group</code></td>
+                        <td>Container that lays out adjacent disclosures with consistent spacing.</td>
+                      </tr>
+                      <tr>
+                        <td><code>data-variant="ghost"</code></td>
+                        <td>On the <code>&lt;details&gt;</code>. Borderless treatment for in-flow disclosures.</td>
+                      </tr>
+                      <tr>
+                        <td><code>data-variant="stacked"</code></td>
+                        <td>On the group. Joins adjacent disclosures with shared borders.</td>
+                      </tr>
+                      <tr>
+                        <td><code>data-tone="subtle"</code></td>
+                        <td>Muted surface treatment.</td>
+                      </tr>
+                      <tr>
+                        <td><code>name="&lt;group&gt;"</code></td>
+                        <td>Native attribute on <code>&lt;details&gt;</code>. Siblings sharing a name behave as an
+                          accordion.</td>
+                      </tr>
+                      <tr>
+                        <td><code>data-cui-disclosure-target="&lt;id&gt;"</code></td>
+                        <td>On any clickable element. Toggles the matching disclosure.</td>
+                      </tr>
+                      <tr>
+                        <td><code>data-cui-disclosure-action="open | close"</code></td>
+                        <td>On a trigger. Forces the state instead of toggling.</td>
+                      </tr>
+                    </tbody>
+                  </table>
 
-                    <table class="docs-token-table">
-                      <thead>
-                        <tr>
-                          <th>Event</th>
-                          <th>Detail / behavior</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td><code>cui-disclosure-toggle</code></td>
-                          <td><code>{ open }</code>. Fires after the inner <code>&lt;details&gt;</code> toggles.</td>
-                        </tr>
-                      </tbody>
-                    </table>
+                  <table class="docs-token-table">
+                    <thead>
+                      <tr>
+                        <th>Event</th>
+                        <th>Detail / behavior</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>cui-disclosure-toggle</code></td>
+                        <td><code>{ open }</code>. Fires after the inner <code>&lt;details&gt;</code> toggles.</td>
+                      </tr>
+                    </tbody>
+                  </table>
 
-                    <table class="docs-token-table">
-                      <thead>
-                        <tr>
-                          <th>Variable</th>
-                          <th>Default</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td><code>--cui-disclosure-bg</code></td>
-                          <td><code>--cui-color-surface-raised</code></td>
-                        </tr>
-                        <tr>
-                          <td><code>--cui-disclosure-color</code></td>
-                          <td><code>--cui-color</code></td>
-                        </tr>
-                        <tr>
-                          <td><code>--cui-disclosure-border</code></td>
-                          <td><code>--cui-color-border</code></td>
-                        </tr>
-                        <tr>
-                          <td><code>--cui-disclosure-radius</code></td>
-                          <td><code>--cui-radius-2</code></td>
-                        </tr>
-                        <tr>
-                          <td><code>--cui-disclosure-padding-block</code></td>
-                          <td><code>--cui-space-3</code></td>
-                        </tr>
-                        <tr>
-                          <td><code>--cui-disclosure-padding-inline</code></td>
-                          <td><code>--cui-space-4</code></td>
-                        </tr>
-                        <tr>
-                          <td><code>--cui-disclosure-marker-color</code></td>
-                          <td><code>--cui-color-muted</code></td>
-                        </tr>
-                        <tr>
-                          <td><code>--cui-disclosure-hover-bg</code></td>
-                          <td><code>--cui-color-surface-muted</code></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </details>
-              </cui-disclosure>
-            </section>
+                  <table class="docs-token-table">
+                    <thead>
+                      <tr>
+                        <th>Variable</th>
+                        <th>Default</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>--cui-disclosure-bg</code></td>
+                        <td><code>--cui-color-surface-raised</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-disclosure-color</code></td>
+                        <td><code>--cui-color</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-disclosure-border</code></td>
+                        <td><code>--cui-color-border</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-disclosure-radius</code></td>
+                        <td><code>--cui-radius-2</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-disclosure-padding-block</code></td>
+                        <td><code>--cui-space-3</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-disclosure-padding-inline</code></td>
+                        <td><code>--cui-space-4</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-disclosure-marker-color</code></td>
+                        <td><code>--cui-color-muted</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-disclosure-hover-bg</code></td>
+                        <td><code>--cui-color-surface-muted</code></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </details>
+            </cui-disclosure>
+          </section>
 
-            <section id="notifications" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
-              <div class="cui-prose">
-                <h2>Notifications</h2>
-                <p>
-                  Two flavors share the same <code>.cui-alert</code> CSS: static inline alerts sit in the page
-                  flow and need no JavaScript; floating toasts are created programmatically via the
-                  <code>toast()</code> function and slotted into a <code>cui-toast-region</code> that
-                  auto-creates itself on the first call. A <code>data-cui-dismiss</code> attribute on any
-                  button inside a <code>.cui-alert</code> removes its alert.
-                </p>
+          <section id="notifications" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Notifications</h2>
+              <p>
+                Two flavors share the same <code>.cui-alert</code> CSS: static inline alerts sit in the page
+                flow and need no JavaScript; floating toasts are created programmatically via the
+                <code>toast()</code> function and slotted into a <code>cui-toast-region</code> that
+                auto-creates itself on the first call. A <code>data-cui-dismiss</code> attribute on any
+                button inside a <code>.cui-alert</code> removes its alert.
+              </p>
+            </div>
+
+            <cui-tabs>
+              <div class="cui-tablist">
+                <button class="cui-tab" type="button" data-selected="true">Inline alerts</button>
+                <button class="cui-tab" type="button">Toasts</button>
+                <button class="cui-tab" type="button">Tones</button>
               </div>
-
-              <cui-tabs>
-                <button slot="tab" type="button">Inline alerts</button>
-                <button slot="tab" type="button">Toasts</button>
-                <button slot="tab" type="button">Tones</button>
-
-                <section slot="panel" class="docs-panel">
+              <section class="docs-panel">
+                <div class="cui-stack">
                   <div class="cui-stack">
-                    <div class="cui-stack">
-                      <div class="cui-alert" data-variant="info" role="status">
-                        <span class="cui-alert-icon" aria-hidden="true">i</span>
-                        <div class="cui-alert-body">
-                          <p class="cui-alert-title">Heads up</p>
-                          <p>Maintenance starts at 22:00 UTC.</p>
-                        </div>
-                        <button type="button" class="cui-alert-dismiss" data-cui-dismiss
-                          aria-label="Dismiss">&times;</button>
+                    <div class="cui-alert" data-variant="info" role="status">
+                      <span class="cui-alert-icon" aria-hidden="true">i</span>
+                      <div class="cui-alert-body">
+                        <p class="cui-alert-title">Heads up</p>
+                        <p>Maintenance starts at 22:00 UTC.</p>
                       </div>
-                      <div class="cui-alert" data-variant="success" role="status">
-                        <span class="cui-alert-icon" aria-hidden="true">✓</span>
-                        <div class="cui-alert-body">
-                          <p class="cui-alert-title">Saved.</p>
-                          <p>Your changes are live.</p>
-                        </div>
-                        <button type="button" class="cui-alert-dismiss" data-cui-dismiss
-                          aria-label="Dismiss">&times;</button>
-                      </div>
-                      <div class="cui-alert" data-variant="warning" role="alert">
-                        <span class="cui-alert-icon" aria-hidden="true">!</span>
-                        <div class="cui-alert-body">
-                          <p class="cui-alert-title">Be careful</p>
-                          <p>This branch has unsaved migrations.</p>
-                        </div>
-                        <button type="button" class="cui-alert-dismiss" data-cui-dismiss
-                          aria-label="Dismiss">&times;</button>
-                      </div>
-                      <div class="cui-alert" data-variant="danger" role="alert">
-                        <span class="cui-alert-icon" aria-hidden="true">✕</span>
-                        <div class="cui-alert-body">
-                          <p class="cui-alert-title">Failed</p>
-                          <p>Couldn't reach the upstream service. Retrying in 30s.</p>
-                        </div>
-                        <button type="button" class="cui-alert-dismiss" data-cui-dismiss
-                          aria-label="Dismiss">&times;</button>
-                      </div>
+                      <button type="button" class="cui-alert-dismiss" data-cui-dismiss
+                        aria-label="Dismiss">&times;</button>
                     </div>
+                    <div class="cui-alert" data-variant="success" role="status">
+                      <span class="cui-alert-icon" aria-hidden="true">✓</span>
+                      <div class="cui-alert-body">
+                        <p class="cui-alert-title">Saved.</p>
+                        <p>Your changes are live.</p>
+                      </div>
+                      <button type="button" class="cui-alert-dismiss" data-cui-dismiss
+                        aria-label="Dismiss">&times;</button>
+                    </div>
+                    <div class="cui-alert" data-variant="warning" role="alert">
+                      <span class="cui-alert-icon" aria-hidden="true">!</span>
+                      <div class="cui-alert-body">
+                        <p class="cui-alert-title">Be careful</p>
+                        <p>This branch has unsaved migrations.</p>
+                      </div>
+                      <button type="button" class="cui-alert-dismiss" data-cui-dismiss
+                        aria-label="Dismiss">&times;</button>
+                    </div>
+                    <div class="cui-alert" data-variant="danger" role="alert">
+                      <span class="cui-alert-icon" aria-hidden="true">✕</span>
+                      <div class="cui-alert-body">
+                        <p class="cui-alert-title">Failed</p>
+                        <p>Couldn't reach the upstream service. Retrying in 30s.</p>
+                      </div>
+                      <button type="button" class="cui-alert-dismiss" data-cui-dismiss
+                        aria-label="Dismiss">&times;</button>
+                    </div>
+                  </div>
 
-                    <cui-code language="html">
-                      <script type="text/html">
+                  <cui-code language="html">
+                    <script type="text/html">
                         <div class="cui-alert" data-variant="success" role="status">
                           <span class="cui-alert-icon" aria-hidden="true">✓</span>
                           <div class="cui-alert-body">
@@ -796,29 +804,29 @@
                           <button type="button" class="cui-alert-dismiss" data-cui-dismiss aria-label="Dismiss">&times;</button>
                         </div>
                       </script>
-                    </cui-code>
+                  </cui-code>
 
-                    <p class="cui-caption">
-                      No JavaScript required for styling. The dismiss button works as soon as the toast module
-                      is loaded — one global click listener handles <code>[data-cui-dismiss]</code> for any
-                      <code>.cui-alert</code> on the page.
-                    </p>
+                  <p class="cui-caption">
+                    No JavaScript required for styling. The dismiss button works as soon as the toast module
+                    is loaded — one global click listener handles <code>[data-cui-dismiss]</code> for any
+                    <code>.cui-alert</code> on the page.
+                  </p>
+                </div>
+              </section>
+
+              <section class="docs-panel">
+                <div class="cui-stack">
+                  <div class="cui-cluster">
+                    <button type="button" class="cui-button" id="docs-toast-info">Info</button>
+                    <button type="button" class="cui-button" id="docs-toast-success">Success</button>
+                    <button type="button" class="cui-button" id="docs-toast-warning">Warning</button>
+                    <button type="button" class="cui-button" id="docs-toast-danger">Danger</button>
+                    <button type="button" class="cui-button" id="docs-toast-sticky">Sticky</button>
+                    <button type="button" class="cui-button" id="docs-toast-update">Progress (update)</button>
                   </div>
-                </section>
 
-                <section slot="panel" class="docs-panel">
-                  <div class="cui-stack">
-                    <div class="cui-cluster">
-                      <button type="button" class="cui-button" id="docs-toast-info">Info</button>
-                      <button type="button" class="cui-button" id="docs-toast-success">Success</button>
-                      <button type="button" class="cui-button" id="docs-toast-warning">Warning</button>
-                      <button type="button" class="cui-button" id="docs-toast-danger">Danger</button>
-                      <button type="button" class="cui-button" id="docs-toast-sticky">Sticky</button>
-                      <button type="button" class="cui-button" id="docs-toast-update">Progress (update)</button>
-                    </div>
-
-                    <cui-code language="javascript">
-                      <script type="text/plain">
+                  <cui-code language="javascript">
+                    <script type="text/plain">
                         import "combat-ui/auto"; // registers <cui-toast-region>
                         import { toast } from "combat-ui";
 
@@ -838,253 +846,253 @@
                         // Pick a corner: start-start | start-center | start-end | end-start | end-center | end-end
                         toast.warning("Saved locally", { placement: "start-center" });
                       </script>
-                    </cui-code>
+                  </cui-code>
 
-                    <p class="cui-caption">
-                      A <code>cui-toast-region</code> auto-mounts on first call. Place
-                      <code>&lt;cui-toast-region placement="end-end"&gt;&lt;/cui-toast-region&gt;</code> in
-                      your body to control the container yourself.
-                    </p>
-                  </div>
-                </section>
+                  <p class="cui-caption">
+                    A <code>cui-toast-region</code> auto-mounts on first call. Place
+                    <code>&lt;cui-toast-region placement="end-end"&gt;&lt;/cui-toast-region&gt;</code> in
+                    your body to control the container yourself.
+                  </p>
+                </div>
+              </section>
 
-                <section slot="panel" class="docs-panel">
+              <section class="docs-panel">
+                <div class="cui-stack">
                   <div class="cui-stack">
-                    <div class="cui-stack">
-                      <div class="cui-alert" data-variant="info" role="status">
-                        <span class="cui-alert-icon" aria-hidden="true">i</span>
-                        <div class="cui-alert-body">
-                          <p>Default <code>outline</code> tone. Surface background with an accent stripe.</p>
-                        </div>
-                      </div>
-                      <div class="cui-alert" data-variant="info" data-tone="filled" role="status">
-                        <span class="cui-alert-icon" aria-hidden="true">i</span>
-                        <div class="cui-alert-body">
-                          <p><code>data-tone="filled"</code>. Subtle accent-tinted background.</p>
-                        </div>
-                      </div>
-                      <div class="cui-alert" data-variant="success" data-tone="solid" role="status">
-                        <span class="cui-alert-icon" aria-hidden="true">✓</span>
-                        <div class="cui-alert-body">
-                          <p><code>data-tone="solid"</code>. Full accent background, high-contrast text.</p>
-                        </div>
-                      </div>
-                      <div class="cui-alert" data-variant="danger" data-tone="solid" role="alert">
-                        <span class="cui-alert-icon" aria-hidden="true">✕</span>
-                        <div class="cui-alert-body">
-                          <p class="cui-alert-title">Critical</p>
-                          <p>Solid tone draws the eye for blocking errors.</p>
-                        </div>
+                    <div class="cui-alert" data-variant="info" role="status">
+                      <span class="cui-alert-icon" aria-hidden="true">i</span>
+                      <div class="cui-alert-body">
+                        <p>Default <code>outline</code> tone. Surface background with an accent stripe.</p>
                       </div>
                     </div>
+                    <div class="cui-alert" data-variant="info" data-tone="filled" role="status">
+                      <span class="cui-alert-icon" aria-hidden="true">i</span>
+                      <div class="cui-alert-body">
+                        <p><code>data-tone="filled"</code>. Subtle accent-tinted background.</p>
+                      </div>
+                    </div>
+                    <div class="cui-alert" data-variant="success" data-tone="solid" role="status">
+                      <span class="cui-alert-icon" aria-hidden="true">✓</span>
+                      <div class="cui-alert-body">
+                        <p><code>data-tone="solid"</code>. Full accent background, high-contrast text.</p>
+                      </div>
+                    </div>
+                    <div class="cui-alert" data-variant="danger" data-tone="solid" role="alert">
+                      <span class="cui-alert-icon" aria-hidden="true">✕</span>
+                      <div class="cui-alert-body">
+                        <p class="cui-alert-title">Critical</p>
+                        <p>Solid tone draws the eye for blocking errors.</p>
+                      </div>
+                    </div>
+                  </div>
 
-                    <cui-code language="html">
-                      <script type="text/html">
+                  <cui-code language="html">
+                    <script type="text/html">
                         <div class="cui-alert" data-variant="info" data-tone="filled">…</div>
                         <div class="cui-alert" data-variant="danger" data-tone="solid">…</div>
                       </script>
-                    </cui-code>
-                  </div>
-                </section>
-              </cui-tabs>
-
-              <cui-disclosure>
-                <details class="cui-disclosure" data-variant="ghost">
-                  <summary>API reference</summary>
-                  <div class="cui-disclosure-body">
-              <table class="docs-token-table">
-                <thead>
-                  <tr>
-                    <th>API</th>
-                    <th>Purpose</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code>toast(options)</code></td>
-                    <td>Show a toast. Returns <code>{ element, dismiss(), update(opts) }</code>.</td>
-                  </tr>
-                  <tr>
-                    <td><code>toast.info(msg, opts?)</code> · <code>.success</code> · <code>.warning</code> ·
-                      <code>.danger</code>
-                    </td>
-                      <code>.danger</code>
-                    </td>
-                    <td>Sugar — sets <code>variant</code> for you.</td>
-                  </tr>
-                  <tr>
-                    <td><code>handle.dismiss()</code></td>
-                    <td>Cancel the auto-dismiss timer and remove the toast (with the exit animation).</td>
-                  </tr>
-                  <tr>
-                    <td><code>handle.update(opts)</code></td>
-                    <td>Patch any option (message, title, variant, tone, duration). Resets the timer.</td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table class="docs-token-table">
-                <thead>
-                  <tr>
-                    <th>Option</th>
-                    <th>Default · Purpose</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code>message</code></td>
-                    <td>Required. Body text.</td>
-                  </tr>
-                  <tr>
-                    <td><code>title</code></td>
-                    <td>Optional bold heading.</td>
-                  </tr>
-                  <tr>
-                    <td><code>variant</code></td>
-                    <td><code>"info"</code>. One of <code>info | success | warning | danger</code>.
-                      <code>warning</code> and <code>danger</code> render with <code>role="alert"</code>.
-                    </td>
-                      <code>warning</code> and <code>danger</code> render with <code>role="alert"</code>.
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><code>tone</code></td>
-                    <td>None. <code>filled</code> or <code>solid</code> for heavier emphasis.</td>
-                  </tr>
-                  <tr>
-                    <td><code>duration</code></td>
-                    <td><code>4000</code> ms. Set <code>0</code> for sticky.</td>
-                  </tr>
-                  <tr>
-                    <td><code>placement</code></td>
-                    <td><code>"end-end"</code> (bottom right). Six positions: <code>start | end</code> on the
-                      block axis × <code>start | center | end</code> on the inline axis.</td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table class="docs-token-table">
-                <thead>
-                  <tr>
-                    <th>Markup attribute / class</th>
-                    <th>Purpose</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code>.cui-alert</code></td>
-                    <td>Container. Grid layout: icon · body · dismiss.</td>
-                  </tr>
-                  <tr>
-                    <td><code>.cui-alert-icon</code> · <code>.cui-alert-body</code> ·
-                      <code>.cui-alert-title</code> · <code>.cui-alert-message</code> ·
-                      <code>.cui-alert-actions</code> · <code>.cui-alert-dismiss</code>
-                    </td>
-                    <td>Structural classes for the slots.</td>
-                  </tr>
-                  <tr>
-                    <td><code>data-variant="info | success | warning | danger"</code></td>
-                    <td>Sets the accent color and icon.</td>
-                  </tr>
-                  <tr>
-                    <td><code>data-tone="filled | solid"</code></td>
-                    <td>Visual weight. Omitted = outline tone.</td>
-                  </tr>
-                  <tr>
-                    <td><code>data-cui-dismiss</code></td>
-                    <td>On any element inside a <code>.cui-alert</code>. Clicks remove the alert with the exit
-                      animation.</td>
-                  </tr>
-                  <tr>
-                    <td><code>cui-alert-dismiss</code> event</td>
-                    <td>Bubbles from a <code>.cui-alert</code> after it's removed.</td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table class="docs-token-table">
-                <thead>
-                  <tr>
-                    <th>Variable</th>
-                    <th>Default</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code>--cui-alert-bg</code></td>
-                    <td><code>--cui-color-surface-raised</code></td>
-                  </tr>
-                  <tr>
-                    <td><code>--cui-alert-color</code></td>
-                    <td><code>--cui-color</code></td>
-                  </tr>
-                  <tr>
-                    <td><code>--cui-alert-border</code></td>
-                    <td><code>--cui-color-border</code></td>
-                  </tr>
-                  <tr>
-                    <td><code>--cui-alert-accent</code></td>
-                    <td>Per-variant <code>--cui-color-info | success | warning | danger</code></td>
-                  </tr>
-                  <tr>
-                    <td><code>--cui-alert-radius</code></td>
-                    <td><code>--cui-radius-2</code></td>
-                  </tr>
-                  <tr>
-                    <td><code>--cui-toast-z-index</code></td>
-                    <td><code>1000</code></td>
-                  </tr>
-                  <tr>
-                    <td><code>--cui-toast-padding</code></td>
-                    <td><code>--cui-space-4</code></td>
-                  </tr>
-                  <tr>
-                    <td><code>--cui-toast-gap</code></td>
-                    <td><code>--cui-space-2</code></td>
-                  </tr>
-                </tbody>
-              </table>
-                  </div>
-                </details>
-              </cui-disclosure>
-            </section>
-
-            <section id="cookie-banner" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
-              <div class="cui-prose">
-                <h2>Cookie banner</h2>
-                <p>
-                  <code>cui-cookie-banner</code> is a fixed, bottom-anchored consent banner with an
-                  accept-all / necessary-only / granular-settings flow. It persists the choice in a cookie
-                  and is deliberately <strong>tracker-free</strong> — it manages consent and UI only and
-                  emits a typed <code>cui-cookie-consent-change</code> event so you load (or block) analytics
-                  and marketing scripts yourself.
-                </p>
-                <p>
-                  All copy comes from named slots with English defaults, so the banner is fully translatable.
-                  On connect it reads the stored cookie: with no choice yet it opens automatically (unless
-                  <code>manual</code> is set); with a stored choice it stays hidden and re-emits the consent
-                  with <code>reason: "restore"</code> so you can re-apply it on every page load.
-                </p>
-              </div>
-
-              <div class="docs-preview">
-                <div class="docs-preview-frame">
-                  <div class="cui-cluster" style="--cui-cluster-gap: var(--cui-space-3, 0.75rem);">
-                    <cui-button data-cui-cookie-banner-target="docs-cookie-banner">Open banner</cui-button>
-                    <cui-button data-cui-cookie-banner-target="docs-cookie-banner"
-                      data-cui-cookie-banner-action="revoke">Revoke &amp; reopen</cui-button>
-                  </div>
-
-                  <cui-cookie-banner manual id="docs-cookie-banner">
-                    <a slot="policy" href="./theming.html" target="_blank" rel="noopener">Read our cookie policy</a>
-                  </cui-cookie-banner>
-
-                  <p class="cui-caption docs-modal-log" id="docs-cookie-log" aria-live="polite"></p>
+                  </cui-code>
                 </div>
-              </div>
+              </section>
+            </cui-tabs>
 
-              <cui-code language="html">
-                <script type="text/html">
+            <cui-disclosure>
+              <details class="cui-disclosure" data-variant="ghost">
+                <summary>API reference</summary>
+                <div class="cui-disclosure-body">
+                  <table class="docs-token-table">
+                    <thead>
+                      <tr>
+                        <th>API</th>
+                        <th>Purpose</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>toast(options)</code></td>
+                        <td>Show a toast. Returns <code>{ element, dismiss(), update(opts) }</code>.</td>
+                      </tr>
+                      <tr>
+                        <td><code>toast.info(msg, opts?)</code> · <code>.success</code> · <code>.warning</code> ·
+                          <code>.danger</code>
+                        </td>
+                        <code>.danger</code>
+                        </td>
+                        <td>Sugar — sets <code>variant</code> for you.</td>
+                      </tr>
+                      <tr>
+                        <td><code>handle.dismiss()</code></td>
+                        <td>Cancel the auto-dismiss timer and remove the toast (with the exit animation).</td>
+                      </tr>
+                      <tr>
+                        <td><code>handle.update(opts)</code></td>
+                        <td>Patch any option (message, title, variant, tone, duration). Resets the timer.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <table class="docs-token-table">
+                    <thead>
+                      <tr>
+                        <th>Option</th>
+                        <th>Default · Purpose</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>message</code></td>
+                        <td>Required. Body text.</td>
+                      </tr>
+                      <tr>
+                        <td><code>title</code></td>
+                        <td>Optional bold heading.</td>
+                      </tr>
+                      <tr>
+                        <td><code>variant</code></td>
+                        <td><code>"info"</code>. One of <code>info | success | warning | danger</code>.
+                          <code>warning</code> and <code>danger</code> render with <code>role="alert"</code>.
+                        </td>
+                        <code>warning</code> and <code>danger</code> render with <code>role="alert"</code>.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>tone</code></td>
+                        <td>None. <code>filled</code> or <code>solid</code> for heavier emphasis.</td>
+                      </tr>
+                      <tr>
+                        <td><code>duration</code></td>
+                        <td><code>4000</code> ms. Set <code>0</code> for sticky.</td>
+                      </tr>
+                      <tr>
+                        <td><code>placement</code></td>
+                        <td><code>"end-end"</code> (bottom right). Six positions: <code>start | end</code> on the
+                          block axis × <code>start | center | end</code> on the inline axis.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <table class="docs-token-table">
+                    <thead>
+                      <tr>
+                        <th>Markup attribute / class</th>
+                        <th>Purpose</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>.cui-alert</code></td>
+                        <td>Container. Grid layout: icon · body · dismiss.</td>
+                      </tr>
+                      <tr>
+                        <td><code>.cui-alert-icon</code> · <code>.cui-alert-body</code> ·
+                          <code>.cui-alert-title</code> · <code>.cui-alert-message</code> ·
+                          <code>.cui-alert-actions</code> · <code>.cui-alert-dismiss</code>
+                        </td>
+                        <td>Structural classes for the slots.</td>
+                      </tr>
+                      <tr>
+                        <td><code>data-variant="info | success | warning | danger"</code></td>
+                        <td>Sets the accent color and icon.</td>
+                      </tr>
+                      <tr>
+                        <td><code>data-tone="filled | solid"</code></td>
+                        <td>Visual weight. Omitted = outline tone.</td>
+                      </tr>
+                      <tr>
+                        <td><code>data-cui-dismiss</code></td>
+                        <td>On any element inside a <code>.cui-alert</code>. Clicks remove the alert with the exit
+                          animation.</td>
+                      </tr>
+                      <tr>
+                        <td><code>cui-alert-dismiss</code> event</td>
+                        <td>Bubbles from a <code>.cui-alert</code> after it's removed.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <table class="docs-token-table">
+                    <thead>
+                      <tr>
+                        <th>Variable</th>
+                        <th>Default</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>--cui-alert-bg</code></td>
+                        <td><code>--cui-color-surface-raised</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-alert-color</code></td>
+                        <td><code>--cui-color</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-alert-border</code></td>
+                        <td><code>--cui-color-border</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-alert-accent</code></td>
+                        <td>Per-variant <code>--cui-color-info | success | warning | danger</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-alert-radius</code></td>
+                        <td><code>--cui-radius-2</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-toast-z-index</code></td>
+                        <td><code>1000</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-toast-padding</code></td>
+                        <td><code>--cui-space-4</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-toast-gap</code></td>
+                        <td><code>--cui-space-2</code></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </details>
+            </cui-disclosure>
+          </section>
+
+          <section id="cookie-banner" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Cookie banner</h2>
+              <p>
+                <code>cui-cookie-banner</code> is a fixed, bottom-anchored consent banner with an
+                accept-all / necessary-only / granular-settings flow. It persists the choice in a cookie
+                and is deliberately <strong>tracker-free</strong> — it manages consent and UI only and
+                emits a typed <code>cui-cookie-consent-change</code> event so you load (or block) analytics
+                and marketing scripts yourself.
+              </p>
+              <p>
+                All copy comes from named slots with English defaults, so the banner is fully translatable.
+                On connect it reads the stored cookie: with no choice yet it opens automatically (unless
+                <code>manual</code> is set); with a stored choice it stays hidden and re-emits the consent
+                with <code>reason: "restore"</code> so you can re-apply it on every page load.
+              </p>
+            </div>
+
+            <div class="docs-preview">
+              <div class="docs-preview-frame">
+                <div class="cui-cluster" style="--cui-cluster-gap: var(--cui-space-3, 0.75rem);">
+                  <cui-button data-cui-cookie-banner-target="docs-cookie-banner">Open banner</cui-button>
+                  <cui-button data-cui-cookie-banner-target="docs-cookie-banner"
+                    data-cui-cookie-banner-action="revoke">Revoke &amp; reopen</cui-button>
+                </div>
+
+                <cui-cookie-banner manual id="docs-cookie-banner">
+                  <a slot="policy" href="./theming.html" target="_blank" rel="noopener">Read our cookie policy</a>
+                </cui-cookie-banner>
+
+                <p class="cui-caption docs-modal-log" id="docs-cookie-log" aria-live="polite"></p>
+              </div>
+            </div>
+
+            <cui-code language="html">
+              <script type="text/html">
                   <cui-cookie-banner>
                     <a slot="policy" href="/privacy-policy">Read our cookie policy</a>
                   </cui-cookie-banner>
@@ -1092,10 +1100,10 @@
                   <!-- Re-open later from a footer link, anywhere on the page -->
                   <button data-cui-cookie-banner-target="…">Cookie settings</button>
                 </script>
-              </cui-code>
+            </cui-code>
 
-              <cui-code language="javascript">
-                <script type="text/plain">
+            <cui-code language="javascript">
+              <script type="text/plain">
                   const banner = document.querySelector("cui-cookie-banner");
 
                   banner.addEventListener("cui-cookie-consent-change", (event) => {
@@ -1107,167 +1115,172 @@
                     else blockMarketing();
                   });
                 </script>
-              </cui-code>
+            </cui-code>
 
-              <cui-disclosure>
-                <details class="cui-disclosure" data-variant="ghost">
-                  <summary>API reference</summary>
-                  <div class="cui-disclosure-body">
-                    <table class="docs-token-table">
-                      <thead>
-                        <tr>
-                          <th>Attribute / property</th>
-                          <th>Purpose</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td><code>open</code></td>
-                          <td>Reflects banner visibility. Set or remove to show/hide.</td>
-                        </tr>
-                        <tr>
-                          <td><code>manual</code></td>
-                          <td>Suppresses auto-open on connect even with no stored choice.</td>
-                        </tr>
-                        <tr>
-                          <td><code>categories</code></td>
-                          <td>Comma-separated optional categories to show (subset of
-                            <code>analytics,marketing</code>). Default shows both.</td>
-                        </tr>
-                        <tr>
-                          <td><code>cookie-name</code></td>
-                          <td>Name of the consent cookie. Default <code>cui-cookie-consent</code>.</td>
-                        </tr>
-                        <tr>
-                          <td><code>cookie-expiry</code></td>
-                          <td>Cookie lifetime in days. Default <code>365</code>.</td>
-                        </tr>
-                        <tr>
-                          <td><code>banner.acceptAll()</code> · <code>declineAll()</code> ·
-                            <code>savePreferences()</code></td>
-                          <td>Persist consent and close the banner.</td>
-                        </tr>
-                        <tr>
-                          <td><code>banner.show()</code> · <code>hide()</code> ·
-                            <code>showSettings()</code> · <code>revoke()</code></td>
-                          <td>Control visibility; <code>revoke()</code> clears the cookie and reopens.</td>
-                        </tr>
-                        <tr>
-                          <td><code>banner.consent</code> · <code>getConsent()</code></td>
-                          <td>Current stored consent, or <code>null</code> when undecided.</td>
-                        </tr>
-                        <tr>
-                          <td><code>banner.hasConsent(category)</code></td>
-                          <td>Boolean — whether a category is granted.</td>
-                        </tr>
-                      </tbody>
-                    </table>
+            <cui-disclosure>
+              <details class="cui-disclosure" data-variant="ghost">
+                <summary>API reference</summary>
+                <div class="cui-disclosure-body">
+                  <table class="docs-token-table">
+                    <thead>
+                      <tr>
+                        <th>Attribute / property</th>
+                        <th>Purpose</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>open</code></td>
+                        <td>Reflects banner visibility. Set or remove to show/hide.</td>
+                      </tr>
+                      <tr>
+                        <td><code>manual</code></td>
+                        <td>Suppresses auto-open on connect even with no stored choice.</td>
+                      </tr>
+                      <tr>
+                        <td><code>categories</code></td>
+                        <td>Comma-separated optional categories to show (subset of
+                          <code>analytics,marketing</code>). Default shows both.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>cookie-name</code></td>
+                        <td>Name of the consent cookie. Default <code>cui-cookie-consent</code>.</td>
+                      </tr>
+                      <tr>
+                        <td><code>cookie-expiry</code></td>
+                        <td>Cookie lifetime in days. Default <code>365</code>.</td>
+                      </tr>
+                      <tr>
+                        <td><code>banner.acceptAll()</code> · <code>declineAll()</code> ·
+                          <code>savePreferences()</code>
+                        </td>
+                        <td>Persist consent and close the banner.</td>
+                      </tr>
+                      <tr>
+                        <td><code>banner.show()</code> · <code>hide()</code> ·
+                          <code>showSettings()</code> · <code>revoke()</code>
+                        </td>
+                        <td>Control visibility; <code>revoke()</code> clears the cookie and reopens.</td>
+                      </tr>
+                      <tr>
+                        <td><code>banner.consent</code> · <code>getConsent()</code></td>
+                        <td>Current stored consent, or <code>null</code> when undecided.</td>
+                      </tr>
+                      <tr>
+                        <td><code>banner.hasConsent(category)</code></td>
+                        <td>Boolean — whether a category is granted.</td>
+                      </tr>
+                    </tbody>
+                  </table>
 
-                    <table class="docs-token-table">
-                      <thead>
-                        <tr>
-                          <th>Slot</th>
-                          <th>Default</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td><code>title</code> · <code>description</code></td>
-                          <td>Banner heading and intro paragraph.</td>
-                        </tr>
-                        <tr>
-                          <td><code>accept-label</code> · <code>decline-label</code> ·
-                            <code>settings-label</code> · <code>save-label</code></td>
-                          <td>Button text.</td>
-                        </tr>
-                        <tr>
-                          <td><code>necessary-label</code> · <code>analytics-label</code> ·
-                            <code>marketing-label</code> (+ matching <code>-description</code>)</td>
-                          <td>Per-category copy.</td>
-                        </tr>
-                        <tr>
-                          <td><code>policy</code></td>
-                          <td>Cookie policy link.</td>
-                        </tr>
-                      </tbody>
-                    </table>
+                  <table class="docs-token-table">
+                    <thead>
+                      <tr>
+                        <th>Slot</th>
+                        <th>Default</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>title</code> · <code>description</code></td>
+                        <td>Banner heading and intro paragraph.</td>
+                      </tr>
+                      <tr>
+                        <td><code>accept-label</code> · <code>decline-label</code> ·
+                          <code>settings-label</code> · <code>save-label</code>
+                        </td>
+                        <td>Button text.</td>
+                      </tr>
+                      <tr>
+                        <td><code>necessary-label</code> · <code>analytics-label</code> ·
+                          <code>marketing-label</code> (+ matching <code>-description</code>)
+                        </td>
+                        <td>Per-category copy.</td>
+                      </tr>
+                      <tr>
+                        <td><code>policy</code></td>
+                        <td>Cookie policy link.</td>
+                      </tr>
+                    </tbody>
+                  </table>
 
-                    <table class="docs-token-table">
-                      <thead>
-                        <tr>
-                          <th>Markup attribute</th>
-                          <th>Purpose</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td><code>data-cui-cookie-banner-target="&lt;id&gt;"</code></td>
-                          <td>On any clickable element. Opens the banner with that <code>id</code>.</td>
-                        </tr>
-                        <tr>
-                          <td><code>data-cui-cookie-banner-action="revoke"</code></td>
-                          <td>On a trigger. Revokes consent and reopens instead of just showing.</td>
-                        </tr>
-                      </tbody>
-                    </table>
+                  <table class="docs-token-table">
+                    <thead>
+                      <tr>
+                        <th>Markup attribute</th>
+                        <th>Purpose</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>data-cui-cookie-banner-target="&lt;id&gt;"</code></td>
+                        <td>On any clickable element. Opens the banner with that <code>id</code>.</td>
+                      </tr>
+                      <tr>
+                        <td><code>data-cui-cookie-banner-action="revoke"</code></td>
+                        <td>On a trigger. Revokes consent and reopens instead of just showing.</td>
+                      </tr>
+                    </tbody>
+                  </table>
 
-                    <table class="docs-token-table">
-                      <thead>
-                        <tr>
-                          <th>Event</th>
-                          <th>Detail / behavior</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td><code>cui-cookie-consent-change</code></td>
-                          <td><code>{ consent, reason }</code>. Fires on save, revoke, and restore.</td>
-                        </tr>
-                        <tr>
-                          <td><code>cui-cookie-banner-open</code> · <code>cui-cookie-banner-close</code></td>
-                          <td>Fire after the banner opens / closes.</td>
-                        </tr>
-                      </tbody>
-                    </table>
+                  <table class="docs-token-table">
+                    <thead>
+                      <tr>
+                        <th>Event</th>
+                        <th>Detail / behavior</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>cui-cookie-consent-change</code></td>
+                        <td><code>{ consent, reason }</code>. Fires on save, revoke, and restore.</td>
+                      </tr>
+                      <tr>
+                        <td><code>cui-cookie-banner-open</code> · <code>cui-cookie-banner-close</code></td>
+                        <td>Fire after the banner opens / closes.</td>
+                      </tr>
+                    </tbody>
+                  </table>
 
-                    <table class="docs-token-table">
-                      <thead>
-                        <tr>
-                          <th>Variable</th>
-                          <th>Default</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td><code>--cui-cookie-banner-bg</code></td>
-                          <td><code>--cui-color-surface-raised</code></td>
-                        </tr>
-                        <tr>
-                          <td><code>--cui-cookie-banner-border</code></td>
-                          <td><code>--cui-color-border</code></td>
-                        </tr>
-                        <tr>
-                          <td><code>--cui-cookie-banner-radius</code></td>
-                          <td><code>--cui-radius-2</code></td>
-                        </tr>
-                        <tr>
-                          <td><code>--cui-cookie-banner-shadow</code></td>
-                          <td><code>--cui-shadow-2</code></td>
-                        </tr>
-                        <tr>
-                          <td><code>--cui-cookie-banner-z-index</code></td>
-                          <td><code>1000</code></td>
-                        </tr>
-                        <tr>
-                          <td><code>--cui-cookie-banner-max-inline-size</code></td>
-                          <td><code>30rem</code></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </details>
-              </cui-disclosure>
-            </section>
+                  <table class="docs-token-table">
+                    <thead>
+                      <tr>
+                        <th>Variable</th>
+                        <th>Default</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>--cui-cookie-banner-bg</code></td>
+                        <td><code>--cui-color-surface-raised</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-cookie-banner-border</code></td>
+                        <td><code>--cui-color-border</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-cookie-banner-radius</code></td>
+                        <td><code>--cui-radius-2</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-cookie-banner-shadow</code></td>
+                        <td><code>--cui-shadow-2</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-cookie-banner-z-index</code></td>
+                        <td><code>1000</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-cookie-banner-max-inline-size</code></td>
+                        <td><code>30rem</code></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </details>
+            </cui-disclosure>
+          </section>
         </div>
       </div>
     </section>
