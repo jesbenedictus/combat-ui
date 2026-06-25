@@ -83,6 +83,12 @@
                   <code>.cui-case-card</code>, <code>.cui-content-card</code>, <code>.cui-stat</code>,
                   <code>.cui-logo-item</code>) are unchanged.
                 </li>
+                <li><code>.cui-testimonial-grid</code> (and its <code>--cui-testimonial-grid-min</code> var) -
+                  lay testimonial cards out with <code>.cui-grid</code> and <code>--cui-grid-min: 18rem</code>.
+                </li>
+                <li><code>.cui-testimonial-author-text</code> - the name + role pair is now a plain
+                  <code>.cui-stack</code> with <code>--cui-stack-gap: var(--cui-space-1)</code>.
+                </li>
               </ul>
             </div>
 
@@ -117,6 +123,11 @@
                 <li><code>.cui-case-card-body</code> now composes <code>.cui-stack</code>; update it to
                   <code>class="cui-case-card-body cui-stack"</code>. It keeps only the body padding and the
                   tightened gap delta.
+                </li>
+                <li><code>.cui-quote</code> and <code>.cui-testimonial</code> no longer carry their own chrome;
+                  they compose <code>.cui-surface</code>. Add it in markup, e.g.
+                  <code>class="cui-surface cui-quote"</code>. The <code>--cui-quote-*</code> knobs are preserved -
+                  they now feed the matching <code>--cui-surface-*</code> override vars.
                 </li>
               </ul>
             </div>

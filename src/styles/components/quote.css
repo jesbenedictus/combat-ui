@@ -1,26 +1,33 @@
 .cui-quote,
 .cui-testimonial {
+  --cui-surface-bg: var(--cui-quote-bg, var(--cui-color-surface-raised, #fff));
+  --cui-surface-border: var(--cui-border-size, 1px) solid
+    var(--cui-quote-border, var(--cui-color-border, #cfd6df));
+  --cui-surface-radius: var(--cui-quote-radius, var(--cui-radius-2, 0.5rem));
+  --cui-surface-shadow: var(
+    --cui-quote-shadow,
+    var(--cui-shadow-1, 0 1px 2px hsl(220deg 25% 10% / 12%))
+  );
+  --cui-surface-padding: var(--cui-quote-padding, var(--cui-space-6, 2rem));
+
   display: grid;
   gap: var(--cui-quote-gap, var(--cui-space-4, 1rem));
-  border: var(--cui-border-size, 1px) solid var(--cui-quote-border, var(--cui-color-border, #cfd6df));
-  border-radius: var(--cui-quote-radius, var(--cui-radius-2, 0.5rem));
-  background: var(--cui-quote-bg, var(--cui-color-surface-raised, #fff));
   color: var(--cui-quote-color, var(--cui-color, #1b1f27));
-  box-shadow: var(--cui-quote-shadow, var(--cui-shadow-1, 0 1px 2px hsl(220deg 25% 10% / 12%)));
-  padding: var(--cui-quote-padding, var(--cui-space-6, 2rem));
 }
 
 /**
- * Editorial quote card. Wraps a `<blockquote>` (or `.cui-quote-body`)
- * with optional `.cui-quote-mark`, `.cui-quote-footer`,
- * `.cui-quote-author`, and `.cui-quote-meta`. Shares its surface
- * styling with `.cui-testimonial` via a combined base rule; the
+ * Editorial quote card. Compose `.cui-surface` for the card chrome:
+ * `<figure class="cui-surface cui-quote">`. Wraps a `<blockquote>`
+ * (or `.cui-quote-body`) with optional `.cui-quote-mark`,
+ * `.cui-quote-footer`, `.cui-quote-author`, and `.cui-quote-meta`.
+ * Feeds the `--cui-surface-*` vars from its `--cui-quote-*` knobs
+ * via a combined base rule shared with `.cui-testimonial`; the
  * unique behavior here is a 52rem max-inline-size (so the quote
  * line lengths stay readable on wide pages). Pair with
  * `[data-align="center"]` to center the card and its inner text.
  *
  * @block cui-quote
- * @summary Editorial quote card with shared base styling.
+ * @summary Editorial quote card; composes `.cui-surface`.
  * @variant pull | accent — Maps to `[data-variant]`. `pull` removes
  *   the box and uses block-axis border lines (inline pull-quote);
  *   `accent` adds a 4× inline-start accent rail.
@@ -40,7 +47,7 @@
  * @cssvar --cui-quote-size — Max-inline-size of the card. Defaults to 52rem.
  *
  * @example
- *   <figure class="cui-quote">
+ *   <figure class="cui-surface cui-quote">
  *     <span class="cui-quote-mark" aria-hidden="true">"</span>
  *     <blockquote class="cui-quote-body">
  *       Combat UI feels like writing HTML in 2026 actually does.
@@ -53,7 +60,7 @@
  *
  * @example
  *   <!-- Pull quote inside an article -->
- *   <figure class="cui-quote" data-variant="pull" data-align="center">
+ *   <figure class="cui-surface cui-quote" data-variant="pull" data-align="center">
  *     <blockquote class="cui-quote-body">A single bold sentence.</blockquote>
  *   </figure>
  */
@@ -153,59 +160,43 @@
 }
 
 /**
- * Grid container for `.cui-testimonial` cards. Auto-fits columns
- * of at least `--cui-testimonial-grid-min` (18rem default); gap
- * follows `--cui-content-grid-gap`.
- *
- * @block cui-testimonial-grid
- * @summary Responsive grid of testimonial cards (18rem min).
- * @cssvar --cui-testimonial-grid-min — Minimum column width. Defaults to 18rem.
- *
- * @example
- *   <div class="cui-testimonial-grid">
- *     <article class="cui-testimonial">…</article>
- *     <article class="cui-testimonial">…</article>
- *     <article class="cui-testimonial">…</article>
- *   </div>
- */
-.cui-testimonial-grid {
-  display: grid;
-  gap: var(--cui-content-grid-gap, var(--cui-space-4, 1rem));
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--cui-testimonial-grid-min, 18rem)), 1fr));
-}
-
-/**
- * Customer-testimonial card. Inherits the shared card chrome from
- * the combined `.cui-quote, .cui-testimonial` base — same surface
- * tokens, same variants (`accent`, `inverse`, `center`); see
- * `.cui-quote` for the full customization-token list. The
- * testimonial-specific addition is `align-content: start` so the
- * card stays top-aligned in a grid of mixed-height neighbors.
+ * Customer-testimonial card. Compose `.cui-surface` for the card
+ * chrome: `<article class="cui-surface cui-testimonial">`. Inherits
+ * the shared surface feeders from the combined `.cui-quote,
+ * .cui-testimonial` base — same surface tokens, same variants
+ * (`accent`, `inverse`, `center`); see `.cui-quote` for the full
+ * customization-token list. The testimonial-specific addition is
+ * `align-content: start` so the card stays top-aligned in a grid of
+ * mixed-height neighbors. Lay cards out with `.cui-grid` (set
+ * `--cui-grid-min: 18rem` for the testimonial column width).
  *
  * Use `.cui-testimonial-author` (instead of `.cui-quote-footer`)
  * for the attribution row when you have an avatar — the styles
  * are equivalent, but the name lines up with the picture in a
- * way readers expect from testimonial layouts.
+ * way readers expect from testimonial layouts. Stack the name +
+ * role pair with `.cui-stack`.
  *
  * @block cui-testimonial
- * @summary Customer-testimonial card; shares the cui-quote base.
+ * @summary Customer-testimonial card; composes `.cui-surface`.
  * @variant accent — Maps to `[data-variant]`. Inline-start accent rail.
  * @variant inverse — Presence of `[data-inverse]`. Dark-surface palette.
  * @variant center — Maps to `[data-align]`. Centered content + footer.
  *
  * @example
- *   <article class="cui-testimonial">
- *     <p class="cui-testimonial-body">
- *       We shipped our redesign in three weeks.
- *     </p>
- *     <div class="cui-testimonial-author">
- *       <img class="cui-testimonial-avatar" src="/jane.jpg" alt="">
- *       <div class="cui-testimonial-author-text">
- *         <span class="cui-testimonial-name">Jane Smith</span>
- *         <span class="cui-testimonial-role">Head of Design, Acme</span>
+ *   <div class="cui-grid" style="--cui-grid-min: 18rem;">
+ *     <article class="cui-surface cui-testimonial">
+ *       <p class="cui-testimonial-body">
+ *         We shipped our redesign in three weeks.
+ *       </p>
+ *       <div class="cui-testimonial-author">
+ *         <img class="cui-testimonial-avatar" src="/jane.jpg" alt="">
+ *         <div class="cui-stack" style="--cui-stack-gap: var(--cui-space-1, 0.25rem);">
+ *           <span class="cui-testimonial-name">Jane Smith</span>
+ *           <span class="cui-testimonial-role">Head of Design, Acme</span>
+ *         </div>
  *       </div>
- *     </div>
- *   </article>
+ *     </article>
+ *   </div>
  */
 .cui-testimonial {
   align-content: start;
@@ -226,20 +217,6 @@
   border-radius: 50%;
   background: var(--cui-color-surface-muted, #edf0f4);
   object-fit: cover;
-}
-
-/**
- * Wrapper around the name + role pair inside
- * `.cui-testimonial-author`. A small grid that stacks the two
- * lines with `--cui-space-1` between them; the avatar sits to
- * the inline-start side at the flex level above.
- *
- * @block cui-testimonial-author-text
- * @summary Name + role stack inside a testimonial author row.
- */
-.cui-testimonial-author-text {
-  display: grid;
-  gap: var(--cui-space-1, 0.25rem);
 }
 
 .cui-quote[data-variant="pull"] {
