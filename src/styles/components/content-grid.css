@@ -31,9 +31,9 @@
  *
  * @example
  *   <div class="cui-card-grid" data-columns="3">
- *     <article class="cui-card">…</article>
- *     <article class="cui-card">…</article>
- *     <article class="cui-card">…</article>
+ *     <article class="cui-surface cui-stack">…</article>
+ *     <article class="cui-surface cui-stack">…</article>
+ *     <article class="cui-surface cui-stack">…</article>
  *   </div>
  */
 .cui-card-grid {

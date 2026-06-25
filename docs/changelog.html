@@ -65,7 +65,7 @@
               <code>.cui-cluster</code>, <code>.cui-grid</code>) in markup. Dozens of bespoke <code>*-body</code>,
               <code>*-actions</code>, <code>*-grid</code>, and <code>*-meta</code> subclasses are removed in favour of
               a small canonical vocabulary. <em>Removals and the migration guide below are filled in as each block
-              lands.</em>
+                lands.</em>
             </p>
 
             <div class="docs-change-group" data-change="removed">
@@ -73,10 +73,11 @@
               <ul class="docs-change-list">
                 <li><code>.cui-cta-actions</code> - the CTA actions row is now a plain
                   <code>.cui-cluster</code>. Its default gap (<code>--cui-space-3</code>) is identical, so the
-                  swap is purely a class rename in markup.</li>
+                  swap is purely a class rename in markup.
+                </li>
               </ul>
             </div>
-            
+
             <div class="docs-change-group" data-change="changed">
               <h3 class="docs-change-heading">Changed</h3>
               <ul class="docs-change-list">
@@ -85,10 +86,28 @@
                   <code>.cui-stack</code> (the content↔actions gap). Update markup from
                   <code>class="cui-cta"</code> to <code>class="cui-cta cui-surface cui-stack"</code>. The
                   <code>--cui-cta-padding</code> and <code>--cui-cta-gap</code> knobs are preserved - they now feed
-                  <code>--cui-surface-padding</code> and <code>--cui-stack-gap</code>.</li>
+                  <code>--cui-surface-padding</code> and <code>--cui-stack-gap</code>.
+                </li>
                 <li><code>.cui-cta-content</code> now composes <code>.cui-stack</code>; update it to
                   <code>class="cui-cta-content cui-stack"</code>. It keeps only the tightened gap and the content
-                  measure cap.</li>
+                  measure cap.
+                </li>
+                <li><code>.cui-stack</code> now zeroes <code>margin-block</code> on its direct children, so the
+                  gap is the sole source of vertical rhythm. This makes it a drop-in for the per-block
+                  <code>*-body</code> margin resets being removed across this release.
+                </li>
+
+              </ul>
+            </div>
+
+            <div class="docs-change-group" data-change="deprecated">
+              <h3 class="docs-change-heading">Deprecated</h3>
+              <ul class="docs-change-list">
+                <li><code>.cui-card</code> - use the <code>.cui-surface.cui-stack</code> recipe instead. The
+                  class keeps working as a back-compat alias for one minor and will be removed in the next. Migrate
+                  <code>class="cui-card"</code> to <code>class="cui-surface cui-stack"</code> (add
+                  <code>--cui-stack-gap: var(--cui-space-3)</code> for the original 0.75rem gap).
+                </li>
               </ul>
             </div>
 
@@ -98,10 +117,12 @@
                 <li>Override custom properties on <code>.cui-surface</code> so any block can re-skin the chrome
                   without redeclaring it: <code>--cui-surface-bg</code>, <code>--cui-surface-border</code>,
                   <code>--cui-surface-radius</code>, <code>--cui-surface-shadow</code>, and
-                  <code>--cui-surface-padding</code> (each defaults to the previous hardcoded value).</li>
+                  <code>--cui-surface-padding</code> (each defaults to the previous hardcoded value).
+                </li>
                 <li>New <code>.cui-meta</code> class — one canonical metadata row (wrapping list with
                   <code>·</code> separators and list reset) that replaces the per-block <code>*-meta</code> rows.
-                  Tunable via <code>--cui-meta-gap</code> and <code>--cui-meta-separator</code>.</li>
+                  Tunable via <code>--cui-meta-gap</code> and <code>--cui-meta-separator</code>.
+                </li>
               </ul>
             </div>
           </section>
@@ -144,14 +165,17 @@
                 <li><code>cui-navbar</code> now enhances light-DOM <code>.cui-navbar-*</code> markup instead of
                   slotting <code>brand</code>/<code>nav</code>/<code>actions</code> into a shadow root. The
                   <code>expanded</code>, <code>sticky</code>, <code>sticky-offset</code>, and
-                  <code>sticky-z-index</code> attributes are unchanged; the burger toggle is injected for you.</li>
+                  <code>sticky-z-index</code> attributes are unchanged; the burger toggle is injected for you.
+                </li>
                 <li><code>cui-tabs</code> now reads its tabs and panels from light DOM: tabs live in a
                   <code>.cui-tablist</code> as <code>.cui-tab</code> buttons, and panels are the remaining element
                   children in order. The initial-selection signal changed from <code>aria-selected="true"</code>
                   to <code>data-selected="true"</code>. Keyboard support (Arrow / Home / End) and ARIA wiring are
-                  preserved.</li>
+                  preserved.
+                </li>
                 <li>The <code>inverse</code> boolean attribute on the former CTA / page-intro elements is now the
-                  <code>data-tone="inverse"</code> attribute on the corresponding block.</li>
+                  <code>data-tone="inverse"</code> attribute on the corresponding block.
+                </li>
                 <li>Variant and alignment are expressed with <code>data-variant</code> and <code>data-align</code>
                   attributes instead of <code>variant</code> / <code>align</code> element attributes.</li>
               </ul>
@@ -166,12 +190,14 @@
                   <code>.cui-cta-content</code>, <code>.cui-cta-title</code>, <code>.cui-cta-actions</code>), and
                   <code>.cui-page-intro</code> (with <code>.cui-page-intro-layout</code>,
                   <code>-content</code>, <code>-title</code>, <code>-meta</code>, <code>-actions</code>,
-                  <code>-aside</code>).</li>
+                  <code>-aside</code>).
+                </li>
                 <li>New public CSS custom properties on the hero block:
                   <code>--cui-hero-background-image</code> and <code>--cui-hero-background-position</code> (set
                   them on <code>.cui-hero-bg</code> for the background variant). The remaining
                   <code>--cui-hero-*</code>, <code>--cui-cta-*</code>, and <code>--cui-page-intro-*</code>
-                  customization points carry over.</li>
+                  customization points carry over.
+                </li>
               </ul>
             </div>
 
@@ -230,7 +256,8 @@
               <p class="docs-upgrade-lead"><strong>cui-cta → <code>.cui-cta</code> block.</strong> The
                 <code>variant</code> attribute becomes <code>data-variant</code> (values unchanged: <code>simple</code>,
                 <code>split</code>, <code>full-bleed</code>, <code>sticky</code>) and the <code>inverse</code>
-                attribute becomes <code>data-tone="inverse"</code>.</p>
+                attribute becomes <code>data-tone="inverse"</code>.
+              </p>
               <div class="docs-upgrade-pair">
                 <div class="docs-upgrade-col">
                   <p class="docs-upgrade-label" data-kind="before">Before — v0.3.x</p>
@@ -269,7 +296,8 @@
               <p class="docs-upgrade-lead"><strong>cui-page-intro → <code>.cui-page-intro</code> block.</strong>
                 Wrap the content (and optional aside) in a <code>.cui-page-intro-layout</code> grid; map slots to
                 classes (<code>slot="meta"</code> → <code>.cui-page-intro-meta</code>, <code>slot="aside"</code> →
-                <code>.cui-page-intro-aside</code>).</p>
+                <code>.cui-page-intro-aside</code>).
+              </p>
               <div class="docs-upgrade-pair">
                 <div class="docs-upgrade-col">
                   <p class="docs-upgrade-label" data-kind="before">Before — v0.3.x</p>
@@ -307,7 +335,8 @@
 
               <p class="docs-upgrade-lead"><strong>cui-tabs markup.</strong> Group tabs in a
                 <code>.cui-tablist</code> and mark the initial tab with <code>data-selected="true"</code>; panels
-                are the remaining children, matched to tabs in document order.</p>
+                are the remaining children, matched to tabs in document order.
+              </p>
               <div class="docs-upgrade-pair">
                 <div class="docs-upgrade-col">
                   <p class="docs-upgrade-label" data-kind="before">Before — v0.3.x</p>
@@ -383,7 +412,8 @@
               <h3 class="docs-change-heading">Changed</h3>
               <ul class="docs-change-list">
                 <li>Public custom property renamed: <code>--cui-radius-control</code> →
-                  <code>--cui-control-radius</code>. Update any override of the old name.</li>
+                  <code>--cui-control-radius</code>. Update any override of the old name.
+                </li>
                 <li><code>leaflet</code> and <code>leaflet.markercluster</code> moved from <code>dependencies</code>
                   to <code>peerDependencies</code>. If you use <code>cui-map</code>, install Leaflet alongside
                   Combat UI.</li>
@@ -395,7 +425,8 @@
                 <li>Find-and-replace <code>--cui-radius-control</code> with <code>--cui-control-radius</code> in
                   your stylesheets and inline overrides.</li>
                 <li>If your project renders <code>cui-map</code>, add Leaflet to your own dependencies:
-                  <code>npm install leaflet leaflet.markercluster</code>.</li>
+                  <code>npm install leaflet leaflet.markercluster</code>.
+                </li>
               </ul>
             </div>
           </section>
@@ -417,7 +448,8 @@
                   <code>autoplay</code>, <code>interval</code>, <code>loop</code>, <code>transition</code>,
                   <code>controls</code>, <code>pagination</code>, and <code>pause-on-hover</code> attributes;
                   <code>next()</code> / <code>previous()</code> / <code>go()</code> / <code>play()</code> /
-                  <code>pause()</code> methods; and a <code>cui-carousel-change</code> event.</li>
+                  <code>pause()</code> methods; and a <code>cui-carousel-change</code> event.
+                </li>
               </ul>
             </div>
           </section>
@@ -437,7 +469,8 @@
               <ul class="docs-change-list">
                 <li>A self-registering subpath export for every component (e.g.
                   <code>@combat-ui/core/button</code>, <code>@combat-ui/core/cookie-banner</code>) so bundlers
-                  ship only the elements you import.</li>
+                  ship only the elements you import.
+                </li>
               </ul>
             </div>
             <div class="docs-change-group" data-change="changed">
@@ -446,7 +479,8 @@
                 <li>The <code>@combat-ui/core/styles</code> specifier now resolves to
                   <code>dist/combat-ui.css</code>. If you referenced the underlying file path
                   (<code>dist/styles/index.css</code>) directly, switch to the <code>/styles</code> specifier or
-                  the new path.</li>
+                  the new path.
+                </li>
               </ul>
             </div>
           </section>
@@ -467,7 +501,8 @@
                 <li>New <code>cui-cookie-banner</code> element for consent management, with category configuration
                   (<code>categories</code>, <code>cookie-name</code>, <code>cookie-expiry</code>), slotted labels,
                   and <code>cui-cookie-consent-change</code> / <code>cui-cookie-banner-open</code> /
-                  <code>cui-cookie-banner-close</code> events.</li>
+                  <code>cui-cookie-banner-close</code> events.
+                </li>
               </ul>
             </div>
           </section>
@@ -511,13 +546,16 @@
                   <code>cui-field</code>, <code>cui-form</code>, <code>cui-modal</code>,
                   <code>cui-toast-region</code>, <code>cui-disclosure</code>, <code>cui-map</code>,
                   <code>cui-article-filter</code>, <code>cui-calendar</code>, and
-                  <code>cui-day-planner</code>.</li>
+                  <code>cui-day-planner</code>.
+                </li>
                 <li>Exported helpers: <code>defineCombatUi()</code>, <code>getTheme()</code> /
                   <code>setTheme()</code>, <code>toast()</code>, <code>attachCuiParallax()</code>, and
-                  <code>getScrollCoordinator()</code>.</li>
+                  <code>getScrollCoordinator()</code>.
+                </li>
                 <li>The <code>.</code> entry (registers every element) and the
                   <code>@combat-ui/core/styles</code> stylesheet, plus the CSS reset, design tokens, layout
-                  primitives, utility classes, and light-DOM block classes.</li>
+                  primitives, utility classes, and light-DOM block classes.
+                </li>
               </ul>
             </div>
           </section>

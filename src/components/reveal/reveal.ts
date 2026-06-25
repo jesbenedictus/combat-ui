@@ -19,7 +19,7 @@ import { valueWithUnit } from "../../internal/css-helpers";
  *
  * @example
  * <cui-reveal delay="100" distance="32px">
- *   <article class="cui-card">…</article>
+ *   <article class="cui-surface cui-stack">…</article>
  * </cui-reveal>
  */
 export class CuiReveal extends CombatElement {

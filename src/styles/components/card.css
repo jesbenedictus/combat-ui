@@ -1,16 +1,17 @@
 /**
- * Generic card primitive: bordered, lightly elevated, with default
- * padding and a vertical stack of children. Use as a low-level
- * building block when none of the typed cards
- * (`.cui-feature-card`, `.cui-case-card`, `.cui-content-card`,
- * `.cui-stat`) match the content. Headings and paragraphs at the
- * top level get `margin: 0` so the grid gap controls vertical
- * rhythm — no need for manual margin resets in card bodies.
+ * **Deprecated — use `.cui-surface.cui-stack` instead.** This generic card is
+ * exactly the `.cui-surface` chrome plus a `.cui-stack` rhythm. It is kept as a
+ * back-compat alias for one minor and will be removed in the next minor. Migrate
+ * `class="cui-card"` to `class="cui-surface cui-stack"`; add
+ * `style="--cui-stack-gap: var(--cui-space-3)"` if you want the original tighter
+ * 0.75rem gap. `.cui-stack` now zeroes direct-child block margins, so the
+ * heading/paragraph reset this block applies is no longer needed in the recipe.
  *
  * @block cui-card
- * @summary Generic bordered + elevated card with stacked children.
+ * @summary Deprecated alias for the `.cui-surface.cui-stack` card recipe.
+ * @deprecated Use `.cui-surface.cui-stack`. Scheduled for removal in the next minor.
  * @example
- *   <article class="cui-card">
+ *   <article class="cui-surface cui-stack">
  *     <h3>Card title</h3>
  *     <p>Card body copy that can wrap freely.</p>
  *   </article>

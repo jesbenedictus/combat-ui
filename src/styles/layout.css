@@ -476,6 +476,9 @@
  * card stacks). Override `--cui-stack-gap` per instance via
  * inline style or per-scope via a parent rule.
  *
+ * Direct children get `margin-block: 0`, so the gap is the single source of
+ * vertical rhythm — no per-child margin resets needed.
+ *
  * @block cui-stack
  * @summary Block-axis stack with `--cui-stack-gap` between children.
  * @cssvar --cui-stack-gap — Gap between children. Defaults to `--cui-space-4`.
@@ -490,6 +493,10 @@
 .cui-stack {
   display: grid;
   gap: var(--cui-stack-gap, var(--cui-space-4, 1rem));
+}
+
+.cui-stack > * {
+  margin-block: 0;
 }
 
 /**
