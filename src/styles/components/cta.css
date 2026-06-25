@@ -1,32 +1,33 @@
 /**
- * Call-to-action band — a bordered, lightly elevated card with a content
- * stack and an optional actions row. Pure CSS; apply `.cui-cta` to a
+ * Call-to-action band, composes the `.cui-surface` chrome and a
+ * `.cui-stack` rhythm, adding only CTA-specific deltas (content cap,
+ * display title, variants). Apply `.cui-cta .cui-surface .cui-stack` to a
  * `<section>` (or any container).
  *
- * Structure: a `.cui-cta-content` stack (eyebrow + `.cui-cta-title` + copy) and
- * an optional `.cui-cta-actions` row of buttons. The `data-variant` shape and
- * the `data-tone` treatment compose freely.
+ * Structure: a `.cui-cta-content .cui-stack` column (eyebrow +
+ * `.cui-cta-title` + copy) and an optional `.cui-cluster` row of buttons.
+ * The `data-variant` shape and the `data-tone` treatment compose freely.
  *
  * @block cui-cta
- * @summary Call-to-action card with content + actions; variant modifiers.
+ * @summary Call-to-action card (surface + stack) with content + actions; variant modifiers.
  * @variant split — `[data-variant="split"]`. Content and actions side by side at ≥48rem.
  * @variant simple — `[data-variant="simple"]`. Centers the content stack and its text.
  * @variant full-bleed — `[data-variant="full-bleed"]`. Edge-to-edge muted band with no card chrome.
  * @variant sticky — `[data-variant="sticky"]`. Pins to the viewport bottom, capped to the container width.
  * @tone inverse — `[data-tone="inverse"]`. Dark surface with light foreground; combines with any variant.
- * @cssvar --cui-cta-gap — Gap between content and actions. Defaults to `--cui-space-5`.
- * @cssvar --cui-cta-padding — Card padding. Defaults to `--cui-space-6`.
+ * @cssvar --cui-cta-gap — Gap between content and actions (feeds `--cui-stack-gap`). Defaults to `--cui-space-5`.
+ * @cssvar --cui-cta-padding — Card padding (feeds `--cui-surface-padding`). Defaults to `--cui-space-6`.
  * @cssvar --cui-cta-content-size — Max inline-size of the content stack. Defaults to 48rem.
  * @cssvar --cui-cta-title-size — Title font-size. Defaults to `--cui-font-size-4`.
  *
  * @example
- *   <section class="cui-cta">
- *     <div class="cui-cta-content">
+ *   <section class="cui-cta cui-surface cui-stack">
+ *     <div class="cui-cta-content cui-stack">
  *       <p class="cui-eyebrow">For agencies</p>
  *       <h2 class="cui-cta-title">Ship sites that survive accessibility audits</h2>
  *       <p>Combat UI ships baseline-modern CSS only — no shims, no surprises.</p>
  *     </div>
- *     <div class="cui-cta-actions">
+ *     <div class="cui-cluster">
  *       <a class="cui-button cui-button-primary" href="/start">Get started</a>
  *       <a class="cui-button" href="/docs">Read the docs</a>
  *     </div>
@@ -42,46 +43,33 @@
   --cui-cta-inverse-muted-color: var(--cui-color-inverse-muted, hsl(0deg 0% 100% / 78%));
   --cui-cta-inverse-eyebrow-color: var(--cui-color-inverse-eyebrow, hsl(0deg 0% 100% / 76%));
 
-  display: grid;
-  gap: var(--cui-cta-gap, 1.5rem);
-  border: var(--cui-border-size, 1px) solid var(--cui-color-border, #cfd6df);
-  border-radius: var(--cui-radius-2, 0.5rem);
-  background: var(--cui-cta-bg, var(--cui-color-surface-raised, #fff));
-  box-shadow: var(--cui-shadow-1, 0 1px 2px hsl(220deg 25% 10% / 12%));
+  /* Compose: feed the CTA knobs into the .cui-surface / .cui-stack hooks.
+     Chrome (border, radius, shadow, bg, padding) now comes from .cui-surface;
+     the content↔actions gap comes from .cui-stack. */
+  --cui-surface-padding: var(--cui-cta-padding, 2rem);
+  --cui-surface-bg: var(--cui-cta-bg, var(--cui-color-surface-raised, #fff));
+  --cui-stack-gap: var(--cui-cta-gap, 1.5rem);
+
   color: var(--cui-cta-color, var(--cui-color, #1b1f27));
-  padding: var(--cui-cta-padding, 2rem);
 }
 
 /**
  * Content stack inside `.cui-cta` — eyebrow, `.cui-cta-title`, and body copy.
- * A capped-width grid; unclassed paragraphs render muted at reading measure.
+ * Composes `.cui-stack`; this rule only tightens the gap and caps the width.
+ * Unclassed paragraphs render muted at reading measure.
  *
  * @block cui-cta-content
  * @summary Capped content stack (eyebrow + title + copy) inside the CTA.
  */
 .cui-cta-content {
-  display: grid;
+  --cui-stack-gap: var(--cui-space-3, 0.75rem);
   max-inline-size: var(--cui-cta-content-size, 48rem);
-  gap: var(--cui-space-3, 0.75rem);
 }
 
 .cui-cta-content > :where(p):not([class]) {
   max-inline-size: var(--cui-content-measure, 68ch);
   margin: 0;
   color: var(--cui-cta-muted-color, var(--cui-color-muted, #5d6675));
-}
-
-/**
- * Actions row inside `.cui-cta` — a wrapping flex row of buttons/links.
- *
- * @block cui-cta-actions
- * @summary Wrapping row of CTA buttons.
- */
-.cui-cta-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: start;
-  gap: var(--cui-space-3, 0.75rem);
 }
 
 /**
@@ -115,11 +103,11 @@
 /* Full-bleed — edge-to-edge band with a muted fill and no chrome. */
 .cui-cta[data-variant="full-bleed"] {
   --cui-cta-padding: var(--cui-section-space-compact, clamp(2.5rem, 7vi, 5rem)) var(--cui-container-gutter, 2rem);
+  --cui-cta-bg: var(--cui-color-surface-muted, #edf0f4);
+  --cui-surface-radius: 0;
+  --cui-surface-shadow: none;
 
   border-inline: 0;
-  border-radius: 0;
-  background: var(--cui-cta-bg, var(--cui-color-surface-muted, #edf0f4));
-  box-shadow: none;
 }
 
 /* Inverse — dark surface with light foreground. */
@@ -133,7 +121,6 @@
   --cui-cta-muted-color: var(--cui-cta-inverse-muted-color, hsl(0deg 0% 100% / 78%));
   --cui-cta-eyebrow-color: var(--cui-cta-inverse-eyebrow-color, hsl(0deg 0% 100% / 76%));
 
-  background: var(--cui-cta-bg, #10141b);
   color: var(--cui-cta-color, #f7f8fa);
 }
 

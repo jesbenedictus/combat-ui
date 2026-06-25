@@ -68,6 +68,30 @@
               lands.</em>
             </p>
 
+            <div class="docs-change-group" data-change="removed">
+              <h3 class="docs-change-heading">Removed</h3>
+              <ul class="docs-change-list">
+                <li><code>.cui-cta-actions</code> - the CTA actions row is now a plain
+                  <code>.cui-cluster</code>. Its default gap (<code>--cui-space-3</code>) is identical, so the
+                  swap is purely a class rename in markup.</li>
+              </ul>
+            </div>
+            
+            <div class="docs-change-group" data-change="changed">
+              <h3 class="docs-change-heading">Changed</h3>
+              <ul class="docs-change-list">
+                <li><code>.cui-cta</code> no longer carries its own chrome - it composes
+                  <code>.cui-surface</code> (border, radius, shadow, background, padding) and
+                  <code>.cui-stack</code> (the content↔actions gap). Update markup from
+                  <code>class="cui-cta"</code> to <code>class="cui-cta cui-surface cui-stack"</code>. The
+                  <code>--cui-cta-padding</code> and <code>--cui-cta-gap</code> knobs are preserved - they now feed
+                  <code>--cui-surface-padding</code> and <code>--cui-stack-gap</code>.</li>
+                <li><code>.cui-cta-content</code> now composes <code>.cui-stack</code>; update it to
+                  <code>class="cui-cta-content cui-stack"</code>. It keeps only the tightened gap and the content
+                  measure cap.</li>
+              </ul>
+            </div>
+
             <div class="docs-change-group" data-change="added">
               <h3 class="docs-change-heading">Added</h3>
               <ul class="docs-change-list">
@@ -80,8 +104,6 @@
                   Tunable via <code>--cui-meta-gap</code> and <code>--cui-meta-separator</code>.</li>
               </ul>
             </div>
-
-            <!-- Removed / Changed groups and the Upgrade guide are appended by later block commits. -->
           </section>
           <!-- ============================ v0.4.0 ============================ -->
           <section id="v0-4-0" class="docs-release">
