@@ -1,10 +1,16 @@
 /**
  * Person card — a vertically stacked card with optional photo,
- * name, role, metadata, bio, and links. Apply to any container,
+ * name, role, metadata, bio, and links. Compose `.cui-surface`
+ * for the card chrome: `<article class="cui-surface cui-person">`,
  * or wrap an `<a>` to make the whole card a link (hover surfaces
- * an accent border). The card itself shares its surface tokens
- * with `.cui-content-card` so it visually matches feature/case
- * cards in mixed layouts.
+ * an accent border). The card feeds the `--cui-surface-*` vars from
+ * its `--cui-content-card-*` / `--cui-person-*` knobs, so it still
+ * matches feature/case cards in mixed layouts.
+ *
+ * Lay the body out with `.cui-stack`, the links row with
+ * `.cui-cluster`, and a grid of cards with `.cui-grid`
+ * (`--cui-grid-min: 16rem`; 20rem + `data-gap="spacious"` for a
+ * leadership grid).
  *
  * Photo shape is controlled by `[data-photo]`; layout by
  * `[data-orient]`; alignment by `[data-align]`; chrome and
@@ -13,7 +19,7 @@
  * step — use it on solo bios or hero people.
  *
  * @block cui-person
- * @summary Person card with photo, name, role, meta, bio, links.
+ * @summary Person card (photo, name, role, meta, bio, links); composes `.cui-surface`.
  * @variant square | rounded — Maps to `[data-photo]`. `square` uses
  *   `--cui-radius-2`; `rounded` uses `--cui-radius-1`; the default
  *   is a full circle.
@@ -33,9 +39,9 @@
  * @cssvar --cui-person-padding — Card padding. Defaults to `--cui-space-5`.
  *
  * @example
- *   <a class="cui-person" data-orient="row" href="/team/jane">
+ *   <a class="cui-surface cui-person" data-orient="row" href="/team/jane">
  *     <img class="cui-person-photo" src="/team/jane.jpg" alt="">
- *     <div class="cui-person-body">
+ *     <div class="cui-stack">
  *       <p class="cui-person-meta">Engineering</p>
  *       <h3 class="cui-person-name">Jane Smith</h3>
  *       <p class="cui-person-role">Principal Engineer</p>
@@ -44,13 +50,13 @@
  *
  * @example
  *   <!-- Leadership preset -->
- *   <article class="cui-person" data-variant="leadership" data-align="center">
+ *   <article class="cui-surface cui-person" data-variant="leadership" data-align="center">
  *     <img class="cui-person-photo" src="/team/lead.jpg" alt="">
- *     <div class="cui-person-body">
+ *     <div class="cui-stack">
  *       <h3 class="cui-person-name">Alex Doe</h3>
  *       <p class="cui-person-role">CEO &amp; Co-founder</p>
  *       <p class="cui-person-bio">Two sentences of context…</p>
- *       <ul class="cui-person-links">
+ *       <ul class="cui-cluster">
  *         <li><a href="https://example.com">Site</a></li>
  *         <li><a href="https://linkedin.com/in/lead">LinkedIn</a></li>
  *       </ul>
@@ -64,16 +70,20 @@
   --cui-person-gap: var(--cui-space-4, 1rem);
   --cui-person-body-gap: var(--cui-space-1, 0.25rem);
   --cui-person-padding: var(--cui-space-5, 1.5rem);
+  --cui-surface-bg: var(--cui-content-card-bg, var(--cui-color-surface-raised, #fff));
+  --cui-surface-border: var(--cui-border-size, 1px) solid
+    var(--cui-content-card-border, var(--cui-color-border, #cfd6df));
+  --cui-surface-radius: var(--cui-person-radius);
+  --cui-surface-shadow: var(
+    --cui-content-card-shadow,
+    var(--cui-shadow-1, 0 1px 2px hsl(220deg 25% 10% / 12%))
+  );
+  --cui-surface-padding: var(--cui-person-padding);
 
   display: grid;
   gap: var(--cui-person-gap);
   align-content: start;
-  border: var(--cui-border-size, 1px) solid var(--cui-content-card-border, var(--cui-color-border, #cfd6df));
-  border-radius: var(--cui-person-radius);
-  background: var(--cui-content-card-bg, var(--cui-color-surface-raised, #fff));
   color: var(--cui-color, #1b1f27);
-  box-shadow: var(--cui-content-card-shadow, var(--cui-shadow-1, 0 1px 2px hsl(220deg 25% 10% / 12%)));
-  padding: var(--cui-person-padding);
   text-decoration: none;
 }
 
@@ -116,27 +126,22 @@ a.cui-person:focus-visible {
   --cui-person-photo-radius: var(--cui-radius-1, 0.25rem);
 }
 
-/**
- * Content column of a `.cui-person`. A small grid that stacks
- * name / role / meta / bio with `--cui-person-body-gap` between
- * them; child headings and paragraphs are zero-margin so the
- * gap controls rhythm.
- *
- * @block cui-person-body
- * @summary Stacked content column of a person card.
+/*
+ * Body column of a `.cui-person` — compose `.cui-stack` in markup.
+ * The block feeds the stack its gap from `--cui-person-body-gap`
+ * (which the `leadership` preset bumps) and pins `min-inline-size: 0`
+ * so a long word can't blow out the photo + body grid in row orient.
+ * `.cui-stack > *` already zeroes child margins; `.cui-person-bio`
+ * keeps its top margin because components beats the layout layer.
  */
-.cui-person-body {
-  display: grid;
-  gap: var(--cui-person-body-gap, var(--cui-space-1, 0.25rem));
+.cui-person .cui-stack {
+  --cui-stack-gap: var(--cui-person-body-gap, var(--cui-space-1, 0.25rem));
+
   min-inline-size: 0;
 }
 
-.cui-person-body > :where(h1, h2, h3, h4, p) {
-  margin: 0;
-}
-
 /**
- * Name line inside `.cui-person-body`. Bold, sized at
+ * Name line inside the person body (`.cui-stack`). Bold, sized at
  * `--cui-person-name-size` (defaults to `--cui-font-size-1`,
  * scaled up by the `leadership` variant). Pick a heading element
  * to fit the surrounding outline (`<h3>` inside a team grid,
@@ -153,7 +158,7 @@ a.cui-person:focus-visible {
 }
 
 /**
- * Role line inside `.cui-person-body`. Muted, sized at
+ * Role line inside the person body (`.cui-stack`). Muted, sized at
  * `--cui-person-role-size` (defaults to `--cui-font-size-0`,
  * scaled up by the `leadership` variant).
  *
@@ -183,7 +188,7 @@ a.cui-person:focus-visible {
 }
 
 /**
- * Bio paragraph inside `.cui-person-body`. Muted body text with a
+ * Bio paragraph inside the person body (`.cui-stack`). Muted body text with a
  * small top margin to separate it from the name/role pair. Use
  * for a two-or-three-sentence summary; longer bios belong on a
  * dedicated page reached via the card link.
@@ -198,40 +203,35 @@ a.cui-person:focus-visible {
   margin-block-start: var(--cui-space-2, 0.5rem);
 }
 
-/**
- * Links row at the bottom of `.cui-person-body` — a flex-wrap
- * list of small bold links (LinkedIn, personal site, talks).
- * Render as `<ul class="cui-person-links">` with `<li><a>…</a></li>`
- * items; the class strips list-style and margins so the layout
- * comes from the flex container.
- *
- * @block cui-person-links
- * @summary Flex-wrap link list at the bottom of the person card.
+/*
+ * Links row at the bottom of the body — compose `.cui-cluster` in
+ * markup (e.g. `<ul class="cui-cluster">`). The block flattens the
+ * list (`<ul>` margin / padding reset; flex drops the markers) and
+ * adds the `--cui-space-3` gap above it that separates the links
+ * from the bio.
  */
-.cui-person-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--cui-space-3, 0.75rem);
-  align-items: center;
+.cui-person .cui-cluster {
   margin: 0;
   padding: 0;
-  list-style: none;
   margin-block-start: var(--cui-space-3, 0.75rem);
 }
 
-.cui-person-links > li {
-  margin: 0;
-}
-
-.cui-person-links a {
+/*
+ * Links inside a person card — compact, bold, underline on hover.
+ * Scoped to `.cui-person a` (the deleted `.cui-person-links` used to
+ * own this) so contact / social links keep their look without a
+ * dedicated class. The whole-card link is `a.cui-person` — the
+ * element itself, not a descendant — so it's unaffected.
+ */
+.cui-person a {
   color: var(--cui-color, #1b1f27);
   font-size: var(--cui-font-size-neg-1, 0.875rem);
   font-weight: var(--cui-font-weight-strong, 680);
   text-decoration: none;
 }
 
-.cui-person-links a:hover,
-.cui-person-links a:focus-visible {
+.cui-person a:hover,
+.cui-person a:focus-visible {
   color: var(--cui-color-accent, oklch(57% 0.18 246deg));
   text-decoration: underline;
 }
@@ -248,8 +248,8 @@ a.cui-person:focus-visible {
   text-align: center;
 }
 
-.cui-person[data-align="center"] .cui-person-links {
-  justify-content: center;
+.cui-person[data-align="center"] .cui-cluster {
+  --cui-cluster-justify: center;
 }
 
 .cui-person[data-variant="flat"] {
@@ -272,79 +272,13 @@ a.cui-person:focus-visible {
   --cui-person-gap: var(--cui-space-5, 1.5rem);
 }
 
-/**
- * Grid container for `.cui-person` cards. Auto-fits columns of
- * at least `--cui-team-grid-min` (16rem default; 20rem in
- * `leadership` variant). Gap, column count, and child sizing
- * follow the same `[data-gap]` / `[data-columns]` /
- * `[data-variant]` conventions as `.cui-feature-grid`,
- * `.cui-case-grid`, and friends.
- *
- * @block cui-team-grid
- * @summary Responsive grid for person cards (16rem min by default).
- * @variant compact | spacious — Maps to `[data-gap]`. Override
- *   `--cui-content-grid-gap` to `--cui-space-3` or `--cui-space-6`.
- * @variant leadership — Maps to `[data-variant]`. Widens columns
- *   to 20rem min, spaces them at `--cui-space-6`, and scales every
- *   child `.cui-person` to the leadership preset.
- * @variant 2 | 3 | 4 — Maps to `[data-columns]`. Pin the grid to a
- *   fixed column count at viewports ≥48rem; below that, falls back
- *   to auto-fit.
- *
- * @example
- *   <div class="cui-team-grid" data-columns="3">
- *     <article class="cui-person">…</article>
- *     <article class="cui-person">…</article>
- *     <article class="cui-person">…</article>
- *   </div>
+/*
+ * Team grid: lay `.cui-person` cards out with `.cui-grid` — the
+ * default 16rem `--cui-grid-min` matches the old `.cui-team-grid`.
+ * For the leadership layout set `--cui-grid-min: 20rem` and
+ * `data-gap="spacious"`, and give each card `data-variant="leadership"`
+ * (the grid no longer scales its children — the card preset does).
  */
-.cui-team-grid {
-  display: grid;
-  align-items: stretch;
-  gap:
-    var(--cui-content-grid-row-gap, var(--cui-content-grid-gap, var(--cui-space-4, 1rem)))
-    var(--cui-content-grid-column-gap, var(--cui-content-grid-gap, var(--cui-space-4, 1rem)));
-  grid-template-columns: var(
-    --cui-content-grid-columns,
-    repeat(auto-fit, minmax(min(100%, var(--cui-team-grid-min, 16rem)), 1fr))
-  );
-}
-
-.cui-team-grid[data-gap="compact"] {
-  --cui-content-grid-gap: var(--cui-space-3, 0.75rem);
-}
-
-.cui-team-grid[data-gap="spacious"] {
-  --cui-content-grid-gap: var(--cui-space-6, 2rem);
-}
-
-.cui-team-grid[data-variant="leadership"] {
-  --cui-team-grid-min: 20rem;
-  --cui-content-grid-gap: var(--cui-space-6, 2rem);
-}
-
-.cui-team-grid[data-variant="leadership"] > .cui-person {
-  --cui-person-photo-size: var(--cui-person-photo-leadership-size, 11rem);
-  --cui-person-name-size: var(--cui-font-size-2, 1.5rem);
-  --cui-person-role-size: var(--cui-font-size-1, 1.1875rem);
-  --cui-person-body-gap: var(--cui-space-2, 0.5rem);
-  --cui-person-padding: var(--cui-space-6, 2rem);
-  --cui-person-gap: var(--cui-space-5, 1.5rem);
-}
-
-@media (width >= 48rem) {
-  .cui-team-grid[data-columns="2"] {
-    --cui-content-grid-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .cui-team-grid[data-columns="3"] {
-    --cui-content-grid-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .cui-team-grid[data-columns="4"] {
-    --cui-content-grid-columns: repeat(4, minmax(0, 1fr));
-  }
-}
 
 /**
  * Org-chart container — a CSS-only tree drawing that arranges
@@ -381,7 +315,7 @@ a.cui-person:focus-visible {
  * @example
  *   <ol class="cui-org-chart">
  *     <li class="cui-org-node">
- *       <article class="cui-person" data-orient="row">…</article>
+ *       <article class="cui-surface cui-person" data-orient="row">…</article>
  *       <ol class="cui-org-children">
  *         <li class="cui-org-node">
  *           <article class="cui-person" data-orient="row">…</article>

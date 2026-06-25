@@ -89,6 +89,19 @@
                 <li><code>.cui-testimonial-author-text</code> - the name + role pair is now a plain
                   <code>.cui-stack</code> with <code>--cui-stack-gap: var(--cui-space-1)</code>.
                 </li>
+                <li><code>.cui-person-body</code> - the person body column is now a <code>.cui-stack</code>;
+                  the card sets its gap from <code>--cui-person-body-gap</code> (preserved) and pins
+                  <code>min-inline-size: 0</code> for row orient.
+                </li>
+                <li><code>.cui-person-links</code> - the links row is now a <code>.cui-cluster</code>. The card
+                  flattens the <code>&lt;ul&gt;</code> and adds the gap above it, and <code>.cui-person a</code>
+                  styles the links (compact, bold, accent on hover) without the dedicated class.
+                </li>
+                <li><code>.cui-team-grid</code> (and its <code>--cui-team-grid-min</code> var) - lay person cards
+                  out with <code>.cui-grid</code> (default <code>--cui-grid-min: 16rem</code>). For the leadership
+                  layout set <code>--cui-grid-min: 20rem</code> + <code>data-gap="spacious"</code> and give each
+                  card <code>data-variant="leadership"</code> (the grid no longer scales its children).
+                </li>
               </ul>
             </div>
 
@@ -128,6 +141,12 @@
                   they compose <code>.cui-surface</code>. Add it in markup, e.g.
                   <code>class="cui-surface cui-quote"</code>. The <code>--cui-quote-*</code> knobs are preserved -
                   they now feed the matching <code>--cui-surface-*</code> override vars.
+                </li>
+                <li><code>.cui-person</code> no longer carries its own chrome; it composes
+                  <code>.cui-surface</code>. Add it in markup, e.g.
+                  <code>class="cui-surface cui-person"</code> (including org-chart cards). The
+                  <code>--cui-content-card-*</code> / <code>--cui-person-*</code> knobs are preserved - they now
+                  feed the matching <code>--cui-surface-*</code> override vars.
                 </li>
               </ul>
             </div>

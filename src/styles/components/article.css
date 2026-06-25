@@ -342,7 +342,7 @@ a.cui-article-card-media {
  * Grid container for `.cui-article-card`s. Auto-fits columns of
  * at least `--cui-article-grid-min` (18rem default). Gap and
  * column-count follow the same `[data-gap]` / `[data-columns]`
- * conventions as `.cui-team-grid` and the content-grid family.
+ * conventions as `.cui-grid` and the content-grid family.
  *
  * @block cui-article-grid
  * @summary Responsive grid of article cards (18rem min).
