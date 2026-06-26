@@ -1,39 +1,57 @@
 /**
  * Page-intro band — the lighter alternative to a hero for case-study,
  * vacancy, and article pages. Pure CSS; apply `.cui-page-intro` to a
- * `<section>`. It is the width-capped surface; inside it a
- * `.cui-page-intro-layout` holds a `.cui-page-intro-content` stack and an
- * optional `.cui-page-intro-aside`.
+ * `<section>`. It is the full-bleed, width-capped surface; inside it a
+ * `.cui-page-intro-layout` centers a content column and an optional aside.
+ *
+ * **Contextual markup.** The band styles its own descendants, so the
+ * content carries only canonical primitives — no bespoke slot classes:
+ *
+ * - `.cui-page-intro-layout` — the width-capped grid (content + aside).
+ * - a `.cui-stack` — the content column (eyebrow, title, meta, copy,
+ *   actions). Capped to a reading width and retuned in place.
+ * - `.cui-eyebrow` — the kicker above the title.
+ * - `.cui-display` — the headline, retuned to page-intro scale in place.
+ * - `.cui-meta` — the optional metadata row (sector, year, reading time).
+ * - a bare `<p>` — lead copy, rendered muted at reading measure.
+ * - `.cui-cluster` — the actions row.
+ * - `.cui-surface.cui-aside` — the optional summary rail.
  *
  * Modifiers compose on the container via data-attributes: the `data-variant`
  * type (`landing`, `case`, `vacancy`, `campaign`, `full-bleed`), the
  * `data-tone="inverse"` treatment, and `data-align="center"`.
  *
  * @block cui-page-intro
- * @summary Page-intro surface with content + optional aside; variant modifiers.
+ * @summary Page-intro band; composes canonical primitives for the content + optional aside; variant modifiers.
  * @variant landing — `[data-variant="landing"]`. Larger title and wider content for landing pages.
  * @variant case — `[data-variant="case"]`. Muted surface with the aside alongside at ≥56rem.
  * @variant vacancy — `[data-variant="vacancy"]`. Narrower content with the aside alongside at ≥56rem.
  * @variant campaign — `[data-variant="campaign"]`. Muted surface with the aside alongside at ≥56rem.
  * @variant full-bleed — `[data-variant="full-bleed"]`. Muted surface with an uncapped content column.
  * @tone inverse — `[data-tone="inverse"]`. Dark surface with light foreground and aside.
- * @variant center — `[data-align="center"]`. Centers the content stack and its text.
+ * @variant center — `[data-align="center"]`. Centers the content column and its text.
  * @cssvar --cui-page-intro-padding-block — Block padding. Defaults to `--cui-section-space-compact`.
  * @cssvar --cui-page-intro-gap — Gap between content and aside. Defaults to `--cui-space-5`.
- * @cssvar --cui-page-intro-content-size — Max inline-size of the content stack. Defaults to 52rem.
+ * @cssvar --cui-page-intro-content-size — Max inline-size of the content column. Defaults to 52rem.
  * @cssvar --cui-page-intro-aside-size — Aside column width at ≥56rem. Defaults to 20rem.
  * @cssvar --cui-page-intro-title-size — Title font-size. Defaults to `--cui-font-size-5`.
  *
  * @example
- *   <section class="cui-page-intro cui-page-intro-case">
+ *   <section class="cui-page-intro" data-variant="case">
  *     <div class="cui-page-intro-layout">
- *       <div class="cui-page-intro-content">
+ *       <div class="cui-stack">
  *         <p class="cui-eyebrow">Case study</p>
- *         <h1 class="cui-page-intro-title">Rebuilding a 1000-page site</h1>
- *         <p class="cui-page-intro-meta">8 min read · March 2026</p>
+ *         <h1 class="cui-display">Rebuilding a 1000-page site</h1>
+ *         <ul class="cui-meta">
+ *           <li>8 min read</li>
+ *           <li>March 2026</li>
+ *         </ul>
  *         <p>How we migrated to baseline web standards.</p>
  *       </div>
- *       <aside class="cui-page-intro-aside">Summary card</aside>
+ *       <aside class="cui-surface cui-aside">
+ *         <strong>Stack</strong>
+ *         <p class="cui-caption">Combat UI · Vite · TypeScript</p>
+ *       </aside>
  *     </div>
  *   </section>
  */
@@ -64,7 +82,7 @@
  * variants at ≥56rem.
  *
  * @block cui-page-intro-layout
- * @summary Width-capped grid for the page-intro content + aside.
+ * @summary Width-capped grid for the page-intro content + optional aside.
  */
 .cui-page-intro-layout {
   display: grid;
@@ -73,101 +91,31 @@
   gap: var(--cui-page-intro-gap, 1.5rem);
 }
 
-/**
- * Content column inside `.cui-page-intro-layout` — eyebrow, title, meta, copy,
- * and actions. A capped-width grid; unclassed paragraphs render muted at
- * reading measure.
- *
- * @block cui-page-intro-content
- * @summary Capped content column inside the page intro.
- */
-.cui-page-intro-content {
-  display: grid;
+/* Content column — the layout's `.cui-stack`. A capped-width stack carrying
+ * the eyebrow, title, meta, copy, and actions; the aside sibling is a
+ * `.cui-aside`, so this rule only catches the content. */
+.cui-page-intro-layout > .cui-stack {
+  --cui-stack-gap: var(--cui-space-4, 1rem);
+
   max-inline-size: var(--cui-page-intro-content-size, 52rem);
-  gap: var(--cui-space-4, 1rem);
 }
 
-.cui-page-intro-content > :where(p):not([class]) {
+/* Lead copy — the content column's bare `<p>` (eyebrow / title / meta carry
+ * their own classes). Muted, at reading measure. */
+.cui-page-intro-layout > .cui-stack > p:not([class]) {
   max-inline-size: var(--cui-content-measure, 68ch);
-  margin: 0;
   color: var(--cui-page-intro-muted-color, var(--cui-color-muted, #5d6675));
   font-size: var(--cui-font-size-1, 1.1875rem);
   line-height: 1.5;
 }
 
-/**
- * Page-intro headline inside `.cui-page-intro-content`. Display weight, tight
- * display line-height, balanced wrapping; the `landing` variant scales it up.
- *
- * @block cui-page-intro-title
- * @summary Display-weight page-intro headline.
- */
-.cui-page-intro-title {
-  max-inline-size: 16ch;
-  margin: 0;
-  color: var(--cui-page-intro-title-color, var(--cui-page-intro-color, var(--cui-color, #1b1f27)));
-  font-size: var(--cui-page-intro-title-size, 4rem);
-  font-weight: var(--cui-font-weight-display, 760);
-  letter-spacing: 0;
-  line-height: var(--cui-line-height-display, 0.98);
-  text-wrap: balance;
-}
-
-/**
- * Metadata row inside `.cui-page-intro-content` — reading time, date, author,
- * etc. A wrapping flex row of small, muted, strong-weight labels.
- *
- * @block cui-page-intro-meta
- * @summary Wrapping row of muted page-intro metadata labels.
- */
-.cui-page-intro-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--cui-space-2, 0.5rem) var(--cui-space-4, 1rem);
-  margin: 0;
-  color: var(--cui-page-intro-muted-color, var(--cui-color-muted, #5d6675));
-  font-size: var(--cui-font-size-neg-1, 0.875rem);
-  font-weight: var(--cui-font-weight-strong, 680);
-}
-
-/**
- * Actions row inside `.cui-page-intro-content` — a wrapping flex row of
- * buttons/links.
- *
- * @block cui-page-intro-actions
- * @summary Wrapping row of page-intro buttons.
- */
-.cui-page-intro-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--cui-space-3, 0.75rem);
-}
-
-/**
- * Optional aside beside the content — a bordered, elevated summary card. Sits
- * alongside the content for the case/vacancy/campaign variants at ≥56rem and
- * collapses out of flow when empty.
- *
- * @block cui-page-intro-aside
- * @summary Bordered summary card beside the page-intro content.
- */
-.cui-page-intro-aside {
-  display: grid;
-  gap: var(--cui-space-2, 0.5rem);
-  align-content: start;
-  border: var(--cui-border-size, 1px) solid var(--cui-color-border, #cfd6df);
-  border-radius: var(--cui-radius-2, 0.5rem);
-  background: var(--cui-color-surface-raised, #fff);
-  box-shadow: var(--cui-shadow-1, 0 1px 2px hsl(220deg 25% 10% / 12%));
-  padding: var(--cui-space-4, 1rem);
-}
-
-.cui-page-intro-aside > :where(h1, h2, h3, h4, p) {
-  margin: 0;
-}
-
-.cui-page-intro-aside:empty {
-  display: none;
+/* Headline — `.cui-display` retuned to page-intro scale. The primitive
+ * ships hero scale (5.5rem, 13ch measure); the band caps the measure at
+ * 16ch and drives the size from `--cui-page-intro-title-size` so the
+ * `landing` variant can scale it up. */
+.cui-page-intro .cui-display {
+  --cui-display-measure: 16ch;
+  --cui-display-size: var(--cui-page-intro-title-size, var(--cui-font-size-5, 4rem));
 }
 
 /* Variants --------------------------------------------------------------- */
@@ -185,8 +133,8 @@
   --cui-page-intro-content-size: 46rem;
 }
 
-/* Full-bleed — muted surface and an uncapped content column (the surface is
-   already edge-to-edge with the gutter padding from the base block). */
+/* Full-bleed — muted surface and an uncapped layout (the surface is already
+   edge-to-edge with the gutter padding from the base block). */
 .cui-page-intro[data-variant="full-bleed"] {
   --cui-page-intro-bg: var(--cui-color-surface-muted, #edf0f4);
 }
@@ -202,22 +150,20 @@
   --cui-color-border: var(--cui-color-inverse-border, hsl(0deg 0% 100% / 18%));
   --cui-page-intro-bg: var(--cui-page-intro-inverse-bg, #10141b);
   --cui-page-intro-color: var(--cui-page-intro-inverse-color, #f7f8fa);
-  --cui-page-intro-title-color: var(--cui-page-intro-inverse-color, #f7f8fa);
   --cui-page-intro-muted-color: var(--cui-page-intro-inverse-muted-color, hsl(0deg 0% 100% / 78%));
 
   background: var(--cui-page-intro-bg, #10141b);
   color: var(--cui-page-intro-color, #f7f8fa);
 }
 
-.cui-page-intro[data-align="center"] .cui-page-intro-content {
+.cui-page-intro[data-align="center"] .cui-page-intro-layout > .cui-stack {
   justify-items: center;
   margin-inline: auto;
   text-align: center;
 }
 
-.cui-page-intro[data-align="center"] .cui-page-intro-title,
-.cui-page-intro[data-align="center"] .cui-page-intro-content > :where(p):not([class]) {
-  margin-inline: auto;
+.cui-page-intro[data-align="center"] .cui-cluster {
+  --cui-cluster-justify: center;
 }
 
 @media (width >= 56rem) {

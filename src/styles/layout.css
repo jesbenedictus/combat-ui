@@ -727,6 +727,44 @@
 }
 
 /**
+ * Aside rail — a summary / sidebar card composed beside the main content:
+ * page-intro summary cards, detail-page apply rails, case-study fact
+ * panels. A block-axis stack that pins its content to the start of the
+ * column and collapses out of flow when it has no children, so an empty
+ * rail leaves no gap behind it. Compose `.cui-surface` for the card chrome
+ * (set its override vars to retune background / border / padding), and
+ * `--cui-aside-gap` for the internal rhythm:
+ *
+ *   <aside class="cui-surface cui-aside">
+ *     <strong>Stack</strong>
+ *     <p class="cui-caption">Combat UI · Vite · TypeScript</p>
+ *   </aside>
+ *
+ * @block cui-aside
+ * @summary Summary-rail card layout: start-aligned stack that collapses when empty. Compose `.cui-surface` for chrome.
+ * @cssvar --cui-aside-gap — Gap between children. Defaults to `--cui-space-2`.
+ *
+ * @example
+ *   <aside class="cui-surface cui-aside">
+ *     <p class="cui-eyebrow">Snel overzicht</p>
+ *     <p>Summary copy beside the main column.</p>
+ *   </aside>
+ */
+.cui-aside {
+  display: grid;
+  gap: var(--cui-aside-gap, var(--cui-space-2, 0.5rem));
+  align-content: start;
+}
+
+.cui-aside > * {
+  margin-block: 0;
+}
+
+.cui-aside:empty {
+  display: none;
+}
+
+/**
  * Metadata row — one canonical replacement for the per-block `*-meta`
  * rows (article, event, vacancy, page-intro, person, case). A
  * flex-wrap row of muted, metadata-sized, strong-weight labels with

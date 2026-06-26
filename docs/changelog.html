@@ -157,6 +157,17 @@
                   <code>--cui-vacancy-main-measure</code> / <code>--cui-vacancy-aside-top</code> knobs are
                   preserved.
                 </li>
+                <li><code>.cui-page-intro-content</code>, <code>.cui-page-intro-title</code>,
+                  <code>.cui-page-intro-meta</code>, <code>.cui-page-intro-actions</code>,
+                  <code>.cui-page-intro-aside</code> - the page-intro band now styles its own descendants
+                  (contextual markup). The content column is a <code>.cui-stack</code>, the title a
+                  <code>.cui-display</code> (retuned to page-intro scale in place, 16ch measure), the meta a
+                  <code>.cui-meta</code> (a <code>&lt;ul&gt;</code> of labels), the actions a
+                  <code>.cui-cluster</code>, and the summary rail a <code>.cui-surface.cui-aside</code>. The
+                  <code>.cui-page-intro-layout</code> grid wrapper and the
+                  <code>--cui-page-intro-content-size</code> / <code>--cui-page-intro-title-size</code> knobs
+                  are preserved.
+                </li>
               </ul>
             </div>
 
@@ -257,6 +268,11 @@
                   <code>-measure</code> on <code>.cui-display</code>, and <code>--cui-lead-size</code> /
                   <code>-leading</code> / <code>-measure</code> on <code>.cui-lead</code> (each defaults
                   to the previous hardcoded value).
+                </li>
+                <li>New <code>.cui-aside</code> class — one canonical summary-rail layout (a start-aligned
+                  stack that collapses out of flow when empty). Compose <code>.cui-surface</code> for the card
+                  chrome and tune the internal rhythm via <code>--cui-aside-gap</code>; used by
+                  <code>.cui-page-intro</code> and available for any sidebar / fact-panel rail.
                 </li>
               </ul>
             </div>
