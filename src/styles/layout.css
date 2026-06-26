@@ -741,6 +741,9 @@
  *
  * @block cui-meta
  * @summary Flex-wrap metadata row with `·` separators and list reset.
+ * @variant chips — Maps to `[data-variant]`. Renders each item as a
+ *   muted rounded pill with no separators — for fact rows that read
+ *   better as discrete tags (job facts: hours, location, salary scale).
  * @cssvar --cui-meta-gap — Row/column gap between items. Defaults to `--cui-space-2` / `--cui-space-3`.
  * @cssvar --cui-meta-separator — Glyph between adjacent items. Defaults to `"·"`.
  *
@@ -749,6 +752,14 @@
  *     <li>5 min read</li>
  *     <li>March 2026</li>
  *     <li>Engineering</li>
+ *   </ul>
+ *
+ * @example
+ *   <!-- Chip variant: rounded pills, no separators. -->
+ *   <ul class="cui-meta" data-variant="chips">
+ *     <li>32–36 uur</li>
+ *     <li>Vlaardingen</li>
+ *     <li>Schaal 5</li>
  *   </ul>
  */
 .cui-meta {
@@ -778,4 +789,27 @@
   content: var(--cui-meta-separator, "·");
   margin-inline-end: var(--cui-space-2, 0.5rem);
   color: var(--cui-color-border, #cfd6df);
+}
+
+/* Chip variant — each item becomes a muted rounded pill and the `·`
+ * separators are dropped; the gap tightens to a single --cui-space-2. */
+.cui-meta[data-variant="chips"] {
+  gap: var(--cui-meta-gap, var(--cui-space-2, 0.5rem));
+}
+
+.cui-meta[data-variant="chips"] > * {
+  padding: var(--cui-space-1, 0.25rem) var(--cui-space-3, 0.75rem);
+  border-radius: 999px;
+  background: var(--cui-color-surface-muted, #edf0f4);
+  white-space: nowrap;
+}
+
+.cui-meta[data-variant="chips"] > * > svg {
+  inline-size: 1em;
+  block-size: 1em;
+  flex: none;
+}
+
+.cui-meta[data-variant="chips"] > * + *::before {
+  content: none;
 }

@@ -15,42 +15,6 @@
       "references": []
     },
     {
-      "name": "cui-button",
-      "description": "Renders a `<button>` or `<a>` with shared visual styling and disabled state\nhandling. Choose anchor mode by setting the `href` attribute, and button mode by omitting it.\n---\n",
-      "attributes": [
-        {
-          "name": "disabled",
-          "description": "= Disables the underlying control. For anchor mode this also prevents navigation.",
-          "values": []
-        },
-        {
-          "name": "href",
-          "description": "When set, the button renders as an anchor (`<a>`) instead of a `<button>`. The value is applied to the anchor's `href` attribute.",
-          "values": []
-        },
-        {
-          "name": "target",
-          "description": "Anchor target (e.g. `_blank`). Only applies when `href` is set.",
-          "values": []
-        },
-        {
-          "name": "rel",
-          "description": "Anchor relationship. Only applies when `href` is set.",
-          "values": []
-        },
-        {
-          "name": "type",
-          "description": "Button type. Only applies when `href` is not set. Defaults to `\"button\"`.",
-          "values": [
-            { "name": "button" },
-            { "name": "submit" },
-            { "name": "reset" }
-          ]
-        }
-      ],
-      "references": []
-    },
-    {
       "name": "cui-carousel",
       "description": "Flexible content carousel. Slides are slotted light-DOM elements, so every\nslide stays crawlable regardless of which one is visible. Compose each slide\nfrom any markup — an `<img>` / `<video>` background with overlaid text and\nbuttons (e.g. `.cui-media-overlay`), or a plain content panel. A separate\n`fixed` slot holds chrome that persists across every slide (brand mark,\npersistent CTA). Supports slide / fade transitions, autoplay with a\npause control, looping, keyboard navigation, and `prefers-reduced-motion`.\n---\n\n\n### **Events:**\n - **cui-carousel-change** - Fires after the active slide changes.\n\n### **Methods:**\n - **next(): _void_** - Advance to the next slide (wraps when `loop` is on).\n- **prev(): _void_** - Return to the previous slide (wraps when `loop` is on).\n- **go(target: _number_, options: _{ focus?: boolean }_): _void_** - Move to a specific slide index.\n- **play(): _void_** - Start autoplay (no-op when reduced motion is preferred).\n- **pause(): _void_** - Pause autoplay.\n\n### **Slots:**\n - **slide** - One element per slide. Any content works; use `.cui-media-overlay` for media with overlaid copy and buttons.\n- **fixed** - Content overlaid on top of every slide and pinned in place while slides change (logo, persistent call-to-action). Buttons here can carry `data-cui-carousel-prev` / `-next` / `-goto=\"<i>\"` to drive the carousel; elements anywhere else on the page can do the same by adding `data-cui-carousel-target=\"<id>\"`.\n\n### **CSS Parts:**\n - **viewport** - The clipping region around the slides.\n- **track** - The slot wrapping the slides (the moving track).\n- **fixed** - The persistent overlay layer.\n- **controls** - The previous / next arrow container.\n- **previous** - The previous-slide button.\n- **next** - The next-slide button.\n- **pagination** - The dot pagination container.\n- **dot** - A single pagination dot.",
       "attributes": [
@@ -134,6 +98,74 @@
       "references": []
     },
     {
+      "name": "cui-button",
+      "description": "Renders a `<button>` or `<a>` with shared visual styling and disabled state\nhandling. Choose anchor mode by setting the `href` attribute, and button mode by omitting it.\n---\n",
+      "attributes": [
+        {
+          "name": "disabled",
+          "description": "= Disables the underlying control. For anchor mode this also prevents navigation.",
+          "values": []
+        },
+        {
+          "name": "href",
+          "description": "When set, the button renders as an anchor (`<a>`) instead of a `<button>`. The value is applied to the anchor's `href` attribute.",
+          "values": []
+        },
+        {
+          "name": "target",
+          "description": "Anchor target (e.g. `_blank`). Only applies when `href` is set.",
+          "values": []
+        },
+        {
+          "name": "rel",
+          "description": "Anchor relationship. Only applies when `href` is set.",
+          "values": []
+        },
+        {
+          "name": "type",
+          "description": "Button type. Only applies when `href` is not set. Defaults to `\"button\"`.",
+          "values": [
+            { "name": "button" },
+            { "name": "submit" },
+            { "name": "reset" }
+          ]
+        }
+      ],
+      "references": []
+    },
+    {
+      "name": "cui-calendar",
+      "description": "Month-view calendar that decorates a slotted list of\n`.cui-event-card` children. Reads each card's first `<time\ndatetime>` to plot an event pill onto the matching day cell;\nthe source cards remain in light DOM beneath the grid (or\nvisually hidden via `events-hidden`) so search engines and feed\nreaders index the full event copy without depending on the\ncomponent's JS.\n\nClick a day to fire `cui-calendar-day-select`; click an event\npill to fire `cui-calendar-event-select`; the prev / next\nbuttons fire `cui-calendar-navigate`. Keyboard nav inside the\ngrid uses arrow keys, Home / End, and PgUp / PgDn (with Shift\njumping a year).\n---\n\n\n### **Events:**\n - **cui-calendar-event-select** - Fires when an event pill is activated.\n- **cui-calendar-day-select** - Fires when a day cell is activated.\n- **cui-calendar-navigate** - Fires when the visible month changes.\n\n### **Methods:**\n - **goTo(year: _number_, month: _number_): _void_** - Programmatically navigate to a specific month (1-12).\n- **next(): _void_** - Move forward one month.\n- **previous(): _void_** - Move back one month.\n- **refresh(): _void_** - Re-read slotted event cards. Call after dynamic updates.\n\n### **Slots:**\n - _default_ - One or more `.cui-event-card` elements. Cards without a `<time datetime>` are skipped; multi-day events use the start date for plotting (single-cell rendering for v1).",
+      "attributes": [
+        {
+          "name": "year",
+          "description": "Initial visible year (e.g. `\"2026\"`). Defaults to today.",
+          "values": []
+        },
+        {
+          "name": "month",
+          "description": "Initial visible month (1-12). Defaults to today.",
+          "values": []
+        },
+        {
+          "name": "weekday-start",
+          "description": "First day of the week. Defaults to `\"monday\"`.",
+          "values": [{ "name": "monday" }, { "name": "sunday" }]
+        },
+        {
+          "name": "locale",
+          "description": "BCP-47 locale used for month / weekday labels. Defaults to the document's `lang` or `navigator.language`.",
+          "values": []
+        },
+        {
+          "name": "events-hidden",
+          "description": "Visually hide the source event list while keeping it in the DOM for accessibility and SEO.",
+          "values": []
+        }
+      ],
+      "references": []
+    },
+    {
       "name": "cui-day-planner",
       "description": "Vertical day planner — a single-day timeline that decorates a\nslotted list of `.cui-event-card` children. Events are placed\nby start time, sized by duration, and column-packed so\nconcurrent events sit side-by-side. The source cards remain in\nlight DOM beneath the board (or visually hidden via\n`events-hidden`) so search engines and feed readers index the\nfull event copy without depending on the component's JS.\n\nReads each card's first `<time datetime>` for the start; an\noptional second `<time datetime>` or a `data-end` attribute\n(full ISO or `HH:MM`) provides the end. Cards without an\nexplicit end get a default `60`-minute duration.\n---\n\n\n### **Events:**\n - **cui-day-planner-event-select** - Cancelable; fires when an event block is activated.\n- **cui-day-planner-slot-select** - Fires when a row (empty slot) is activated.\n- **cui-day-planner-navigate** - Fires after the visible day changes.\n\n### **Methods:**\n - **goTo(target: _string | Date_): _void_** - Programmatically jump to a date (YYYY-MM-DD or Date).\n- **next(): _void_** - Move forward one day.\n- **previous(): _void_** - Move back one day.\n- **refresh(): _void_** - Re-read slotted event cards. Call after dynamic updates.\n\n### **Slots:**\n - _default_ - `.cui-event-card` elements whose first `<time>` falls on the visible date. Cards on other days are placed in the slot but skipped from the timeline.",
       "attributes": [
@@ -188,32 +220,12 @@
       "references": []
     },
     {
-      "name": "cui-calendar",
-      "description": "Month-view calendar that decorates a slotted list of\n`.cui-event-card` children. Reads each card's first `<time\ndatetime>` to plot an event pill onto the matching day cell;\nthe source cards remain in light DOM beneath the grid (or\nvisually hidden via `events-hidden`) so search engines and feed\nreaders index the full event copy without depending on the\ncomponent's JS.\n\nClick a day to fire `cui-calendar-day-select`; click an event\npill to fire `cui-calendar-event-select`; the prev / next\nbuttons fire `cui-calendar-navigate`. Keyboard nav inside the\ngrid uses arrow keys, Home / End, and PgUp / PgDn (with Shift\njumping a year).\n---\n\n\n### **Events:**\n - **cui-calendar-event-select** - Fires when an event pill is activated.\n- **cui-calendar-day-select** - Fires when a day cell is activated.\n- **cui-calendar-navigate** - Fires when the visible month changes.\n\n### **Methods:**\n - **goTo(year: _number_, month: _number_): _void_** - Programmatically navigate to a specific month (1-12).\n- **next(): _void_** - Move forward one month.\n- **previous(): _void_** - Move back one month.\n- **refresh(): _void_** - Re-read slotted event cards. Call after dynamic updates.\n\n### **Slots:**\n - _default_ - One or more `.cui-event-card` elements. Cards without a `<time datetime>` are skipped; multi-day events use the start date for plotting (single-cell rendering for v1).",
+      "name": "cui-code",
+      "description": "Displays a code sample with a copy-to-clipboard button. Reads source from\nits text content, from an HTML comment child, or from a `<script type=\"…\">`\nchild — whichever is present — so example markup can stay valid HTML.\n---\n\n\n### **Slots:**\n - _default_ - The code to display. Can be raw text, an HTML comment containing markup, or a `<script type=\"text/plain\">` block (useful when the example itself is HTML you don't want the browser to render).",
       "attributes": [
         {
-          "name": "year",
-          "description": "Initial visible year (e.g. `\"2026\"`). Defaults to today.",
-          "values": []
-        },
-        {
-          "name": "month",
-          "description": "Initial visible month (1-12). Defaults to today.",
-          "values": []
-        },
-        {
-          "name": "weekday-start",
-          "description": "First day of the week. Defaults to `\"monday\"`.",
-          "values": [{ "name": "monday" }, { "name": "sunday" }]
-        },
-        {
-          "name": "locale",
-          "description": "BCP-47 locale used for month / weekday labels. Defaults to the document's `lang` or `navigator.language`.",
-          "values": []
-        },
-        {
-          "name": "events-hidden",
-          "description": "Visually hide the source event list while keeping it in the DOM for accessibility and SEO.",
+          "name": "language",
+          "description": "Source language hint (`text`, `html`, `css`, `js`, …). Used as a CSS hook and in the copy-button label.",
           "values": []
         }
       ],
@@ -232,33 +244,9 @@
       "references": []
     },
     {
-      "name": "cui-code",
-      "description": "Displays a code sample with a copy-to-clipboard button. Reads source from\nits text content, from an HTML comment child, or from a `<script type=\"…\">`\nchild — whichever is present — so example markup can stay valid HTML.\n---\n\n\n### **Slots:**\n - _default_ - The code to display. Can be raw text, an HTML comment containing markup, or a `<script type=\"text/plain\">` block (useful when the example itself is HTML you don't want the browser to render).",
-      "attributes": [
-        {
-          "name": "language",
-          "description": "Source language hint (`text`, `html`, `css`, `js`, …). Used as a CSS hook and in the copy-button label.",
-          "values": []
-        }
-      ],
-      "references": []
-    },
-    {
       "name": "cui-form",
       "description": "Coordinates submission and validation across child `cui-field` elements.\nRuns each field's async validators, blocks submit on failures, and\nsurfaces submit / success / error events with typed details. Set a JS\nsubmit handler with `setSubmitHandler(fn)`.\n---\n\n\n### **Events:**\n - **cui-form-invalid** - Fires when submission is blocked because one or more fields failed validation.\n- **cui-form-submit** - Fires when the form passes validation and is about to submit. `detail.formData` is the `FormData` snapshot.\n- **cui-form-success** - Fires after a JS submit handler resolves successfully.\n- **cui-form-error** - Fires when a JS submit handler rejects. `detail.error` is the thrown value.\n\n### **Slots:**\n - _default_ - A native `<form>` element containing `cui-field`s and a submit button. The form's `action` and `method` are honored when no JS handler is attached.",
       "attributes": [],
-      "references": []
-    },
-    {
-      "name": "cui-modal",
-      "description": "Modal dialog built over the native `<dialog>` element. Backdrop dismiss,\nESC handling, and focus management come from the platform; this element\nadds attribute control, an open/close JS API, typed close events, and\nremote triggering via `data-cui-modal-target` from anywhere on the page.\n---\n\n\n### **Events:**\n - **cui-modal-open** - Fires after the dialog opens.\n- **cui-modal-close** - Fires after the dialog closes. `detail.returnValue` carries the dialog's `returnValue` (set via `close(value)` or `<form method=\"dialog\">`).\n- **cui-modal-cancel** - Fires when the user cancels via ESC or backdrop click (before `cui-modal-close`).\n\n### **Slots:**\n - _default_ - The dialog body. Wrap with a `<div>` or semantic landmark; include a close affordance (any element with `data-cui-modal-close`) for users who can't dismiss via ESC.",
-      "attributes": [
-        {
-          "name": "open",
-          "description": "Reflects the dialog's open state. Set or remove to open/close imperatively.",
-          "values": []
-        }
-      ],
       "references": []
     },
     {
@@ -321,22 +309,12 @@
       "references": []
     },
     {
-      "name": "cui-reveal",
-      "description": "Reveals its content with an entry animation as it scrolls into view, using\r\n`IntersectionObserver` under the hood. Honors `prefers-reduced-motion` —\r\nusers with reduced motion see the content immediately, no transform.\n---\n\n\n### **Slots:**\n - _default_ - Content to reveal. Any block-level content works.",
+      "name": "cui-modal",
+      "description": "Modal dialog built over the native `<dialog>` element. Backdrop dismiss,\nESC handling, and focus management come from the platform; this element\nadds attribute control, an open/close JS API, typed close events, and\nremote triggering via `data-cui-modal-target` from anywhere on the page.\n---\n\n\n### **Events:**\n - **cui-modal-open** - Fires after the dialog opens.\n- **cui-modal-close** - Fires after the dialog closes. `detail.returnValue` carries the dialog's `returnValue` (set via `close(value)` or `<form method=\"dialog\">`).\n- **cui-modal-cancel** - Fires when the user cancels via ESC or backdrop click (before `cui-modal-close`).\n\n### **Slots:**\n - _default_ - The dialog body. Wrap with a `<div>` or semantic landmark; include a close affordance (any element with `data-cui-modal-close`) for users who can't dismiss via ESC.",
       "attributes": [
         {
-          "name": "delay",
-          "description": "Delay before the reveal starts. Accepts a number (milliseconds) or any CSS time value (`200ms`, `0.3s`).",
-          "values": []
-        },
-        {
-          "name": "distance",
-          "description": "Translate distance for the entry transform. Accepts a number (pixels) or any CSS length (`24px`, `2rem`).",
-          "values": []
-        },
-        {
-          "name": "threshold",
-          "description": "`IntersectionObserver` threshold (0–1).",
+          "name": "open",
+          "description": "Reflects the dialog's open state. Set or remove to open/close imperatively.",
           "values": []
         }
       ],
@@ -412,9 +390,22 @@
       "references": []
     },
     {
-      "name": "cui-tabs",
-      "description": "Tabbed interface with ARIA `tablist`/`tab`/`tabpanel` roles and full\nkeyboard support (Left/Right, Home/End). The element renders no styling of\nits own — it enhances light-DOM markup built from the `.cui-tabs`,\n`.cui-tablist`, and `.cui-tab` classes, wiring up `id`, `aria-controls`,\n`aria-selected`, roles, and panel visibility. All panels stay in the light\nDOM so crawlers see every panel regardless of which tab is active.\n\nTabs are the `.cui-tab` controls inside the `.cui-tablist`; panels are the\nremaining direct children of the element, paired with the tabs by source\norder. Mark the initially-open tab with `aria-selected=\"true\"` (defaults to\nthe first tab).\n---\n",
-      "attributes": [],
+      "name": "cui-toast-region",
+      "description": "Container for transient toast notifications. Usually created on demand by\nthe exported `toast()` function — you only place this element yourself if\nyou want to control placement or pre-render a region for SSR. Each region\nis identified by its `placement`; calls to `toast()` are routed to the\nregion matching their requested placement, or a new region is created.\n---\n\n\n### **Slots:**\n - _default_ - Toast elements. Normally populated by `toast()`; manual children are allowed and remain in DOM until dismissed.",
+      "attributes": [
+        {
+          "name": "placement",
+          "description": "Region anchor point. Default `block-end-inline-end` (bottom-right).",
+          "values": [
+            { "name": "block-start-inline-start" },
+            { "name": "block-start-inline-end" },
+            { "name": "block-end-inline-start" },
+            { "name": "block-end-inline-end" },
+            { "name": "block-start-center" },
+            { "name": "block-end-center" }
+          ]
+        }
+      ],
       "references": []
     },
     {
@@ -455,22 +446,9 @@
       "references": []
     },
     {
-      "name": "cui-toast-region",
-      "description": "Container for transient toast notifications. Usually created on demand by\nthe exported `toast()` function — you only place this element yourself if\nyou want to control placement or pre-render a region for SSR. Each region\nis identified by its `placement`; calls to `toast()` are routed to the\nregion matching their requested placement, or a new region is created.\n---\n\n\n### **Slots:**\n - _default_ - Toast elements. Normally populated by `toast()`; manual children are allowed and remain in DOM until dismissed.",
-      "attributes": [
-        {
-          "name": "placement",
-          "description": "Region anchor point. Default `block-end-inline-end` (bottom-right).",
-          "values": [
-            { "name": "block-start-inline-start" },
-            { "name": "block-start-inline-end" },
-            { "name": "block-end-inline-start" },
-            { "name": "block-end-inline-end" },
-            { "name": "block-start-center" },
-            { "name": "block-end-center" }
-          ]
-        }
-      ],
+      "name": "cui-tabs",
+      "description": "Tabbed interface with ARIA `tablist`/`tab`/`tabpanel` roles and full\nkeyboard support (Left/Right, Home/End). The element renders no styling of\nits own — it enhances light-DOM markup built from the `.cui-tabs`,\n`.cui-tablist`, and `.cui-tab` classes, wiring up `id`, `aria-controls`,\n`aria-selected`, roles, and panel visibility. All panels stay in the light\nDOM so crawlers see every panel regardless of which tab is active.\n\nTabs are the `.cui-tab` controls inside the `.cui-tablist`; panels are the\nremaining direct children of the element, paired with the tabs by source\norder. Mark the initially-open tab with `aria-selected=\"true\"` (defaults to\nthe first tab).\n---\n",
+      "attributes": [],
       "references": []
     },
     {
@@ -485,6 +463,28 @@
         {
           "name": "draggable-items",
           "description": "Enables drag-and-drop reordering. Consumers must handle the resulting `cui-tree-drop` event to persist the new structure.",
+          "values": []
+        }
+      ],
+      "references": []
+    },
+    {
+      "name": "cui-reveal",
+      "description": "Reveals its content with an entry animation as it scrolls into view, using\r\n`IntersectionObserver` under the hood. Honors `prefers-reduced-motion` —\r\nusers with reduced motion see the content immediately, no transform.\n---\n\n\n### **Slots:**\n - _default_ - Content to reveal. Any block-level content works.",
+      "attributes": [
+        {
+          "name": "delay",
+          "description": "Delay before the reveal starts. Accepts a number (milliseconds) or any CSS time value (`200ms`, `0.3s`).",
+          "values": []
+        },
+        {
+          "name": "distance",
+          "description": "Translate distance for the entry transform. Accepts a number (pixels) or any CSS length (`24px`, `2rem`).",
+          "values": []
+        },
+        {
+          "name": "threshold",
+          "description": "`IntersectionObserver` threshold (0–1).",
           "values": []
         }
       ],

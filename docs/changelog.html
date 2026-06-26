@@ -102,6 +102,31 @@
                   layout set <code>--cui-grid-min: 20rem</code> + <code>data-gap="spacious"</code> and give each
                   card <code>data-variant="leadership"</code> (the grid no longer scales its children).
                 </li>
+                <li><code>.cui-vacancy-card-body</code> - the card body is now a <code>.cui-stack</code>;
+                  a scoped rule feeds its gap from <code>--cui-vacancy-card-gap</code> and carries the card
+                  padding (the card zeroes its own so media keeps bleeding edge-to-edge).
+                </li>
+                <li><code>.cui-vacancy-card-actions</code> - the actions row is now a <code>.cui-cluster</code>
+                  (identical <code>--cui-space-3</code> gap); a scoped rule keeps it bottom-aligned with the
+                  small top padding.
+                </li>
+                <li><code>.cui-vacancy-meta</code> / <code>.cui-vacancy-meta-item</code> (and the
+                  <code>plain</code> variant) - the fact row is now the shared <code>.cui-meta</code>; add
+                  <code>data-variant="chips"</code> for the rounded-pill look (plain <code>.cui-meta</code> is
+                  the old <code>plain</code> variant).
+                </li>
+                <li><code>.cui-vacancy-grid</code> (and its <code>--cui-vacancy-grid-min</code> var) - lay cards
+                  out with <code>.cui-grid</code> and <code>--cui-grid-min: 20rem</code>; the
+                  <code>data-columns</code> / <code>data-gap</code> axes carry over.
+                </li>
+                <li><code>.cui-vacancy-list</code> (and its <code>--cui-vacancy-list-gap</code> var) - the
+                  single-column overview is a <code>.cui-stack</code> (set <code>--cui-stack-gap</code> for the
+                  compact / spacious rhythm). The dense <code>data-variant="stacked"</code> index moves to the
+                  stack and still draws hairline separators between vacancy cards.
+                </li>
+                <li><code>.cui-vacancy-eyebrow</code> (the detail-header eyebrow) - it was identical to
+                  <code>.cui-eyebrow</code>; use that canonical class directly in markup.
+                </li>
               </ul>
             </div>
 
@@ -148,6 +173,33 @@
                   <code>--cui-content-card-*</code> / <code>--cui-person-*</code> knobs are preserved - they now
                   feed the matching <code>--cui-surface-*</code> override vars.
                 </li>
+                <li><code>.cui-vacancy-card</code> no longer carries its own chrome; it composes
+                  <code>.cui-surface</code>. Add it in markup, e.g.
+                  <code>class="cui-surface cui-vacancy-card"</code>. The card feeds the
+                  <code>--cui-surface-*</code> vars from its <code>--cui-content-card-*</code> /
+                  <code>--cui-vacancy-card-*</code> knobs and sets <code>--cui-surface-padding: 0</code> so
+                  media still bleeds; the body <code>.cui-stack</code> carries the padding. The
+                  <code>featured</code> / <code>compact</code> / <code>flat</code> / <code>borderless</code>
+                  / <code>data-status</code> variants are unchanged.
+                </li>
+                <li>The vacancy detail blocks stop re-implementing the primitives:
+                  <code>.cui-vacancy-header</code>, <code>.cui-vacancy-apply</code>, and
+                  <code>.cui-vacancy-contact</code> compose <code>.cui-stack</code>, and
+                  <code>.cui-vacancy-aside</code> composes <code>.cui-surface</code> (muted background,
+                  no shadow) + <code>.cui-stack</code>. Add the primitives in markup, e.g.
+                  <code>class="cui-vacancy-aside cui-surface cui-stack"</code>; each block keeps only its
+                  delta (the header hairline, the sticky rail, the full-width apply button) and feeds
+                  its gap through <code>--cui-stack-gap</code>.
+                </li>
+                <li>The vacancy editorial type stops re-implementing the canonical classes. Both
+                  eyebrows compose <code>.cui-eyebrow</code> (the detail <code>.cui-vacancy-eyebrow</code>
+                  is removed; the card eyebrow keeps only its retint knob + linked-label styling). The
+                  card / detail titles compose <code>.cui-display</code> and the taglines
+                  <code>.cui-lead</code>, retuned to their smaller scale through the new
+                  <code>--cui-display-*</code> / <code>--cui-lead-*</code> override vars rather than
+                  redeclaring the type. Add the primitive in markup, e.g.
+                  <code>class="cui-vacancy-card-title cui-display"</code>.
+                </li>
               </ul>
             </div>
 
@@ -173,6 +225,17 @@
                 <li>New <code>.cui-meta</code> class — one canonical metadata row (wrapping list with
                   <code>·</code> separators and list reset) that replaces the per-block <code>*-meta</code> rows.
                   Tunable via <code>--cui-meta-gap</code> and <code>--cui-meta-separator</code>.
+                </li>
+                <li><code>.cui-meta</code> gains a <code>data-variant="chips"</code> modifier — renders each
+                  item as a muted rounded pill (no separators), the shared replacement for the vacancy
+                  fact-pill row.
+                </li>
+                <li>Override custom properties on the editorial type primitives so blocks can compose
+                  and retune them without redeclaring: <code>--cui-display-size</code> /
+                  <code>-weight</code> / <code>-leading</code> / <code>-tracking</code> /
+                  <code>-measure</code> on <code>.cui-display</code>, and <code>--cui-lead-size</code> /
+                  <code>-leading</code> / <code>-measure</code> on <code>.cui-lead</code> (each defaults
+                  to the previous hardcoded value).
                 </li>
               </ul>
             </div>

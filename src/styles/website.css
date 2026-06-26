@@ -323,15 +323,25 @@
  * Use on landing-page hero headlines and other display-scale
  * moments.
  *
+ * Each axis takes an override var so a block can compose the headline
+ * and retune it (e.g. a card title at a smaller scale) by setting the
+ * var rather than redeclaring the rule — the same pattern as
+ * `--cui-surface-*`. Defaults reproduce the original display look.
+ *
  * @block cui-display
  * @summary Display-scale headline class; capped at 13ch.
+ * @cssvar --cui-display-size — Font size. Defaults to `--cui-font-size-display`.
+ * @cssvar --cui-display-weight — Font weight. Defaults to `--cui-font-weight-display`.
+ * @cssvar --cui-display-leading — Line height. Defaults to `--cui-line-height-display`.
+ * @cssvar --cui-display-tracking — Letter spacing. Defaults to `0`.
+ * @cssvar --cui-display-measure — Max inline size. Defaults to `13ch`.
  */
 .cui-display {
-    max-inline-size: 13ch;
-    font-size: var(--cui-font-size-display, 5.5rem);
-    font-weight: var(--cui-font-weight-display, 760);
-    letter-spacing: 0;
-    line-height: var(--cui-line-height-display, 0.98);
+    max-inline-size: var(--cui-display-measure, 13ch);
+    font-size: var(--cui-display-size, var(--cui-font-size-display, 5.5rem));
+    font-weight: var(--cui-display-weight, var(--cui-font-weight-display, 760));
+    letter-spacing: var(--cui-display-tracking, 0);
+    line-height: var(--cui-display-leading, var(--cui-line-height-display, 0.98));
     text-wrap: balance;
 }
 
@@ -342,14 +352,22 @@
  * for the lead paragraph; visually distinguishes the opening
  * from the body that follows.
  *
+ * Size, line-height, and measure each take an override var so a block
+ * can compose the lead and retune it (e.g. a smaller card subtitle) by
+ * setting the var rather than redeclaring the rule. Defaults reproduce
+ * the original lead look.
+ *
  * @block cui-lead
  * @summary Lead paragraph; sized at `--cui-font-size-2`, muted.
+ * @cssvar --cui-lead-size — Font size. Defaults to `--cui-font-size-2`.
+ * @cssvar --cui-lead-leading — Line height. Defaults to `1.4`.
+ * @cssvar --cui-lead-measure — Max inline size. Defaults to `--cui-content-measure`.
  */
 .cui-lead {
-    max-inline-size: var(--cui-content-measure, 68ch);
+    max-inline-size: var(--cui-lead-measure, var(--cui-content-measure, 68ch));
     color: var(--cui-color-muted, #5d6675);
-    font-size: var(--cui-font-size-2, 1.5rem);
-    line-height: 1.4;
+    font-size: var(--cui-lead-size, var(--cui-font-size-2, 1.5rem));
+    line-height: var(--cui-lead-leading, 1.4);
 }
 
 /**
