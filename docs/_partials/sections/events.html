@@ -451,22 +451,22 @@
     </section>
 
     <section class="docs-panel">
-      <ol class="cui-itinerary">
-        <li class="cui-itinerary-item">
+      <ol class="cui-stack">
+        <li class="cui-surface cui-itinerary-item">
           <time class="cui-itinerary-marker" datetime="08:30">08:30</time>
-          <div class="cui-itinerary-body">
-            <h3 class="cui-itinerary-title">Coffee with the team</h3>
-            <p class="cui-itinerary-text">
+          <div class="cui-stack">
+            <h3>Coffee with the team</h3>
+            <p>
               You talk through what's happening in the city. Reports come in from
               residents and businesses, and the team splits them up between you.
             </p>
           </div>
         </li>
-        <li class="cui-itinerary-item">
+        <li class="cui-surface cui-itinerary-item">
           <time class="cui-itinerary-marker" datetime="09:30">09:30</time>
-          <div class="cui-itinerary-body">
-            <h3 class="cui-itinerary-title">Into the neighbourhood</h3>
-            <p class="cui-itinerary-text">
+          <div class="cui-stack">
+            <h3>Into the neighbourhood</h3>
+            <p>
               You head out with a colleague to follow up on reports. Along the
               way you spot a wrongly parked car, rubbish next to a container, and
               a stray dog. You talk to people, resolve what you can, and refer
@@ -474,42 +474,42 @@
             </p>
           </div>
         </li>
-        <li class="cui-itinerary-item">
+        <li class="cui-surface cui-itinerary-item">
           <time class="cui-itinerary-marker" datetime="12:30">12:30</time>
-          <div class="cui-itinerary-body">
-            <h3 class="cui-itinerary-title">Lunch</h3>
-            <p class="cui-itinerary-text">
+          <div class="cui-stack">
+            <h3>Lunch</h3>
+            <p>
               Back at the city office for lunch — a chance to recharge, catch up,
               and laugh with the team. You work hard and have fun doing it.
             </p>
           </div>
         </li>
-        <li class="cui-itinerary-item">
+        <li class="cui-surface cui-itinerary-item">
           <time class="cui-itinerary-marker" datetime="13:30">13:30</time>
-          <div class="cui-itinerary-body">
-            <h3 class="cui-itinerary-title">Partner meeting</h3>
-            <p class="cui-itinerary-text">
+          <div class="cui-stack">
+            <h3>Partner meeting</h3>
+            <p>
               Sync with police, public-safety colleagues, and a handful of
               partners. There's an integrated operation tomorrow and everyone
               wants to be prepared — safety first.
             </p>
           </div>
         </li>
-        <li class="cui-itinerary-item">
+        <li class="cui-surface cui-itinerary-item">
           <time class="cui-itinerary-marker" datetime="16:30">16:30</time>
-          <div class="cui-itinerary-body">
-            <h3 class="cui-itinerary-title">Debrief</h3>
-            <p class="cui-itinerary-text">
+          <div class="cui-stack">
+            <h3>Debrief</h3>
+            <p>
               Feedback loops, reporting, and admin. It takes about half an hour
               at the end of each day.
             </p>
           </div>
         </li>
-        <li class="cui-itinerary-item">
+        <li class="cui-surface cui-itinerary-item">
           <time class="cui-itinerary-marker" datetime="17:00">17:00</time>
-          <div class="cui-itinerary-body">
-            <h3 class="cui-itinerary-title">Home</h3>
-            <p class="cui-itinerary-text">
+          <div class="cui-stack">
+            <h3>Home</h3>
+            <p>
               Off home, with enough energy left for the rest of your life.
             </p>
           </div>
@@ -518,19 +518,19 @@
 
       <cui-code language="html">
         <script type="text/html">
-                      <ol class="cui-itinerary">
-                        <li class="cui-itinerary-item">
+                      <ol class="cui-stack">
+                        <li class="cui-surface cui-itinerary-item">
                           <time class="cui-itinerary-marker" datetime="08:30">08:30</time>
-                          <div class="cui-itinerary-body">
-                            <h3 class="cui-itinerary-title">Coffee with the team</h3>
-                            <p class="cui-itinerary-text">Talk through the day's plan…</p>
+                          <div class="cui-stack">
+                            <h3>Coffee with the team</h3>
+                            <p>Talk through the day's plan…</p>
                           </div>
                         </li>
-                        <li class="cui-itinerary-item">
+                        <li class="cui-surface cui-itinerary-item">
                           <time class="cui-itinerary-marker" datetime="09:30">09:30</time>
-                          <div class="cui-itinerary-body">
-                            <h3 class="cui-itinerary-title">Into the neighbourhood</h3>
-                            <p class="cui-itinerary-text">Follow up on reports with a colleague…</p>
+                          <div class="cui-stack">
+                            <h3>Into the neighbourhood</h3>
+                            <p>Follow up on reports with a colleague…</p>
                           </div>
                         </li>
                       </ol>
@@ -540,12 +540,12 @@
       <cui-code language="html">
         <script type="text/html">
                       <!-- Free-form markers — works for Day 1 / Step 2 / Sprint 4 -->
-        <ol class="cui-itinerary" data-variant="compact">
-          <li class="cui-itinerary-item">
+        <ol class="cui-stack" data-variant="compact">
+          <li class="cui-surface cui-itinerary-item">
             <span class="cui-itinerary-marker">Day 1</span>
-            <div class="cui-itinerary-body">
-              <h3 class="cui-itinerary-title">Setup &amp; intros</h3>
-              <p class="cui-itinerary-text">Laptop, accounts, team lunch.</p>
+            <div class="cui-stack">
+              <h3>Setup &amp; intros</h3>
+              <p>Laptop, accounts, team lunch.</p>
             </div>
           </li>
         </ol>
@@ -608,13 +608,15 @@
               </td>
             </tr>
             <tr>
-              <td><code>.cui-itinerary</code></td>
+              <td><code>.cui-surface.cui-itinerary-item</code></td>
               <td>
-                Narrative day-in-the-life / programme block. Render as <code>&lt;ol&gt;</code>
-                with <code>.cui-itinerary-item</code> rows; marker can be
-                <code>&lt;time datetime&gt;</code> or free-form text (Day 1, Step 2).
-                <code>data-variant="compact"</code> tightens spacing;
-                <code>data-variant="bare"</code> drops card chrome.
+                Narrative day-in-the-life / programme rows. Lay them out in a
+                <code>.cui-stack</code> (render as <code>&lt;ol&gt;</code> when order matters); each
+                row composes <code>.cui-surface</code> and styles its own descendants (body
+                <code>.cui-stack</code>, a bare heading, bare <code>&lt;p&gt;</code> copy). Only the
+                <code>.cui-itinerary-marker</code> keeps a class — a <code>&lt;time datetime&gt;</code>
+                or free-form text (Day 1, Step 2). Set <code>data-variant="compact"</code> on the
+                stack to tighten spacing, or <code>data-variant="bare"</code> to drop card chrome.
               </td>
             </tr>
           </tbody>

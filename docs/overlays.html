@@ -757,7 +757,7 @@
                   <div class="cui-stack">
                     <div class="cui-alert" data-variant="info" role="status">
                       <span class="cui-alert-icon" aria-hidden="true">i</span>
-                      <div class="cui-alert-body">
+                      <div class="cui-stack">
                         <p class="cui-alert-title">Heads up</p>
                         <p>Maintenance starts at 22:00 UTC.</p>
                       </div>
@@ -766,7 +766,7 @@
                     </div>
                     <div class="cui-alert" data-variant="success" role="status">
                       <span class="cui-alert-icon" aria-hidden="true">✓</span>
-                      <div class="cui-alert-body">
+                      <div class="cui-stack">
                         <p class="cui-alert-title">Saved.</p>
                         <p>Your changes are live.</p>
                       </div>
@@ -775,7 +775,7 @@
                     </div>
                     <div class="cui-alert" data-variant="warning" role="alert">
                       <span class="cui-alert-icon" aria-hidden="true">!</span>
-                      <div class="cui-alert-body">
+                      <div class="cui-stack">
                         <p class="cui-alert-title">Be careful</p>
                         <p>This branch has unsaved migrations.</p>
                       </div>
@@ -784,7 +784,7 @@
                     </div>
                     <div class="cui-alert" data-variant="danger" role="alert">
                       <span class="cui-alert-icon" aria-hidden="true">✕</span>
-                      <div class="cui-alert-body">
+                      <div class="cui-stack">
                         <p class="cui-alert-title">Failed</p>
                         <p>Couldn't reach the upstream service. Retrying in 30s.</p>
                       </div>
@@ -797,7 +797,7 @@
                     <script type="text/html">
                         <div class="cui-alert" data-variant="success" role="status">
                           <span class="cui-alert-icon" aria-hidden="true">✓</span>
-                          <div class="cui-alert-body">
+                          <div class="cui-stack">
                             <p class="cui-alert-title">Saved.</p>
                             <p>Your changes are live.</p>
                           </div>
@@ -861,25 +861,25 @@
                   <div class="cui-stack">
                     <div class="cui-alert" data-variant="info" role="status">
                       <span class="cui-alert-icon" aria-hidden="true">i</span>
-                      <div class="cui-alert-body">
+                      <div class="cui-stack">
                         <p>Default <code>outline</code> tone. Surface background with an accent stripe.</p>
                       </div>
                     </div>
                     <div class="cui-alert" data-variant="info" data-tone="filled" role="status">
                       <span class="cui-alert-icon" aria-hidden="true">i</span>
-                      <div class="cui-alert-body">
+                      <div class="cui-stack">
                         <p><code>data-tone="filled"</code>. Subtle accent-tinted background.</p>
                       </div>
                     </div>
                     <div class="cui-alert" data-variant="success" data-tone="solid" role="status">
                       <span class="cui-alert-icon" aria-hidden="true">✓</span>
-                      <div class="cui-alert-body">
+                      <div class="cui-stack">
                         <p><code>data-tone="solid"</code>. Full accent background, high-contrast text.</p>
                       </div>
                     </div>
                     <div class="cui-alert" data-variant="danger" data-tone="solid" role="alert">
                       <span class="cui-alert-icon" aria-hidden="true">✕</span>
-                      <div class="cui-alert-body">
+                      <div class="cui-stack">
                         <p class="cui-alert-title">Critical</p>
                         <p>Solid tone draws the eye for blocking errors.</p>
                       </div>
@@ -981,14 +981,15 @@
                     <tbody>
                       <tr>
                         <td><code>.cui-alert</code></td>
-                        <td>Container. Grid layout: icon · body · dismiss.</td>
+                        <td>Container. Composes <code>.cui-surface</code> for chrome; grid layout:
+                          icon · body · dismiss.</td>
                       </tr>
                       <tr>
-                        <td><code>.cui-alert-icon</code> · <code>.cui-alert-body</code> ·
-                          <code>.cui-alert-title</code> · <code>.cui-alert-message</code> ·
-                          <code>.cui-alert-actions</code> · <code>.cui-alert-dismiss</code>
+                        <td><code>.cui-alert-icon</code> · <code>.cui-alert-title</code> ·
+                          <code>.cui-alert-message</code> · <code>.cui-alert-dismiss</code>
                         </td>
-                        <td>Structural classes for the slots.</td>
+                        <td>Bespoke / JS-hook slots that keep a class. The body is a
+                          <code>.cui-stack</code> and an actions row a <code>.cui-cluster</code>.</td>
                       </tr>
                       <tr>
                         <td><code>data-variant="info | success | warning | danger"</code></td>

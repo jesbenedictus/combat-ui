@@ -270,6 +270,23 @@
                   <code>cui-article-filter</code> at the grid / stack with its <code>target</code>
                   selector (see Changed).
                 </li>
+                <li><code>.cui-alert-body</code> / <code>.cui-alert-actions</code> - the alert body is
+                  now a <code>.cui-stack</code> and the actions row a <code>.cui-cluster</code>; scoped
+                  rules feed the tight body gap (<code>--cui-space-1</code>) and the actions' top
+                  margin. The <code>.cui-alert-icon</code> / <code>.cui-alert-title</code> /
+                  <code>.cui-alert-message</code> / <code>.cui-alert-dismiss</code> classes stay (the
+                  title and message are JS hooks the <code>toast()</code> runtime reads).
+                </li>
+                <li><code>.cui-itinerary</code>, <code>.cui-itinerary-body</code>,
+                  <code>.cui-itinerary-title</code>, <code>.cui-itinerary-text</code> - the itinerary
+                  is now a <code>.cui-stack</code> of <code>.cui-itinerary-item</code> rows, each of which
+                  styles its own descendants (contextual markup). The body is a <code>.cui-stack</code>,
+                  the title a bare heading, the body copy a bare <code>&lt;p&gt;</code>. The
+                  <code>compact</code> / <code>bare</code> variants move to the stack
+                  (<code>data-variant</code> + <code>:has(&gt; .cui-itinerary-item)</code>); the bespoke
+                  <code>.cui-itinerary-marker</code> and every <code>--cui-itinerary-*</code> knob are
+                  preserved.
+                </li>
               </ul>
             </div>
 
@@ -398,6 +415,25 @@
                   <code>target="#news-grid"</code>). If <code>target</code> is omitted, or it matches no
                   element, the filter no-ops and warns in the console. It still reads
                   <code>data-category</code> on each <code>.cui-article-card</code> to show / hide it.
+                </li>
+                <li><code>.cui-alert</code> no longer carries its own chrome; it composes
+                  <code>.cui-surface</code> (background, border, radius, padding; shadow suppressed)
+                  while keeping its own icon · body · dismiss grid and the inline-start accent rail.
+                  No markup change — the existing <code>.cui-alert</code> class is enough. The
+                  <code>--cui-alert-bg</code> / <code>--cui-alert-border</code> /
+                  <code>--cui-alert-radius</code> knobs are preserved (they now feed the matching
+                  <code>--cui-surface-*</code> override vars); the <code>data-variant</code> /
+                  <code>data-tone</code> variants are unchanged. (The body slot classes are dropped -
+                  see Removed.)
+                </li>
+                <li><code>.cui-itinerary-item</code> no longer carries its own chrome; it composes
+                  <code>.cui-surface</code> and styles its own descendants contextually. Add it in
+                  markup, e.g. <code>class="cui-surface cui-itinerary-item"</code> inside a
+                  <code>.cui-stack</code>, with a <code>.cui-stack</code> body. The row feeds the
+                  <code>--cui-surface-*</code> vars from its <code>--cui-itinerary-*</code> /
+                  <code>--cui-content-card-*</code> knobs (shadow suppressed). The <code>compact</code>
+                  / <code>bare</code> / <code>data-status</code> variants are unchanged. (The container
+                  and body slot classes are dropped - see Removed.)
                 </li>
               </ul>
             </div>

@@ -7,89 +7,75 @@
  * schedules — anywhere the editorial copy matters more than the
  * exact placement on a clock.
  *
- * Render the container as `<ol>` when the order is meaningful (it
- * usually is); strip the list chrome via the block class. Each
- * item is a `<li>` (or any element) carrying
- * `.cui-itinerary-item`; markers can be `<time datetime>` for
- * real times, or plain `<span>` for "Day 1" / "Step 2" labels.
+ * **Contextual markup.** Lay the rows out with the `.cui-stack`
+ * primitive (render it as `<ol>` when order is meaningful); each row
+ * is a `.cui-itinerary-item` that composes `.cui-surface` for its card
+ * chrome and styles its own descendants — the body is a `.cui-stack`,
+ * the title a bare heading, the body copy a bare `<p>`. Only the
+ * bespoke `.cui-itinerary-marker` keeps a class. Tighten the whole list
+ * with `[data-variant="compact"]` on the stack, or drop the card chrome
+ * for hairline dividers with `[data-variant="bare"]`.
  *
- * @block cui-itinerary
- * @summary Vertical narrative timeline; marker + title + body per row.
- * @variant compact | bare — Maps to `[data-variant]`. `compact`
- *   tightens padding and shrinks the marker column. `bare` drops
+ * @block cui-itinerary-item
+ * @summary Itinerary row: marker beside a stacked body, composes `.cui-surface`.
+ * @variant compact | bare — Set `[data-variant]` on the parent `.cui-stack`.
+ *   `compact` tightens padding and shrinks the marker column. `bare` drops
  *   the card chrome and inserts a hairline divider between rows.
- * @cssvar --cui-itinerary-gap — Gap between rows. Defaults to `--cui-space-4`.
  * @cssvar --cui-itinerary-marker-size — Marker column width. Defaults to 6rem.
  * @cssvar --cui-itinerary-marker-color — Marker text color. Defaults to `--cui-color-accent`.
  * @cssvar --cui-itinerary-padding — Card padding. Defaults to `--cui-space-5`.
  * @cssvar --cui-itinerary-radius — Card corner radius. Defaults to `--cui-radius-3`.
  *
  * @example
- *   <ol class="cui-itinerary">
- *     <li class="cui-itinerary-item">
+ *   <ol class="cui-stack">
+ *     <li class="cui-surface cui-itinerary-item">
  *       <time class="cui-itinerary-marker" datetime="08:30">08:30</time>
- *       <div class="cui-itinerary-body">
- *         <h3 class="cui-itinerary-title">Coffee with the team</h3>
- *         <p class="cui-itinerary-text">
- *           Talk through the day's plan, share blockers, and split work.
- *         </p>
+ *       <div class="cui-stack">
+ *         <h3>Coffee with the team</h3>
+ *         <p>Talk through the day's plan, share blockers, and split work.</p>
  *       </div>
  *     </li>
- *     <li class="cui-itinerary-item">
+ *     <li class="cui-surface cui-itinerary-item">
  *       <time class="cui-itinerary-marker" datetime="09:30">09:30</time>
- *       <div class="cui-itinerary-body">
- *         <h3 class="cui-itinerary-title">Into the city</h3>
- *         <p class="cui-itinerary-text">…</p>
+ *       <div class="cui-stack">
+ *         <h3>Into the city</h3>
+ *         <p>…</p>
  *       </div>
  *     </li>
  *   </ol>
  *
  * @example
  *   <!-- Free-form markers for an onboarding flow -->
- *   <ol class="cui-itinerary" data-variant="compact">
- *     <li class="cui-itinerary-item">
+ *   <ol class="cui-stack" data-variant="compact">
+ *     <li class="cui-surface cui-itinerary-item">
  *       <span class="cui-itinerary-marker">Day 1</span>
- *       <div class="cui-itinerary-body">
- *         <h3 class="cui-itinerary-title">Setup &amp; intros</h3>
- *         <p class="cui-itinerary-text">…</p>
+ *       <div class="cui-stack">
+ *         <h3>Setup &amp; intros</h3>
+ *         <p>…</p>
  *       </div>
  *     </li>
  *   </ol>
  */
-.cui-itinerary {
-  --cui-itinerary-gap: var(--cui-space-4, 1rem);
+.cui-itinerary-item {
   --cui-itinerary-marker-size: 6rem;
   --cui-itinerary-marker-color: var(--cui-color-accent, oklch(57% 0.18 246deg));
   --cui-itinerary-padding: var(--cui-space-5, 1.5rem);
   --cui-itinerary-radius: var(--cui-radius-3, 0.75rem);
   --cui-itinerary-body-gap: var(--cui-space-3, 0.75rem);
 
-  display: grid;
-  gap: var(--cui-itinerary-gap);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
+  /* Card chrome borrowed from the surface primitive (no shadow); the
+     row keeps its own marker-beside-body flex layout. */
+  --cui-surface-bg: var(--cui-content-card-bg, var(--cui-color-surface-raised, #fff));
+  --cui-surface-border: var(--cui-border-size, 1px) solid
+    var(--cui-color-border, #cfd6df);
+  --cui-surface-radius: var(--cui-itinerary-radius);
+  --cui-surface-shadow: none;
+  --cui-surface-padding: var(--cui-itinerary-padding);
 
-/**
- * Row of a `.cui-itinerary`. A two-column flex container with the
- * marker on the start side and the body on the end side; wraps to
- * a single column at narrow widths. Carries the card chrome
- * (border + radius + surface) by default — drop it with the
- * container's `[data-variant="bare"]`.
- *
- * @block cui-itinerary-item
- * @summary Itinerary row: marker beside body, card chrome by default.
- */
-.cui-itinerary-item {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--cui-space-4, 1rem);
-  padding: var(--cui-itinerary-padding);
-  border: var(--cui-border-size, 1px) solid var(--cui-color-border, #cfd6df);
-  border-radius: var(--cui-itinerary-radius);
-  background: var(--cui-content-card-bg, var(--cui-color-surface-raised, #fff));
   color: var(--cui-color, #1b1f27);
 }
 
@@ -117,78 +103,58 @@
   line-height: 1.2;
 }
 
-/**
- * Body column inside a `.cui-itinerary-item`. A small grid that
- * stacks title and paragraph copy; direct heading and paragraph
- * children get `margin: 0` so the grid gap controls rhythm.
- *
- * @block cui-itinerary-body
- * @summary Stacked content column inside an itinerary row.
- */
-.cui-itinerary-body {
-  display: grid;
+/* Body column inside a `.cui-itinerary-item` — a `.cui-stack` that holds
+   the title and paragraph copy. */
+.cui-itinerary-item > .cui-stack {
+  --cui-stack-gap: var(--cui-itinerary-body-gap, var(--cui-space-3, 0.75rem));
+
   flex: 1 1 var(--cui-itinerary-body-min, 18rem);
-  gap: var(--cui-itinerary-body-gap, var(--cui-space-3, 0.75rem));
   min-inline-size: 0;
 }
 
-.cui-itinerary-body > :where(h1, h2, h3, h4, h5, h6, p) {
-  margin: 0;
-}
-
-/**
- * Title heading inside `.cui-itinerary-body`. Bold, tight
- * line-height — render as a real heading (`<h3>` inside a section
- * with an `<h2>` above) so the page outline stays clean.
- *
- * @block cui-itinerary-title
- * @summary Bold row title inside an itinerary body.
- */
-.cui-itinerary-title {
+/* Title — a bare heading (any level) inside the body. */
+.cui-itinerary-item > .cui-stack > :where(h1, h2, h3, h4, h5, h6) {
   font-size: var(--cui-font-size-1, 1.1875rem);
   font-weight: var(--cui-font-weight-strong, 680);
   line-height: var(--cui-line-height-tight, 1.2);
 }
 
-/**
- * Paragraph copy inside `.cui-itinerary-body`. Muted default body
- * text — keep to one or two sentences per row; longer prose
- * belongs in a `cui-prose` section.
- *
- * @block cui-itinerary-text
- * @summary Muted paragraph copy beneath the itinerary title.
- */
-.cui-itinerary-text {
+/* Body copy — a bare, muted `<p>` beneath the title. */
+.cui-itinerary-item > .cui-stack > p:not([class]) {
   color: var(--cui-color-muted, #5d6675);
   line-height: var(--cui-line-height, 1.55);
 }
 
-/* Compact: tighter padding, smaller marker column, lighter chrome. */
-.cui-itinerary[data-variant="compact"] {
+/* Compact: tighter padding, smaller marker column, tighter row gap. */
+.cui-stack[data-variant="compact"]:has(> .cui-itinerary-item) {
+  --cui-stack-gap: var(--cui-space-2, 0.5rem);
+}
+
+.cui-stack[data-variant="compact"] > .cui-itinerary-item {
   --cui-itinerary-marker-size: 4.5rem;
   --cui-itinerary-padding: var(--cui-space-4, 1rem);
-  --cui-itinerary-gap: var(--cui-space-2, 0.5rem);
   --cui-itinerary-body-gap: var(--cui-space-2, 0.5rem);
 }
 
-.cui-itinerary[data-variant="compact"] .cui-itinerary-marker {
+.cui-stack[data-variant="compact"] .cui-itinerary-marker {
   font-size: var(--cui-font-size-0, 1rem);
 }
 
 /* Bare: drop card chrome, hairline divider between rows. */
-.cui-itinerary[data-variant="bare"] {
-  --cui-itinerary-gap: 0;
+.cui-stack[data-variant="bare"]:has(> .cui-itinerary-item) {
+  --cui-stack-gap: 0;
 }
 
-.cui-itinerary[data-variant="bare"] > .cui-itinerary-item {
-  border: 0;
+.cui-stack[data-variant="bare"] > .cui-itinerary-item {
+  --cui-surface-border: 0;
+  --cui-surface-radius: 0;
+  --cui-surface-bg: transparent;
+
   border-block-end: var(--cui-border-size-line, 1px) solid var(--cui-color-border, #cfd6df);
-  border-radius: 0;
-  background: transparent;
   padding-inline: 0;
 }
 
-.cui-itinerary[data-variant="bare"] > .cui-itinerary-item:last-child {
+.cui-stack[data-variant="bare"] > .cui-itinerary-item:last-child {
   border-block-end: 0;
 }
 
@@ -210,7 +176,7 @@
   color: var(--cui-color-danger, oklch(58% 0.19 28deg));
 }
 
-.cui-itinerary-item[data-status="cancelled"] .cui-itinerary-title {
+.cui-itinerary-item[data-status="cancelled"] > .cui-stack > :where(h1, h2, h3, h4, h5, h6) {
   text-decoration: line-through;
   text-decoration-color: var(--cui-color-danger, oklch(58% 0.19 28deg));
 }

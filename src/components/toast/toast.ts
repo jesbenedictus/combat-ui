@@ -125,7 +125,7 @@ function renderAlert(options: CuiToastOptions): HTMLElement {
   );
   el.innerHTML = `
     <span class="cui-alert-icon" aria-hidden="true"></span>
-    <div class="cui-alert-body">
+    <div class="cui-stack">
       <p class="cui-alert-title" hidden></p>
       <p class="cui-alert-message"></p>
     </div>

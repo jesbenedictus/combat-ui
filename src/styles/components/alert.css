@@ -4,13 +4,21 @@
  * Use it for non-blocking feedback (success, info, warning, error) that
  * don't stop the user; for blocking feedback, use `cui-modal` instead.
  *
- * The default appearance is a bordered card with an accent rail on the 
+ * The default appearance is a bordered card with an accent rail on the
  * inline-start edge. `[data-variant]` changes the accent hue; `[data-tone]`
- * switches betweeen the default outline look, a subtle fille background, 
+ * switches betweeen the default outline look, a subtle fille background,
  * and a solid filled background where the accent becomes the surface.
- * 
+ *
+ * **Contextual markup.** The alert composes `.cui-surface` for its chrome
+ * (background, border, radius, padding — shadow suppressed) while keeping
+ * its own icon · body · dismiss grid and the inline-start accent rail. The
+ * body is a `.cui-stack`; the icon, title, message, and dismiss button keep
+ * their classes (the icon is bespoke, the title / message are JS hooks the
+ * `toast()` runtime reads, the dismiss button pairs with `data-cui-dismiss`).
+ * An actions row is a `.cui-cluster`.
+ *
  * @block cui-alert
- * @summary Inline callout banner with variant, tone, and dismiss controls.
+ * @summary Inline callout banner with variant, tone, and dismiss controls; composes `.cui-surface`.
  * @variant info | success | warning | danger - Maps to `[data-variant]`.
  *   Changes the accent hue (`--cui-alert-accent`); omit for the default
  *   neutral accent.
@@ -29,7 +37,7 @@
  * @example
  *   <div class="cui-alert" data-variant="info">
  *     <span class="cui-alert-icon" aria-hidden="true">i</span>
- *     <div class="cui-alert-body">
+ *     <div class="cui-stack">
  *       <p class="cui-alert-title">Heads up</p>
  *       <p class="cui-alert-message">Your changes have been saved.</p>
  *     </div>
@@ -38,10 +46,10 @@
  * @example
  *   <div class="cui-alert" data-variant="warning" data-tone="solid" role="alert">
  *     <span class="cui-alert-icon" aria-hidden="true">!</span>
- *     <div class="cui-alert-body">
+ *     <div class="cui-stack">
  *       <p class="cui-alert-title">Session expiring</p>
  *       <p class="cui-alert-message">You'll be signed out in 2 minutes.</p>
- *       <div class="cui-alert-actions">
+ *       <div class="cui-cluster">
  *         <button class="cui-button" data-variant="primary">Stay signed in</button>
  *       </div>
  *     </div>
@@ -56,15 +64,19 @@
   --cui-alert-on-accent: var(--cui-color-on-accent, #fff);
   --cui-alert-radius: var(--cui-radius-2, 0.5rem);
 
+  /* Chrome borrowed from the surface primitive; the alert keeps its own
+     icon · body · dismiss grid and the inline-start accent rail. */
+  --cui-surface-bg: var(--cui-alert-bg);
+  --cui-surface-border: var(--cui-border-size, 1px) solid var(--cui-alert-border);
+  --cui-surface-radius: var(--cui-alert-radius);
+  --cui-surface-shadow: none;
+  --cui-surface-padding: var(--cui-space-3, 0.75rem) var(--cui-space-4, 1rem);
+
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: start;
   gap: var(--cui-space-3, 0.75rem);
-  padding: var(--cui-space-3, 0.75rem) var(--cui-space-4, 1rem);
-  border: var(--cui-border-size, 1px) solid var(--cui-alert-border);
   border-inline-start: 4px solid var(--cui-alert-accent);
-  border-radius: var(--cui-alert-radius);
-  background: var(--cui-alert-bg);
   color: var(--cui-alert-color);
 }
 
@@ -107,28 +119,22 @@
   line-height: 1;
 }
 
-/**
- * Content column inside `.cui-alert`. A vertically-aligned stack
- * (`align-self: center`) that holds the title, message, and any
- * action buttons. Use this so the alert's text wraps independently
- * of the icon column and the dismiss column.
- *
- * @block cui-alert-body
- * @summary Content column of the alert: title, message, actions.
- */
-.cui-alert-body {
-  display: grid;
-  gap: var(--cui-space-1, 0.25rem);
+/* Body column inside `.cui-alert` — a vertically-centered `.cui-stack`
+   (title · message · actions) that wraps independently of the icon and
+   dismiss columns. */
+.cui-alert > .cui-stack {
+  --cui-stack-gap: var(--cui-space-1, 0.25rem);
+
   align-self: center;
   min-inline-size: 0;
 }
 
 /**
- * Bold lead line at the top of `.cui-alert-body`. Pick the semantic
+ * Bold lead line at the top of the alert body. Pick the semantic
  * element to match the alert's role on the page (`<p>` for inline
  * messages, a heading element when the alert is a page-level banner)
- * — the class only handles font weight and margin reset, not the
- * document outline.
+ * — the class only handles font weight, not the document outline. The
+ * `toast()` runtime reads this class to populate the toast heading.
  *
  * @block cui-alert-title
  * @summary Bold lead line inside the alert body.
@@ -140,32 +146,27 @@
 }
 
 /**
- * Message text inside `.cui-alert-body`. Applies implicitly to any
- * `<p>` child of the body (no class required); use the explicit
+ * Message text inside the alert body. Applies implicitly to any `<p>`
+ * child of the body (no class required); use the explicit
  * `.cui-alert-message` class on non-paragraph elements such as a
  * `<span>` for a one-line message or a `<div>` wrapping multiple
- * lines.
+ * lines. The `toast()` runtime reads this class to populate the toast
+ * message.
  *
  * @block cui-alert-message
  * @summary Message text paragraph(s) inside the alert body.
  */
-.cui-alert-body > p,
+.cui-alert > .cui-stack > p,
 .cui-alert-message {
   margin: 0;
   line-height: 1.4;
 }
 
-/**
- * Actions row at the bottom of `.cui-alert-body`. A horizontal flex
- * container with consistent gap and top margin, intended for one or
- * two `cui-button`s that follow the message text.
- *
- * @block cui-alert-actions
- * @summary Flex row of action buttons inside the alert body.
- */
-.cui-alert-actions {
-  display: flex;
-  gap: var(--cui-space-2, 0.5rem);
+/* Actions row at the bottom of the alert body — a `.cui-cluster` with a
+   small top margin separating it from the message. */
+.cui-alert > .cui-stack > .cui-cluster {
+  --cui-cluster-gap: var(--cui-space-2, 0.5rem);
+
   margin-block-start: var(--cui-space-2, 0.5rem);
 }
 
@@ -173,8 +174,8 @@
  * Dismiss button in the trailing column of `.cui-alert`. Render as
  * `<button type="button" aria-label="Dismiss">×</button>` — the
  * visible glyph is decorative, the accessible name comes from
- * `aria-label`. Wire up the click handler in JS; this class is
- * style-only and does not toggle the alert's visibility.
+ * `aria-label`. Pair it with `data-cui-dismiss` so the toast runtime's
+ * global click handler removes the alert; this class is style-only.
  *
  * @block cui-alert-dismiss
  * @summary Trailing dismiss button on the alert.
