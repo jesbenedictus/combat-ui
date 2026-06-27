@@ -40,9 +40,10 @@
  *   </cui-tree>
  */
 .cui-tree-item {
-  --indent: calc(
+  --_-indent: calc(
     var(--cui-tree-indent, 1.25rem) * (var(--cui-tree-level, 1) - 1)
   );
+
   list-style: none;
   position: relative;
   outline: none;
@@ -54,12 +55,16 @@
   gap: var(--cui-space-2, 0.5rem);
   padding: var(--cui-tree-row-padding, 0.25rem 0.5rem);
   padding-inline-start: calc(
-    var(--cui-tree-row-padding-inline, 0.5rem) + var(--indent)
+    var(--cui-tree-row-padding-inline, 0.5rem) + var(--_-indent)
   );
   border-radius: var(--cui-tree-row-radius, 0.25rem);
   cursor: default;
-  -webkit-user-select: none;
-  user-select: none;
+
+  @supports (user-select: none) {
+    /* stylelint-disable-next-line property-no-vendor-prefix */
+    -webkit-user-select: none;
+    user-select: none;
+  }
 }
 
 .cui-tree-item > .cui-tree-row:hover {
@@ -106,8 +111,8 @@
   content: "";
   inline-size: 0.5rem;
   block-size: 0.5rem;
-  border-inline-end: 2px solid currentColor;
-  border-block-end: 2px solid currentColor;
+  border-inline-end: 2px solid currentcolor;
+  border-block-end: 2px solid currentcolor;
   transform: rotate(-45deg);
   transition: transform 120ms ease;
 }
@@ -146,17 +151,20 @@
 .cui-tree-item[data-drop-position]::after {
   content: "";
   position: absolute;
-  inset-inline: var(--indent) 0;
+  inset-inline: var(--_-indent) 0;
   block-size: 2px;
   background: var(--cui-tree-drop-line, currentColor);
   pointer-events: none;
 }
+
 .cui-tree-item[data-drop-position="before"]::before {
   inset-block-start: -1px;
 }
+
 .cui-tree-item[data-drop-position="after"]::after {
   inset-block-end: -1px;
 }
+
 .cui-tree-item[data-drop-position="into"] > .cui-tree-row {
   outline: 2px dashed var(--cui-tree-drop-line, currentColor);
   outline-offset: -2px;

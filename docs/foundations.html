@@ -37,6 +37,7 @@
           <a class="cui-nav-link" href="#sections">Sections</a>
           <a class="cui-nav-link" href="#containers">Containers</a>
           <a class="cui-nav-link" href="#type">Editorial type</a>
+          <a class="cui-nav-link" href="#type-composition">Composing type</a>
           <a class="cui-nav-link" href="#prose-flow">Prose &amp; flow</a>
           <a class="cui-nav-link" href="#utilities">Utilities</a>
           <a class="cui-nav-link" href="#skip-link">Skip link</a>
@@ -275,6 +276,45 @@
                 </tr>
               </tbody>
             </table>
+          </section>
+
+          <section id="type-composition" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Composing the type primitives</h2>
+              <p>
+                Blocks compose <code>.cui-display</code> and <code>.cui-lead</code> rather than redeclaring their
+                own headline classes — a card title is a <code>.cui-display</code>, a section intro a
+                <code>.cui-lead</code>. Each primitive exposes override vars so a block can retune it in place:
+                <code>--cui-display-size</code> / <code>-weight</code> / <code>-leading</code> /
+                <code>-tracking</code> / <code>-measure</code> on <code>.cui-display</code>, and
+                <code>--cui-lead-size</code> / <code>-leading</code> / <code>-measure</code> on
+                <code>.cui-lead</code>.
+              </p>
+              <p>
+                <strong>Watch the measure.</strong> The primitive defaults are <em>hero-scaled</em>:
+                <code>.cui-display</code> ships a <code>13ch</code> max measure (so a marketing hero wraps to a few
+                punchy lines) and <code>.cui-lead</code> caps at <code>68ch</code>. Dropped into a card or a
+                section heading, a bare primitive wraps too early or oversizes. So when a block composes a type
+                primitive outside a hero, the contextual retune — almost always
+                <code>--cui-display-measure: none</code> plus a smaller <code>--cui-display-size</code> — is
+                <strong>mandatory, not optional polish</strong>.
+              </p>
+            </div>
+
+            <cui-code language="css">
+              <script type="text/plain">
+                /* Card title: same primitive, retuned to card scale in place */
+                .cui-vacancy-card .cui-display {
+                  --cui-display-size: var(--cui-font-size-3);
+                  --cui-display-measure: none; /* don't inherit the 13ch hero cap */
+                }
+
+                /* Section lead: widen the measure for running intro copy */
+                .cui-page-intro .cui-lead {
+                  --cui-lead-measure: 48ch;
+                }
+              </script>
+            </cui-code>
           </section>
 
           <section id="prose-flow" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">

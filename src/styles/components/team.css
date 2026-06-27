@@ -49,7 +49,7 @@
  *   </a>
  *
  * @example
- *   <!-- Leadership preset -->
+ *   \3c !-- Leadership preset -->
  *   <article class="cui-surface cui-person" data-variant="leadership" data-align="center">
  *     <img class="cui-person-photo" src="/team/lead.jpg" alt="">
  *     <div class="cui-stack">
@@ -431,7 +431,6 @@ a.cui-person:focus-visible {
   inset-inline: 0;
   block-size: var(--cui-org-link-size, 1.5rem);
   background: var(--cui-org-line-color, #cfd6df);
-  -webkit-mask: var(--cui-org-v-only) center / 100% 100% no-repeat;
   mask: var(--cui-org-v-only) center / 100% 100% no-repeat;
 }
 
@@ -447,22 +446,19 @@ a.cui-person:focus-visible {
   inset-inline: 0;
   block-size: var(--cui-org-link-size, 1.5rem);
   background: var(--cui-org-line-color, #cfd6df);
-  -webkit-mask: var(--cui-org-v-middle) center / 100% 100% no-repeat;
   mask: var(--cui-org-v-middle) center / 100% 100% no-repeat;
 }
 
 .cui-org-children > .cui-org-node:first-child:not(:only-child)::before {
-  -webkit-mask-image: var(--cui-org-v-first);
   mask-image: var(--cui-org-v-first);
 }
 
 .cui-org-children > .cui-org-node:last-child:not(:only-child)::before {
-  -webkit-mask-image: var(--cui-org-v-last);
   mask-image: var(--cui-org-v-last);
 }
 
+/* stylelint-disable-next-line no-descending-specificity -- mutually exclusive with :first-child:not(:only-child); never co-applies */
 .cui-org-children > .cui-org-node:only-child::before {
-  -webkit-mask-image: var(--cui-org-v-only);
   mask-image: var(--cui-org-v-only);
 }
 
@@ -488,36 +484,30 @@ a.cui-person:focus-visible {
 
 .cui-org-chart[data-layout="horizontal"] .cui-org-children::before {
   inset-block: 0;
-  inset-inline-start: 0;
-  inset-inline-end: auto;
+  inset-inline: 0 auto;
   inline-size: var(--cui-org-link-size, 1.5rem);
   block-size: 100%;
-  -webkit-mask-image: var(--cui-org-h-only);
   mask-image: var(--cui-org-h-only);
 }
 
 .cui-org-chart[data-layout="horizontal"] .cui-org-children > .cui-org-node::before {
   inset-block: 0;
-  inset-inline-start: calc(var(--cui-org-link-size) * -1);
-  inset-inline-end: auto;
+  inset-inline: calc(var(--cui-org-link-size) * -1) auto;
   inline-size: var(--cui-org-link-size, 1.5rem);
   block-size: 100%;
-  -webkit-mask-image: var(--cui-org-h-middle);
   mask-image: var(--cui-org-h-middle);
 }
 
 .cui-org-chart[data-layout="horizontal"] .cui-org-children > .cui-org-node:first-child:not(:only-child)::before {
-  -webkit-mask-image: var(--cui-org-h-first);
   mask-image: var(--cui-org-h-first);
 }
 
 .cui-org-chart[data-layout="horizontal"] .cui-org-children > .cui-org-node:last-child:not(:only-child)::before {
-  -webkit-mask-image: var(--cui-org-h-last);
   mask-image: var(--cui-org-h-last);
 }
 
+/* stylelint-disable-next-line no-descending-specificity -- mutually exclusive with :first-child:not(:only-child); never co-applies */
 .cui-org-chart[data-layout="horizontal"] .cui-org-children > .cui-org-node:only-child::before {
-  -webkit-mask-image: var(--cui-org-h-only);
   mask-image: var(--cui-org-h-only);
 }
 

@@ -199,11 +199,11 @@
 
 .cui-alert-dismiss:hover {
   opacity: 1;
-  background: color-mix(in oklch, currentColor 10%, transparent);
+  background: color-mix(in oklch, currentcolor 10%, transparent);
 }
 
 .cui-alert-dismiss:focus-visible {
-  outline: 2px solid var(--cui-color-focus, currentColor);
+  outline: 2px solid var(--cui-color-focus, currentcolor);
   outline-offset: 2px;
 }
 
@@ -218,6 +218,7 @@
     var(--cui-alert-accent) 30%,
     transparent
   );
+
   border-inline-start-width: var(--cui-border-size, 1px);
 }
 
@@ -225,6 +226,7 @@
   --cui-alert-bg: var(--cui-alert-accent);
   --cui-alert-color: var(--cui-alert-on-accent);
   --cui-alert-border: var(--cui-alert-accent);
+  
   border-inline-start-width: var(--cui-border-size, 1px);
 }
 

@@ -30,7 +30,7 @@
   pointer-events: auto;
   min-inline-size: 18rem;
   max-inline-size: 28rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 10px 30px rgb(0 0 0 / 18%);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -60,6 +60,7 @@
     opacity: 0;
     transform: translateY(8px);
   }
+  
   to {
     opacity: 1;
     transform: none;

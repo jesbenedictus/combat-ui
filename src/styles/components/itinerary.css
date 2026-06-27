@@ -45,7 +45,7 @@
  *   </ol>
  *
  * @example
- *   <!-- Free-form markers for an onboarding flow -->
+ *   \3c !-- Free-form markers for an onboarding flow -->
  *   <ol class="cui-stack" data-variant="compact">
  *     <li class="cui-surface cui-itinerary-item">
  *       <span class="cui-itinerary-marker">Day 1</span>

@@ -42,6 +42,7 @@
           <a class="cui-nav-link" href="#sidebar">Sidebar</a>
           <a class="cui-nav-link" href="#center">Center &amp; cover</a>
           <a class="cui-nav-link" href="#surface">Surface</a>
+          <a class="cui-nav-link" href="#surface-models">Composition models</a>
           <a class="cui-nav-link" href="#shell">Shell</a>
           <a class="cui-nav-link" href="#app">App</a>
         </aside>
@@ -497,6 +498,76 @@
                     Flush, flat, square — override vars only, no new selector.
                   </p>
                 </div>
+              </script>
+            </cui-code>
+          </section>
+
+          <section id="surface-models" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Composition models</h2>
+              <p>
+                Blocks reach for the primitives above in one of two ways. Which one a block uses is decided by
+                <em>what the block is</em>, not by taste — pick by the heuristic below, not per element.
+              </p>
+              <h3>Model 1 — explicit composition (cards &amp; repeated components)</h3>
+              <p>
+                For consumer-assembled, slotted blocks that appear many times — cards like
+                <code>.cui-vacancy-card</code> or <code>.cui-event-card</code> — keep the explicit primitive classes
+                <em>and</em> a slot class on each part. The slot classes document the slots a CMS author or template
+                fills, the markup is generated so the verbosity is paid once, and the card scale genuinely differs
+                from the primitive default.
+              </p>
+              <h3>Model 2 — contextual composition (sections &amp; detail-page singletons)</h3>
+              <p>
+                For document-like blocks with a fixed structure that appear once per page —
+                <code>.cui-page-intro</code>, <code>.cui-hero</code>, a vacancy detail header — the block styles its
+                <strong>own descendants</strong> by element and position, the way <code>.cui-prose</code> styles raw
+                tags. The markup carries only the canonical primitive name (or nothing), and the per-element bespoke
+                names are <em>deleted</em>, not paired with a primitive. Cost: descendant selectors, but contained
+                inside the block — low specificity, no <code>!important</code> (the components layer still wins over
+                the primitives' own rules).
+              </p>
+              <p>
+                <strong>Heuristic.</strong> Repeats and is authored per item → Model 1 (explicit slot classes).
+                Once-per-page structural slot → Model 2 (contextual descendants). When a card <em>contains</em> a
+                mini-layout, the card body stays Model 1; only true section / detail layouts go Model 2.
+              </p>
+            </div>
+
+            <div class="docs-layout-frame" style="padding: var(--cui-space-4, 1rem);">
+              <div class="cui-grid" style="--cui-grid-min: 18rem;">
+                <div class="cui-surface cui-stack">
+                  <p class="cui-eyebrow" style="margin: 0;">Model 1 — explicit</p>
+                  <p style="margin: 0; color: var(--cui-color-muted);">
+                    Slot classes on each part. Verbose, but each slot is documented and the markup is generated.
+                  </p>
+                </div>
+                <div class="cui-surface cui-stack">
+                  <p class="cui-eyebrow" style="margin: 0;">Model 2 — contextual</p>
+                  <p style="margin: 0; color: var(--cui-color-muted);">
+                    Clean semantic markup; the block retunes its own descendants. Vocabulary stays the names you
+                    already know.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <cui-code language="html">
+              <script type="text/plain">
+                <!-- Model 1 — explicit: slot classes on each part (card, repeated) -->
+                <article class="cui-surface cui-vacancy-card">
+                  <p class="cui-vacancy-card-eyebrow cui-eyebrow">Engineering</p>
+                  <h3 class="cui-vacancy-card-title cui-display">Senior developer</h3>
+                  <div class="cui-cluster"><cui-button>Apply</cui-button></div>
+                </article>
+
+                <!-- Model 2 — contextual: bare primitives, block retunes descendants (section, once) -->
+                <section class="cui-page-intro">
+                  <header class="cui-stack">
+                    <p class="cui-eyebrow">Careers</p>
+                    <h1 class="cui-display">Join the team</h1>
+                  </header>
+                </section>
               </script>
             </cui-code>
           </section>

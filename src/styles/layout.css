@@ -102,7 +102,7 @@
  *     <header class="cui-shell-header">
  *       <div class="cui-shell-bar">
  *         <strong>Brand</strong>
- *         <nav><!-- nav links --></nav>
+ *         <nav>\3c !-- nav links --></nav>
  *       </div>
  *     </header>
  *     <main class="cui-shell-body">…</main>
@@ -115,6 +115,19 @@
   display: grid;
   min-block-size: 100vb;
   grid-template-rows: auto minmax(0, 1fr) auto;
+}
+
+/**
+ * Body slot of `.cui-shell`. Sets `min-block-size: 0` so the
+ * body can shrink inside its grid row (preventing forced
+ * overflow). With `[data-fill]` on the shell, the body also
+ * becomes the scroll container.
+ *
+ * @block cui-shell-body
+ * @summary Body slot of `.cui-shell`; `min-block-size: 0` for scroll containment.
+ */
+.cui-shell-body {
+  min-block-size: 0;
 }
 
 .cui-shell[data-fill] {
@@ -183,19 +196,6 @@
 }
 
 /**
- * Body slot of `.cui-shell`. Sets `min-block-size: 0` so the
- * body can shrink inside its grid row (preventing forced
- * overflow). With `[data-fill]` on the shell, the body also
- * becomes the scroll container.
- *
- * @block cui-shell-body
- * @summary Body slot of `.cui-shell`; `min-block-size: 0` for scroll containment.
- */
-.cui-shell-body {
-  min-block-size: 0;
-}
-
-/**
  * Two-row app layout — `header` / `body`, where the body is a
  * grid that flips between single-column (mobile) and
  * sidebar-plus-main (≥48rem) layouts. Designed for dashboards
@@ -217,7 +217,7 @@
  *     </header>
  *     <div class="cui-app-body">
  *       <aside class="cui-app-sidebar">
- *         <nav><!-- nav links --></nav>
+ *         <nav>\3c !-- nav links --></nav>
  *       </aside>
  *       <main class="cui-app-main">…</main>
  *       <div class="cui-app-sidebar-backdrop"></div>
@@ -651,7 +651,7 @@
  * @example
  *   <main class="cui-page">
  *     <div class="cui-sidebar">
- *       <aside><!-- table of contents --></aside>
+ *       <aside>\3c !-- table of contents --></aside>
  *       <article>…</article>
  *     </div>
  *   </main>
@@ -691,7 +691,7 @@
  *   </div>
  *
  * @example
- *   <!-- The card recipe: surface chrome + stacked children. -->
+ *   \3c !-- The card recipe: surface chrome + stacked children. -->
  *   <article class="cui-surface cui-stack">
  *     <h3>Card title</h3>
  *     <p>Body copy stacked with the default --cui-stack-gap.</p>
@@ -699,7 +699,7 @@
  *   </article>
  *
  * @example
- *   <!-- Re-skin the chrome via override vars (flush, flat, square). -->
+ *   \3c !-- Re-skin the chrome via override vars (flush, flat, square). -->
  *   <div
  *     class="cui-surface cui-stack"
  *     style="
@@ -793,7 +793,7 @@
  *   </ul>
  *
  * @example
- *   <!-- Chip variant: rounded pills, no separators. -->
+ *   \3c !-- Chip variant: rounded pills, no separators. -->
  *   <ul class="cui-meta" data-variant="chips">
  *     <li>32–36 uur</li>
  *     <li>Vlaardingen</li>

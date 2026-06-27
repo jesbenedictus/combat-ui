@@ -56,13 +56,16 @@
 
 .cui-textarea {
   min-block-size: 6rem;
-  resize: vertical;
+
+  @supports (resize: vertical) {
+    resize: vertical;
+  }
 }
 
 .cui-select {
   appearance: none;
-  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
-    linear-gradient(-45deg, transparent 50%, currentColor 50%);
+  background-image: linear-gradient(45deg, transparent 50%, currentcolor 50%),
+    linear-gradient(-45deg, transparent 50%, currentcolor 50%);
   background-position:
     calc(100% - 1.125rem) center,
     calc(100% - 0.625rem) center;
@@ -122,8 +125,11 @@ cui-field[data-invalid] :where(.cui-input, .cui-select, .cui-textarea) {
 .cui-check input[type="radio"] {
   inline-size: 1.125rem;
   block-size: 1.125rem;
-  accent-color: var(--cui-color-accent, #2563eb);
   margin: 0;
+
+  @supports (accent-color: currentcolor) {
+    accent-color: var(--cui-color-accent, #2563eb);
+  }
 }
 
 /**
@@ -163,7 +169,6 @@ cui-field[data-invalid] :where(.cui-input, .cui-select, .cui-textarea) {
   inline-size: 1px;
   block-size: 1px;
   overflow: hidden;
-  clip: rect(0 0 0 0);
   clip-path: inset(50%);
   white-space: nowrap;
 }
@@ -198,7 +203,7 @@ cui-field[data-invalid] :where(.cui-input, .cui-select, .cui-textarea) {
   block-size: 1.25rem;
   border-radius: 50%;
   background: var(--cui-switch-knob);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 18%);
   transition: transform 160ms ease;
 }
 

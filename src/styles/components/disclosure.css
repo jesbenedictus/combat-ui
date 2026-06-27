@@ -42,7 +42,7 @@
  *   </details>
  *
  * @example
- *   <!-- Borderless FAQ list -->
+ *   \3c !-- Borderless FAQ list -->
  *   <div class="cui-stack" data-variant="stacked">
  *     <details class="cui-disclosure" data-variant="ghost">
  *       <summary>Question one</summary>
@@ -92,8 +92,12 @@
   font-weight: var(--cui-font-weight-strong, 680);
   cursor: pointer;
   list-style: none;
-  -webkit-user-select: none;
-  user-select: none;
+
+  @supports (user-select: none) {
+    /* stylelint-disable-next-line property-no-vendor-prefix */
+    -webkit-user-select: none;
+    user-select: none;
+  }
 }
 
 .cui-disclosure > summary::-webkit-details-marker,

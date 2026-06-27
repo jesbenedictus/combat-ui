@@ -29,7 +29,7 @@
  *   <button class="cui-button" data-variant="primary">Save</button>
  *
  * @example
- *   <!-- Anchor styled as a button -->
+ *   \3c !-- Anchor styled as a button -->
  *   <a class="cui-button" href="/start" data-variant="primary">Get started</a>
  */
 .cui-button {

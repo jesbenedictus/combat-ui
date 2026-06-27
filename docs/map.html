@@ -52,7 +52,8 @@
           npm install leaflet leaflet.markercluster
           </script>
         </cui-code>
-
+      </div>
+      <div class="cui-container">
         <div class="cui-prose">
           <h3>Without a build step</h3>
           <p>
@@ -63,22 +64,23 @@
           </p>
         </div>
         <cui-code language="html">
-          <script type="text/plain">
-&lt;script type="importmap"&gt;
-{
-  "imports": {
-    "leaflet": "https://esm.sh/leaflet@1.9.4",
-    "leaflet.markercluster": "https://esm.sh/leaflet.markercluster@1.5.3?external=leaflet"
-  }
-}
-&lt;/script&gt;
-
-&lt;script type="module"&gt;
-  import "combat-ui/auto";
-&lt;/script&gt;
+          <!--
+          <script type="importmap">
+          {
+            "imports": {
+              "leaflet": "https://esm.sh/leaflet@1.9.4",
+              "leaflet.markercluster": "https://esm.sh/leaflet.markercluster@1.5.3?external=leaflet"
+            }
+          }
           </script>
-        </cui-code>
 
+          <script type="module">
+            import "combat-ui/auto";
+          </script>
+          -->
+        </cui-code>
+        </div>
+        <div class="cui-container">
         <div class="cui-prose">
           <p>
             The <code>leaflet.markercluster</code> entry is only needed for the <code>cluster</code>
@@ -167,8 +169,8 @@
               <div class="docs-preview-frame">
                 <cui-map center="50,10" zoom="3" aria-label="Coverage regions">
                   <h3 slot="title">Coverage</h3>
-                  <script type="application/geo+json" class="cui-map-region"
-                    data-label="EU coverage" data-color="accent">
+                  <script type="application/geo+json" class="cui-map-region" data-label="EU coverage"
+                    data-color="accent">
                     {"type":"Polygon","coordinates":[[[-9,36],[30,36],[30,60],[-9,60],[-9,36]]]}
                   </script>
                 </cui-map>
@@ -262,14 +264,12 @@
               <div class="docs-preview-frame">
                 <cui-map center="50,6" zoom="4" fit-bounds aria-label="Categorised markers">
                   <template slot="marker-icon" data-category="office">
-                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
                       <path d="M3 21V9l9-6 9 6v12h-6v-7h-6v7H3z" />
                     </svg>
                   </template>
                   <template slot="marker-icon" data-category="event">
-                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
                       <path d="M12 2l3 7 7 .8-5.3 4.9 1.6 7L12 18l-6.3 3.7L7.3 14.7 2 9.8 9 9z" />
                     </svg>
                   </template>
@@ -495,7 +495,8 @@
                         <td><code>fit-bounds</code></td>
                         <td>Boolean — <code>true</code> by default when &gt; 1 point. Set
                           <code>"false"</code> to keep the configured <code>center</code> / <code>zoom</code>;
-                          set <code>"true"</code> to force fit even with one marker.</td>
+                          set <code>"true"</code> to force fit even with one marker.
+                        </td>
                       </tr>
                       <tr>
                         <td><code>interactive</code></td>
@@ -542,20 +543,23 @@
                         <td><code>slot="marker-icon"</code></td>
                         <td>One or more <code>&lt;template&gt;</code> elements. Each may carry
                           <code>data-category</code>. Used as marker HTML for any point with a matching
-                          category.</td>
+                          category.
+                        </td>
                       </tr>
                       <tr>
                         <td><code>.cui-map-point</code></td>
                         <td>An <code>&lt;article&gt;</code> with required <code>data-lat</code> /
                           <code>data-lng</code>, optional <code>data-category</code>. Cloned into the marker
-                          popup.</td>
+                          popup.
+                        </td>
                       </tr>
                       <tr>
                         <td><code>.cui-map-region</code></td>
                         <td><code>&lt;script type="application/geo+json"&gt;</code> containing a Feature or
                           Geometry. Optional <code>data-label</code> for hover tooltip and
                           <code>data-color</code> for a per-region class hook
-                          (<code>.cui-map-region--&lt;color&gt;</code>).</td>
+                          (<code>.cui-map-region--&lt;color&gt;</code>).
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -586,7 +590,8 @@
                       </tr>
                       <tr>
                         <td><code>map.clustered</code> · <code>map.interactive</code> ·
-                          <code>map.scrollWheelZoom</code></td>
+                          <code>map.scrollWheelZoom</code>
+                        </td>
                         <td>Boolean getters reflecting their attributes.</td>
                       </tr>
                       <tr>
@@ -620,12 +625,14 @@
                       <tr>
                         <td><code>cui-map-point-click</code></td>
                         <td><code>{ point, lat, lng }</code>. Fired when a marker is clicked.
-                          <code>point</code> is the original light-DOM <code>&lt;article&gt;</code>.</td>
+                          <code>point</code> is the original light-DOM <code>&lt;article&gt;</code>.
+                        </td>
                       </tr>
                       <tr>
                         <td><code>cui-map-region-click</code></td>
                         <td><code>{ region, feature }</code>. Fired when a region polygon is clicked.
-                          <code>region</code> is the original <code>&lt;script&gt;</code> element.</td>
+                          <code>region</code> is the original <code>&lt;script&gt;</code> element.
+                        </td>
                       </tr>
                       <tr>
                         <td><code>cui-map-bounds-change</code></td>

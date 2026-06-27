@@ -225,6 +225,7 @@
   --cui-display-leading: var(--cui-line-height-tight, 1.2);
 }
 
+/* stylelint-disable-next-line no-descending-specificity -- parallel link group to .cui-eyebrow a; different element, no real cascade conflict */
 .cui-event-card .cui-display a {
   color: inherit;
   text-decoration: none;

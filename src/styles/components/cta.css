@@ -63,6 +63,7 @@
  */
 .cui-cta-content {
   --cui-stack-gap: var(--cui-space-3, 0.75rem);
+
   max-inline-size: var(--cui-cta-content-size, 48rem);
 }
 

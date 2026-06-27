@@ -53,7 +53,7 @@
           <section id="v0-5-0" class="docs-release">
             <header class="docs-release-header">
               <div>
-                <p class="docs-release-eyebrow">Unreleased</p>
+                <p class="docs-release-eyebrow">2026-06-27</p>
                 <h2 class="docs-release-title">v0.5.0</h2>
               </div>
               <span class="docs-release-tag" data-impact="breaking">Breaking</span>
@@ -64,8 +64,16 @@
               compose the foundational primitives (<code>.cui-surface</code>, <code>.cui-stack</code>,
               <code>.cui-cluster</code>, <code>.cui-grid</code>) in markup. Dozens of bespoke <code>*-body</code>,
               <code>*-actions</code>, <code>*-grid</code>, and <code>*-meta</code> subclasses are removed in favour of
-              a small canonical vocabulary. <em>Removals and the migration guide below are filled in as each block
-                lands.</em>
+              a small canonical vocabulary.
+            </p>
+
+            <p class="docs-release-summary">
+              <strong>Breaking, but mechanical.</strong> Almost every removal is a class rename in markup. See the
+              <a href="#v0-5-0-migration">migration table</a> below for the full class-by-class mapping, and the
+              composition recipes in
+              <a href="./layouts.html#surface-models">Layouts &rarr; Composition models</a> and
+              <a href="./foundations.html#type-composition">Foundations &rarr; Editorial type</a> for how to compose
+              the primitives.
             </p>
 
             <div class="docs-change-group" data-change="removed">
@@ -312,6 +320,13 @@
                   collapse, sibling-border merge, and first/last corner rounding are preserved via rules
                   scoped to <code>.cui-stack[data-variant="stacked"] &gt; .cui-disclosure</code>.
                 </li>
+                <li><code>.cui-card</code> - the generic card was exactly the <code>.cui-surface</code> chrome
+                  plus a <code>.cui-stack</code> rhythm, so it is gone in favour of that recipe. Migrate
+                  <code>class="cui-card"</code> to <code>class="cui-surface cui-stack"</code> (add
+                  <code>style="--cui-stack-gap: var(--cui-space-3)"</code> for the original tighter 0.75rem
+                  gap). <code>.cui-stack</code> zeroes direct-child block margins, so the heading/paragraph
+                  reset the old block applied is no longer needed.
+                </li>
               </ul>
             </div>
 
@@ -497,17 +512,6 @@
               </ul>
             </div>
 
-            <div class="docs-change-group" data-change="deprecated">
-              <h3 class="docs-change-heading">Deprecated</h3>
-              <ul class="docs-change-list">
-                <li><code>.cui-card</code> - use the <code>.cui-surface.cui-stack</code> recipe instead. The
-                  class keeps working as a back-compat alias for one minor and will be removed in the next. Migrate
-                  <code>class="cui-card"</code> to <code>class="cui-surface cui-stack"</code> (add
-                  <code>--cui-stack-gap: var(--cui-space-3)</code> for the original 0.75rem gap).
-                </li>
-              </ul>
-            </div>
-
             <div class="docs-change-group" data-change="added">
               <h3 class="docs-change-heading">Added</h3>
               <ul class="docs-change-list">
@@ -537,6 +541,114 @@
                   <code>.cui-page-intro</code> and available for any sidebar / fact-panel rail.
                 </li>
               </ul>
+            </div>
+
+            <div id="v0-5-0-migration" class="docs-upgrade">
+              <h3 class="docs-upgrade-heading">Migration table</h3>
+              <p class="docs-upgrade-lead">
+                Every removed structural subclass maps onto a canonical primitive. Most rows are a pure class rename
+                in markup; where a removed class set a non-default gap or measure, set the matching override var
+                noted below. For the card and section slot classes (<code>*-title</code>, <code>*-eyebrow</code>, …)
+                the block now styles its own descendants, so swap the slot class for the canonical type primitive on
+                the same element.
+              </p>
+
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>Removed class</th>
+                    <th>Use instead</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>All <code>*-actions</code> rows (cta, hero, page-intro, vacancy, event, media, contact,
+                      location, article, alert) and <code>.cui-person-links</code></td>
+                    <td><code>.cui-cluster</code> (same <code>--cui-space-3</code> gap)</td>
+                  </tr>
+                  <tr>
+                    <td>All <code>*-body</code> columns and single-column <code>*-list</code> overviews
+                      (person, vacancy, event, media, contact, location, article, alert),
+                      <code>.cui-testimonial-author-text</code>, <code>.cui-itinerary</code> (+ <code>-body</code>)</td>
+                    <td><code>.cui-stack</code> (set <code>--cui-stack-gap</code> for the old rhythm;
+                      <code>data-variant="stacked"</code> carries over for hairline-separated indexes)</td>
+                  </tr>
+                  <tr>
+                    <td>All typed grids: <code>.cui-card-grid</code>, <code>.cui-feature-grid</code>,
+                      <code>.cui-case-grid</code>, <code>.cui-stats-grid</code>, <code>.cui-logo-strip</code>,
+                      <code>.cui-testimonial-grid</code>, <code>.cui-team-grid</code>, <code>.cui-vacancy-grid</code>,
+                      <code>.cui-event-grid</code>, <code>.cui-article-grid</code></td>
+                    <td><code>.cui-grid</code> with <code>--cui-grid-min</code> per content type
+                      (e.g. 18rem features/articles, 20rem cases/vacancies, 22rem events, 10rem stats, 9rem logos);
+                      <code>data-columns</code> / <code>data-gap</code> axes carry over</td>
+                  </tr>
+                  <tr>
+                    <td>All metadata rows: <code>.cui-vacancy-meta</code> (+ <code>-item</code>),
+                      <code>.cui-event-card-meta</code>, <code>.cui-media-card-meta</code>,
+                      <code>.cui-article-card-meta</code>, <code>.cui-page-intro-meta</code></td>
+                    <td><code>.cui-meta</code> (add <code>data-variant="chips"</code> for the old vacancy fact-pill
+                      look)</td>
+                  </tr>
+                  <tr>
+                    <td>Card / section type slots: <code>*-title</code>, <code>*-name</code>,
+                      <code>*-overlay-title</code></td>
+                    <td><code>.cui-display</code> on the same element (the block retunes it to card / section scale
+                      via <code>--cui-display-*</code>)</td>
+                  </tr>
+                  <tr>
+                    <td>Card / section labels: <code>*-eyebrow</code>, <code>*-category</code>,
+                      <code>.cui-vacancy-eyebrow</code></td>
+                    <td><code>.cui-eyebrow</code> on the same element</td>
+                  </tr>
+                  <tr>
+                    <td>Card / section leads: <code>*-tagline</code>, <code>.cui-contact-card-lead</code></td>
+                    <td><code>.cui-lead</code> on the same element</td>
+                  </tr>
+                  <tr>
+                    <td>Card / section excerpts: <code>*-excerpt</code>, <code>.cui-location-card-address</code></td>
+                    <td>A bare <code>&lt;p&gt;</code> / <code>&lt;address&gt;</code> (the block styles it
+                      contextually)</td>
+                  </tr>
+                  <tr>
+                    <td><code>.cui-contact-method</code> / <code>-label</code> / <code>-value</code></td>
+                    <td>A semantic <code>&lt;dl&gt;</code> of <code>&lt;dt&gt;</code> / <code>&lt;dd&gt;</code> inside
+                      the kept <code>.cui-contact-methods</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>.cui-fieldset</code></td>
+                    <td>A plain <code>&lt;fieldset class="cui-stack"&gt;</code> (the box reset and bold
+                      <code>&lt;legend&gt;</code> now ship in the reset layer)</td>
+                  </tr>
+                  <tr>
+                    <td><code>.cui-tabs</code> (light-DOM container class)</td>
+                    <td>Nothing — the <code>&lt;cui-tabs&gt;</code> element sets its own grid layout; keep
+                      <code>.cui-tablist</code> / <code>.cui-tab</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>.cui-pagination-list</code> / <code>-item</code></td>
+                    <td>Bare <code>&lt;ul&gt;</code> / <code>&lt;li&gt;</code> inside <code>.cui-pagination</code>
+                      (styled contextually); keep <code>.cui-pagination-link</code> / <code>-ellipsis</code> /
+                      <code>-status</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>.cui-disclosure-group</code> (+ <code>data-variant="stacked"</code>)</td>
+                    <td><code>.cui-stack</code> (use <code>--cui-stack-gap: var(--cui-space-2)</code>; the FAQ-list
+                      look is <code>.cui-stack[data-variant="stacked"]</code>)</td>
+                  </tr>
+                  <tr>
+                    <td><code>.cui-card</code></td>
+                    <td><code>.cui-surface.cui-stack</code> (add
+                      <code>--cui-stack-gap: var(--cui-space-3)</code> for the original 0.75rem gap)</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <p class="docs-upgrade-note">
+                Blocks that <em>compose</em> a primitive rather than drop a subclass keep their name — the chrome
+                just moved to <code>.cui-surface</code>. Most need no markup change; the exception is
+                <code>.cui-alert</code>, which now requires <code>class="cui-alert cui-surface"</code> for its card
+                chrome. See the Changed list above for the per-block details.
+              </p>
             </div>
           </section>
           <!-- ============================ v0.4.0 ============================ -->

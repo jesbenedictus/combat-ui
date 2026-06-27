@@ -434,7 +434,7 @@ export class CuiMap extends CombatElement {
           html: template.innerHTML,
         })
         : leaflet.divIcon({
-          className: "cui-map-marker cui-map-marker--default",
+          className: "cui-map-marker cui-map-marker-default",
           html:
             '<svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">' +
             '<path fill="currentColor" d="M12 0C5.4 0 0 5.4 0 12c0 8 12 20 12 20s12-12 12-20C24 5.4 18.6 0 12 0z"/>' +

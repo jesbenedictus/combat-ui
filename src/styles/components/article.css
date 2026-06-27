@@ -73,7 +73,7 @@
  *   </article>
  *
  * @example
- *   <!-- Row-oriented, featured -->
+ *   \3c !-- Row-oriented, featured -->
  *   <article class="cui-surface cui-article-card" data-orient="row" data-variant="featured">
  *     <img src="/case/hero.jpg" alt="">
  *     <div class="cui-stack">
@@ -198,6 +198,7 @@ a.cui-article-card-media {
   --cui-display-leading: var(--cui-line-height-tight, 1.2);
 }
 
+/* stylelint-disable-next-line no-descending-specificity -- parallel link group to .cui-eyebrow a; different element, no real cascade conflict */
 .cui-article-card .cui-display a {
   color: inherit;
   text-decoration: none;
@@ -380,7 +381,7 @@ a.cui-article-card-media {
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
 }
@@ -421,8 +422,12 @@ a.cui-article-card-media {
   font-size: var(--cui-font-size-neg-1, 0.875rem);
   font-weight: var(--cui-font-weight-strong, 680);
   cursor: pointer;
-  -webkit-user-select: none;
-  user-select: none;
+
+  @supports (user-select: none) {
+    /* stylelint-disable-next-line property-no-vendor-prefix */
+    -webkit-user-select: none;
+    user-select: none;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -458,7 +463,7 @@ a.cui-article-card-media {
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
 }

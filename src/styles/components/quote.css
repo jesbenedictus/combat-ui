@@ -59,7 +59,7 @@
  *   </figure>
  *
  * @example
- *   <!-- Pull quote inside an article -->
+ *   \3c !-- Pull quote inside an article -->
  *   <figure class="cui-surface cui-quote" data-variant="pull" data-align="center">
  *     <blockquote class="cui-quote-body">A single bold sentence.</blockquote>
  *   </figure>

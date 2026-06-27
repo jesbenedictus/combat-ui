@@ -56,7 +56,7 @@
  *   </nav>
  *
  * @example
- *   <!-- Compact prev / next pager with page status -->
+ *   \3c !-- Compact prev / next pager with page status -->
  *   <nav class="cui-pagination" data-variant="compact" aria-label="Paginering">
  *     <ul>
  *       <li>
@@ -209,8 +209,12 @@
   min-block-size: var(--cui-pagination-size, 2.5rem);
   color: var(--cui-color-muted, #5d6675);
   font-weight: var(--cui-font-weight-strong, 680);
-  -webkit-user-select: none;
-  user-select: none;
+
+  @supports (user-select: none) {
+    /* stylelint-disable-next-line property-no-vendor-prefix */
+    -webkit-user-select: none;
+    user-select: none;
+  }
 }
 
 /**
@@ -232,10 +236,10 @@
 }
 
 /* Compact variant: hide numbered pages, keep prev / next + status. */
+.cui-pagination[data-variant="compact"] li:has(> .cui-pagination-ellipsis),
 .cui-pagination[data-variant="compact"] li:has(
     > .cui-pagination-link:not([data-control])
-  ),
-.cui-pagination[data-variant="compact"] li:has(> .cui-pagination-ellipsis) {
+  ) {
   display: none;
 }
 

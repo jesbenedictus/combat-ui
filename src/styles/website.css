@@ -11,7 +11,7 @@
  * @example
  *   <body class="cui-site">
  *     <a class="cui-skip-link" href="#main">Skip to content</a>
- *     <header><!-- nav --></header>
+ *     <header>\3c !-- nav --></header>
  *     <main id="main" class="cui-page">…</main>
  *   </body>
  */
@@ -116,7 +116,7 @@
  *   </section>
  *
  * @example
- *   <!-- Hero spacing, accent tone, capped content -->
+ *   \3c !-- Hero spacing, accent tone, capped content -->
  *   <section class="cui-section cui-section-hero cui-section-accent">
  *     <div class="cui-container">
  *       <h1 class="cui-display">Landing-page hero</h1>

@@ -89,7 +89,7 @@
   color: var(--cui-map-marker-color);
 }
 
-.cui-map-marker--default {
+.cui-map-marker-default {
   /*
    * Pixel-locked because map.ts passes iconSize: [28, 37], iconAnchor: [14, 37]
    * so the pin's visual tip aligns with the lat/lng. If you change one, change
@@ -211,6 +211,20 @@
 .leaflet-tooltip-top::before   { border-top-color:    var(--cui-map-control-bg); }
 .leaflet-tooltip-bottom::before{ border-bottom-color: var(--cui-map-control-bg); }
 
+/* --- Attribution ----------------------------------------------------- */
+
+.leaflet-control-attribution {
+  background: var(--cui-map-attribution-bg);
+  color: var(--cui-map-attribution-color);
+  font-size: var(--cui-font-size-neg-1, 0.875rem);
+  padding: var(--cui-space-1, 0.25rem) var(--cui-space-2, 0.5rem);
+  border-radius: var(--cui-radius-1, 0.25rem) 0 0 0;
+}
+
+.leaflet-control-attribution a {
+  color: var(--cui-color-accent, oklch(57% 0.18 246deg));
+}
+
 /* --- Zoom control ---------------------------------------------------- */
 
 .leaflet-control-zoom {
@@ -237,20 +251,6 @@
   background: var(--cui-color-surface-muted, #edf0f4);
   color: var(--cui-color-muted, #5d6675);
   cursor: not-allowed;
-}
-
-/* --- Attribution ----------------------------------------------------- */
-
-.leaflet-control-attribution {
-  background: var(--cui-map-attribution-bg);
-  color: var(--cui-map-attribution-color);
-  font-size: var(--cui-font-size-neg-1, 0.875rem);
-  padding: var(--cui-space-1, 0.25rem) var(--cui-space-2, 0.5rem);
-  border-radius: var(--cui-radius-1, 0.25rem) 0 0 0;
-}
-
-.leaflet-control-attribution a {
-  color: var(--cui-color-accent, oklch(57% 0.18 246deg));
 }
 
 /* --- Marker cluster -------------------------------------------------- */

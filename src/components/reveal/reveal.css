@@ -4,19 +4,18 @@
   --cui-reveal-threshold: 0.6;
   --cui-reveal-duration: 420ms;
   --cui-reveal-easing: cubic-bezier(0.22, 1, 0.36, 1);
-
-  --_focus: var(--cui-stage-focus, 1);
-  --_t: var(--cui-reveal-threshold);
-  --_progress: clamp(0, calc((var(--_focus) - var(--_t)) / (1 - var(--_t))), 1);
-  --_inv: calc(1 - var(--_progress));
-  --_x: 0;
-  --_y: 1;
+  --_-focus: var(--cui-stage-focus, 1);
+  --_-t: var(--cui-reveal-threshold);
+  --_-progress: clamp(0, calc((var(--_-focus) - var(--_-t)) / (1 - var(--_-t))), 1);
+  --_-inv: calc(1 - var(--_-progress));
+  --_-x: 0;
+  --_-y: 1;
 
   display: block;
-  opacity: var(--_progress);
+  opacity: var(--_-progress);
   transform: translate3d(
-    calc(var(--_x) * var(--_inv) * var(--cui-reveal-distance)),
-    calc(var(--_y) * var(--_inv) * var(--cui-reveal-distance)),
+    calc(var(--_-x) * var(--_-inv) * var(--cui-reveal-distance)),
+    calc(var(--_-y) * var(--_-inv) * var(--cui-reveal-distance)),
     0
   );
   transition:
@@ -27,24 +26,28 @@
 }
 
 :host([from="up"]) {
-  --_x: 0;
-  --_y: -1;
+  --_-x: 0;
+  --_-y: -1;
 }
+
 :host([from="down"]) {
-  --_x: 0;
-  --_y: 1;
+  --_-x: 0;
+  --_-y: 1;
 }
+
 :host([from="left"]) {
-  --_x: -1;
-  --_y: 0;
+  --_-x: -1;
+  --_-y: 0;
 }
+
 :host([from="right"]) {
-  --_x: 1;
-  --_y: 0;
+  --_-x: 1;
+  --_-y: 0;
 }
+
 :host([from="fade"]) {
-  --_x: 0;
-  --_y: 0;
+  --_-x: 0;
+  --_-y: 0;
 }
 
 :host([hidden]) {

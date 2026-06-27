@@ -57,7 +57,7 @@
  * @cssvar --cui-vacancy-card-eyebrow-color — Eyebrow tint. Defaults to `--cui-color-accent`.
  *
  * @example
- *   <!-- Minimal listing card (title + meta + excerpt + apply) -->
+ *   \3c !-- Minimal listing card (title + meta + excerpt + apply) -->
  *   <article class="cui-surface cui-vacancy-card" data-team="veiligheid">
  *     <div class="cui-stack">
  *       <p class="cui-eyebrow">Openbare Orde en Veiligheid</p>
@@ -80,7 +80,7 @@
  *   </article>
  *
  * @example
- *   <!-- Image-led row card with a "new" status pill -->
+ *   \3c !-- Image-led row card with a "new" status pill -->
  *   <article class="cui-surface cui-vacancy-card" data-orient="row" data-status="new">
  *     <a href="/vacatures/wijkboa">
  *       <img src="/vacatures/wijkboa.jpg" alt="">
@@ -209,6 +209,7 @@
   --cui-display-leading: var(--cui-line-height-tight, 1.2);
 }
 
+/* stylelint-disable-next-line no-descending-specificity -- parallel link group to .cui-eyebrow a; different element, no real cascade conflict */
 .cui-vacancy-card .cui-display a {
   color: inherit;
   text-decoration: none;
@@ -497,6 +498,7 @@
 }
 
 /* Tagline — `.cui-lead` retuned to a smaller scale and tighter measure. */
+/* stylelint-disable-next-line no-descending-specificity -- detail-page lead, different block from .cui-vacancy-card compact lead */
 .cui-vacancy-detail > header .cui-lead {
   --cui-lead-measure: 48ch;
   --cui-lead-size: var(--cui-font-size-1, 1.1875rem);
@@ -620,6 +622,7 @@
 /* Apply block — the aside stack holding the CTA. Stretch any button in
  * the aside full-width; the optional `<p>` below the button is the muted,
  * centered helper note (a deadline reminder, etc). */
+/* stylelint-disable-next-line no-descending-specificity -- aside stack, different block from .cui-vacancy-card row stack */
 .cui-vacancy-aside > .cui-stack:has(> :where(.cui-button, button)) {
   --cui-stack-gap: var(--cui-space-3, 0.75rem);
 }
@@ -628,6 +631,7 @@
   inline-size: 100%;
 }
 
+/* stylelint-disable-next-line no-descending-specificity -- aside stack paragraph, different block from .cui-vacancy-card stack paragraph */
 .cui-vacancy-aside > .cui-stack:has(> :where(.cui-button, button)) > p {
   color: var(--cui-color-muted, #5d6675);
   font-size: var(--cui-font-size-neg-1, 0.875rem);
@@ -638,6 +642,7 @@
  * on top separates it from the apply CTA; the recruiter / team lead to
  * reach with questions. Use a `<strong>` for the name and plain `<p>`s
  * with `tel:` / `mailto:` links beneath. */
+/* stylelint-disable-next-line no-descending-specificity -- aside contact stack, different block from .cui-vacancy-card row stack */
 .cui-vacancy-aside > .cui-stack:not(:has(> :where(.cui-button, button))) {
   --cui-stack-gap: var(--cui-space-1, 0.25rem);
 
@@ -647,6 +652,7 @@
   font-size: var(--cui-font-size-neg-1, 0.875rem);
 }
 
+/* stylelint-disable-next-line no-descending-specificity -- aside link, different block from .cui-vacancy-card eyebrow link */
 .cui-vacancy-aside a:not(.cui-button) {
   color: var(--cui-color-accent, oklch(57% 0.18 246deg));
 }

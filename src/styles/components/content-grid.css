@@ -1,30 +1,4 @@
 /**
- * Cross-card alignment for `.cui-feature-card` children of a `.cui-grid`.
- * Feature cards already stretch to equal height (grid default), but
- * with uneven content a longer heading in one card pushes its paragraph
- * down while a shorter heading beside it does not — so headings and body
- * copy drift out of line across the row. Subgrid fixes this: each card maps
- * its three rows (icon, heading, body) onto shared parent tracks, so the
- * tallest icon / heading / body in a row sets that row's height and every
- * card's heading and paragraph start on the same line.
- *
- * Scoped to direct `.cui-feature-card` children with the canonical
- * icon + heading + body structure; `--cui-feature-card-rows` (3 by
- * default) tunes the span if a card adds rows (e.g. a trailing CTA).
- * `row-gap` is re-asserted so the card keeps its own
- * `--cui-content-card-gap` instead of inheriting the wider grid gap.
- * Wrapped in `@supports` so browsers without subgrid keep the prior
- * top-aligned behavior rather than reserving empty tracks.
- */
-@supports (grid-template-rows: subgrid) {
-  .cui-grid > .cui-feature-card {
-    grid-row: span var(--cui-feature-card-rows, 3);
-    grid-template-rows: subgrid;
-    row-gap: var(--cui-content-card-gap, var(--cui-space-3, 0.75rem));
-  }
-}
-
-/**
  * Feature card — icon + heading + paragraph, designed to call out
  * a single feature, value prop, or step. Compose `.cui-surface` in
  * markup for the shared bordered + elevated chrome (the card maps the
@@ -62,7 +36,7 @@
  *   </article>
  *
  * @example
- *   <!-- Generic content card (no icon) -->
+ *   \3c !-- Generic content card (no icon) -->
  *   <article class="cui-surface cui-content-card">
  *     <h3>Section title</h3>
  *     <p>Free-form content. Same chrome as feature cards.</p>
@@ -73,10 +47,16 @@
 .cui-content-card,
 .cui-stat,
 .cui-logo-item {
-  --cui-surface-bg: var(--cui-content-card-bg, var(--cui-color-surface-raised, #fff));
+  --cui-surface-bg: var(
+    --cui-content-card-bg,
+    var(--cui-color-surface-raised, #fff)
+  );
   --cui-surface-border: var(--cui-border-size, 1px) solid
     var(--cui-content-card-border, var(--cui-color-border, #cfd6df));
-  --cui-surface-radius: var(--cui-content-card-radius, var(--cui-radius-2, 0.5rem));
+  --cui-surface-radius: var(
+    --cui-content-card-radius,
+    var(--cui-radius-2, 0.5rem)
+  );
   --cui-surface-shadow: var(
     --cui-content-card-shadow,
     var(--cui-shadow-1, 0 1px 2px hsl(220deg 25% 10% / 12%))
@@ -89,7 +69,10 @@
 .cui-content-card,
 .cui-stat,
 .cui-logo-item {
-  --cui-surface-padding: var(--cui-content-card-padding, var(--cui-space-5, 1.5rem));
+  --cui-surface-padding: var(
+    --cui-content-card-padding,
+    var(--cui-space-5, 1.5rem)
+  );
 
   display: grid;
   gap: var(--cui-content-card-gap, var(--cui-space-3, 0.75rem));
@@ -133,6 +116,30 @@
 .cui-case-card p,
 .cui-stat-label {
   color: var(--cui-content-card-muted-color, var(--cui-color-muted, #5d6675));
+}
+
+/**
+ * Cross-card alignment for `.cui-feature-card` children of a `.cui-grid`.
+ * Feature cards already stretch to equal height (grid default), but
+ * with uneven content a longer heading in one card pushes its paragraph
+ * down while a shorter heading beside it does not — so headings and body
+ * copy drift out of line across the row. Subgrid fixes this: each card maps
+ * its three rows (icon, heading, body) onto shared parent tracks, so the
+ * tallest icon / heading / body in a row sets that row's height and every
+ * card's heading and paragraph start on the same line.
+ *
+ * Scoped to direct `.cui-feature-card` children with the canonical
+ * icon + heading + body structure; `--cui-feature-card-rows` (3 by
+ * default) tunes the span if a card adds rows (e.g. a trailing CTA).
+ * `row-gap` is re-asserted so the card keeps its own
+ * `--cui-content-card-gap` instead of inheriting the wider grid gap.
+ * Wrapped in `@supports` so browsers without subgrid keep the prior
+ * top-aligned behavior rather than reserving empty tracks.
+ */
+.cui-grid > .cui-feature-card {
+  grid-row: span var(--cui-feature-card-rows, 3);
+  grid-template-rows: subgrid;
+  row-gap: var(--cui-content-card-gap, var(--cui-space-3, 0.75rem));
 }
 
 /**
@@ -343,3 +350,4 @@
   font-size: var(--cui-font-size-neg-1, 0.875rem);
   font-weight: var(--cui-font-weight-strong, 680);
 }
+

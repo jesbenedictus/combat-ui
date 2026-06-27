@@ -35,7 +35,7 @@
  * @cssvar --cui-dialog-backdrop — `::backdrop` background. Defaults to `rgba(0,0,0,0.4)`.
  *
  * @example
- *   <!-- Open via JS: document.getElementById('confirm').showModal() -->
+ *   \3c !-- Open via JS: document.getElementById('confirm').showModal() -->
  *   <dialog class="cui-dialog cui-surface" id="confirm">
  *     <div class="cui-dialog-header">
  *       <h2 class="cui-dialog-title">Delete this item?</h2>
@@ -51,7 +51,7 @@
  *   </dialog>
  *
  * @example
- *   <!-- Side-sheet drawer -->
+ *   \3c !-- Side-sheet drawer -->
  *   <dialog class="cui-dialog cui-surface" data-variant="sheet-end" data-size="lg">
  *     <div class="cui-dialog-header">
  *       <h2 class="cui-dialog-title">Edit profile</h2>
@@ -67,8 +67,8 @@
   --cui-dialog-radius: var(--cui-radius-2, 0.5rem);
   --cui-dialog-padding: var(--cui-space-5, 1.5rem);
   --cui-dialog-max-inline-size: 28rem;
-  --cui-dialog-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
-  --cui-dialog-backdrop: rgba(0, 0, 0, 0.4);
+  --cui-dialog-shadow: 0 16px 48px rgb(0 0 0 / 18%);
+  --cui-dialog-backdrop: rgb(0 0 0 / 40%);
 
   /* Chrome borrowed from the surface primitive (compose `.cui-surface` in
      markup); the dialog keeps its own sizing, centering, and ::backdrop. The
@@ -210,8 +210,7 @@
   --cui-dialog-max-inline-size: 28rem;
   --cui-surface-radius: 0;
 
-  margin-inline-start: auto;
-  margin-inline-end: 0;
+  margin-inline: auto 0;
   margin-block: 0;
   block-size: 100vb;
   max-block-size: 100vb;
@@ -220,8 +219,7 @@
 }
 
 .cui-dialog[data-variant="sheet-end"]:dir(rtl) {
-  margin-inline-start: 0;
-  margin-inline-end: auto;
+  margin-inline: 0 auto;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -243,6 +241,7 @@
     opacity: 0;
     transform: translateY(4px) scale(0.99);
   }
+
   to {
     opacity: 1;
     transform: none;
@@ -253,6 +252,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -262,6 +262,7 @@
   from {
     transform: translateX(100%);
   }
+
   to {
     transform: none;
   }

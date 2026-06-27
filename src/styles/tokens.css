@@ -1,3 +1,5 @@
+/* stylelint-disable no-duplicate-selectors -- :root is intentionally split into documented, category-keyed token blocks */
+
 @property --cui-density {
   syntax: "<number>";
   inherits: true;

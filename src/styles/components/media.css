@@ -38,13 +38,13 @@
  *   </div>
  *
  * @example
- *   <!-- Full-bleed inside .cui-prose -->
+ *   \3c !-- Full-bleed inside .cui-prose -->
  *   <div class="cui-media-full" data-bleed="full">
  *     <img src="/wide.jpg" alt="">
  *   </div>
  *
  * @example
- *   <!-- Responsive YouTube embed — the iframe fills the ratio box -->
+ *   \3c !-- Responsive YouTube embed — the iframe fills the ratio box -->
  *   <div class="cui-media-full" data-ratio="wide">
  *     <iframe src="https://www.youtube.com/embed/VIDEO_ID"
  *       title="Demo video" allowfullscreen
@@ -487,6 +487,7 @@
  * --cui-media-overlay-content-size so long copy stays readable; padded
  * per --cui-media-overlay-padding; foreground inherits the overlay color
  * (light over the scrim). */
+/* stylelint-disable-next-line no-descending-specificity -- overlay stack, different block from .cui-media-card row stack */
 .cui-media-overlay > .cui-stack {
   --cui-stack-gap: var(--cui-space-3, 0.75rem);
 
