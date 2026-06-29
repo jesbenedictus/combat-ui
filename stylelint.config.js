@@ -1,6 +1,7 @@
 export default {
   extends: ["stylelint-config-standard"],
   plugins: ["stylelint-plugin-use-baseline"],
+  ignoreFiles: ["dist/**", "dist-docs/**", "**/dist/**"],
   rules: {
     "plugin/use-baseline": [
       true,
