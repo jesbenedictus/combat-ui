@@ -30,6 +30,7 @@
       <div class="cui-container docs-doc-layout">
         <aside class="docs-on-page" aria-label="On this page">
           <a class="cui-nav-link" href="#buttons-tabs">Buttons &amp; tabs</a>
+          <a class="cui-nav-link" href="#segmented">Segmented</a>
           <a class="cui-nav-link" href="#code">Code</a>
           <a class="cui-nav-link" href="#tree">Tree</a>
         </aside>
@@ -221,6 +222,150 @@
                           <code>role="tabpanel"</code> + <code>aria-labelledby</code>. The initial selected tab
                           is the first one or the one with <code>aria-selected="true"</code>.
                         </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </details>
+            </cui-disclosure>
+          </section>
+
+          <section id="segmented" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Segmented</h2>
+              <p>
+                A rounded pill track split into connected segments. Use it as a compact link set (a
+                <code>&lt;nav&gt;</code> of <code>&lt;a&gt;</code>s with <code>aria-current="page"</code> on the
+                current one) or as a single-choice control (a group of <code>&lt;button&gt;</code>s with
+                <code>aria-selected="true"</code> on the active one). Add <code>data-orient="stacked"</code> for a
+                vertical pill column, or <code>data-fill</code> to stretch the track across its container. It's pure CSS — for panels with keyboard/ARIA wiring, use tabs instead.
+              </p>
+            </div>
+            <div class="cui-stack">
+              <div class="docs-card">
+                <div class="cui-cluster" style="--cui-cluster-gap: var(--cui-space-6, 2rem); --cui-cluster-align: flex-start;">
+                  <nav class="cui-segmented" aria-label="Section">
+                    <a class="cui-segment" href="#segmented" aria-current="page">Overview</a>
+                    <a class="cui-segment" href="#segmented">Pricing</a>
+                    <a class="cui-segment" href="#segmented">Docs</a>
+                  </nav>
+                  <div class="cui-segmented" role="group" aria-label="View">
+                    <button class="cui-segment" type="button" aria-selected="true">Day</button>
+                    <button class="cui-segment" type="button">Week</button>
+                    <button class="cui-segment" type="button">Month</button>
+                  </div>
+                  <nav class="cui-segmented" data-orient="stacked" aria-label="Filter" style="min-inline-size: 10rem;">
+                    <a class="cui-segment" href="#segmented" aria-current="page">All</a>
+                    <a class="cui-segment" href="#segmented">News</a>
+                    <a class="cui-segment" href="#segmented">Events</a>
+                  </nav>
+                </div>
+                <nav class="cui-segmented" data-fill aria-label="Range">
+                  <a class="cui-segment" href="#segmented" aria-current="page">Day</a>
+                  <a class="cui-segment" href="#segmented">Week</a>
+                  <a class="cui-segment" href="#segmented">Month</a>
+                  <a class="cui-segment" href="#segmented">Year</a>
+                </nav>
+              </div>
+              <cui-code language="html">
+                <script type="text/html">
+                    <!-- Link set: mark the current page with aria-current. -->
+                    <nav class="cui-segmented" aria-label="Section">
+                      <a class="cui-segment" href="/overview" aria-current="page">Overview</a>
+                      <a class="cui-segment" href="/pricing">Pricing</a>
+                      <a class="cui-segment" href="/docs">Docs</a>
+                    </nav>
+
+                    <!-- Single-choice control: buttons, active via aria-selected. -->
+                    <div class="cui-segmented" role="group" aria-label="View">
+                      <button class="cui-segment" type="button" aria-selected="true">Day</button>
+                      <button class="cui-segment" type="button">Week</button>
+                      <button class="cui-segment" type="button">Month</button>
+                    </div>
+
+                    <!-- Stacked (vertical) pill column. -->
+                    <nav class="cui-segmented" data-orient="stacked" aria-label="Filter">
+                      <a class="cui-segment" href="?f=all" aria-current="page">All</a>
+                      <a class="cui-segment" href="?f=news">News</a>
+                      <a class="cui-segment" href="?f=events">Events</a>
+                    </nav>
+
+                    <!-- Fill the container: segments share the full width. -->
+                    <nav class="cui-segmented" data-fill aria-label="Range">
+                      <a class="cui-segment" href="?r=day" aria-current="page">Day</a>
+                      <a class="cui-segment" href="?r=week">Week</a>
+                      <a class="cui-segment" href="?r=month">Month</a>
+                      <a class="cui-segment" href="?r=year">Year</a>
+                    </nav>
+                  </script>
+              </cui-code>
+            </div>
+
+            <cui-disclosure>
+              <details class="cui-disclosure" data-variant="ghost">
+                <summary>API reference</summary>
+                <div class="cui-disclosure-body">
+                  <table class="docs-token-table">
+                    <thead>
+                      <tr>
+                        <th>Class / attribute</th>
+                        <th>Purpose</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>.cui-segmented</code></td>
+                        <td>The rounded track. Use on a <code>&lt;nav&gt;</code> (link set) or a
+                          <code>role="group"</code> element (button control).</td>
+                      </tr>
+                      <tr>
+                        <td><code>.cui-segment</code></td>
+                        <td>A single segment — an <code>&lt;a&gt;</code> or <code>&lt;button&gt;</code>. Segments
+                          share the track width equally.</td>
+                      </tr>
+                      <tr>
+                        <td><code>aria-current="page"</code> · <code>aria-selected="true"</code></td>
+                        <td>Marks the active segment (the former for link sets, the latter for button controls);
+                          it lifts to a raised pill.</td>
+                      </tr>
+                      <tr>
+                        <td><code>data-orient="stacked"</code></td>
+                        <td>Stacks the segments into a vertical, full-width pill column.</td>
+                      </tr>
+                      <tr>
+                        <td><code>data-fill</code></td>
+                        <td>Stretches the track to its container's full inline-size; segments share the whole width.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <table class="docs-token-table">
+                    <thead>
+                      <tr>
+                        <th>Variable</th>
+                        <th>Default</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>--cui-segmented-bg</code></td>
+                        <td><code>--cui-color-surface-muted</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-segmented-radius</code></td>
+                        <td><code>999px</code> (full pill)</td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-segmented-gap</code></td>
+                        <td><code>--cui-space-1</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-segment-active-bg</code></td>
+                        <td><code>--cui-color-surface-raised</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>--cui-segment-active-shadow</code></td>
+                        <td><code>--cui-shadow-1</code></td>
                       </tr>
                     </tbody>
                   </table>

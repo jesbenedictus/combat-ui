@@ -37,6 +37,7 @@
     <section class="cui-section">
       <div class="cui-container docs-doc-layout">
         <aside class="docs-on-page" aria-label="Releases">
+          <a class="cui-nav-link" href="#v0-6-0">v0.6.0</a>
           <a class="cui-nav-link" href="#v0-5-0">v0.5.0</a>
           <a class="cui-nav-link" href="#v0-4-0">v0.4.0</a>
           <a class="cui-nav-link" href="#v0-3-1">v0.3.1</a>
@@ -49,6 +50,74 @@
         </aside>
 
         <div class="cui-stack docs-changelog">
+          <!-- ============================ v0.6.0 ============================ -->
+          <section id="v0-6-0" class="docs-release">
+            <header class="docs-release-header">
+              <div>
+                <p class="docs-release-eyebrow">2026-06-30</p>
+                <h2 class="docs-release-title">v0.6.0</h2>
+              </div>
+              <span class="docs-release-tag" data-impact="breaking">Breaking</span>
+            </header>
+
+            <p class="docs-release-summary">
+              A vertical side-rail navigation component, preset chrome options on <code>.cui-surface</code>, and a
+              follow-on consolidation of the media card onto those shared presets.
+            </p>
+
+            <div class="docs-change-group" data-change="added">
+              <h3 class="docs-change-heading">Added</h3>
+              <ul class="docs-change-list">
+                <li>New <code>&lt;cui-sidenav&gt;</code> element and the <code>.cui-sidenav-*</code> class family —
+                  a vertical side rail that collapses to an icon-only mini-rail (<code>collapsed</code>) on wide
+                  viewports and hides off-canvas behind a backdrop below 48rem (<code>expanded</code>). The element
+                  injects the collapse toggle, the mobile dismiss button, and the backdrop, and wires up the focus
+                  trap, scroll lock, sticky positioning, and ARIA. Open the drawer from anywhere with a
+                  <code>data-cui-sidenav-target="&lt;id&gt;"</code> button. Ships as the
+                  <code>@combat-ui/core/sidenav</code> subpath export.
+                </li>
+                <li>New <code>.cui-segmented</code> / <code>.cui-segment</code> pill control — a rounded track split
+                  into connected segments. Use it as a link set (a <code>&lt;nav&gt;</code> of <code>&lt;a&gt;</code>s
+                  with <code>aria-current="page"</code>) or a single-choice button group (<code>aria-selected="true"</code>
+                  on the active one); the active segment lifts to a raised pill. <code>data-orient="stacked"</code>
+                  turns it into a vertical pill column, and <code>data-fill</code> stretches the track to its
+                  container's full width. Pure CSS, no element.
+                </li>
+                <li>Responsive visibility utilities — <code>.cui-hidden-{bp}</code> (hide at a breakpoint and below)
+                  and <code>.cui-hidden-{bp}-up</code> (hide at a breakpoint and above) across four breakpoints
+                  (<strong>xs</strong> 36rem, <strong>sm</strong> 48rem, <strong>md</strong> 64rem,
+                  <strong>lg</strong> 80rem). The <code>-up</code> form is min-width; the plain form is the
+                  complementary max-width side. Documented alongside the <code>inert</code> / <code>aria-hidden</code>
+                  pattern for hiding a visual-only duplicate from screen readers (CSS can't do that on its own).
+                </li>
+                <li>Preset chrome attributes on <code>.cui-surface</code> — <code>data-radius</code>
+                  (<code>none</code> / <code>sm</code> / <code>md</code> / <code>lg</code>),
+                  <code>data-elevation</code> (<code>flat</code> / <code>raised</code> / <code>floating</code>), and
+                  <code>data-padding</code> (<code>none</code> / <code>sm</code> / <code>md</code> / <code>lg</code>).
+                  Each presets the matching <code>--cui-surface-*</code> override var from the token scale, so common
+                  steps no longer need inline custom properties. Inline vars still win, so the presets are a
+                  convenience, not a ceiling.
+                </li>
+              </ul>
+            </div>
+
+            <div class="docs-change-group" data-change="changed">
+              <h3 class="docs-change-heading">Changed</h3>
+              <ul class="docs-change-list">
+                <li><strong>Breaking:</strong> <code>.cui-media-card</code> chrome now uses the shared
+                  <code>.cui-surface</code> presets instead of its own bespoke knobs. <code>data-variant="flat"</code>
+                  is removed — use <code>data-elevation="flat"</code>. The card-specific
+                  <code>data-radius="none"</code> is now just the <code>none</code> step of the shared
+                  <code>data-radius</code> scale, and the card gains <code>sm</code> / <code>md</code> / <code>lg</code>
+                  radius and the full <code>data-elevation</code> range for free. <code>data-padding</code>
+                  (<code>none</code> / <code>sm</code> / <code>md</code> / <code>lg</code>) now steps the
+                  <strong>body</strong> padding — the media stays flush.
+                  <code>data-variant="borderless"</code> (which also drops the border) is unchanged.
+                </li>
+              </ul>
+            </div>
+          </section>
+
           <!-- ============================ v0.5.0 ============================ -->
           <section id="v0-5-0" class="docs-release">
             <header class="docs-release-header">

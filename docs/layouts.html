@@ -443,6 +443,11 @@
                 Compose a layout primitive inside — <code>cui-stack</code>, <code>cui-cluster</code>, or
                 <code>cui-split</code> — rather than reaching for a typed card class. Every chrome property is an
                 override var, so a block can re-skin padding, radius, or shadow without redeclaring the rule.
+                For common steps, reach for the preset attributes — <code>data-radius</code>
+                (<code>none</code>/<code>sm</code>/<code>md</code>/<code>lg</code>), <code>data-elevation</code>
+                (<code>flat</code>/<code>raised</code>/<code>floating</code>), and <code>data-padding</code>
+                (<code>none</code>/<code>sm</code>/<code>md</code>/<code>lg</code>) — which set those same vars for
+                you. Inline vars still win, so the presets are a convenience, not a ceiling.
               </p>
             </div>
 
@@ -460,6 +465,12 @@
                     <cui-button variant="primary">Confirm</cui-button>
                     <cui-button>Cancel</cui-button>
                   </div>
+                </div>
+                <div class="cui-surface cui-stack" data-radius="lg" data-elevation="floating">
+                  <strong>Preset attributes</strong>
+                  <p style="margin: 0; color: var(--cui-color-muted);">
+                    <code>data-radius="lg"</code> + <code>data-elevation="floating"</code> — no inline vars.
+                  </p>
                 </div>
                 <div
                   class="cui-surface cui-stack"
@@ -489,6 +500,13 @@
                   </div>
                 </div>
                 
+                <div class="cui-surface cui-stack" data-radius="lg" data-elevation="floating">
+                  <strong>Preset attributes</strong>
+                  <p style="margin: 0; color: var(--cui-color-muted);">
+                    data-radius="lg" + data-elevation="floating" — no inline vars.
+                  </p>
+                </div>
+
                 <div
                   class="cui-surface cui-stack"
                   style="--cui-surface-padding: var(--cui-space-6); --cui-surface-radius: 0; --cui-surface-shadow: none;"

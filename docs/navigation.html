@@ -22,13 +22,14 @@
   <main id="main" class="cui-page cui-stack">
     <header class="cui-page-header">
       <h1>Navigation</h1>
-      <p>Navigation primitives for the top of the page. The cui-navbar element handles sticky positioning, responsive collapse, dropdown menus, and nested submenus while leaving links and buttons in light DOM.</p>
+      <p>Navigation primitives for the page. The cui-navbar element handles a sticky top bar with responsive collapse, dropdown menus, and nested submenus; the cui-sidenav element handles a vertical side rail that collapses to an icon-only mini-rail and hides off-canvas on mobile. Both leave their links and buttons in light DOM.</p>
     </header>
 
     <section class="cui-section">
       <div class="cui-container docs-doc-layout">
         <aside class="docs-on-page" aria-label="On this page">
           <a class="cui-nav-link" href="#navbar">Navbar</a>
+          <a class="cui-nav-link" href="#sidenav">Sidenav</a>
         </aside>
 
         <div class="cui-stack" style="--cui-stack-gap: var(--cui-space-7, 3rem);">
@@ -268,6 +269,225 @@
                   <tr>
                     <td><code>--cui-dropdown-animation-distance</code></td>
                     <td>Per-instance override for the slide distance.</td>
+                  </tr>
+                </tbody>
+              </table>
+                  </div>
+                </details>
+              </cui-disclosure>
+            </section>
+
+            <section id="sidenav" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+              <div class="cui-prose">
+                <h2>Sidenav</h2>
+                <p>
+                  A vertical side rail for dashboard layouts. It collapses to an icon-only mini-rail on
+                  wide viewports and hides off-canvas behind a backdrop below 48rem. The
+                  <code>cui-sidenav</code> element injects the collapse toggle, the mobile dismiss button,
+                  and the backdrop, and wires up the focus trap, scroll lock, and ARIA.
+                </p>
+              </div>
+              <div class="cui-stack">
+                <div class="docs-preview">
+                  <div class="docs-preview-frame" style="display: flex; min-block-size: 22rem; gap: 0;">
+                    <cui-sidenav id="demo-sidenav" class="cui-sidenav" style="--cui-sidenav-width: 14rem;">
+                      <div class="cui-sidenav-inner">
+                        <div class="cui-sidenav-header">
+                          <a class="cui-sidenav-brand" href="#">
+                            <span class="cui-sidenav-logo" aria-hidden="true">◆</span>
+                            <span class="cui-sidenav-label">Project</span>
+                          </a>
+                        </div>
+                        <nav class="cui-sidenav-nav" aria-label="Dashboard demo">
+                          <a class="cui-nav-link" href="#" aria-current="page">
+                            <span class="cui-sidenav-icon" aria-hidden="true">▣</span>
+                            <span class="cui-sidenav-label">Dashboard</span>
+                          </a>
+                          <a class="cui-nav-link" href="#">
+                            <span class="cui-sidenav-icon" aria-hidden="true">▤</span>
+                            <span class="cui-sidenav-label">Reports</span>
+                          </a>
+                          <a class="cui-nav-link" href="#">
+                            <span class="cui-sidenav-icon" aria-hidden="true">▦</span>
+                            <span class="cui-sidenav-label">Settings</span>
+                          </a>
+                        </nav>
+                        <div class="cui-sidenav-footer">
+                          <cui-theme-toggle></cui-theme-toggle>
+                        </div>
+                      </div>
+                    </cui-sidenav>
+                    <div class="cui-stack" style="flex: 1; padding: var(--cui-space-4, 1rem);">
+                      <cui-button data-cui-sidenav-target="demo-sidenav">Toggle menu</cui-button>
+                      <p class="cui-caption">
+                        Resize below 48rem: "Toggle menu" opens the rail as an off-canvas drawer.
+                        At wider widths the collapse button in the header shrinks it to a mini-rail.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <cui-code language="html">
+                  <script type="text/html">
+                  <cui-sidenav id="main-sidenav" class="cui-sidenav" sticky>
+                    <div class="cui-sidenav-inner">
+                      <div class="cui-sidenav-header">
+                        <a class="cui-sidenav-brand" href="/">
+                          <span class="cui-sidenav-logo" aria-hidden="true">◆</span>
+                          <span class="cui-sidenav-label">Project</span>
+                        </a>
+                      </div>
+                      <nav class="cui-sidenav-nav" aria-label="Primary">
+                        <a class="cui-nav-link" href="/" aria-current="page">
+                          <span class="cui-sidenav-icon" aria-hidden="true">▣</span>
+                          <span class="cui-sidenav-label">Dashboard</span>
+                        </a>
+                        <a class="cui-nav-link" href="/reports">
+                          <span class="cui-sidenav-icon" aria-hidden="true">▤</span>
+                          <span class="cui-sidenav-label">Reports</span>
+                        </a>
+                      </nav>
+                      <div class="cui-sidenav-footer">
+                        <cui-theme-toggle></cui-theme-toggle>
+                      </div>
+                    </div>
+                  </cui-sidenav>
+
+                  <button type="button" data-cui-sidenav-target="main-sidenav">Menu</button>
+                </script>
+                </cui-code>
+                <cui-code language="javascript">
+                  <script type="text/plain">
+                    const sidenav = document.querySelector("cui-sidenav");
+                    sidenav.collapse();      // shrink to the icon-only mini-rail
+                    sidenav.open();          // open the mobile drawer
+                    sidenav.side = "end";    // dock to the inline-end
+                  </script>
+                </cui-code>
+              </div>
+
+              <cui-disclosure>
+                <details class="cui-disclosure" data-variant="ghost">
+                  <summary>API reference</summary>
+                  <div class="cui-disclosure-body">
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>Attribute / property</th>
+                    <th>Purpose</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>expanded</code></td>
+                    <td>Boolean. Off-canvas drawer state below 48rem. Opened by a remote trigger,
+                      closed by the dismiss button, backdrop click, or <kbd>Esc</kbd>.</td>
+                  </tr>
+                  <tr>
+                    <td><code>collapsed</code></td>
+                    <td>Boolean. Icon-only mini-rail state at ≥48rem. Toggled by the injected
+                      collapse button.</td>
+                  </tr>
+                  <tr>
+                    <td><code>side</code></td>
+                    <td><code>start</code> (default) or <code>end</code>. Docks the rail and slides
+                      the mobile drawer from that side.</td>
+                  </tr>
+                  <tr>
+                    <td><code>sticky</code> · <code>sticky-offset</code> · <code>sticky-z-index</code></td>
+                    <td>Pins the rail full-height at ≥48rem, with a top offset and drawer stacking order.</td>
+                  </tr>
+                  <tr>
+                    <td><code>sidenav.toggle(force?)</code> / <code>open()</code> / <code>close()</code></td>
+                    <td>Open / close the off-canvas drawer.</td>
+                  </tr>
+                  <tr>
+                    <td><code>sidenav.collapse(force?)</code></td>
+                    <td>Collapse / expand the mini-rail.</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>Markup class</th>
+                    <th>Purpose</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>.cui-sidenav-inner</code></td>
+                    <td>The visible rail surface (background, divider border, padding); stacks the
+                      header, nav, and footer.</td>
+                  </tr>
+                  <tr>
+                    <td><code>.cui-sidenav-header</code> / <code>.cui-sidenav-brand</code> /
+                      <code>.cui-sidenav-logo</code></td>
+                    <td>Top row with the brand lockup; the element appends the collapse toggle and
+                      dismiss button here.</td>
+                  </tr>
+                  <tr>
+                    <td><code>.cui-sidenav-nav</code> + <code>.cui-nav-link</code></td>
+                    <td>The scrollable link column. Reuses the <code>.cui-nav-link</code> primitive;
+                      pair with <code>aria-current="page"</code> for the active item.</td>
+                  </tr>
+                  <tr>
+                    <td><code>.cui-sidenav-icon</code> / <code>.cui-sidenav-label</code></td>
+                    <td>Per-link leading icon and text label. Every <code>.cui-sidenav-label</code>
+                      hides in the collapsed mini-rail.</td>
+                  </tr>
+                  <tr>
+                    <td><code>.cui-sidenav-footer</code></td>
+                    <td>Action stack pinned to the bottom of the rail; collapses out of flow when empty.</td>
+                  </tr>
+                  <tr>
+                    <td><code>data-cui-sidenav-target="&lt;id&gt;"</code></td>
+                    <td>Put on any button to open the matching sidenav's mobile drawer from elsewhere
+                      on the page.</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="docs-token-table">
+                <thead>
+                  <tr>
+                    <th>Variable</th>
+                    <th>Default</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>--cui-sidenav-width</code></td>
+                    <td><code>16rem</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-sidenav-collapsed-width</code></td>
+                    <td><code>4.5rem</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-sidenav-bg</code></td>
+                    <td><code>--cui-color-surface-raised</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-sidenav-border</code></td>
+                    <td><code>--cui-color-border</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-sidenav-backdrop</code></td>
+                    <td><code>rgb(0 0 0 / 40%)</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-sidenav-z-index</code></td>
+                    <td><code>50</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-sidenav-sticky-offset</code></td>
+                    <td><code>0</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--cui-sidenav-animation-duration</code> ·
+                      <code>--cui-sidenav-animation-easing</code></td>
+                    <td>Drawer / collapse motion.</td>
                   </tr>
                 </tbody>
               </table>

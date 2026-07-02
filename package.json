@@ -1,6 +1,6 @@
 {
   "name": "@combat-ui/core",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "A responsive, customizable web component framework targeting modern baseline web standards.",
   "private": true,
   "engines": {
@@ -115,6 +115,10 @@
     "./scroll-stage": {
       "types": "./dist/types/elements/scroll-stage.d.ts",
       "import": "./dist/scroll-stage.js"
+    },
+    "./sidenav": {
+      "types": "./dist/types/elements/sidenav.d.ts",
+      "import": "./dist/sidenav.js"
     },
     "./tabs": {
       "types": "./dist/types/elements/tabs.d.ts",

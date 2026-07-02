@@ -231,11 +231,25 @@
  * @block cui-media-card
  * @summary Card with media region and content body; composes `.cui-surface` and styles its own descendants.
  * @variant row — Maps to `[data-orient]`. Media beside body; collapses to stacked on narrow widths.
- * @variant flat | borderless — Maps to `[data-variant]`. `flat`
- *   drops the shadow. `borderless` drops shadow and border.
+ * @variant borderless — Maps to `[data-variant]`. Drops the border and shadow.
+ * @variant none | sm | md | lg — Maps to `[data-radius]`; mirrors the
+ *   `.cui-surface` preset scale. Steps the corner radius (`none` squares it
+ *   off, `lg` rounds it more).
+ * @variant flat | raised | floating — Maps to `[data-elevation]`; mirrors the
+ *   `.cui-surface` preset scale. Steps the shadow (`flat` drops it,
+ *   `floating` lifts it).
+ * @variant none | sm | md | lg — Maps to `[data-padding]`; mirrors the
+ *   `.cui-surface` preset scale. Steps the **body** padding (the media stays
+ *   flush). The unset default is `--cui-space-5`, between `md` and `lg`.
+ * @variant square | portrait | wide | auto — Maps to `[data-ratio]`.
+ *   Sets the media aspect ratio (`square` 1:1, `portrait` 3:4, `wide`
+ *   21:9, `auto` lets the media drive its own height). In `row` orient a
+ *   definite ratio top-aligns the media box instead of stretching it to
+ *   the body height.
  * @cssvar --cui-media-card-radius — Card corner radius. Defaults to `--cui-radius-2`.
  * @cssvar --cui-media-card-media-ratio — Media aspect ratio. Defaults to `16 / 10`.
  * @cssvar --cui-media-card-media-size — Media flex-basis in row orient. Defaults to 18rem.
+ * @cssvar --cui-media-card-body-min — Body flex-basis in row orient; with the media size it sets the row→stack wrap width. Defaults to 28rem.
  *
  * @example
  *   <article class="cui-surface cui-media-card">
@@ -249,6 +263,13 @@
  *         <a class="cui-button" href="/post">Read more</a>
  *       </div>
  *     </div>
+ *   </article>
+ *
+ * @example
+ *   \3c !-- Chrome via the shared surface presets: flat, larger radius -->
+ *   <article class="cui-surface cui-media-card" data-elevation="flat" data-radius="lg">
+ *     <img class="cui-media-card-media" src="/feature.jpg" alt="">
+ *     <div class="cui-stack"><h3>Card title</h3></div>
  *   </article>
  */
 .cui-media-card {
@@ -268,8 +289,58 @@
   color: var(--cui-color, #1b1f27);
 }
 
-.cui-media-card[data-variant="flat"] {
+/* Chrome presets. The `.cui-surface` `[data-radius]` / `[data-elevation]` /
+   `[data-padding]` presets live in the `layout` layer, but the card re-skins
+   `--cui-surface-*` in the later `components` layer — which wins by layer order
+   regardless of selector specificity — so the bare-surface presets can't reach
+   a composed card. The card opts into the same vocabulary here, mapping each
+   step onto the content-card token it themes through (`--cui-media-card-radius`,
+   `--cui-content-card-shadow`). `data-padding` targets the body inset
+   (`--cui-content-card-padding`), not surface padding, since the media keeps
+   bleeding edge-to-edge. `borderless` additionally drops the border, which the
+   shared presets don't cover. */
+.cui-media-card[data-radius="none"] {
+  --cui-media-card-radius: 0;
+}
+
+.cui-media-card[data-radius="sm"] {
+  --cui-media-card-radius: var(--cui-radius-1, 0.25rem);
+}
+
+.cui-media-card[data-radius="md"] {
+  --cui-media-card-radius: var(--cui-radius-2, 0.5rem);
+}
+
+.cui-media-card[data-radius="lg"] {
+  --cui-media-card-radius: var(--cui-radius-3, 0.75rem);
+}
+
+.cui-media-card[data-elevation="flat"] {
   --cui-content-card-shadow: none;
+}
+
+.cui-media-card[data-elevation="raised"] {
+  --cui-content-card-shadow: var(--cui-shadow-1, 0 1px 2px hsl(220deg 25% 10% / 12%));
+}
+
+.cui-media-card[data-elevation="floating"] {
+  --cui-content-card-shadow: var(--cui-shadow-2, 0 12px 28px hsl(220deg 25% 10% / 14%));
+}
+
+.cui-media-card[data-padding="none"] {
+  --cui-content-card-padding: 0;
+}
+
+.cui-media-card[data-padding="sm"] {
+  --cui-content-card-padding: var(--cui-space-3, 0.75rem);
+}
+
+.cui-media-card[data-padding="md"] {
+  --cui-content-card-padding: var(--cui-space-4, 1rem);
+}
+
+.cui-media-card[data-padding="lg"] {
+  --cui-content-card-padding: var(--cui-space-6, 2rem);
 }
 
 .cui-media-card[data-variant="borderless"] {
@@ -277,21 +348,56 @@
   --cui-content-card-shadow: none;
 }
 
+.cui-media-card[data-ratio="square"] {
+  --cui-media-card-media-ratio: 1 / 1;
+}
+
+.cui-media-card[data-ratio="portrait"] {
+  --cui-media-card-media-ratio: 3 / 4;
+}
+
+.cui-media-card[data-ratio="wide"] {
+  --cui-media-card-media-ratio: 21 / 9;
+}
+
+.cui-media-card[data-ratio="auto"] {
+  --cui-media-card-media-ratio: auto;
+}
+
 /**
  * Media region of `.cui-media-card`. The combined selector with
- * `.cui-media-card > :where(img, video, picture, iframe, svg):first-child`
- * means a bare first-child media element gets the same styling
- * — class is optional when media is the first child.
+ * `.cui-media-card > :where(img, video, picture, iframe, svg):is(:first-child, :last-child)`
+ * means a bare media element gets the same styling whether it is the first
+ * or the last child — so swapping the source order of the body and media
+ * reverses the layout (image-first vs text-first) with no extra markup.
  *
  * @block cui-media-card-media
- * @summary Media region inside a media card (covers bare first-child media too).
+ * @summary Media region inside a media card (covers bare first/last-child media too).
  */
 .cui-media-card-media,
-.cui-media-card > :where(img, video, picture, iframe, svg):first-child {
+.cui-media-card > :where(img, video, picture, iframe, svg):is(:first-child, :last-child) {
+  display: block;
   inline-size: 100%;
   aspect-ratio: var(--cui-media-card-media-ratio, 16 / 10);
   background: var(--cui-media-bg, var(--cui-color-surface-muted, #edf0f4));
   border: 0;
+  object-fit: var(--cui-media-fit, cover);
+  object-position: var(--cui-media-position, center);
+  overflow: hidden;
+}
+
+/* Make the inner replaced element fill and cover the region box so a large
+   image is clipped to the box (object-fit: cover) instead of rendering at
+   intrinsic size — which would overflow a constrained ratio and grow the
+   media region, pushing the body copy down. Covers a classed wrapper's
+   media, and the `<img>` inside a `<picture>` used as the media (bare
+   first/last child, or inside the classed region). Mirrors `.cui-media-full`. */
+.cui-media-card-media > :where(img, video, picture, iframe, svg),
+.cui-media-card-media picture > img,
+.cui-media-card > picture:is(:first-child, :last-child) > img {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
   object-fit: var(--cui-media-fit, cover);
   object-position: var(--cui-media-position, center);
 }
@@ -327,15 +433,31 @@
 }
 
 .cui-media-card[data-orient="row"] > .cui-media-card-media,
-.cui-media-card[data-orient="row"] > :where(img, video, picture, iframe, svg):first-child {
+.cui-media-card[data-orient="row"] > :where(img, video, picture, iframe, svg):is(:first-child, :last-child) {
   flex: 1 1 var(--cui-media-card-media-size, 18rem);
   min-inline-size: 0;
   min-block-size: var(--cui-media-card-media-min-block-size, 12rem);
-  aspect-ratio: auto;
+
+  /* Default to `auto` (media stretches to the body height); a `[data-ratio]`
+     value feeds a definite ratio instead. */
+  aspect-ratio: var(--cui-media-card-media-ratio, auto);
 }
 
+/* With a definite ratio in row orient, top-align the media so its aspect
+   ratio is honored — `align-items: stretch` on the row would otherwise
+   override the aspect-ratio and stretch the media to the body height. */
+.cui-media-card[data-orient="row"][data-ratio]:not([data-ratio="auto"]) > .cui-media-card-media,
+.cui-media-card[data-orient="row"][data-ratio]:not([data-ratio="auto"]) > :where(img, video, picture, iframe, svg):is(:first-child, :last-child) {
+  align-self: start;
+}
+
+/* Body flex-basis doubles as the row→stack breakpoint: the card wraps to a
+   stacked layout once its width drops below media-size + body-min
+   (~18rem + 28rem ≈ 46rem), so the text column never gets squeezed narrower
+   than ~28rem beside the media. Lower `--cui-media-card-body-min` to keep the
+   row layout down to narrower widths. */
 .cui-media-card[data-orient="row"] > .cui-stack {
-  flex: 2 1 var(--cui-media-card-body-min, 18rem);
+  flex: 2 1 var(--cui-media-card-body-min, 28rem);
   min-inline-size: 0;
 }
 

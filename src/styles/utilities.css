@@ -123,3 +123,105 @@
 .cui-density-comfortable {
   --cui-density: 1.25;
 }
+
+/* -------------------------------------------------------------------------
+ * Responsive visibility utilities
+ *
+ * Hide an element at a breakpoint and below (`.cui-hidden-{bp}`) or at a
+ * breakpoint and above (`.cui-hidden-{bp}-up`). The named breakpoints are the
+ * width thresholds where each size begins: xs 36rem, sm 48rem, md 64rem,
+ * lg 80rem. The `-up` form is min-width (`width >= threshold`); the plain form
+ * is the complementary max-width side (`width < threshold`), so `.cui-hidden-sm`
+ * and `.cui-hidden-sm-up` are exact opposites split at 48rem.
+ *
+ * These toggle VISUAL visibility only (`display: none`). To hide an element
+ * from screen readers — e.g. a second, visual-only copy of a nav you render
+ * purely for layout convenience — CSS is the wrong tool: `display: none` /
+ * `visibility: hidden` hide from everyone, and nothing in CSS removes an
+ * element from the accessibility tree while leaving it painted. Use the HTML
+ * `inert` attribute on the duplicate (it drops the subtree from the a11y tree
+ * AND takes its links out of the tab order), or `aria-hidden="true"` for a
+ * non-interactive dupe:
+ *
+ *   <nav class="cui-sidenav cui-hidden-md" inert aria-hidden="true"> … </nav>
+ * ------------------------------------------------------------------------- */
+
+@media (width < 36rem) {
+  /**
+   * @block cui-hidden-xs
+   * @summary Visually hidden at the xs breakpoint and below (viewport < 36rem).
+   */
+  .cui-hidden-xs {
+    display: none !important;
+  }
+}
+
+@media (width >= 36rem) {
+  /**
+   * @block cui-hidden-xs-up
+   * @summary Visually hidden at the xs breakpoint and above (viewport >= 36rem).
+   */
+  .cui-hidden-xs-up {
+    display: none !important;
+  }
+}
+
+@media (width < 48rem) {
+  /**
+   * @block cui-hidden-sm
+   * @summary Visually hidden at the sm breakpoint and below (viewport < 48rem).
+   */
+  .cui-hidden-sm {
+    display: none !important;
+  }
+}
+
+@media (width >= 48rem) {
+  /**
+   * @block cui-hidden-sm-up
+   * @summary Visually hidden at the sm breakpoint and above (viewport >= 48rem).
+   */
+  .cui-hidden-sm-up {
+    display: none !important;
+  }
+}
+
+@media (width < 64rem) {
+  /**
+   * @block cui-hidden-md
+   * @summary Visually hidden at the md breakpoint and below (viewport < 64rem).
+   */
+  .cui-hidden-md {
+    display: none !important;
+  }
+}
+
+@media (width >= 64rem) {
+  /**
+   * @block cui-hidden-md-up
+   * @summary Visually hidden at the md breakpoint and above (viewport >= 64rem).
+   */
+  .cui-hidden-md-up {
+    display: none !important;
+  }
+}
+
+@media (width < 80rem) {
+  /**
+   * @block cui-hidden-lg
+   * @summary Visually hidden at the lg breakpoint and below (viewport < 80rem).
+   */
+  .cui-hidden-lg {
+    display: none !important;
+  }
+}
+
+@media (width >= 80rem) {
+  /**
+   * @block cui-hidden-lg-up
+   * @summary Visually hidden at the lg breakpoint and above (viewport >= 80rem).
+   */
+  .cui-hidden-lg-up {
+    display: none !important;
+  }
+}

@@ -1,0 +1,442 @@
+/**
+ * Vertical side-rail navigation. A full-height column of `.cui-nav-link`s
+ * that docks to the inline-start (or inline-end via `[side="end"]`) of a
+ * dashboard-style layout. It collapses to an icon-only mini-rail on wide
+ * viewports and hides off-canvas behind a backdrop below 48rem.
+ *
+ * The `cui-sidenav` custom element enhances this markup — it injects the
+ * collapse toggle, the mobile dismiss button, and the backdrop, and wires up
+ * the ARIA / focus-trap / scroll-lock behavior — but every visual is driven by
+ * these classes, so the rail lays out identically before and after the element
+ * upgrades (no FOUC). The layout also works standalone as a plain `.cui-sidenav`
+ * (without the injected chrome or JS) for a static, always-expanded rail.
+ *
+ * Structure:
+ *   .cui-sidenav
+ *     > .cui-sidenav-inner            (the visible rail surface)
+ *       > .cui-sidenav-header         (brand + injected collapse toggle / dismiss)
+ *       > .cui-sidenav-nav            (a column of .cui-nav-link items)
+ *       > .cui-sidenav-footer         (actions: theme toggle, CTA…)
+ *     > .cui-sidenav-backdrop         (injected; mobile scrim)
+ *
+ * @block cui-sidenav
+ * @summary Vertical side-rail nav: icon-only mini-rail on desktop, off-canvas drawer below 48rem.
+ * @variant end — `[side="end"]`. Docks the rail to the inline-end and slides
+ *   the mobile drawer in from that side.
+ * @cssvar --cui-sidenav-width — Expanded rail inline-size. Defaults to 16rem.
+ * @cssvar --cui-sidenav-collapsed-width — Mini-rail inline-size while `[collapsed]`. Defaults to 4.5rem.
+ * @cssvar --cui-sidenav-bg — Rail background. Defaults to `--cui-color-surface-raised`.
+ * @cssvar --cui-sidenav-border — Divider color between rail and content. Defaults to `--cui-color-border`.
+ * @cssvar --cui-sidenav-color — Foreground color. Defaults to `--cui-color`.
+ * @cssvar --cui-sidenav-backdrop — Mobile scrim color. Defaults to `rgb(0 0 0 / 40%)`.
+ * @cssvar --cui-sidenav-padding — Inner padding. Defaults to `--cui-space-3`.
+ * @cssvar --cui-sidenav-gap — Gap between header / nav / footer. Defaults to `--cui-space-3`.
+ * @cssvar --cui-sidenav-z-index — Stacking order of the off-canvas drawer. Defaults to 50.
+ * @cssvar --cui-sidenav-sticky-offset — `inset-block-start` while `[sticky]`. Defaults to 0.
+ * @cssvar --cui-sidenav-animation-duration — Drawer / collapse transition duration. Defaults to 220ms.
+ *
+ * @example
+ *   <cui-sidenav class="cui-sidenav" sticky>
+ *     <div class="cui-sidenav-inner">
+ *       <div class="cui-sidenav-header">
+ *         <a class="cui-sidenav-brand" href="/">
+ *           <span class="cui-sidenav-logo" aria-hidden="true">◆</span>
+ *           <span class="cui-sidenav-label">Combat UI</span>
+ *         </a>
+ *       </div>
+ *       <nav class="cui-sidenav-nav" aria-label="Primary">
+ *         <a class="cui-nav-link" href="/" aria-current="page">
+ *           <span class="cui-sidenav-icon" aria-hidden="true">▣</span>
+ *           <span class="cui-sidenav-label">Dashboard</span>
+ *         </a>
+ *         <a class="cui-nav-link" href="/reports">
+ *           <span class="cui-sidenav-icon" aria-hidden="true">▤</span>
+ *           <span class="cui-sidenav-label">Reports</span>
+ *         </a>
+ *       </nav>
+ *       <div class="cui-sidenav-footer">
+ *         <cui-theme-toggle></cui-theme-toggle>
+ *       </div>
+ *     </div>
+ *   </cui-sidenav>
+ *
+ *   \3c !-- Anywhere on the page: open the drawer on mobile -->
+ *   <button type="button" data-cui-sidenav-target="main-sidenav">Menu</button>
+ */
+.cui-sidenav {
+  --cui-sidenav-width: 16rem;
+  --cui-sidenav-collapsed-width: 4.5rem;
+  --cui-sidenav-bg: var(--cui-color-surface-raised, #fff);
+  --cui-sidenav-border: var(--cui-color-border, #cfd6df);
+  --cui-sidenav-color: var(--cui-color, #1b1f27);
+  --cui-sidenav-backdrop: rgb(0 0 0 / 40%);
+  --cui-sidenav-padding: var(--cui-space-3, 0.75rem);
+  --cui-sidenav-gap: var(--cui-space-3, 0.75rem);
+  --cui-sidenav-z-index: 50;
+  --cui-sidenav-sticky-offset: 0;
+  --cui-sidenav-animation-duration: 220ms;
+  --cui-sidenav-animation-easing: cubic-bezier(0.2, 0, 0, 1);
+
+  /* Off-canvas translate distance; flips sign for the inline-end variant. */
+  --cui-sidenav-translate: -100%;
+
+  display: flex;
+  flex-direction: column;
+  inline-size: var(--cui-sidenav-width);
+  color: var(--cui-sidenav-color);
+
+  /* Mobile (default): a fixed off-canvas drawer, hidden until [expanded]. */
+  position: fixed;
+  z-index: var(--cui-sidenav-z-index, 50);
+  inset-block: 0;
+  inset-inline-start: 0;
+  max-inline-size: 85vi;
+  transform: translateX(var(--cui-sidenav-translate, -100%));
+  visibility: hidden;
+  transition:
+    transform var(--cui-sidenav-animation-duration, 220ms) var(--cui-sidenav-animation-easing, cubic-bezier(0.2, 0, 0, 1)),
+    visibility var(--cui-sidenav-animation-duration, 220ms) var(--cui-sidenav-animation-easing, cubic-bezier(0.2, 0, 0, 1)),
+    inline-size var(--cui-sidenav-animation-duration, 220ms) var(--cui-sidenav-animation-easing, cubic-bezier(0.2, 0, 0, 1));
+}
+
+.cui-sidenav[hidden] {
+  display: none;
+}
+
+.cui-sidenav[side="end"] {
+  --cui-sidenav-translate: 100%;
+
+  inset-inline: auto 0;
+}
+
+.cui-sidenav[expanded] {
+  transform: translateX(0);
+  visibility: visible;
+}
+
+/**
+ * The visible rail surface inside `.cui-sidenav`. Carries the background,
+ * divider border, and padding, and stacks the header / nav / footer. Kept
+ * separate from the host so the off-canvas backdrop (a sibling painted behind
+ * it) doesn't tint the rail itself.
+ *
+ * @block cui-sidenav-inner
+ * @summary Padded rail surface that stacks the header, nav, and footer.
+ */
+.cui-sidenav-inner {
+  display: flex;
+  flex: 1;
+  min-block-size: 0;
+  flex-direction: column;
+  gap: var(--cui-sidenav-gap, var(--cui-space-3, 0.75rem));
+  background: var(--cui-sidenav-bg, var(--cui-color-surface-raised, #fff));
+  border-inline-end: var(--cui-border-size, 1px) solid var(--cui-sidenav-border, var(--cui-color-border, #cfd6df));
+  padding: var(--cui-sidenav-padding, var(--cui-space-3, 0.75rem));
+}
+
+.cui-sidenav[side="end"] .cui-sidenav-inner {
+  border-inline: 0;
+  border-inline-start: var(--cui-border-size, 1px) solid var(--cui-sidenav-border, var(--cui-color-border, #cfd6df));
+}
+
+/**
+ * Backdrop scrim injected behind the off-canvas drawer on mobile. A fixed
+ * full-viewport overlay that fades in while `[expanded]`; clicking it closes
+ * the drawer (handled by the `cui-sidenav` element). Hidden at ≥48rem where
+ * the rail is a persistent part of the layout.
+ *
+ * @block cui-sidenav-backdrop
+ * @summary Mobile scrim behind the off-canvas drawer; click to dismiss.
+ */
+.cui-sidenav-backdrop {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  background: var(--cui-sidenav-backdrop, rgb(0 0 0 / 40%));
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity var(--cui-sidenav-animation-duration, 220ms) var(--cui-sidenav-animation-easing, cubic-bezier(0.2, 0, 0, 1)),
+    visibility var(--cui-sidenav-animation-duration, 220ms) var(--cui-sidenav-animation-easing, cubic-bezier(0.2, 0, 0, 1));
+}
+
+.cui-sidenav[expanded] .cui-sidenav-backdrop {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/**
+ * Top row of the rail: the brand lockup plus, when the `cui-sidenav` element
+ * upgrades, the injected collapse toggle (desktop) or dismiss button (mobile).
+ *
+ * @block cui-sidenav-header
+ * @summary Rail header row holding the brand and the injected control.
+ */
+.cui-sidenav-header {
+  display: flex;
+  min-block-size: var(--cui-control-size, 2.5rem);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--cui-space-2, 0.5rem);
+}
+
+/**
+ * Brand link/lockup at the top of the rail. An inline-flex anchor pairing a
+ * `.cui-sidenav-logo` mark with a `.cui-sidenav-label` wordmark; the wordmark
+ * (like every `.cui-sidenav-label`) hides in the collapsed mini-rail.
+ *
+ * @block cui-sidenav-brand
+ * @summary Inline-flex brand lockup (logo + wordmark) at the top of the rail.
+ */
+.cui-sidenav-brand {
+  display: inline-flex;
+  min-inline-size: 0;
+  align-items: center;
+  gap: var(--cui-space-2, 0.5rem);
+  color: inherit;
+  font-weight: var(--cui-font-weight-strong, 680);
+  text-decoration: none;
+}
+
+/**
+ * Brand mark inside `.cui-sidenav-brand` — a fixed-size square slot for a logo
+ * glyph, SVG, or image. Stays visible in the collapsed mini-rail.
+ *
+ * @block cui-sidenav-logo
+ * @summary Fixed-size brand-mark slot in the rail header.
+ */
+.cui-sidenav-logo {
+  display: inline-flex;
+  flex: none;
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+/**
+ * Text label shared by the brand wordmark and every nav link. Hidden when the
+ * rail is collapsed to the icon-only mini-rail, so a single class drives the
+ * whole expand/collapse text reveal.
+ *
+ * @block cui-sidenav-label
+ * @summary Collapsible text label; hidden while the rail is `[collapsed]`.
+ */
+.cui-sidenav-label {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/**
+ * The primary navigation list inside the rail — a vertical column of
+ * `.cui-nav-link`s (compose the existing nav-link primitive for the link
+ * chrome, hover, and `[aria-current="page"]` states). Grows to fill the rail
+ * and scrolls independently when the list is long, keeping the header and
+ * footer pinned.
+ *
+ * @block cui-sidenav-nav
+ * @summary Scrollable vertical column of nav links inside the rail.
+ */
+.cui-sidenav-nav {
+  display: flex;
+  flex: 1;
+  min-block-size: 0;
+  flex-direction: column;
+  gap: var(--cui-space-1, 0.25rem);
+  overflow-y: auto;
+}
+
+/* Sidenav links start-align their icon + label (the bare nav-link primitive
+   uses space-between for a trailing dropdown chevron). */
+.cui-sidenav-nav .cui-nav-link {
+  justify-content: flex-start;
+}
+
+/**
+ * Fixed-size icon slot at the start of a sidenav `.cui-nav-link`. Keeps icons
+ * aligned in a column and centered when the rail collapses to the mini-rail.
+ *
+ * @block cui-sidenav-icon
+ * @summary Fixed-size leading icon slot in a sidenav nav link.
+ */
+.cui-sidenav-icon {
+  display: inline-flex;
+  flex: none;
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  align-items: center;
+  justify-content: center;
+}
+
+/**
+ * Bottom region of the rail for actions — theme toggle, CTA button, account
+ * menu. Stacks its children and collapses out of flow when empty.
+ *
+ * @block cui-sidenav-footer
+ * @summary Action stack pinned to the bottom of the rail.
+ */
+.cui-sidenav-footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cui-space-2, 0.5rem);
+}
+
+.cui-sidenav-footer:empty {
+  display: none;
+}
+
+/**
+ * Collapse toggle injected into the header by the `cui-sidenav` element. A
+ * square control with a CSS chevron that points toward the inline-start to
+ * collapse and flips when the rail is `[collapsed]`. Shown only at ≥48rem,
+ * where the mini-rail makes sense; hidden in the mobile drawer.
+ *
+ * @block cui-sidenav-toggle
+ * @summary Square button that collapses the rail to the icon-only mini-rail.
+ */
+.cui-sidenav-dismiss,
+.cui-sidenav-toggle {
+  display: inline-flex;
+  flex: none;
+  inline-size: var(--cui-control-size, 2.5rem);
+  block-size: var(--cui-control-size, 2.5rem);
+  align-items: center;
+  justify-content: center;
+  border: var(--cui-border-size, 1px) solid var(--cui-color-border, #cfd6df);
+  border-radius: var(--cui-control-radius, 0.25rem);
+  background: var(--cui-color-surface-muted, #edf0f4);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.cui-sidenav-toggle::before {
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  border-block-end: 2px solid currentcolor;
+  border-inline-start: 2px solid currentcolor;
+  content: "";
+  transform: rotate(45deg);
+  transition: transform var(--cui-sidenav-animation-duration, 220ms) var(--cui-sidenav-animation-easing, cubic-bezier(0.2, 0, 0, 1));
+}
+
+.cui-sidenav[collapsed] .cui-sidenav-toggle::before {
+  transform: rotate(225deg);
+}
+
+.cui-sidenav[side="end"] .cui-sidenav-toggle::before {
+  transform: rotate(225deg);
+}
+
+.cui-sidenav[side="end"][collapsed] .cui-sidenav-toggle::before {
+  transform: rotate(45deg);
+}
+
+/* Toggle is desktop-only; the mobile drawer uses the dismiss button instead. */
+.cui-sidenav-toggle {
+  display: none;
+}
+
+/**
+ * Dismiss (close) button injected into the header on mobile by the `cui-sidenav`
+ * element. A square control with a CSS-drawn cross that closes the off-canvas
+ * drawer. Shown only below 48rem; hidden once the rail is a persistent part of
+ * the layout.
+ *
+ * @block cui-sidenav-dismiss
+ * @summary Square close button for the off-canvas drawer (mobile only).
+ */
+.cui-sidenav-dismiss {
+  position: relative;
+}
+
+.cui-sidenav-dismiss::before,
+.cui-sidenav-dismiss::after {
+  position: absolute;
+  inline-size: 1rem;
+  block-size: 2px;
+  border-radius: 999px;
+  background: currentcolor;
+  content: "";
+}
+
+.cui-sidenav-dismiss::before {
+  transform: rotate(45deg);
+}
+
+.cui-sidenav-dismiss::after {
+  transform: rotate(-45deg);
+}
+
+@media (width >= 48rem) {
+  .cui-sidenav {
+    position: static;
+    z-index: auto;
+    max-inline-size: none;
+    transform: none;
+    visibility: visible;
+    transition: inline-size var(--cui-sidenav-animation-duration, 220ms) var(--cui-sidenav-animation-easing, cubic-bezier(0.2, 0, 0, 1));
+  }
+
+  .cui-sidenav[side="end"] {
+    inset-inline: auto;
+  }
+
+  .cui-sidenav[sticky] {
+    position: sticky;
+    inset-block-start: var(--cui-sidenav-sticky-offset, 0);
+    align-self: start;
+    block-size: 100dvh;
+  }
+
+  .cui-sidenav[collapsed] {
+    inline-size: var(--cui-sidenav-collapsed-width, 4.5rem);
+  }
+
+  /* Mini-rail: hide every label, center the brand mark, icons, and toggle. */
+  .cui-sidenav[collapsed] .cui-sidenav-label {
+    display: none;
+  }
+
+  .cui-sidenav[collapsed] .cui-sidenav-header {
+    justify-content: center;
+  }
+
+  .cui-sidenav[collapsed] .cui-sidenav-brand {
+    display: none;
+  }
+
+  .cui-sidenav[collapsed] .cui-sidenav-nav .cui-nav-link,
+  .cui-sidenav[collapsed] .cui-sidenav-footer {
+    justify-content: center;
+  }
+
+  .cui-sidenav[collapsed] .cui-sidenav-footer {
+    align-items: center;
+  }
+
+  .cui-sidenav-toggle {
+    display: inline-flex;
+  }
+
+  .cui-sidenav-dismiss,
+  .cui-sidenav-backdrop {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cui-sidenav {
+    --cui-sidenav-animation-duration: 1ms;
+  }
+
+  .cui-sidenav,
+  .cui-sidenav-backdrop,
+  .cui-sidenav-toggle::before {
+    transition: none;
+  }
+}

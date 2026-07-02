@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/JetBrains/web-types/master/schema/web-types.json",
   "name": "@combat-ui/core",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description-markup": "markdown",
   "contributions": {
     "html": {
@@ -48,49 +48,6 @@
           }
         },
         {
-          "name": "cui-button",
-          "description": "Renders a `<button>` or `<a>` with shared visual styling and disabled state\nhandling. Choose anchor mode by setting the `href` attribute, and button mode by omitting it.\n---\n",
-          "doc-url": "",
-          "attributes": [
-            {
-              "name": "disabled",
-              "description": "= Disables the underlying control. For anchor mode this also prevents navigation.",
-              "value": { "type": "boolean" }
-            },
-            {
-              "name": "href",
-              "description": "When set, the button renders as an anchor (`<a>`) instead of a `<button>`. The value is applied to the anchor's `href` attribute.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "target",
-              "description": "Anchor target (e.g. `_blank`). Only applies when `href` is set.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "rel",
-              "description": "Anchor relationship. Only applies when `href` is set.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "type",
-              "description": "Button type. Only applies when `href` is not set. Defaults to `\"button\"`.",
-              "value": { "type": "\"button\" | \"submit\" | \"reset\"" }
-            }
-          ],
-          "events": [],
-          "js": {
-            "properties": [
-              { "name": "disabled", "type": "boolean" },
-              { "name": "href", "type": "string | null" },
-              { "name": "target", "type": "string | null" },
-              { "name": "rel", "type": "string | null" },
-              { "name": "type", "type": "ButtonType" }
-            ],
-            "events": []
-          }
-        },
-        {
           "name": "cui-code",
           "description": "Displays a code sample with a copy-to-clipboard button. Reads source from\nits text content, from an HTML comment child, or from a `<script type=\"…\">`\nchild — whichever is present — so example markup can stay valid HTML.\n---\n\n\n### **Slots:**\n - _default_ - The code to display. Can be raw text, an HTML comment containing markup, or a `<script type=\"text/plain\">` block (useful when the example itself is HTML you don't want the browser to render).",
           "doc-url": "",
@@ -109,96 +66,6 @@
           ],
           "events": [],
           "js": { "properties": [], "events": [] }
-        },
-        {
-          "name": "cui-day-planner",
-          "description": "Vertical day planner — a single-day timeline that decorates a\nslotted list of `.cui-event-card` children. Events are placed\nby start time, sized by duration, and column-packed so\nconcurrent events sit side-by-side. The source cards remain in\nlight DOM beneath the board (or visually hidden via\n`events-hidden`) so search engines and feed readers index the\nfull event copy without depending on the component's JS.\n\nReads each card's first `<time datetime>` for the start; an\noptional second `<time datetime>` or a `data-end` attribute\n(full ISO or `HH:MM`) provides the end. Cards without an\nexplicit end get a default `60`-minute duration.\n---\n\n\n### **Events:**\n - **cui-day-planner-event-select** - Cancelable; fires when an event block is activated.\n- **cui-day-planner-slot-select** - Fires when a row (empty slot) is activated.\n- **cui-day-planner-navigate** - Fires after the visible day changes.\n\n### **Methods:**\n - **goTo(target: _string | Date_): _void_** - Programmatically jump to a date (YYYY-MM-DD or Date).\n- **next(): _void_** - Move forward one day.\n- **previous(): _void_** - Move back one day.\n- **refresh(): _void_** - Re-read slotted event cards. Call after dynamic updates.\n\n### **Slots:**\n - _default_ - `.cui-event-card` elements whose first `<time>` falls on the visible date. Cards on other days are placed in the slot but skipped from the timeline.",
-          "doc-url": "",
-          "attributes": [
-            {
-              "name": "date",
-              "description": "Visible day in `YYYY-MM-DD`. Defaults to today.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "start-hour",
-              "description": "Visible window start hour (0-23). Defaults to `7`.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "end-hour",
-              "description": "Visible window end hour (1-24). Defaults to `22`.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "slot-minutes",
-              "description": "Minor-gridline cadence. Defaults to `60`.",
-              "value": { "type": "\"15\"|\"30\"|\"60\"" }
-            },
-            {
-              "name": "locale",
-              "description": "BCP-47 locale for the day-header label. Defaults to the document's `lang` or `navigator.language`.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "now-line",
-              "description": "Render the now-line when viewing today. Defaults to present.",
-              "value": { "type": "boolean" }
-            },
-            {
-              "name": "events-hidden",
-              "description": "Visually hide the slotted card list while keeping it in the DOM.",
-              "value": { "type": "boolean" }
-            }
-          ],
-          "slots": [
-            {
-              "name": "",
-              "description": "`.cui-event-card` elements whose first `<time>` falls on the visible date. Cards on other days are placed in the slot but skipped from the timeline."
-            }
-          ],
-          "events": [
-            {
-              "name": "cui-day-planner-event-select",
-              "type": "CustomEvent<CuiDayPlannerEventSelectDetail>",
-              "description": "Cancelable; fires when an event block is activated."
-            },
-            {
-              "name": "cui-day-planner-slot-select",
-              "type": "CustomEvent<CuiDayPlannerSlotSelectDetail>",
-              "description": "Fires when a row (empty slot) is activated."
-            },
-            {
-              "name": "cui-day-planner-navigate",
-              "type": "CustomEvent<CuiDayPlannerNavigateDetail>",
-              "description": "Fires after the visible day changes."
-            }
-          ],
-          "js": {
-            "properties": [
-              { "name": "startHour", "type": "number" },
-              { "name": "endHour", "type": "number" },
-              { "name": "slotMinutes", "type": "number" },
-              { "name": "locale", "type": "string" }
-            ],
-            "events": [
-              {
-                "name": "cui-day-planner-event-select",
-                "type": "CustomEvent<CuiDayPlannerEventSelectDetail>",
-                "description": "Cancelable; fires when an event block is activated."
-              },
-              {
-                "name": "cui-day-planner-slot-select",
-                "type": "CustomEvent<CuiDayPlannerSlotSelectDetail>",
-                "description": "Fires when a row (empty slot) is activated."
-              },
-              {
-                "name": "cui-day-planner-navigate",
-                "type": "CustomEvent<CuiDayPlannerNavigateDetail>",
-                "description": "Fires after the visible day changes."
-              }
-            ]
-          }
         },
         {
           "name": "cui-calendar",
@@ -274,204 +141,6 @@
                 "name": "cui-calendar-navigate",
                 "type": "CustomEvent<CuiCalendarNavigateDetail>",
                 "description": "Fires when the visible month changes."
-              }
-            ]
-          }
-        },
-        {
-          "name": "cui-carousel",
-          "description": "Flexible content carousel. Slides are slotted light-DOM elements, so every\nslide stays crawlable regardless of which one is visible. Compose each slide\nfrom any markup — an `<img>` / `<video>` background with overlaid text and\nbuttons (e.g. `.cui-media-overlay`), or a plain content panel. A separate\n`fixed` slot holds chrome that persists across every slide (brand mark,\npersistent CTA). Supports slide / fade transitions, autoplay with a\npause control, looping, keyboard navigation, and `prefers-reduced-motion`.\n---\n\n\n### **Events:**\n - **cui-carousel-change** - Fires after the active slide changes.\n\n### **Methods:**\n - **next(): _void_** - Advance to the next slide (wraps when `loop` is on).\n- **prev(): _void_** - Return to the previous slide (wraps when `loop` is on).\n- **go(target: _number_, options: _{ focus?: boolean }_): _void_** - Move to a specific slide index.\n- **play(): _void_** - Start autoplay (no-op when reduced motion is preferred).\n- **pause(): _void_** - Pause autoplay.\n\n### **Slots:**\n - **slide** - One element per slide. Any content works; use `.cui-media-overlay` for media with overlaid copy and buttons.\n- **fixed** - Content overlaid on top of every slide and pinned in place while slides change (logo, persistent call-to-action). Buttons here can carry `data-cui-carousel-prev` / `-next` / `-goto=\"<i>\"` to drive the carousel; elements anywhere else on the page can do the same by adding `data-cui-carousel-target=\"<id>\"`.\n\n### **CSS Parts:**\n - **viewport** - The clipping region around the slides.\n- **track** - The slot wrapping the slides (the moving track).\n- **fixed** - The persistent overlay layer.\n- **controls** - The previous / next arrow container.\n- **previous** - The previous-slide button.\n- **next** - The next-slide button.\n- **pagination** - The dot pagination container.\n- **dot** - A single pagination dot.",
-          "doc-url": "",
-          "attributes": [
-            {
-              "name": "index",
-              "description": "The active slide index (zero-based). Reflected.",
-              "value": { "type": "number" }
-            },
-            {
-              "name": "autoplay",
-              "description": "Advance slides automatically.",
-              "value": { "type": "boolean" }
-            },
-            {
-              "name": "interval",
-              "description": "Autoplay delay in milliseconds. Defaults to 5000.",
-              "value": { "type": "number" }
-            },
-            {
-              "name": "loop",
-              "description": "Wrap past the ends. Defaults to on; set `loop=\"false\"` to clamp at the first / last slide and disable the wrap.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "transition",
-              "description": "Transition style. Defaults to `slide`.",
-              "value": { "type": "\"slide\" | \"fade\" | \"none\"" }
-            },
-            {
-              "name": "controls",
-              "description": "Show the previous / next arrows. Defaults to on; set `controls=\"false\"` to hide them.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "pagination",
-              "description": "Show the dot pagination. Defaults to on; set `pagination=\"false\"` to hide it.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "pause-on-hover",
-              "description": "Pause autoplay on hover / focus. Defaults to on; set `pause-on-hover=\"false\"` to keep playing.",
-              "value": { "type": "string" }
-            }
-          ],
-          "slots": [
-            {
-              "name": "slide",
-              "description": "One element per slide. Any content works; use `.cui-media-overlay` for media with overlaid copy and buttons."
-            },
-            {
-              "name": "fixed",
-              "description": "Content overlaid on top of every slide and pinned in place while slides change (logo, persistent call-to-action). Buttons here can carry `data-cui-carousel-prev` / `-next` / `-goto=\"<i>\"` to drive the carousel; elements anywhere else on the page can do the same by adding `data-cui-carousel-target=\"<id>\"`."
-            }
-          ],
-          "events": [
-            {
-              "name": "cui-carousel-change",
-              "type": "CustomEvent<CuiCarouselChangeDetail>",
-              "description": "Fires after the active slide changes."
-            }
-          ],
-          "js": {
-            "properties": [
-              {
-                "name": "slides",
-                "description": "All slide elements, in document order.",
-                "type": "HTMLElement[]"
-              },
-              {
-                "name": "count",
-                "description": "Number of slides.",
-                "type": "number"
-              },
-              {
-                "name": "index",
-                "description": "The active slide index.",
-                "type": "number"
-              },
-              {
-                "name": "playing",
-                "description": "Whether autoplay is currently advancing slides.",
-                "type": "boolean"
-              },
-              { "name": "loop", "type": "boolean" }
-            ],
-            "events": [
-              {
-                "name": "cui-carousel-change",
-                "type": "CustomEvent<CuiCarouselChangeDetail>",
-                "description": "Fires after the active slide changes."
-              }
-            ]
-          }
-        },
-        {
-          "name": "cui-disclosure",
-          "description": "Lightweight custom element that wraps a native `<details>` element so it can\nbe opened, closed, or toggled by ID from anywhere on the page, and so its\nopen state is observable as an attribute and a custom event.\n\nThe `<details>` element stays in the light DOM, so it's contents remain\nsearchable, indexable, and stylable from the host page.\n---\n\n\n### **Events:**\n - **cui-disclosure-toggle** - Bubbles after the disclosure opens/closes. `detail.open` is the new state.\n\n### **Slots:**\n - _default_ - A single `<details>` element with its `<summary>` and body. The element does not render its own UI - it only observes and controls the nested `<details>`.",
-          "doc-url": "",
-          "attributes": [
-            {
-              "name": "open",
-              "description": "Reflects the inner `<details>.open`. Set or remove this attribute to open/close the disclosure; the attribute also updates when the user toggles the disclosure by clicking the `<summary>` directly.",
-              "value": { "type": "boolean" }
-            }
-          ],
-          "slots": [
-            {
-              "name": "",
-              "description": "A single `<details>` element with its `<summary>` and body. The element does not render its own UI - it only observes and controls the nested `<details>`."
-            }
-          ],
-          "events": [
-            {
-              "name": "cui-disclosure-toggle",
-              "type": "CustomEvent<CuiDisclosureToggleDetail>",
-              "description": "Bubbles after the disclosure opens/closes. `detail.open` is the new state."
-            }
-          ],
-          "js": {
-            "properties": [
-              { "name": "details", "type": "HTMLDetailsElement | null" },
-              { "name": "isOpen", "type": "boolean" }
-            ],
-            "events": [
-              {
-                "name": "cui-disclosure-toggle",
-                "type": "CustomEvent<CuiDisclosureToggleDetail>",
-                "description": "Bubbles after the disclosure opens/closes. `detail.open` is the new state."
-              }
-            ]
-          }
-        },
-        {
-          "name": "cui-field",
-          "description": "Form-field wrapper that surfaces native `ValidityState` as user-visible\nmessages, supports server-side errors via `setError()`, async validators\nvia `addValidator()`, and i18n via slotted `error-<validityKey>` content.\nDesigned to be a child of `cui-form`, but works standalone.\n---\n\n\n### **Events:**\n - **cui-field-valid** - Fires when the field transitions to a valid state.\n- **cui-field-invalid** - Fires when validation fails. `detail.key` is the first failing `ValidityState` key; `detail.params` carries control-derived values for message interpolation.\n\n### **Slots:**\n - _default_ - The form control (`<input>`, `<select>`, `<textarea>`, or a custom control matching `CuiFieldControl`).\n- **label** - The field label. Will be associated with the control via `for=` / `aria-labelledby`.\n- **help** - Descriptive help text shown beneath the control.\n- **error** - Generic error message. Used when no `error-<key>` slot matches the failing validity key.\n- **error-{validityKey}** - Validity-key-specific error message (`error-valueMissing`, `error-typeMismatch`, `error-tooShort`, …). The first matching slot wins.",
-          "doc-url": "",
-          "attributes": [
-            {
-              "name": "required",
-              "description": "Mirrors the control's `required` attribute and marks the field visually as required.",
-              "value": { "type": "boolean" }
-            }
-          ],
-          "slots": [
-            {
-              "name": "",
-              "description": "The form control (`<input>`, `<select>`, `<textarea>`, or a custom control matching `CuiFieldControl`)."
-            },
-            {
-              "name": "label",
-              "description": "The field label. Will be associated with the control via `for=` / `aria-labelledby`."
-            },
-            {
-              "name": "help",
-              "description": "Descriptive help text shown beneath the control."
-            },
-            {
-              "name": "error",
-              "description": "Generic error message. Used when no `error-<key>` slot matches the failing validity key."
-            },
-            {
-              "name": "error-{validityKey}",
-              "description": "Validity-key-specific error message (`error-valueMissing`, `error-typeMismatch`, `error-tooShort`, …). The first matching slot wins."
-            }
-          ],
-          "events": [
-            {
-              "name": "cui-field-valid",
-              "type": "CustomEvent<CuiFieldValidDetail>",
-              "description": "Fires when the field transitions to a valid state."
-            },
-            {
-              "name": "cui-field-invalid",
-              "type": "CustomEvent<CuiFieldInvalidDetail>",
-              "description": "Fires when validation fails. `detail.key` is the first failing `ValidityState` key; `detail.params` carries control-derived values for message interpolation."
-            }
-          ],
-          "js": {
-            "properties": [
-              { "name": "control", "type": "CuiFieldControl | null" },
-              { "name": "name", "type": "string | null" }
-            ],
-            "events": [
-              {
-                "name": "cui-field-valid",
-                "type": "CustomEvent<CuiFieldValidDetail>",
-                "description": "Fires when the field transitions to a valid state."
-              },
-              {
-                "name": "cui-field-invalid",
-                "type": "CustomEvent<CuiFieldInvalidDetail>",
-                "description": "Fires when validation fails. `detail.key` is the first failing `ValidityState` key; `detail.params` carries control-derived values for message interpolation."
               }
             ]
           }
@@ -597,6 +266,337 @@
                 "name": "cui-cookie-consent-change",
                 "type": "CustomEvent<CuiCookieConsentChangeDetail>",
                 "description": "Fires whenever consent is saved, revoked, or restored from the cookie."
+              }
+            ]
+          }
+        },
+        {
+          "name": "cui-button",
+          "description": "Renders a `<button>` or `<a>` with shared visual styling and disabled state\nhandling. Choose anchor mode by setting the `href` attribute, and button mode by omitting it.\n---\n",
+          "doc-url": "",
+          "attributes": [
+            {
+              "name": "disabled",
+              "description": "= Disables the underlying control. For anchor mode this also prevents navigation.",
+              "value": { "type": "boolean" }
+            },
+            {
+              "name": "href",
+              "description": "When set, the button renders as an anchor (`<a>`) instead of a `<button>`. The value is applied to the anchor's `href` attribute.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "target",
+              "description": "Anchor target (e.g. `_blank`). Only applies when `href` is set.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "rel",
+              "description": "Anchor relationship. Only applies when `href` is set.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "type",
+              "description": "Button type. Only applies when `href` is not set. Defaults to `\"button\"`.",
+              "value": { "type": "\"button\" | \"submit\" | \"reset\"" }
+            }
+          ],
+          "events": [],
+          "js": {
+            "properties": [
+              { "name": "disabled", "type": "boolean" },
+              { "name": "href", "type": "string | null" },
+              { "name": "target", "type": "string | null" },
+              { "name": "rel", "type": "string | null" },
+              { "name": "type", "type": "ButtonType" }
+            ],
+            "events": []
+          }
+        },
+        {
+          "name": "cui-carousel",
+          "description": "Flexible content carousel. Slides are slotted light-DOM elements, so every\nslide stays crawlable regardless of which one is visible. Compose each slide\nfrom any markup — an `<img>` / `<video>` background with overlaid text and\nbuttons (e.g. `.cui-media-overlay`), or a plain content panel. A separate\n`fixed` slot holds chrome that persists across every slide (brand mark,\npersistent CTA). Supports slide / fade transitions, autoplay with a\npause control, looping, keyboard navigation, and `prefers-reduced-motion`.\n---\n\n\n### **Events:**\n - **cui-carousel-change** - Fires after the active slide changes.\n\n### **Methods:**\n - **next(): _void_** - Advance to the next slide (wraps when `loop` is on).\n- **prev(): _void_** - Return to the previous slide (wraps when `loop` is on).\n- **go(target: _number_, options: _{ focus?: boolean }_): _void_** - Move to a specific slide index.\n- **play(): _void_** - Start autoplay (no-op when reduced motion is preferred).\n- **pause(): _void_** - Pause autoplay.\n\n### **Slots:**\n - **slide** - One element per slide. Any content works; use `.cui-media-overlay` for media with overlaid copy and buttons.\n- **fixed** - Content overlaid on top of every slide and pinned in place while slides change (logo, persistent call-to-action). Buttons here can carry `data-cui-carousel-prev` / `-next` / `-goto=\"<i>\"` to drive the carousel; elements anywhere else on the page can do the same by adding `data-cui-carousel-target=\"<id>\"`.\n\n### **CSS Parts:**\n - **viewport** - The clipping region around the slides.\n- **track** - The slot wrapping the slides (the moving track).\n- **fixed** - The persistent overlay layer.\n- **controls** - The previous / next arrow container.\n- **previous** - The previous-slide button.\n- **next** - The next-slide button.\n- **pagination** - The dot pagination container.\n- **dot** - A single pagination dot.",
+          "doc-url": "",
+          "attributes": [
+            {
+              "name": "index",
+              "description": "The active slide index (zero-based). Reflected.",
+              "value": { "type": "number" }
+            },
+            {
+              "name": "autoplay",
+              "description": "Advance slides automatically.",
+              "value": { "type": "boolean" }
+            },
+            {
+              "name": "interval",
+              "description": "Autoplay delay in milliseconds. Defaults to 5000.",
+              "value": { "type": "number" }
+            },
+            {
+              "name": "loop",
+              "description": "Wrap past the ends. Defaults to on; set `loop=\"false\"` to clamp at the first / last slide and disable the wrap.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "transition",
+              "description": "Transition style. Defaults to `slide`.",
+              "value": { "type": "\"slide\" | \"fade\" | \"none\"" }
+            },
+            {
+              "name": "controls",
+              "description": "Show the previous / next arrows. Defaults to on; set `controls=\"false\"` to hide them.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "pagination",
+              "description": "Show the dot pagination. Defaults to on; set `pagination=\"false\"` to hide it.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "pause-on-hover",
+              "description": "Pause autoplay on hover / focus. Defaults to on; set `pause-on-hover=\"false\"` to keep playing.",
+              "value": { "type": "string" }
+            }
+          ],
+          "slots": [
+            {
+              "name": "slide",
+              "description": "One element per slide. Any content works; use `.cui-media-overlay` for media with overlaid copy and buttons."
+            },
+            {
+              "name": "fixed",
+              "description": "Content overlaid on top of every slide and pinned in place while slides change (logo, persistent call-to-action). Buttons here can carry `data-cui-carousel-prev` / `-next` / `-goto=\"<i>\"` to drive the carousel; elements anywhere else on the page can do the same by adding `data-cui-carousel-target=\"<id>\"`."
+            }
+          ],
+          "events": [
+            {
+              "name": "cui-carousel-change",
+              "type": "CustomEvent<CuiCarouselChangeDetail>",
+              "description": "Fires after the active slide changes."
+            }
+          ],
+          "js": {
+            "properties": [
+              {
+                "name": "slides",
+                "description": "All slide elements, in document order.",
+                "type": "HTMLElement[]"
+              },
+              {
+                "name": "count",
+                "description": "Number of slides.",
+                "type": "number"
+              },
+              {
+                "name": "index",
+                "description": "The active slide index.",
+                "type": "number"
+              },
+              {
+                "name": "playing",
+                "description": "Whether autoplay is currently advancing slides.",
+                "type": "boolean"
+              },
+              { "name": "loop", "type": "boolean" }
+            ],
+            "events": [
+              {
+                "name": "cui-carousel-change",
+                "type": "CustomEvent<CuiCarouselChangeDetail>",
+                "description": "Fires after the active slide changes."
+              }
+            ]
+          }
+        },
+        {
+          "name": "cui-day-planner",
+          "description": "Vertical day planner — a single-day timeline that decorates a\nslotted list of `.cui-event-card` children. Events are placed\nby start time, sized by duration, and column-packed so\nconcurrent events sit side-by-side. The source cards remain in\nlight DOM beneath the board (or visually hidden via\n`events-hidden`) so search engines and feed readers index the\nfull event copy without depending on the component's JS.\n\nReads each card's first `<time datetime>` for the start; an\noptional second `<time datetime>` or a `data-end` attribute\n(full ISO or `HH:MM`) provides the end. Cards without an\nexplicit end get a default `60`-minute duration.\n---\n\n\n### **Events:**\n - **cui-day-planner-event-select** - Cancelable; fires when an event block is activated.\n- **cui-day-planner-slot-select** - Fires when a row (empty slot) is activated.\n- **cui-day-planner-navigate** - Fires after the visible day changes.\n\n### **Methods:**\n - **goTo(target: _string | Date_): _void_** - Programmatically jump to a date (YYYY-MM-DD or Date).\n- **next(): _void_** - Move forward one day.\n- **previous(): _void_** - Move back one day.\n- **refresh(): _void_** - Re-read slotted event cards. Call after dynamic updates.\n\n### **Slots:**\n - _default_ - `.cui-event-card` elements whose first `<time>` falls on the visible date. Cards on other days are placed in the slot but skipped from the timeline.",
+          "doc-url": "",
+          "attributes": [
+            {
+              "name": "date",
+              "description": "Visible day in `YYYY-MM-DD`. Defaults to today.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "start-hour",
+              "description": "Visible window start hour (0-23). Defaults to `7`.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "end-hour",
+              "description": "Visible window end hour (1-24). Defaults to `22`.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "slot-minutes",
+              "description": "Minor-gridline cadence. Defaults to `60`.",
+              "value": { "type": "\"15\"|\"30\"|\"60\"" }
+            },
+            {
+              "name": "locale",
+              "description": "BCP-47 locale for the day-header label. Defaults to the document's `lang` or `navigator.language`.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "now-line",
+              "description": "Render the now-line when viewing today. Defaults to present.",
+              "value": { "type": "boolean" }
+            },
+            {
+              "name": "events-hidden",
+              "description": "Visually hide the slotted card list while keeping it in the DOM.",
+              "value": { "type": "boolean" }
+            }
+          ],
+          "slots": [
+            {
+              "name": "",
+              "description": "`.cui-event-card` elements whose first `<time>` falls on the visible date. Cards on other days are placed in the slot but skipped from the timeline."
+            }
+          ],
+          "events": [
+            {
+              "name": "cui-day-planner-event-select",
+              "type": "CustomEvent<CuiDayPlannerEventSelectDetail>",
+              "description": "Cancelable; fires when an event block is activated."
+            },
+            {
+              "name": "cui-day-planner-slot-select",
+              "type": "CustomEvent<CuiDayPlannerSlotSelectDetail>",
+              "description": "Fires when a row (empty slot) is activated."
+            },
+            {
+              "name": "cui-day-planner-navigate",
+              "type": "CustomEvent<CuiDayPlannerNavigateDetail>",
+              "description": "Fires after the visible day changes."
+            }
+          ],
+          "js": {
+            "properties": [
+              { "name": "startHour", "type": "number" },
+              { "name": "endHour", "type": "number" },
+              { "name": "slotMinutes", "type": "number" },
+              { "name": "locale", "type": "string" }
+            ],
+            "events": [
+              {
+                "name": "cui-day-planner-event-select",
+                "type": "CustomEvent<CuiDayPlannerEventSelectDetail>",
+                "description": "Cancelable; fires when an event block is activated."
+              },
+              {
+                "name": "cui-day-planner-slot-select",
+                "type": "CustomEvent<CuiDayPlannerSlotSelectDetail>",
+                "description": "Fires when a row (empty slot) is activated."
+              },
+              {
+                "name": "cui-day-planner-navigate",
+                "type": "CustomEvent<CuiDayPlannerNavigateDetail>",
+                "description": "Fires after the visible day changes."
+              }
+            ]
+          }
+        },
+        {
+          "name": "cui-disclosure",
+          "description": "Lightweight custom element that wraps a native `<details>` element so it can\nbe opened, closed, or toggled by ID from anywhere on the page, and so its\nopen state is observable as an attribute and a custom event.\n\nThe `<details>` element stays in the light DOM, so it's contents remain\nsearchable, indexable, and stylable from the host page.\n---\n\n\n### **Events:**\n - **cui-disclosure-toggle** - Bubbles after the disclosure opens/closes. `detail.open` is the new state.\n\n### **Slots:**\n - _default_ - A single `<details>` element with its `<summary>` and body. The element does not render its own UI - it only observes and controls the nested `<details>`.",
+          "doc-url": "",
+          "attributes": [
+            {
+              "name": "open",
+              "description": "Reflects the inner `<details>.open`. Set or remove this attribute to open/close the disclosure; the attribute also updates when the user toggles the disclosure by clicking the `<summary>` directly.",
+              "value": { "type": "boolean" }
+            }
+          ],
+          "slots": [
+            {
+              "name": "",
+              "description": "A single `<details>` element with its `<summary>` and body. The element does not render its own UI - it only observes and controls the nested `<details>`."
+            }
+          ],
+          "events": [
+            {
+              "name": "cui-disclosure-toggle",
+              "type": "CustomEvent<CuiDisclosureToggleDetail>",
+              "description": "Bubbles after the disclosure opens/closes. `detail.open` is the new state."
+            }
+          ],
+          "js": {
+            "properties": [
+              { "name": "details", "type": "HTMLDetailsElement | null" },
+              { "name": "isOpen", "type": "boolean" }
+            ],
+            "events": [
+              {
+                "name": "cui-disclosure-toggle",
+                "type": "CustomEvent<CuiDisclosureToggleDetail>",
+                "description": "Bubbles after the disclosure opens/closes. `detail.open` is the new state."
+              }
+            ]
+          }
+        },
+        {
+          "name": "cui-field",
+          "description": "Form-field wrapper that surfaces native `ValidityState` as user-visible\nmessages, supports server-side errors via `setError()`, async validators\nvia `addValidator()`, and i18n via slotted `error-<validityKey>` content.\nDesigned to be a child of `cui-form`, but works standalone.\n---\n\n\n### **Events:**\n - **cui-field-valid** - Fires when the field transitions to a valid state.\n- **cui-field-invalid** - Fires when validation fails. `detail.key` is the first failing `ValidityState` key; `detail.params` carries control-derived values for message interpolation.\n\n### **Slots:**\n - _default_ - The form control (`<input>`, `<select>`, `<textarea>`, or a custom control matching `CuiFieldControl`).\n- **label** - The field label. Will be associated with the control via `for=` / `aria-labelledby`.\n- **help** - Descriptive help text shown beneath the control.\n- **error** - Generic error message. Used when no `error-<key>` slot matches the failing validity key.\n- **error-{validityKey}** - Validity-key-specific error message (`error-valueMissing`, `error-typeMismatch`, `error-tooShort`, …). The first matching slot wins.",
+          "doc-url": "",
+          "attributes": [
+            {
+              "name": "required",
+              "description": "Mirrors the control's `required` attribute and marks the field visually as required.",
+              "value": { "type": "boolean" }
+            }
+          ],
+          "slots": [
+            {
+              "name": "",
+              "description": "The form control (`<input>`, `<select>`, `<textarea>`, or a custom control matching `CuiFieldControl`)."
+            },
+            {
+              "name": "label",
+              "description": "The field label. Will be associated with the control via `for=` / `aria-labelledby`."
+            },
+            {
+              "name": "help",
+              "description": "Descriptive help text shown beneath the control."
+            },
+            {
+              "name": "error",
+              "description": "Generic error message. Used when no `error-<key>` slot matches the failing validity key."
+            },
+            {
+              "name": "error-{validityKey}",
+              "description": "Validity-key-specific error message (`error-valueMissing`, `error-typeMismatch`, `error-tooShort`, …). The first matching slot wins."
+            }
+          ],
+          "events": [
+            {
+              "name": "cui-field-valid",
+              "type": "CustomEvent<CuiFieldValidDetail>",
+              "description": "Fires when the field transitions to a valid state."
+            },
+            {
+              "name": "cui-field-invalid",
+              "type": "CustomEvent<CuiFieldInvalidDetail>",
+              "description": "Fires when validation fails. `detail.key` is the first failing `ValidityState` key; `detail.params` carries control-derived values for message interpolation."
+            }
+          ],
+          "js": {
+            "properties": [
+              { "name": "control", "type": "CuiFieldControl | null" },
+              { "name": "name", "type": "string | null" }
+            ],
+            "events": [
+              {
+                "name": "cui-field-valid",
+                "type": "CustomEvent<CuiFieldValidDetail>",
+                "description": "Fires when the field transitions to a valid state."
+              },
+              {
+                "name": "cui-field-invalid",
+                "type": "CustomEvent<CuiFieldInvalidDetail>",
+                "description": "Fires when validation fails. `detail.key` is the first failing `ValidityState` key; `detail.params` carries control-derived values for message interpolation."
               }
             ]
           }
@@ -795,36 +795,6 @@
           }
         },
         {
-          "name": "cui-reveal",
-          "description": "Reveals its content with an entry animation as it scrolls into view, using\r\n`IntersectionObserver` under the hood. Honors `prefers-reduced-motion` —\r\nusers with reduced motion see the content immediately, no transform.\n---\n\n\n### **Slots:**\n - _default_ - Content to reveal. Any block-level content works.",
-          "doc-url": "",
-          "attributes": [
-            {
-              "name": "delay",
-              "description": "Delay before the reveal starts. Accepts a number (milliseconds) or any CSS time value (`200ms`, `0.3s`).",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "distance",
-              "description": "Translate distance for the entry transform. Accepts a number (pixels) or any CSS length (`24px`, `2rem`).",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "threshold",
-              "description": "`IntersectionObserver` threshold (0–1).",
-              "value": { "type": "string" }
-            }
-          ],
-          "slots": [
-            {
-              "name": "",
-              "description": "Content to reveal. Any block-level content works."
-            }
-          ],
-          "events": [],
-          "js": { "properties": [], "events": [] }
-        },
-        {
           "name": "cui-modal",
           "description": "Modal dialog built over the native `<dialog>` element. Backdrop dismiss,\nESC handling, and focus management come from the platform; this element\nadds attribute control, an open/close JS API, typed close events, and\nremote triggering via `data-cui-modal-target` from anywhere on the page.\n---\n\n\n### **Events:**\n - **cui-modal-open** - Fires after the dialog opens.\n- **cui-modal-close** - Fires after the dialog closes. `detail.returnValue` carries the dialog's `returnValue` (set via `close(value)` or `<form method=\"dialog\">`).\n- **cui-modal-cancel** - Fires when the user cancels via ESC or backdrop click (before `cui-modal-close`).\n\n### **Slots:**\n - _default_ - The dialog body. Wrap with a `<div>` or semantic landmark; include a close affordance (any element with `data-cui-modal-close`) for users who can't dismiss via ESC.",
           "doc-url": "",
@@ -885,10 +855,127 @@
           }
         },
         {
+          "name": "cui-navbar",
+          "description": "Responsive site navigation with collapsible mobile panel, nested dropdowns,\nand optional sticky positioning. The element renders no styling of its own —\nit enhances light-DOM markup built from the `.cui-navbar` class family,\ninjecting the burger toggle button and wiring up collapse, dropdown, sticky,\nand ARIA behavior. All brand/nav/action content stays in the light DOM so it\nremains semantic, searchable, and SEO-friendly.\n\nThe burger button is the one piece of chrome the component owns: it is\ncreated and ARIA-wired by the element rather than authored, so the\n`aria-expanded` / `aria-controls` contract can't be mis-authored per page.\nEverything else is plain `.cui-navbar-*` markup.\n---\n",
+          "doc-url": "",
+          "attributes": [
+            {
+              "name": "expanded",
+              "description": "Mobile collapse panel state. Toggled by the injected burger button; can also be set programmatically.",
+              "value": { "type": "boolean" }
+            },
+            {
+              "name": "sticky",
+              "description": "Enables `position: sticky` on the navbar.",
+              "value": { "type": "boolean" }
+            },
+            {
+              "name": "sticky-offset",
+              "description": "CSS length used as `top` while sticky (e.g. `0`, `var(--cui-space-2)`).",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "sticky-z-index",
+              "description": "CSS `z-index` while sticky.",
+              "value": { "type": "string" }
+            }
+          ],
+          "events": [],
+          "js": {
+            "properties": [
+              { "name": "expanded", "type": "boolean" },
+              { "name": "sticky", "type": "boolean" },
+              { "name": "stickyOffset", "type": "string | null" },
+              { "name": "stickyZIndex", "type": "number" }
+            ],
+            "events": []
+          }
+        },
+        {
+          "name": "cui-scroll-stage",
+          "description": "Scroll-driven \"stage\" element that publishes its focus/offset/active state\nas CSS custom properties on itself (and optionally on a tone target like\n`:root`), so child layouts and parallax effects can react via CSS alone.\nPair with `cui-reveal` for entry animations or with the exported\n`attachCuiParallax()` helper for parallax bindings.\n---\n\n\n### **Slots:**\n - _default_ - Stage content. Typically a sticky inner region plus the layers that move with scroll progress.",
+          "doc-url": "",
+          "attributes": [
+            {
+              "name": "focus-bias",
+              "description": "Where in the viewport the stage is considered \"in focus\". CSS length or unit-less ratio.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "hold",
+              "description": "How long to keep the stage at full focus before easing out, as a CSS length or ratio.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "threshold",
+              "description": "Minimum viewport overlap before the stage starts publishing focus (0–1).",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "tone",
+              "description": "Tone value to publish on the tone target while the stage is active (e.g. `dark`, `inverse`).",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "tone-target",
+              "description": "CSS selector that should receive the tone attribute. Accepts `document` or `:root` to target the root element.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "sticky-top",
+              "description": "CSS `top` value applied to the inner sticky region.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "min-block-size",
+              "description": "Minimum block-size of the stage; controls how much scroll the stage consumes.",
+              "value": { "type": "string" }
+            }
+          ],
+          "slots": [
+            {
+              "name": "",
+              "description": "Stage content. Typically a sticky inner region plus the layers that move with scroll progress."
+            }
+          ],
+          "events": [],
+          "js": { "properties": [], "events": [] }
+        },
+        {
           "name": "cui-tabs",
           "description": "Tabbed interface with ARIA `tablist`/`tab`/`tabpanel` roles and full\nkeyboard support (Left/Right, Home/End). The element renders no styling of\nits own — it enhances light-DOM markup built from the `.cui-tabs`,\n`.cui-tablist`, and `.cui-tab` classes, wiring up `id`, `aria-controls`,\n`aria-selected`, roles, and panel visibility. All panels stay in the light\nDOM so crawlers see every panel regardless of which tab is active.\n\nTabs are the `.cui-tab` controls inside the `.cui-tablist`; panels are the\nremaining direct children of the element, paired with the tabs by source\norder. Mark the initially-open tab with `aria-selected=\"true\"` (defaults to\nthe first tab).\n---\n",
           "doc-url": "",
           "attributes": [],
+          "events": [],
+          "js": { "properties": [], "events": [] }
+        },
+        {
+          "name": "cui-reveal",
+          "description": "Reveals its content with an entry animation as it scrolls into view, using\n`IntersectionObserver` under the hood. Honors `prefers-reduced-motion` —\nusers with reduced motion see the content immediately, no transform.\n---\n\n\n### **Slots:**\n - _default_ - Content to reveal. Any block-level content works.",
+          "doc-url": "",
+          "attributes": [
+            {
+              "name": "delay",
+              "description": "Delay before the reveal starts. Accepts a number (milliseconds) or any CSS time value (`200ms`, `0.3s`).",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "distance",
+              "description": "Translate distance for the entry transform. Accepts a number (pixels) or any CSS length (`24px`, `2rem`).",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "threshold",
+              "description": "`IntersectionObserver` threshold (0–1).",
+              "value": { "type": "string" }
+            }
+          ],
+          "slots": [
+            {
+              "name": "",
+              "description": "Content to reveal. Any block-level content works."
+            }
+          ],
           "events": [],
           "js": { "properties": [], "events": [] }
         },
@@ -956,6 +1043,91 @@
               { "name": "placement", "type": "CuiToastPlacement" }
             ],
             "events": []
+          }
+        },
+        {
+          "name": "cui-sidenav",
+          "description": "Vertical side-rail navigation with a collapsible icon-only mini-rail and an\noff-canvas mobile drawer. The element renders no styling of its own — it\nenhances light-DOM markup built from the `.cui-sidenav` class family,\ninjecting the collapse toggle, the mobile dismiss button, and the backdrop,\nand wiring up collapse, drawer, sticky, focus-trap, scroll-lock, and ARIA\nbehavior. All brand / nav / action content stays in the light DOM so it\nremains semantic, searchable, and SEO-friendly.\n\nThe toggle, dismiss button, and backdrop are the chrome the component owns:\nthey are created and ARIA-wired by the element rather than authored, so their\ncontracts can't be mis-authored per page. Everything else is plain\n`.cui-sidenav-*` markup.\n\nOpen the drawer on mobile from anywhere on the page with a remote trigger:\na `data-cui-sidenav-target=\"<id>\"` attribute whose value is the sidenav's id.\n---\n\n\n### **Events:**\n - **cui-sidenav-collapse** - Fires after the mini-rail collapses or expands.\n- **cui-sidenav-open** - Fires after the mobile drawer opens.\n- **cui-sidenav-close** - Fires after the mobile drawer closes.\n\n### **Methods:**\n - **toggle(force: _boolean_): _void_** - Open / close the off-canvas mobile drawer.\n- **collapse(force: _boolean_): _void_** - Collapse / expand the icon-only mini-rail.",
+          "doc-url": "",
+          "attributes": [
+            {
+              "name": "expanded",
+              "description": "Off-canvas drawer state (below 48rem). Toggled by a remote trigger or the injected dismiss button; can also be set programmatically.",
+              "value": { "type": "boolean" }
+            },
+            {
+              "name": "collapsed",
+              "description": "Icon-only mini-rail state (≥48rem). Toggled by the injected collapse button.",
+              "value": { "type": "boolean" }
+            },
+            {
+              "name": "sticky",
+              "description": "Enables `position: sticky` + full-height rail at ≥48rem.",
+              "value": { "type": "boolean" }
+            },
+            {
+              "name": "sticky-offset",
+              "description": "CSS length used as `inset-block-start` while sticky.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "sticky-z-index",
+              "description": "CSS `z-index` for the off-canvas drawer.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "side",
+              "description": "`start` (default) or `end`. Docks the rail and slides the mobile drawer from that side.",
+              "value": { "type": "string" }
+            }
+          ],
+          "events": [
+            {
+              "name": "cui-sidenav-collapse",
+              "type": "CustomEvent<{collapsed: boolean}>",
+              "description": "Fires after the mini-rail collapses or expands."
+            },
+            {
+              "name": "cui-sidenav-open",
+              "type": "CustomEvent",
+              "description": "Fires after the mobile drawer opens."
+            },
+            {
+              "name": "cui-sidenav-close",
+              "type": "CustomEvent",
+              "description": "Fires after the mobile drawer closes."
+            }
+          ],
+          "js": {
+            "properties": [
+              { "name": "expanded", "type": "boolean" },
+              { "name": "collapsed", "type": "boolean" },
+              { "name": "sticky", "type": "boolean" },
+              { "name": "stickyOffset", "type": "string | null" },
+              { "name": "stickyZIndex", "type": "number" },
+              {
+                "name": "isMobile",
+                "description": "Whether the viewport is below the 48rem drawer breakpoint.",
+                "type": "boolean"
+              }
+            ],
+            "events": [
+              {
+                "name": "cui-sidenav-collapse",
+                "type": "CustomEvent<{collapsed: boolean}>",
+                "description": "Fires after the mini-rail collapses or expands."
+              },
+              {
+                "name": "cui-sidenav-open",
+                "type": "CustomEvent",
+                "description": "Fires after the mobile drawer opens."
+              },
+              {
+                "name": "cui-sidenav-close",
+                "type": "CustomEvent",
+                "description": "Fires after the mobile drawer closes."
+              }
+            ]
           }
         },
         {
@@ -1050,93 +1222,6 @@
               }
             ]
           }
-        },
-        {
-          "name": "cui-navbar",
-          "description": "Responsive site navigation with collapsible mobile panel, nested dropdowns,\nand optional sticky positioning. The element renders no styling of its own —\nit enhances light-DOM markup built from the `.cui-navbar` class family,\ninjecting the burger toggle button and wiring up collapse, dropdown, sticky,\nand ARIA behavior. All brand/nav/action content stays in the light DOM so it\nremains semantic, searchable, and SEO-friendly.\n\nThe burger button is the one piece of chrome the component owns: it is\ncreated and ARIA-wired by the element rather than authored, so the\n`aria-expanded` / `aria-controls` contract can't be mis-authored per page.\nEverything else is plain `.cui-navbar-*` markup.\n---\n",
-          "doc-url": "",
-          "attributes": [
-            {
-              "name": "expanded",
-              "description": "Mobile collapse panel state. Toggled by the injected burger button; can also be set programmatically.",
-              "value": { "type": "boolean" }
-            },
-            {
-              "name": "sticky",
-              "description": "Enables `position: sticky` on the navbar.",
-              "value": { "type": "boolean" }
-            },
-            {
-              "name": "sticky-offset",
-              "description": "CSS length used as `top` while sticky (e.g. `0`, `var(--cui-space-2)`).",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "sticky-z-index",
-              "description": "CSS `z-index` while sticky.",
-              "value": { "type": "string" }
-            }
-          ],
-          "events": [],
-          "js": {
-            "properties": [
-              { "name": "expanded", "type": "boolean" },
-              { "name": "sticky", "type": "boolean" },
-              { "name": "stickyOffset", "type": "string | null" },
-              { "name": "stickyZIndex", "type": "number" }
-            ],
-            "events": []
-          }
-        },
-        {
-          "name": "cui-scroll-stage",
-          "description": "Scroll-driven \"stage\" element that publishes its focus/offset/active state\nas CSS custom properties on itself (and optionally on a tone target like\n`:root`), so child layouts and parallax effects can react via CSS alone.\nPair with `cui-reveal` for entry animations or with the exported\n`attachCuiParallax()` helper for parallax bindings.\n---\n\n\n### **Slots:**\n - _default_ - Stage content. Typically a sticky inner region plus the layers that move with scroll progress.",
-          "doc-url": "",
-          "attributes": [
-            {
-              "name": "focus-bias",
-              "description": "Where in the viewport the stage is considered \"in focus\". CSS length or unit-less ratio.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "hold",
-              "description": "How long to keep the stage at full focus before easing out, as a CSS length or ratio.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "threshold",
-              "description": "Minimum viewport overlap before the stage starts publishing focus (0–1).",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "tone",
-              "description": "Tone value to publish on the tone target while the stage is active (e.g. `dark`, `inverse`).",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "tone-target",
-              "description": "CSS selector that should receive the tone attribute. Accepts `document` or `:root` to target the root element.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "sticky-top",
-              "description": "CSS `top` value applied to the inner sticky region.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "min-block-size",
-              "description": "Minimum block-size of the stage; controls how much scroll the stage consumes.",
-              "value": { "type": "string" }
-            }
-          ],
-          "slots": [
-            {
-              "name": "",
-              "description": "Stage content. Typically a sticky inner region plus the layers that move with scroll progress."
-            }
-          ],
-          "events": [],
-          "js": { "properties": [], "events": [] }
         }
       ]
     },

@@ -684,11 +684,27 @@
  * @cssvar --cui-surface-radius — Corner radius. Defaults to `--cui-radius-2`.
  * @cssvar --cui-surface-shadow — Box shadow. Defaults to `--cui-shadow-1`.
  * @cssvar --cui-surface-padding — Padding. Defaults to `--cui-space-4`.
+ * @variant data-radius — `none` | `sm` | `md` | `lg`. Presets
+ *   `--cui-surface-radius` from the radius scale (0 → `--cui-radius-3`);
+ *   `md` reproduces the default.
+ * @variant data-elevation — `flat` | `raised` | `floating`. Presets
+ *   `--cui-surface-shadow` (none → `--cui-shadow-2`); `raised` reproduces
+ *   the default.
+ * @variant data-padding — `none` | `sm` | `md` | `lg`. Presets
+ *   `--cui-surface-padding` from the space scale (0 → `--cui-space-6`);
+ *   `md` reproduces the default.
  *
  * @example
  *   <div class="cui-surface">
  *     <p>A plain raised box with the default chrome.</p>
  *   </div>
+ *
+ * @example
+ *   \3c !-- Preset chrome via data-attributes (square, floating, roomy). -->
+ *   <article class="cui-surface cui-stack" data-radius="lg" data-elevation="floating" data-padding="lg">
+ *     <h3>Featured panel</h3>
+ *     <p>Larger radius, pronounced shadow, generous padding — no inline vars.</p>
+ *   </article>
  *
  * @example
  *   \3c !-- The card recipe: surface chrome + stacked children. -->
@@ -724,6 +740,54 @@
     var(--cui-shadow-1, 0 1px 2px hsl(220deg 25% 10% / 12%))
   );
   padding: var(--cui-surface-padding, var(--cui-space-4, 1rem));
+}
+
+/* Preset chrome options. Each maps a `data-*` step onto the matching
+   `--cui-surface-*` override var, so inline vars and composing blocks (which
+   set the vars directly) still win, and the `md` / `raised` steps reproduce
+   the default look. */
+.cui-surface[data-radius="none"] {
+  --cui-surface-radius: 0;
+}
+
+.cui-surface[data-radius="sm"] {
+  --cui-surface-radius: var(--cui-radius-1, 0.25rem);
+}
+
+.cui-surface[data-radius="md"] {
+  --cui-surface-radius: var(--cui-radius-2, 0.5rem);
+}
+
+.cui-surface[data-radius="lg"] {
+  --cui-surface-radius: var(--cui-radius-3, 0.75rem);
+}
+
+.cui-surface[data-elevation="flat"] {
+  --cui-surface-shadow: none;
+}
+
+.cui-surface[data-elevation="raised"] {
+  --cui-surface-shadow: var(--cui-shadow-1, 0 1px 2px hsl(220deg 25% 10% / 12%));
+}
+
+.cui-surface[data-elevation="floating"] {
+  --cui-surface-shadow: var(--cui-shadow-2, 0 12px 28px hsl(220deg 25% 10% / 14%));
+}
+
+.cui-surface[data-padding="none"] {
+  --cui-surface-padding: 0;
+}
+
+.cui-surface[data-padding="sm"] {
+  --cui-surface-padding: var(--cui-space-3, 0.75rem);
+}
+
+.cui-surface[data-padding="md"] {
+  --cui-surface-padding: var(--cui-space-4, 1rem);
+}
+
+.cui-surface[data-padding="lg"] {
+  --cui-surface-padding: var(--cui-space-6, 2rem);
 }
 
 /**

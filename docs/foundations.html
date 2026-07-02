@@ -40,6 +40,7 @@
           <a class="cui-nav-link" href="#type-composition">Composing type</a>
           <a class="cui-nav-link" href="#prose-flow">Prose &amp; flow</a>
           <a class="cui-nav-link" href="#utilities">Utilities</a>
+          <a class="cui-nav-link" href="#responsive-visibility">Responsive visibility</a>
           <a class="cui-nav-link" href="#skip-link">Skip link</a>
         </aside>
 
@@ -440,6 +441,75 @@
                 <cui-button>Save</cui-button>
                 <cui-button>Cancel</cui-button>
               </div>
+              </script>
+            </cui-code>
+          </section>
+
+          <section id="responsive-visibility" class="cui-stack" style="--cui-stack-gap: var(--cui-space-5, 1.5rem);">
+            <div class="cui-prose">
+              <h2>Responsive visibility</h2>
+              <p>
+                Hide an element at a breakpoint and below (<code>.cui-hidden-{bp}</code>) or at a breakpoint and above
+                (<code>.cui-hidden-{bp}-up</code>). The named breakpoints are the width thresholds where each size
+                begins: <strong>xs</strong> 36rem, <strong>sm</strong> 48rem, <strong>md</strong> 64rem,
+                <strong>lg</strong> 80rem. The <code>-up</code> form is min-width; the plain form is the complementary
+                max-width side, so <code>.cui-hidden-sm</code> and <code>.cui-hidden-sm-up</code> are exact opposites
+                split at 48rem.
+              </p>
+            </div>
+
+            <table class="docs-token-table">
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>Hidden when</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>.cui-hidden-xs</code> / <code>.cui-hidden-xs-up</code></td>
+                  <td><code>width &lt; 36rem</code> / <code>width &ge; 36rem</code></td>
+                </tr>
+                <tr>
+                  <td><code>.cui-hidden-sm</code> / <code>.cui-hidden-sm-up</code></td>
+                  <td><code>width &lt; 48rem</code> / <code>width &ge; 48rem</code></td>
+                </tr>
+                <tr>
+                  <td><code>.cui-hidden-md</code> / <code>.cui-hidden-md-up</code></td>
+                  <td><code>width &lt; 64rem</code> / <code>width &ge; 64rem</code></td>
+                </tr>
+                <tr>
+                  <td><code>.cui-hidden-lg</code> / <code>.cui-hidden-lg-up</code></td>
+                  <td><code>width &lt; 80rem</code> / <code>width &ge; 80rem</code></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <cui-code language="html">
+              <script type="text/plain">
+<!-- A compact top bar on phones, a full rail on wider screens -->
+              <nav class="cui-navbar cui-hidden-sm-up">…</nav>
+              <aside class="cui-sidenav cui-hidden-sm">…</aside>
+              </script>
+            </cui-code>
+
+            <div class="cui-prose">
+              <h3>Hiding from screen readers</h3>
+              <p>
+                These utilities toggle <strong>visual</strong> visibility only (<code>display: none</code>). CSS cannot
+                hide an element from screen readers alone — <code>display: none</code> and <code>visibility: hidden</code>
+                remove it from everyone, and nothing in CSS drops an element from the accessibility tree while leaving it
+                painted. To render a second, visual-only copy of a nav (for layout convenience) without announcing it
+                twice, reach for HTML attributes: use <code>inert</code> on the duplicate — it removes the subtree from
+                the accessibility tree <em>and</em> takes its links out of the tab order — or <code>aria-hidden="true"</code>
+                for a non-interactive duplicate.
+              </p>
+            </div>
+
+            <cui-code language="html">
+              <script type="text/plain">
+<!-- Duplicate rail shown only on wide screens, hidden from AT + keyboard -->
+              <nav class="cui-sidenav cui-hidden-md" inert aria-hidden="true">…</nav>
               </script>
             </cui-code>
           </section>

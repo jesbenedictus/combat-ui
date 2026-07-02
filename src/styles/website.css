@@ -19,6 +19,12 @@
   min-block-size: 100vb;
   background: var(--cui-color-surface, oklch(98% 0.01 265deg));
   color: var(--cui-color, oklch(24% 0.04 264deg));
+
+  /* Contain the scrollbar-width overrun of `.cui-full-bleed`: its `100vi`
+     spans the viewport incl. the scrollbar gutter, so it sticks out past the
+     content edge by the scrollbar width. `clip` (not `hidden`) trims that
+     without creating a scroll container, so `position: sticky` still works. */
+  overflow-x: clip;
 }
 
 /**

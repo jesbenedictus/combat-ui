@@ -16,6 +16,7 @@ import { CuiReveal } from "./components/reveal";
 import {
   CuiScrollStage,
 } from "./components/scroll-stage";
+import { CuiSidenav } from "./components/sidenav";
 import { CuiTabs } from "./components/tabs";
 import {
   CuiThemeToggle,
@@ -104,6 +105,7 @@ export {
   CuiNavbar,
   CuiReveal,
   CuiScrollStage,
+  CuiSidenav,
   CuiTabs,
   CuiThemeToggle,
   CuiToastRegion,
@@ -123,7 +125,7 @@ export function defineCombatUi(
     CuiScrollStage, CuiReveal, CuiTree, CuiField, CuiForm,
     CuiModal, CuiToastRegion, CuiDisclosure, CuiMap,
     CuiArticleFilter, CuiCalendar, CuiDayPlanner, CuiCookieBanner,
-    CuiCarousel,
+    CuiCarousel, CuiSidenav,
   ] as const;
   for (const Element of allElements) {
     defineElement(Element, registry);
