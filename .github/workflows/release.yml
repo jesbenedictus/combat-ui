@@ -11,6 +11,9 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    environment:
+      name: npm
+      url: https://www.npmjs.com/package/@combat-ui/core
     steps:
       - uses: actions/checkout@v7
 
@@ -39,8 +42,22 @@ jobs:
       - name: Ensure npm supports trusted publishing
         run: npm install -g npm@latest
 
+      # Prereleases (e.g. 0.6.0-alpha.1) publish under their prerelease id as
+      # the dist-tag (alpha/beta/rc/next/...) so they never become `latest`.
+      - name: Determine npm dist-tag
+        run: |
+          PKG_VERSION="$(node -p "require('./package.json').version")"
+          PRERELEASE="${PKG_VERSION#*-}"
+          if [ "$PRERELEASE" = "$PKG_VERSION" ]; then
+            NPM_TAG="latest"
+          else
+            NPM_TAG="${PRERELEASE%%.*}"
+          fi
+          echo "Publishing $PKG_VERSION under dist-tag '$NPM_TAG'"
+          echo "NPM_TAG=$NPM_TAG" >> "$GITHUB_ENV"
+
       - name: Publish to npm
-        run: npm publish --provenance --access public
+        run: npm publish --provenance --access public --tag "$NPM_TAG"
 
       - name: Create tarball
         run: npm pack

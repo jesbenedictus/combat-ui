@@ -4,7 +4,7 @@
   "description": "A responsive, customizable web component framework targeting modern baseline web standards.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Combat-Marketing/combat-ui.git"
+    "url": "git+https://github.com/Combat-Marketing/combat-ui.git"
   },
   "engines": {
     "node": ">=24"
