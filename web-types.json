@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/JetBrains/web-types/master/schema/web-types.json",
   "name": "@combat-ui/core",
-  "version": "0.6.0",
+  "version": "0.6.0-alpha.3.1",
   "description-markup": "markdown",
   "contributions": {
     "html": {
@@ -48,24 +48,47 @@
           }
         },
         {
-          "name": "cui-code",
-          "description": "Displays a code sample with a copy-to-clipboard button. Reads source from\nits text content, from an HTML comment child, or from a `<script type=\"…\">`\nchild — whichever is present — so example markup can stay valid HTML.\n---\n\n\n### **Slots:**\n - _default_ - The code to display. Can be raw text, an HTML comment containing markup, or a `<script type=\"text/plain\">` block (useful when the example itself is HTML you don't want the browser to render).",
+          "name": "cui-button",
+          "description": "Renders a `<button>` or `<a>` with shared visual styling and disabled state\nhandling. Choose anchor mode by setting the `href` attribute, and button mode by omitting it.\n---\n",
           "doc-url": "",
           "attributes": [
             {
-              "name": "language",
-              "description": "Source language hint (`text`, `html`, `css`, `js`, …). Used as a CSS hook and in the copy-button label.",
-              "value": { "type": "string" }
-            }
-          ],
-          "slots": [
+              "name": "disabled",
+              "description": "= Disables the underlying control. For anchor mode this also prevents navigation.",
+              "value": { "type": "boolean" }
+            },
             {
-              "name": "",
-              "description": "The code to display. Can be raw text, an HTML comment containing markup, or a `<script type=\"text/plain\">` block (useful when the example itself is HTML you don't want the browser to render)."
+              "name": "href",
+              "description": "When set, the button renders as an anchor (`<a>`) instead of a `<button>`. The value is applied to the anchor's `href` attribute.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "target",
+              "description": "Anchor target (e.g. `_blank`). Only applies when `href` is set.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "rel",
+              "description": "Anchor relationship. Only applies when `href` is set.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "type",
+              "description": "Button type. Only applies when `href` is not set. Defaults to `\"button\"`.",
+              "value": { "type": "\"button\" | \"submit\" | \"reset\"" }
             }
           ],
           "events": [],
-          "js": { "properties": [], "events": [] }
+          "js": {
+            "properties": [
+              { "name": "disabled", "type": "boolean" },
+              { "name": "href", "type": "string | null" },
+              { "name": "target", "type": "string | null" },
+              { "name": "rel", "type": "string | null" },
+              { "name": "type", "type": "ButtonType" }
+            ],
+            "events": []
+          }
         },
         {
           "name": "cui-calendar",
@@ -144,6 +167,26 @@
               }
             ]
           }
+        },
+        {
+          "name": "cui-code",
+          "description": "Displays a code sample with a copy-to-clipboard button. Reads source from\nits text content, from an HTML comment child, or from a `<script type=\"…\">`\nchild — whichever is present — so example markup can stay valid HTML.\n---\n\n\n### **Slots:**\n - _default_ - The code to display. Can be raw text, an HTML comment containing markup, or a `<script type=\"text/plain\">` block (useful when the example itself is HTML you don't want the browser to render).",
+          "doc-url": "",
+          "attributes": [
+            {
+              "name": "language",
+              "description": "Source language hint (`text`, `html`, `css`, `js`, …). Used as a CSS hook and in the copy-button label.",
+              "value": { "type": "string" }
+            }
+          ],
+          "slots": [
+            {
+              "name": "",
+              "description": "The code to display. Can be raw text, an HTML comment containing markup, or a `<script type=\"text/plain\">` block (useful when the example itself is HTML you don't want the browser to render)."
+            }
+          ],
+          "events": [],
+          "js": { "properties": [], "events": [] }
         },
         {
           "name": "cui-cookie-banner",
@@ -268,49 +311,6 @@
                 "description": "Fires whenever consent is saved, revoked, or restored from the cookie."
               }
             ]
-          }
-        },
-        {
-          "name": "cui-button",
-          "description": "Renders a `<button>` or `<a>` with shared visual styling and disabled state\nhandling. Choose anchor mode by setting the `href` attribute, and button mode by omitting it.\n---\n",
-          "doc-url": "",
-          "attributes": [
-            {
-              "name": "disabled",
-              "description": "= Disables the underlying control. For anchor mode this also prevents navigation.",
-              "value": { "type": "boolean" }
-            },
-            {
-              "name": "href",
-              "description": "When set, the button renders as an anchor (`<a>`) instead of a `<button>`. The value is applied to the anchor's `href` attribute.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "target",
-              "description": "Anchor target (e.g. `_blank`). Only applies when `href` is set.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "rel",
-              "description": "Anchor relationship. Only applies when `href` is set.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "type",
-              "description": "Button type. Only applies when `href` is not set. Defaults to `\"button\"`.",
-              "value": { "type": "\"button\" | \"submit\" | \"reset\"" }
-            }
-          ],
-          "events": [],
-          "js": {
-            "properties": [
-              { "name": "disabled", "type": "boolean" },
-              { "name": "href", "type": "string | null" },
-              { "name": "target", "type": "string | null" },
-              { "name": "rel", "type": "string | null" },
-              { "name": "type", "type": "ButtonType" }
-            ],
-            "events": []
           }
         },
         {
@@ -661,6 +661,66 @@
           }
         },
         {
+          "name": "cui-modal",
+          "description": "Modal dialog built over the native `<dialog>` element. Backdrop dismiss,\nESC handling, and focus management come from the platform; this element\nadds attribute control, an open/close JS API, typed close events, and\nremote triggering via `data-cui-modal-target` from anywhere on the page.\n---\n\n\n### **Events:**\n - **cui-modal-open** - Fires after the dialog opens.\n- **cui-modal-close** - Fires after the dialog closes. `detail.returnValue` carries the dialog's `returnValue` (set via `close(value)` or `<form method=\"dialog\">`).\n- **cui-modal-cancel** - Fires when the user cancels via ESC or backdrop click (before `cui-modal-close`).\n\n### **Slots:**\n - _default_ - The dialog body. Wrap with a `<div>` or semantic landmark; include a close affordance (any element with `data-cui-modal-close`) for users who can't dismiss via ESC.",
+          "doc-url": "",
+          "attributes": [
+            {
+              "name": "open",
+              "description": "Reflects the dialog's open state. Set or remove to open/close imperatively.",
+              "value": { "type": "boolean" }
+            }
+          ],
+          "slots": [
+            {
+              "name": "",
+              "description": "The dialog body. Wrap with a `<div>` or semantic landmark; include a close affordance (any element with `data-cui-modal-close`) for users who can't dismiss via ESC."
+            }
+          ],
+          "events": [
+            {
+              "name": "cui-modal-open",
+              "type": "CustomEvent",
+              "description": "Fires after the dialog opens."
+            },
+            {
+              "name": "cui-modal-close",
+              "type": "CustomEvent<CuiModalCloseDetail>",
+              "description": "Fires after the dialog closes. `detail.returnValue` carries the dialog's `returnValue` (set via `close(value)` or `<form method=\"dialog\">`)."
+            },
+            {
+              "name": "cui-modal-cancel",
+              "type": "CustomEvent",
+              "description": "Fires when the user cancels via ESC or backdrop click (before `cui-modal-close`)."
+            }
+          ],
+          "js": {
+            "properties": [
+              { "name": "dialog", "type": "HTMLDialogElement | null" },
+              { "name": "isOpen", "type": "boolean" },
+              { "name": "dismissible", "type": "boolean" },
+              { "name": "returnValue", "type": "string" }
+            ],
+            "events": [
+              {
+                "name": "cui-modal-open",
+                "type": "CustomEvent",
+                "description": "Fires after the dialog opens."
+              },
+              {
+                "name": "cui-modal-close",
+                "type": "CustomEvent<CuiModalCloseDetail>",
+                "description": "Fires after the dialog closes. `detail.returnValue` carries the dialog's `returnValue` (set via `close(value)` or `<form method=\"dialog\">`)."
+              },
+              {
+                "name": "cui-modal-cancel",
+                "type": "CustomEvent",
+                "description": "Fires when the user cancels via ESC or backdrop click (before `cui-modal-close`)."
+              }
+            ]
+          }
+        },
+        {
           "name": "cui-map",
           "description": "Leaflet-backed interactive map with clustered points, GeoJSON regions,\ntheme-aware tiles, and a lazy-loaded library bundle. Points and regions\nare declared as light-DOM children so content stays SEO-visible and\nserver-renderable.\n---\n\n\n### **Events:**\n - **cui-map-ready** - Fires once the library has loaded and the map is interactive.\n- **cui-map-bounds-change** - Fires after the user pans or zooms.\n- **cui-map-point-click** - Fires when a marker is clicked.\n- **cui-map-region-click** - Fires when a GeoJSON region is clicked.\n\n### **Slots:**\n - _default_ - Fallback content shown before the library loads or when JS is disabled (e.g. a static `<address>` list).\n- **title** - Accessible title for the map (becomes an `aria-label`).\n- **legend** - Visual legend rendered alongside the map.\n- **marker-icon** - Template for custom marker icons. Cloned per point.",
           "doc-url": "",
@@ -795,66 +855,6 @@
           }
         },
         {
-          "name": "cui-modal",
-          "description": "Modal dialog built over the native `<dialog>` element. Backdrop dismiss,\nESC handling, and focus management come from the platform; this element\nadds attribute control, an open/close JS API, typed close events, and\nremote triggering via `data-cui-modal-target` from anywhere on the page.\n---\n\n\n### **Events:**\n - **cui-modal-open** - Fires after the dialog opens.\n- **cui-modal-close** - Fires after the dialog closes. `detail.returnValue` carries the dialog's `returnValue` (set via `close(value)` or `<form method=\"dialog\">`).\n- **cui-modal-cancel** - Fires when the user cancels via ESC or backdrop click (before `cui-modal-close`).\n\n### **Slots:**\n - _default_ - The dialog body. Wrap with a `<div>` or semantic landmark; include a close affordance (any element with `data-cui-modal-close`) for users who can't dismiss via ESC.",
-          "doc-url": "",
-          "attributes": [
-            {
-              "name": "open",
-              "description": "Reflects the dialog's open state. Set or remove to open/close imperatively.",
-              "value": { "type": "boolean" }
-            }
-          ],
-          "slots": [
-            {
-              "name": "",
-              "description": "The dialog body. Wrap with a `<div>` or semantic landmark; include a close affordance (any element with `data-cui-modal-close`) for users who can't dismiss via ESC."
-            }
-          ],
-          "events": [
-            {
-              "name": "cui-modal-open",
-              "type": "CustomEvent",
-              "description": "Fires after the dialog opens."
-            },
-            {
-              "name": "cui-modal-close",
-              "type": "CustomEvent<CuiModalCloseDetail>",
-              "description": "Fires after the dialog closes. `detail.returnValue` carries the dialog's `returnValue` (set via `close(value)` or `<form method=\"dialog\">`)."
-            },
-            {
-              "name": "cui-modal-cancel",
-              "type": "CustomEvent",
-              "description": "Fires when the user cancels via ESC or backdrop click (before `cui-modal-close`)."
-            }
-          ],
-          "js": {
-            "properties": [
-              { "name": "dialog", "type": "HTMLDialogElement | null" },
-              { "name": "isOpen", "type": "boolean" },
-              { "name": "dismissible", "type": "boolean" },
-              { "name": "returnValue", "type": "string" }
-            ],
-            "events": [
-              {
-                "name": "cui-modal-open",
-                "type": "CustomEvent",
-                "description": "Fires after the dialog opens."
-              },
-              {
-                "name": "cui-modal-close",
-                "type": "CustomEvent<CuiModalCloseDetail>",
-                "description": "Fires after the dialog closes. `detail.returnValue` carries the dialog's `returnValue` (set via `close(value)` or `<form method=\"dialog\">`)."
-              },
-              {
-                "name": "cui-modal-cancel",
-                "type": "CustomEvent",
-                "description": "Fires when the user cancels via ESC or backdrop click (before `cui-modal-close`)."
-              }
-            ]
-          }
-        },
-        {
           "name": "cui-navbar",
           "description": "Responsive site navigation with collapsible mobile panel, nested dropdowns,\nand optional sticky positioning. The element renders no styling of its own —\nit enhances light-DOM markup built from the `.cui-navbar` class family,\ninjecting the burger toggle button and wiring up collapse, dropdown, sticky,\nand ARIA behavior. All brand/nav/action content stays in the light DOM so it\nremains semantic, searchable, and SEO-friendly.\n\nThe burger button is the one piece of chrome the component owns: it is\ncreated and ARIA-wired by the element rather than authored, so the\n`aria-expanded` / `aria-controls` contract can't be mis-authored per page.\nEverything else is plain `.cui-navbar-*` markup.\n---\n",
           "doc-url": "",
@@ -890,6 +890,36 @@
             ],
             "events": []
           }
+        },
+        {
+          "name": "cui-reveal",
+          "description": "Reveals its content with an entry animation as it scrolls into view, using\n`IntersectionObserver` under the hood. Honors `prefers-reduced-motion` —\nusers with reduced motion see the content immediately, no transform.\n---\n\n\n### **Slots:**\n - _default_ - Content to reveal. Any block-level content works.",
+          "doc-url": "",
+          "attributes": [
+            {
+              "name": "delay",
+              "description": "Delay before the reveal starts. Accepts a number (milliseconds) or any CSS time value (`200ms`, `0.3s`).",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "distance",
+              "description": "Translate distance for the entry transform. Accepts a number (pixels) or any CSS length (`24px`, `2rem`).",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "threshold",
+              "description": "`IntersectionObserver` threshold (0–1).",
+              "value": { "type": "string" }
+            }
+          ],
+          "slots": [
+            {
+              "name": "",
+              "description": "Content to reveal. Any block-level content works."
+            }
+          ],
+          "events": [],
+          "js": { "properties": [], "events": [] }
         },
         {
           "name": "cui-scroll-stage",
@@ -940,110 +970,6 @@
           ],
           "events": [],
           "js": { "properties": [], "events": [] }
-        },
-        {
-          "name": "cui-tabs",
-          "description": "Tabbed interface with ARIA `tablist`/`tab`/`tabpanel` roles and full\nkeyboard support (Left/Right, Home/End). The element renders no styling of\nits own — it enhances light-DOM markup built from the `.cui-tabs`,\n`.cui-tablist`, and `.cui-tab` classes, wiring up `id`, `aria-controls`,\n`aria-selected`, roles, and panel visibility. All panels stay in the light\nDOM so crawlers see every panel regardless of which tab is active.\n\nTabs are the `.cui-tab` controls inside the `.cui-tablist`; panels are the\nremaining direct children of the element, paired with the tabs by source\norder. Mark the initially-open tab with `aria-selected=\"true\"` (defaults to\nthe first tab).\n---\n",
-          "doc-url": "",
-          "attributes": [],
-          "events": [],
-          "js": { "properties": [], "events": [] }
-        },
-        {
-          "name": "cui-reveal",
-          "description": "Reveals its content with an entry animation as it scrolls into view, using\n`IntersectionObserver` under the hood. Honors `prefers-reduced-motion` —\nusers with reduced motion see the content immediately, no transform.\n---\n\n\n### **Slots:**\n - _default_ - Content to reveal. Any block-level content works.",
-          "doc-url": "",
-          "attributes": [
-            {
-              "name": "delay",
-              "description": "Delay before the reveal starts. Accepts a number (milliseconds) or any CSS time value (`200ms`, `0.3s`).",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "distance",
-              "description": "Translate distance for the entry transform. Accepts a number (pixels) or any CSS length (`24px`, `2rem`).",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "threshold",
-              "description": "`IntersectionObserver` threshold (0–1).",
-              "value": { "type": "string" }
-            }
-          ],
-          "slots": [
-            {
-              "name": "",
-              "description": "Content to reveal. Any block-level content works."
-            }
-          ],
-          "events": [],
-          "js": { "properties": [], "events": [] }
-        },
-        {
-          "name": "cui-theme-toggle",
-          "description": "Button that cycles the page theme through `auto`, `light`, and `dark`. The\nchoice is persisted in `localStorage` under `cui-theme` and read at boot\n(see the inline script in the docs `<head>`). Pairs with the exported\n`getTheme()` / `setTheme()` helpers for programmatic control.\n---\n",
-          "doc-url": "",
-          "attributes": [
-            {
-              "name": "label-auto",
-              "description": "Visible label when in auto mode.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "label-light",
-              "description": "Visible label when in light mode.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "label-dark",
-              "description": "Visible label when in dark mode.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "aria-label-auto",
-              "description": "Accessible name when in auto mode.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "aria-label-light",
-              "description": "Accessible name when in light mode.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "aria-label-dark",
-              "description": "Accessible name when in dark mode.",
-              "value": { "type": "string" }
-            }
-          ],
-          "events": [],
-          "js": { "properties": [], "events": [] }
-        },
-        {
-          "name": "cui-toast-region",
-          "description": "Container for transient toast notifications. Usually created on demand by\nthe exported `toast()` function — you only place this element yourself if\nyou want to control placement or pre-render a region for SSR. Each region\nis identified by its `placement`; calls to `toast()` are routed to the\nregion matching their requested placement, or a new region is created.\n---\n\n\n### **Slots:**\n - _default_ - Toast elements. Normally populated by `toast()`; manual children are allowed and remain in DOM until dismissed.",
-          "doc-url": "",
-          "attributes": [
-            {
-              "name": "placement",
-              "description": "Region anchor point. Default `block-end-inline-end` (bottom-right).",
-              "value": {
-                "type": "\"block-start-inline-start\" | \"block-start-inline-end\" | \"block-end-inline-start\" | \"block-end-inline-end\" | \"block-start-center\" | \"block-end-center\""
-              }
-            }
-          ],
-          "slots": [
-            {
-              "name": "",
-              "description": "Toast elements. Normally populated by `toast()`; manual children are allowed and remain in DOM until dismissed."
-            }
-          ],
-          "events": [],
-          "js": {
-            "properties": [
-              { "name": "placement", "type": "CuiToastPlacement" }
-            ],
-            "events": []
-          }
         },
         {
           "name": "cui-sidenav",
@@ -1128,6 +1054,80 @@
                 "description": "Fires after the mobile drawer closes."
               }
             ]
+          }
+        },
+        {
+          "name": "cui-theme-toggle",
+          "description": "Button that cycles the page theme through `auto`, `light`, and `dark`. The\nchoice is persisted in `localStorage` under `cui-theme` and read at boot\n(see the inline script in the docs `<head>`). Pairs with the exported\n`getTheme()` / `setTheme()` helpers for programmatic control.\n---\n",
+          "doc-url": "",
+          "attributes": [
+            {
+              "name": "label-auto",
+              "description": "Visible label when in auto mode.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "label-light",
+              "description": "Visible label when in light mode.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "label-dark",
+              "description": "Visible label when in dark mode.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "aria-label-auto",
+              "description": "Accessible name when in auto mode.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "aria-label-light",
+              "description": "Accessible name when in light mode.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "aria-label-dark",
+              "description": "Accessible name when in dark mode.",
+              "value": { "type": "string" }
+            }
+          ],
+          "events": [],
+          "js": { "properties": [], "events": [] }
+        },
+        {
+          "name": "cui-tabs",
+          "description": "Tabbed interface with ARIA `tablist`/`tab`/`tabpanel` roles and full\nkeyboard support (Left/Right, Home/End). The element renders no styling of\nits own — it enhances light-DOM markup built from the `.cui-tabs`,\n`.cui-tablist`, and `.cui-tab` classes, wiring up `id`, `aria-controls`,\n`aria-selected`, roles, and panel visibility. All panels stay in the light\nDOM so crawlers see every panel regardless of which tab is active.\n\nTabs are the `.cui-tab` controls inside the `.cui-tablist`; panels are the\nremaining direct children of the element, paired with the tabs by source\norder. Mark the initially-open tab with `aria-selected=\"true\"` (defaults to\nthe first tab).\n---\n",
+          "doc-url": "",
+          "attributes": [],
+          "events": [],
+          "js": { "properties": [], "events": [] }
+        },
+        {
+          "name": "cui-toast-region",
+          "description": "Container for transient toast notifications. Usually created on demand by\nthe exported `toast()` function — you only place this element yourself if\nyou want to control placement or pre-render a region for SSR. Each region\nis identified by its `placement`; calls to `toast()` are routed to the\nregion matching their requested placement, or a new region is created.\n---\n\n\n### **Slots:**\n - _default_ - Toast elements. Normally populated by `toast()`; manual children are allowed and remain in DOM until dismissed.",
+          "doc-url": "",
+          "attributes": [
+            {
+              "name": "placement",
+              "description": "Region anchor point. Default `block-end-inline-end` (bottom-right).",
+              "value": {
+                "type": "\"block-start-inline-start\" | \"block-start-inline-end\" | \"block-end-inline-start\" | \"block-end-inline-end\" | \"block-start-center\" | \"block-end-center\""
+              }
+            }
+          ],
+          "slots": [
+            {
+              "name": "",
+              "description": "Toast elements. Normally populated by `toast()`; manual children are allowed and remain in DOM until dismissed."
+            }
+          ],
+          "events": [],
+          "js": {
+            "properties": [
+              { "name": "placement", "type": "CuiToastPlacement" }
+            ],
+            "events": []
           }
         },
         {
