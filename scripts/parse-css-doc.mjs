@@ -1,13 +1,14 @@
 // @ts-check
 
 /**
- * CUI Blocks manifest — schema 1.1.0.
- * Describes the light-DOM CSS "blocks" (BEM-ish class families) and the
- * design-token groups they consume. Companion to the Custom Elements
- * Manifest in dist/custom-elements.json.
+ * CUI Blocks manifest — schema 1.2.0 (1.2 added the optional `value` on
+ * named items, carrying the declared default of documented custom
+ * properties). Describes the light-DOM CSS "blocks" (BEM-ish class
+ * families) and the design-token groups they consume. Companion to the
+ * Custom Elements Manifest in dist/custom-elements.json.
  *
  * @typedef {object} BlocksManifest
- * @property {string} schemaVersion         Manifest schema version (expected "1.1.0").
+ * @property {string} schemaVersion         Manifest schema version (expected "1.2.0").
  * @property {Block[]} blocks               One entry per CSS block / sub-element.
  * @property {TokenGroup[]} tokenGroups     Design-token groups (typography, color, spacing, etc.).
  */

@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/JetBrains/web-types/master/schema/web-types.json",
   "name": "@combat-ui/core",
-  "version": "0.6.0-alpha.3.1",
+  "version": "0.6.1",
   "description-markup": "markdown",
   "contributions": {
     "html": {
@@ -89,104 +89,6 @@
             ],
             "events": []
           }
-        },
-        {
-          "name": "cui-calendar",
-          "description": "Month-view calendar that decorates a slotted list of\n`.cui-event-card` children. Reads each card's first `<time\ndatetime>` to plot an event pill onto the matching day cell;\nthe source cards remain in light DOM beneath the grid (or\nvisually hidden via `events-hidden`) so search engines and feed\nreaders index the full event copy without depending on the\ncomponent's JS.\n\nClick a day to fire `cui-calendar-day-select`; click an event\npill to fire `cui-calendar-event-select`; the prev / next\nbuttons fire `cui-calendar-navigate`. Keyboard nav inside the\ngrid uses arrow keys, Home / End, and PgUp / PgDn (with Shift\njumping a year).\n---\n\n\n### **Events:**\n - **cui-calendar-event-select** - Fires when an event pill is activated.\n- **cui-calendar-day-select** - Fires when a day cell is activated.\n- **cui-calendar-navigate** - Fires when the visible month changes.\n\n### **Methods:**\n - **goTo(year: _number_, month: _number_): _void_** - Programmatically navigate to a specific month (1-12).\n- **next(): _void_** - Move forward one month.\n- **previous(): _void_** - Move back one month.\n- **refresh(): _void_** - Re-read slotted event cards. Call after dynamic updates.\n\n### **Slots:**\n - _default_ - One or more `.cui-event-card` elements. Cards without a `<time datetime>` are skipped; multi-day events use the start date for plotting (single-cell rendering for v1).",
-          "doc-url": "",
-          "attributes": [
-            {
-              "name": "year",
-              "description": "Initial visible year (e.g. `\"2026\"`). Defaults to today.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "month",
-              "description": "Initial visible month (1-12). Defaults to today.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "weekday-start",
-              "description": "First day of the week. Defaults to `\"monday\"`.",
-              "value": { "type": "\"monday\"|\"sunday\"" }
-            },
-            {
-              "name": "locale",
-              "description": "BCP-47 locale used for month / weekday labels. Defaults to the document's `lang` or `navigator.language`.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "events-hidden",
-              "description": "Visually hide the source event list while keeping it in the DOM for accessibility and SEO.",
-              "value": { "type": "boolean" }
-            }
-          ],
-          "slots": [
-            {
-              "name": "",
-              "description": "One or more `.cui-event-card` elements. Cards without a `<time datetime>` are skipped; multi-day events use the start date for plotting (single-cell rendering for v1)."
-            }
-          ],
-          "events": [
-            {
-              "name": "cui-calendar-event-select",
-              "type": "CustomEvent<CuiCalendarEventSelectDetail>",
-              "description": "Fires when an event pill is activated."
-            },
-            {
-              "name": "cui-calendar-day-select",
-              "type": "CustomEvent<CuiCalendarDaySelectDetail>",
-              "description": "Fires when a day cell is activated."
-            },
-            {
-              "name": "cui-calendar-navigate",
-              "type": "CustomEvent<CuiCalendarNavigateDetail>",
-              "description": "Fires when the visible month changes."
-            }
-          ],
-          "js": {
-            "properties": [
-              { "name": "weekdayStart", "type": "CuiCalendarWeekdayStart" },
-              { "name": "locale", "type": "string" }
-            ],
-            "events": [
-              {
-                "name": "cui-calendar-event-select",
-                "type": "CustomEvent<CuiCalendarEventSelectDetail>",
-                "description": "Fires when an event pill is activated."
-              },
-              {
-                "name": "cui-calendar-day-select",
-                "type": "CustomEvent<CuiCalendarDaySelectDetail>",
-                "description": "Fires when a day cell is activated."
-              },
-              {
-                "name": "cui-calendar-navigate",
-                "type": "CustomEvent<CuiCalendarNavigateDetail>",
-                "description": "Fires when the visible month changes."
-              }
-            ]
-          }
-        },
-        {
-          "name": "cui-code",
-          "description": "Displays a code sample with a copy-to-clipboard button. Reads source from\nits text content, from an HTML comment child, or from a `<script type=\"…\">`\nchild — whichever is present — so example markup can stay valid HTML.\n---\n\n\n### **Slots:**\n - _default_ - The code to display. Can be raw text, an HTML comment containing markup, or a `<script type=\"text/plain\">` block (useful when the example itself is HTML you don't want the browser to render).",
-          "doc-url": "",
-          "attributes": [
-            {
-              "name": "language",
-              "description": "Source language hint (`text`, `html`, `css`, `js`, …). Used as a CSS hook and in the copy-button label.",
-              "value": { "type": "string" }
-            }
-          ],
-          "slots": [
-            {
-              "name": "",
-              "description": "The code to display. Can be raw text, an HTML comment containing markup, or a `<script type=\"text/plain\">` block (useful when the example itself is HTML you don't want the browser to render)."
-            }
-          ],
-          "events": [],
-          "js": { "properties": [], "events": [] }
         },
         {
           "name": "cui-cookie-banner",
@@ -314,6 +216,174 @@
           }
         },
         {
+          "name": "cui-calendar",
+          "description": "Month-view calendar that decorates a slotted list of\n`.cui-event-card` children. Reads each card's first `<time\ndatetime>` to plot an event pill onto the matching day cell;\nthe source cards remain in light DOM beneath the grid (or\nvisually hidden via `events-hidden`) so search engines and feed\nreaders index the full event copy without depending on the\ncomponent's JS.\n\nClick a day to fire `cui-calendar-day-select`; click an event\npill to fire `cui-calendar-event-select`; the prev / next\nbuttons fire `cui-calendar-navigate`. Keyboard nav inside the\ngrid uses arrow keys, Home / End, and PgUp / PgDn (with Shift\njumping a year).\n---\n\n\n### **Events:**\n - **cui-calendar-event-select** - Fires when an event pill is activated.\n- **cui-calendar-day-select** - Fires when a day cell is activated.\n- **cui-calendar-navigate** - Fires when the visible month changes.\n\n### **Methods:**\n - **goTo(year: _number_, month: _number_): _void_** - Programmatically navigate to a specific month (1-12).\n- **next(): _void_** - Move forward one month.\n- **previous(): _void_** - Move back one month.\n- **refresh(): _void_** - Re-read slotted event cards. Call after dynamic updates.\n\n### **Slots:**\n - _default_ - One or more `.cui-event-card` elements. Cards without a `<time datetime>` are skipped; multi-day events use the start date for plotting (single-cell rendering for v1).",
+          "doc-url": "",
+          "attributes": [
+            {
+              "name": "year",
+              "description": "Initial visible year (e.g. `\"2026\"`). Defaults to today.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "month",
+              "description": "Initial visible month (1-12). Defaults to today.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "weekday-start",
+              "description": "First day of the week. Defaults to `\"monday\"`.",
+              "value": { "type": "\"monday\"|\"sunday\"" }
+            },
+            {
+              "name": "locale",
+              "description": "BCP-47 locale used for month / weekday labels. Defaults to the document's `lang` or `navigator.language`.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "events-hidden",
+              "description": "Visually hide the source event list while keeping it in the DOM for accessibility and SEO.",
+              "value": { "type": "boolean" }
+            }
+          ],
+          "slots": [
+            {
+              "name": "",
+              "description": "One or more `.cui-event-card` elements. Cards without a `<time datetime>` are skipped; multi-day events use the start date for plotting (single-cell rendering for v1)."
+            }
+          ],
+          "events": [
+            {
+              "name": "cui-calendar-event-select",
+              "type": "CustomEvent<CuiCalendarEventSelectDetail>",
+              "description": "Fires when an event pill is activated."
+            },
+            {
+              "name": "cui-calendar-day-select",
+              "type": "CustomEvent<CuiCalendarDaySelectDetail>",
+              "description": "Fires when a day cell is activated."
+            },
+            {
+              "name": "cui-calendar-navigate",
+              "type": "CustomEvent<CuiCalendarNavigateDetail>",
+              "description": "Fires when the visible month changes."
+            }
+          ],
+          "js": {
+            "properties": [
+              { "name": "weekdayStart", "type": "CuiCalendarWeekdayStart" },
+              { "name": "locale", "type": "string" }
+            ],
+            "events": [
+              {
+                "name": "cui-calendar-event-select",
+                "type": "CustomEvent<CuiCalendarEventSelectDetail>",
+                "description": "Fires when an event pill is activated."
+              },
+              {
+                "name": "cui-calendar-day-select",
+                "type": "CustomEvent<CuiCalendarDaySelectDetail>",
+                "description": "Fires when a day cell is activated."
+              },
+              {
+                "name": "cui-calendar-navigate",
+                "type": "CustomEvent<CuiCalendarNavigateDetail>",
+                "description": "Fires when the visible month changes."
+              }
+            ]
+          }
+        },
+        {
+          "name": "cui-day-planner",
+          "description": "Vertical day planner — a single-day timeline that decorates a\nslotted list of `.cui-event-card` children. Events are placed\nby start time, sized by duration, and column-packed so\nconcurrent events sit side-by-side. The source cards remain in\nlight DOM beneath the board (or visually hidden via\n`events-hidden`) so search engines and feed readers index the\nfull event copy without depending on the component's JS.\n\nReads each card's first `<time datetime>` for the start; an\noptional second `<time datetime>` or a `data-end` attribute\n(full ISO or `HH:MM`) provides the end. Cards without an\nexplicit end get a default `60`-minute duration.\n---\n\n\n### **Events:**\n - **cui-day-planner-event-select** - Cancelable; fires when an event block is activated.\n- **cui-day-planner-slot-select** - Fires when a row (empty slot) is activated.\n- **cui-day-planner-navigate** - Fires after the visible day changes.\n\n### **Methods:**\n - **goTo(target: _string | Date_): _void_** - Programmatically jump to a date (YYYY-MM-DD or Date).\n- **next(): _void_** - Move forward one day.\n- **previous(): _void_** - Move back one day.\n- **refresh(): _void_** - Re-read slotted event cards. Call after dynamic updates.\n\n### **Slots:**\n - _default_ - `.cui-event-card` elements whose first `<time>` falls on the visible date. Cards on other days are placed in the slot but skipped from the timeline.",
+          "doc-url": "",
+          "attributes": [
+            {
+              "name": "date",
+              "description": "Visible day in `YYYY-MM-DD`. Defaults to today.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "start-hour",
+              "description": "Visible window start hour (0-23). Defaults to `7`.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "end-hour",
+              "description": "Visible window end hour (1-24). Defaults to `22`.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "slot-minutes",
+              "description": "Minor-gridline cadence. Defaults to `60`.",
+              "value": { "type": "\"15\"|\"30\"|\"60\"" }
+            },
+            {
+              "name": "locale",
+              "description": "BCP-47 locale for the day-header label. Defaults to the document's `lang` or `navigator.language`.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "now-line",
+              "description": "Render the now-line when viewing today. Defaults to present.",
+              "value": { "type": "boolean" }
+            },
+            {
+              "name": "events-hidden",
+              "description": "Visually hide the slotted card list while keeping it in the DOM.",
+              "value": { "type": "boolean" }
+            }
+          ],
+          "slots": [
+            {
+              "name": "",
+              "description": "`.cui-event-card` elements whose first `<time>` falls on the visible date. Cards on other days are placed in the slot but skipped from the timeline."
+            }
+          ],
+          "events": [
+            {
+              "name": "cui-day-planner-event-select",
+              "type": "CustomEvent<CuiDayPlannerEventSelectDetail>",
+              "description": "Cancelable; fires when an event block is activated."
+            },
+            {
+              "name": "cui-day-planner-slot-select",
+              "type": "CustomEvent<CuiDayPlannerSlotSelectDetail>",
+              "description": "Fires when a row (empty slot) is activated."
+            },
+            {
+              "name": "cui-day-planner-navigate",
+              "type": "CustomEvent<CuiDayPlannerNavigateDetail>",
+              "description": "Fires after the visible day changes."
+            }
+          ],
+          "js": {
+            "properties": [
+              { "name": "startHour", "type": "number" },
+              { "name": "endHour", "type": "number" },
+              { "name": "slotMinutes", "type": "number" },
+              { "name": "locale", "type": "string" }
+            ],
+            "events": [
+              {
+                "name": "cui-day-planner-event-select",
+                "type": "CustomEvent<CuiDayPlannerEventSelectDetail>",
+                "description": "Cancelable; fires when an event block is activated."
+              },
+              {
+                "name": "cui-day-planner-slot-select",
+                "type": "CustomEvent<CuiDayPlannerSlotSelectDetail>",
+                "description": "Fires when a row (empty slot) is activated."
+              },
+              {
+                "name": "cui-day-planner-navigate",
+                "type": "CustomEvent<CuiDayPlannerNavigateDetail>",
+                "description": "Fires after the visible day changes."
+              }
+            ]
+          }
+        },
+        {
           "name": "cui-carousel",
           "description": "Flexible content carousel. Slides are slotted light-DOM elements, so every\nslide stays crawlable regardless of which one is visible. Compose each slide\nfrom any markup — an `<img>` / `<video>` background with overlaid text and\nbuttons (e.g. `.cui-media-overlay`), or a plain content panel. A separate\n`fixed` slot holds chrome that persists across every slide (brand mark,\npersistent CTA). Supports slide / fade transitions, autoplay with a\npause control, looping, keyboard navigation, and `prefers-reduced-motion`.\n---\n\n\n### **Events:**\n - **cui-carousel-change** - Fires after the active slide changes.\n\n### **Methods:**\n - **next(): _void_** - Advance to the next slide (wraps when `loop` is on).\n- **prev(): _void_** - Return to the previous slide (wraps when `loop` is on).\n- **go(target: _number_, options: _{ focus?: boolean }_): _void_** - Move to a specific slide index.\n- **play(): _void_** - Start autoplay (no-op when reduced motion is preferred).\n- **pause(): _void_** - Pause autoplay.\n\n### **Slots:**\n - **slide** - One element per slide. Any content works; use `.cui-media-overlay` for media with overlaid copy and buttons.\n- **fixed** - Content overlaid on top of every slide and pinned in place while slides change (logo, persistent call-to-action). Buttons here can carry `data-cui-carousel-prev` / `-next` / `-goto=\"<i>\"` to drive the carousel; elements anywhere else on the page can do the same by adding `data-cui-carousel-target=\"<id>\"`.\n\n### **CSS Parts:**\n - **viewport** - The clipping region around the slides.\n- **track** - The slot wrapping the slides (the moving track).\n- **fixed** - The persistent overlay layer.\n- **controls** - The previous / next arrow container.\n- **previous** - The previous-slide button.\n- **next** - The next-slide button.\n- **pagination** - The dot pagination container.\n- **dot** - A single pagination dot.",
           "doc-url": "",
@@ -410,94 +480,24 @@
           }
         },
         {
-          "name": "cui-day-planner",
-          "description": "Vertical day planner — a single-day timeline that decorates a\nslotted list of `.cui-event-card` children. Events are placed\nby start time, sized by duration, and column-packed so\nconcurrent events sit side-by-side. The source cards remain in\nlight DOM beneath the board (or visually hidden via\n`events-hidden`) so search engines and feed readers index the\nfull event copy without depending on the component's JS.\n\nReads each card's first `<time datetime>` for the start; an\noptional second `<time datetime>` or a `data-end` attribute\n(full ISO or `HH:MM`) provides the end. Cards without an\nexplicit end get a default `60`-minute duration.\n---\n\n\n### **Events:**\n - **cui-day-planner-event-select** - Cancelable; fires when an event block is activated.\n- **cui-day-planner-slot-select** - Fires when a row (empty slot) is activated.\n- **cui-day-planner-navigate** - Fires after the visible day changes.\n\n### **Methods:**\n - **goTo(target: _string | Date_): _void_** - Programmatically jump to a date (YYYY-MM-DD or Date).\n- **next(): _void_** - Move forward one day.\n- **previous(): _void_** - Move back one day.\n- **refresh(): _void_** - Re-read slotted event cards. Call after dynamic updates.\n\n### **Slots:**\n - _default_ - `.cui-event-card` elements whose first `<time>` falls on the visible date. Cards on other days are placed in the slot but skipped from the timeline.",
+          "name": "cui-code",
+          "description": "Displays a code sample with a copy-to-clipboard button. Reads source from\nits text content, from an HTML comment child, or from a `<script type=\"…\">`\nchild — whichever is present — so example markup can stay valid HTML.\n---\n\n\n### **Slots:**\n - _default_ - The code to display. Can be raw text, an HTML comment containing markup, or a `<script type=\"text/plain\">` block (useful when the example itself is HTML you don't want the browser to render).",
           "doc-url": "",
           "attributes": [
             {
-              "name": "date",
-              "description": "Visible day in `YYYY-MM-DD`. Defaults to today.",
+              "name": "language",
+              "description": "Source language hint (`text`, `html`, `css`, `js`, …). Used as a CSS hook and in the copy-button label.",
               "value": { "type": "string" }
-            },
-            {
-              "name": "start-hour",
-              "description": "Visible window start hour (0-23). Defaults to `7`.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "end-hour",
-              "description": "Visible window end hour (1-24). Defaults to `22`.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "slot-minutes",
-              "description": "Minor-gridline cadence. Defaults to `60`.",
-              "value": { "type": "\"15\"|\"30\"|\"60\"" }
-            },
-            {
-              "name": "locale",
-              "description": "BCP-47 locale for the day-header label. Defaults to the document's `lang` or `navigator.language`.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "now-line",
-              "description": "Render the now-line when viewing today. Defaults to present.",
-              "value": { "type": "boolean" }
-            },
-            {
-              "name": "events-hidden",
-              "description": "Visually hide the slotted card list while keeping it in the DOM.",
-              "value": { "type": "boolean" }
             }
           ],
           "slots": [
             {
               "name": "",
-              "description": "`.cui-event-card` elements whose first `<time>` falls on the visible date. Cards on other days are placed in the slot but skipped from the timeline."
+              "description": "The code to display. Can be raw text, an HTML comment containing markup, or a `<script type=\"text/plain\">` block (useful when the example itself is HTML you don't want the browser to render)."
             }
           ],
-          "events": [
-            {
-              "name": "cui-day-planner-event-select",
-              "type": "CustomEvent<CuiDayPlannerEventSelectDetail>",
-              "description": "Cancelable; fires when an event block is activated."
-            },
-            {
-              "name": "cui-day-planner-slot-select",
-              "type": "CustomEvent<CuiDayPlannerSlotSelectDetail>",
-              "description": "Fires when a row (empty slot) is activated."
-            },
-            {
-              "name": "cui-day-planner-navigate",
-              "type": "CustomEvent<CuiDayPlannerNavigateDetail>",
-              "description": "Fires after the visible day changes."
-            }
-          ],
-          "js": {
-            "properties": [
-              { "name": "startHour", "type": "number" },
-              { "name": "endHour", "type": "number" },
-              { "name": "slotMinutes", "type": "number" },
-              { "name": "locale", "type": "string" }
-            ],
-            "events": [
-              {
-                "name": "cui-day-planner-event-select",
-                "type": "CustomEvent<CuiDayPlannerEventSelectDetail>",
-                "description": "Cancelable; fires when an event block is activated."
-              },
-              {
-                "name": "cui-day-planner-slot-select",
-                "type": "CustomEvent<CuiDayPlannerSlotSelectDetail>",
-                "description": "Fires when a row (empty slot) is activated."
-              },
-              {
-                "name": "cui-day-planner-navigate",
-                "type": "CustomEvent<CuiDayPlannerNavigateDetail>",
-                "description": "Fires after the visible day changes."
-              }
-            ]
-          }
+          "events": [],
+          "js": { "properties": [], "events": [] }
         },
         {
           "name": "cui-disclosure",
@@ -656,66 +656,6 @@
                 "name": "cui-form-error",
                 "type": "CustomEvent<CuiFormErrorDetail>",
                 "description": "Fires when a JS submit handler rejects. `detail.error` is the thrown value."
-              }
-            ]
-          }
-        },
-        {
-          "name": "cui-modal",
-          "description": "Modal dialog built over the native `<dialog>` element. Backdrop dismiss,\nESC handling, and focus management come from the platform; this element\nadds attribute control, an open/close JS API, typed close events, and\nremote triggering via `data-cui-modal-target` from anywhere on the page.\n---\n\n\n### **Events:**\n - **cui-modal-open** - Fires after the dialog opens.\n- **cui-modal-close** - Fires after the dialog closes. `detail.returnValue` carries the dialog's `returnValue` (set via `close(value)` or `<form method=\"dialog\">`).\n- **cui-modal-cancel** - Fires when the user cancels via ESC or backdrop click (before `cui-modal-close`).\n\n### **Slots:**\n - _default_ - The dialog body. Wrap with a `<div>` or semantic landmark; include a close affordance (any element with `data-cui-modal-close`) for users who can't dismiss via ESC.",
-          "doc-url": "",
-          "attributes": [
-            {
-              "name": "open",
-              "description": "Reflects the dialog's open state. Set or remove to open/close imperatively.",
-              "value": { "type": "boolean" }
-            }
-          ],
-          "slots": [
-            {
-              "name": "",
-              "description": "The dialog body. Wrap with a `<div>` or semantic landmark; include a close affordance (any element with `data-cui-modal-close`) for users who can't dismiss via ESC."
-            }
-          ],
-          "events": [
-            {
-              "name": "cui-modal-open",
-              "type": "CustomEvent",
-              "description": "Fires after the dialog opens."
-            },
-            {
-              "name": "cui-modal-close",
-              "type": "CustomEvent<CuiModalCloseDetail>",
-              "description": "Fires after the dialog closes. `detail.returnValue` carries the dialog's `returnValue` (set via `close(value)` or `<form method=\"dialog\">`)."
-            },
-            {
-              "name": "cui-modal-cancel",
-              "type": "CustomEvent",
-              "description": "Fires when the user cancels via ESC or backdrop click (before `cui-modal-close`)."
-            }
-          ],
-          "js": {
-            "properties": [
-              { "name": "dialog", "type": "HTMLDialogElement | null" },
-              { "name": "isOpen", "type": "boolean" },
-              { "name": "dismissible", "type": "boolean" },
-              { "name": "returnValue", "type": "string" }
-            ],
-            "events": [
-              {
-                "name": "cui-modal-open",
-                "type": "CustomEvent",
-                "description": "Fires after the dialog opens."
-              },
-              {
-                "name": "cui-modal-close",
-                "type": "CustomEvent<CuiModalCloseDetail>",
-                "description": "Fires after the dialog closes. `detail.returnValue` carries the dialog's `returnValue` (set via `close(value)` or `<form method=\"dialog\">`)."
-              },
-              {
-                "name": "cui-modal-cancel",
-                "type": "CustomEvent",
-                "description": "Fires when the user cancels via ESC or backdrop click (before `cui-modal-close`)."
               }
             ]
           }
@@ -892,6 +832,66 @@
           }
         },
         {
+          "name": "cui-modal",
+          "description": "Modal dialog built over the native `<dialog>` element. Backdrop dismiss,\nESC handling, and focus management come from the platform; this element\nadds attribute control, an open/close JS API, typed close events, and\nremote triggering via `data-cui-modal-target` from anywhere on the page.\n---\n\n\n### **Events:**\n - **cui-modal-open** - Fires after the dialog opens.\n- **cui-modal-close** - Fires after the dialog closes. `detail.returnValue` carries the dialog's `returnValue` (set via `close(value)` or `<form method=\"dialog\">`).\n- **cui-modal-cancel** - Fires when the user cancels via ESC or backdrop click (before `cui-modal-close`).\n\n### **Slots:**\n - _default_ - The dialog body. Wrap with a `<div>` or semantic landmark; include a close affordance (any element with `data-cui-modal-close`) for users who can't dismiss via ESC.",
+          "doc-url": "",
+          "attributes": [
+            {
+              "name": "open",
+              "description": "Reflects the dialog's open state. Set or remove to open/close imperatively.",
+              "value": { "type": "boolean" }
+            }
+          ],
+          "slots": [
+            {
+              "name": "",
+              "description": "The dialog body. Wrap with a `<div>` or semantic landmark; include a close affordance (any element with `data-cui-modal-close`) for users who can't dismiss via ESC."
+            }
+          ],
+          "events": [
+            {
+              "name": "cui-modal-open",
+              "type": "CustomEvent",
+              "description": "Fires after the dialog opens."
+            },
+            {
+              "name": "cui-modal-close",
+              "type": "CustomEvent<CuiModalCloseDetail>",
+              "description": "Fires after the dialog closes. `detail.returnValue` carries the dialog's `returnValue` (set via `close(value)` or `<form method=\"dialog\">`)."
+            },
+            {
+              "name": "cui-modal-cancel",
+              "type": "CustomEvent",
+              "description": "Fires when the user cancels via ESC or backdrop click (before `cui-modal-close`)."
+            }
+          ],
+          "js": {
+            "properties": [
+              { "name": "dialog", "type": "HTMLDialogElement | null" },
+              { "name": "isOpen", "type": "boolean" },
+              { "name": "dismissible", "type": "boolean" },
+              { "name": "returnValue", "type": "string" }
+            ],
+            "events": [
+              {
+                "name": "cui-modal-open",
+                "type": "CustomEvent",
+                "description": "Fires after the dialog opens."
+              },
+              {
+                "name": "cui-modal-close",
+                "type": "CustomEvent<CuiModalCloseDetail>",
+                "description": "Fires after the dialog closes. `detail.returnValue` carries the dialog's `returnValue` (set via `close(value)` or `<form method=\"dialog\">`)."
+              },
+              {
+                "name": "cui-modal-cancel",
+                "type": "CustomEvent",
+                "description": "Fires when the user cancels via ESC or backdrop click (before `cui-modal-close`)."
+              }
+            ]
+          }
+        },
+        {
           "name": "cui-reveal",
           "description": "Reveals its content with an entry animation as it scrolls into view, using\n`IntersectionObserver` under the hood. Honors `prefers-reduced-motion` —\nusers with reduced motion see the content immediately, no transform.\n---\n\n\n### **Slots:**\n - _default_ - Content to reveal. Any block-level content works.",
           "doc-url": "",
@@ -916,56 +916,6 @@
             {
               "name": "",
               "description": "Content to reveal. Any block-level content works."
-            }
-          ],
-          "events": [],
-          "js": { "properties": [], "events": [] }
-        },
-        {
-          "name": "cui-scroll-stage",
-          "description": "Scroll-driven \"stage\" element that publishes its focus/offset/active state\nas CSS custom properties on itself (and optionally on a tone target like\n`:root`), so child layouts and parallax effects can react via CSS alone.\nPair with `cui-reveal` for entry animations or with the exported\n`attachCuiParallax()` helper for parallax bindings.\n---\n\n\n### **Slots:**\n - _default_ - Stage content. Typically a sticky inner region plus the layers that move with scroll progress.",
-          "doc-url": "",
-          "attributes": [
-            {
-              "name": "focus-bias",
-              "description": "Where in the viewport the stage is considered \"in focus\". CSS length or unit-less ratio.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "hold",
-              "description": "How long to keep the stage at full focus before easing out, as a CSS length or ratio.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "threshold",
-              "description": "Minimum viewport overlap before the stage starts publishing focus (0–1).",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "tone",
-              "description": "Tone value to publish on the tone target while the stage is active (e.g. `dark`, `inverse`).",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "tone-target",
-              "description": "CSS selector that should receive the tone attribute. Accepts `document` or `:root` to target the root element.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "sticky-top",
-              "description": "CSS `top` value applied to the inner sticky region.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "min-block-size",
-              "description": "Minimum block-size of the stage; controls how much scroll the stage consumes.",
-              "value": { "type": "string" }
-            }
-          ],
-          "slots": [
-            {
-              "name": "",
-              "description": "Stage content. Typically a sticky inner region plus the layers that move with scroll progress."
             }
           ],
           "events": [],
@@ -1057,6 +1007,64 @@
           }
         },
         {
+          "name": "cui-tabs",
+          "description": "Tabbed interface with ARIA `tablist`/`tab`/`tabpanel` roles and full\nkeyboard support (Left/Right, Home/End). The element renders no styling of\nits own — it enhances light-DOM markup built from the `.cui-tabs`,\n`.cui-tablist`, and `.cui-tab` classes, wiring up `id`, `aria-controls`,\n`aria-selected`, roles, and panel visibility. All panels stay in the light\nDOM so crawlers see every panel regardless of which tab is active.\n\nTabs are the `.cui-tab` controls inside the `.cui-tablist`; panels are the\nremaining direct children of the element, paired with the tabs by source\norder. Mark the initially-open tab with `aria-selected=\"true\"` (defaults to\nthe first tab).\n---\n",
+          "doc-url": "",
+          "attributes": [],
+          "events": [],
+          "js": { "properties": [], "events": [] }
+        },
+        {
+          "name": "cui-scroll-stage",
+          "description": "Scroll-driven \"stage\" element that publishes its focus/offset/active state\nas CSS custom properties on itself (and optionally on a tone target like\n`:root`), so child layouts and parallax effects can react via CSS alone.\nPair with `cui-reveal` for entry animations or with the exported\n`attachCuiParallax()` helper for parallax bindings.\n---\n\n\n### **Slots:**\n - _default_ - Stage content. Typically a sticky inner region plus the layers that move with scroll progress.",
+          "doc-url": "",
+          "attributes": [
+            {
+              "name": "focus-bias",
+              "description": "Where in the viewport the stage is considered \"in focus\". CSS length or unit-less ratio.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "hold",
+              "description": "How long to keep the stage at full focus before easing out, as a CSS length or ratio.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "threshold",
+              "description": "Minimum viewport overlap before the stage starts publishing focus (0–1).",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "tone",
+              "description": "Tone value to publish on the tone target while the stage is active (e.g. `dark`, `inverse`).",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "tone-target",
+              "description": "CSS selector that should receive the tone attribute. Accepts `document` or `:root` to target the root element.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "sticky-top",
+              "description": "CSS `top` value applied to the inner sticky region.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "min-block-size",
+              "description": "Minimum block-size of the stage; controls how much scroll the stage consumes.",
+              "value": { "type": "string" }
+            }
+          ],
+          "slots": [
+            {
+              "name": "",
+              "description": "Stage content. Typically a sticky inner region plus the layers that move with scroll progress."
+            }
+          ],
+          "events": [],
+          "js": { "properties": [], "events": [] }
+        },
+        {
           "name": "cui-theme-toggle",
           "description": "Button that cycles the page theme through `auto`, `light`, and `dark`. The\nchoice is persisted in `localStorage` under `cui-theme` and read at boot\n(see the inline script in the docs `<head>`). Pairs with the exported\n`getTheme()` / `setTheme()` helpers for programmatic control.\n---\n",
           "doc-url": "",
@@ -1092,14 +1100,6 @@
               "value": { "type": "string" }
             }
           ],
-          "events": [],
-          "js": { "properties": [], "events": [] }
-        },
-        {
-          "name": "cui-tabs",
-          "description": "Tabbed interface with ARIA `tablist`/`tab`/`tabpanel` roles and full\nkeyboard support (Left/Right, Home/End). The element renders no styling of\nits own — it enhances light-DOM markup built from the `.cui-tabs`,\n`.cui-tablist`, and `.cui-tab` classes, wiring up `id`, `aria-controls`,\n`aria-selected`, roles, and panel visibility. All panels stay in the light\nDOM so crawlers see every panel regardless of which tab is active.\n\nTabs are the `.cui-tab` controls inside the `.cui-tablist`; panels are the\nremaining direct children of the element, paired with the tabs by source\norder. Mark the initially-open tab with `aria-selected=\"true\"` (defaults to\nthe first tab).\n---\n",
-          "doc-url": "",
-          "attributes": [],
           "events": [],
           "js": { "properties": [], "events": [] }
         },

@@ -62,10 +62,6 @@
       "types": "./dist/types/index.d.ts",
       "import": "./dist/combat-ui.js"
     },
-    "./auto": {
-      "types": "./dist/types/auto.d.ts",
-      "import": "./dist/auto.js"
-    },
     "./styles": "./dist/combat-ui.css",
     "./article-filter": {
       "types": "./dist/types/elements/article-filter.d.ts",
