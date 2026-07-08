@@ -11,7 +11,9 @@ const PREAMBLE_PATH = resolve(ROOT, "docs/agent-preamble.md");
 const OUTPUT_PATH = resolve(ROOT, "dist/AGENTS.md");
 
 const EXPECTED_CEM_SCHEMA = "1.0.0";
-const EXPECTED_BLOCKS_SCHEMA = "1.1.0";
+// Blocks manifest versions are additive within a major; this is the minimum
+// version carrying everything the renderer reads.
+const MIN_BLOCKS_SCHEMA = "1.1.0";
 
 /**
  * @typedef {import("custom-elements-manifest/schema").Package} CEM
@@ -87,11 +89,24 @@ function validateSchema(cem, blocks) {
       `Unexpected CEM schema version: ${cem.schemaVersion} (expected ${EXPECTED_CEM_SCHEMA})`,
     );
   }
-  if (blocks.schemaVersion !== EXPECTED_BLOCKS_SCHEMA) {
+  if (!isCompatibleBlocksSchema(blocks.schemaVersion)) {
     throw new Error(
-      `Unexpected Blocks manifest schema version: ${blocks.schemaVersion} (expected ${EXPECTED_BLOCKS_SCHEMA})`,
+      `Unexpected Blocks manifest schema version: ${blocks.schemaVersion} (expected ${MIN_BLOCKS_SCHEMA} or a newer 1.x)`,
     );
   }
+}
+
+/**
+ * Accepts any manifest sharing the expected major version at or above the
+ * minimum minor version.
+ *
+ * @param {string} version
+ * @returns {boolean}
+ */
+function isCompatibleBlocksSchema(version) {
+  const [major, minor] = version.split(".").map(Number);
+  const [minMajor, minMinor] = MIN_BLOCKS_SCHEMA.split(".").map(Number);
+  return major === minMajor && minor >= minMinor;
 }
 
 /**
