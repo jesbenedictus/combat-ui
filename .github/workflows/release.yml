@@ -38,9 +38,13 @@ jobs:
       # Library only — skips the docs site (pages.yml owns that).
       - run: npm run clean && npm run typecheck && npm run build:lib
 
-      # Trusted publishing (OIDC) needs npm >= 11.5.1.
+      # Trusted publishing (OIDC) needs npm >= 11.5.1, so pin the 11.x line
+      # (latest 11.x satisfies it). NOT @latest: npm 12.0.0 (2026-07-08) ships
+      # a broken tarball missing the bundled `sigstore` module, which breaks
+      # `npm publish --provenance` with "Cannot find module 'sigstore'"
+      # (npm/cli#9722). Revert to @latest once a patched 12.x is released.
       - name: Ensure npm supports trusted publishing
-        run: npm install -g npm@latest
+        run: npm install -g npm@11
 
       # Prereleases (e.g. 0.6.0-alpha.1) publish under their prerelease id as
       # the dist-tag (alpha/beta/rc/next/...) so they never become `latest`.
