@@ -117,6 +117,7 @@
  * @variant square | portrait | wide | auto — Maps to `[data-ratio]`.
  * @variant center — Maps to `[data-align]`. Centers the figure
  *   and its caption text.
+ * @variant none — Maps to `[data-radius]`. Drops the media corner radius.
  * @variant full — Maps to `[data-bleed]`. Media bleeds to the
  *   viewport edge; caption stays inside the container measure.
  * @cssvar --cui-figure-gap — Gap between media and caption. Defaults to `--cui-space-3`.
@@ -165,6 +166,10 @@
 
 .cui-figure[data-ratio="auto"] {
   --cui-figure-ratio: auto;
+}
+
+.cui-figure[data-radius="none"] {
+  --cui-media-radius: 0;
 }
 
 /**
@@ -482,6 +487,7 @@
  * @variant start | center | end — Maps to `[data-align]`. Aligns
  *   the body along the block axis and (for `center` / `end`)
  *   shifts inline alignment to match.
+ * @variant none — Maps to `[data-radius]`. Drops the corner radius.
  * @cssvar --cui-media-overlay-radius — Corner radius. Defaults to `--cui-radius-2`.
  * @cssvar --cui-media-overlay-ratio — Aspect ratio. Defaults to `--cui-media-ratio` (16 / 9).
  * @cssvar --cui-media-overlay-min-block-size — Minimum block-size. Defaults to 22rem.
@@ -542,6 +548,10 @@
 
 .cui-media-overlay[data-ratio="auto"] {
   --cui-media-overlay-ratio: auto;
+}
+
+.cui-media-overlay[data-radius="none"] {
+  --cui-media-overlay-radius: 0;
 }
 
 /**
